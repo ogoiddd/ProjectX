@@ -1,6 +1,6 @@
 /* Fábrica da Picanha — interações
-   i18n · nav · brasas (canvas) · reveals · contadores ·
-   espeto de progresso · marquee · carrossel de cortes · reservas WhatsApp */
+   i18n · nav + dropdown de idioma · scrollspy · reveals · contadores ·
+   parallax · carrossel de cortes · reservas WhatsApp */
 
 (() => {
   "use strict";
@@ -32,6 +32,9 @@
     document.querySelectorAll(".lang__btn").forEach((b) => {
       b.classList.toggle("is-active", b.dataset.lang === lang);
     });
+    document.querySelectorAll("[data-lang-current]").forEach((el) => {
+      el.textContent = lang.toUpperCase();
+    });
   }
 
   document.querySelectorAll(".lang__btn").forEach((btn) => {
@@ -39,6 +42,34 @@
   });
 
   applyLang(lang);
+
+  /* ============ dropdown de idioma (desktop) ============ */
+
+  const langDd = document.getElementById("langDd");
+  const langBtn = document.getElementById("langBtn");
+
+  if (langDd && langBtn) {
+    const setOpen = (open) => {
+      langDd.classList.toggle("is-open", open);
+      langBtn.setAttribute("aria-expanded", String(open));
+    };
+    langBtn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      setOpen(!langDd.classList.contains("is-open"));
+    });
+    langDd.querySelectorAll(".lang__btn").forEach((b) => {
+      b.addEventListener("click", () => { setOpen(false); langBtn.focus(); });
+    });
+    document.addEventListener("click", (ev) => {
+      if (!langDd.contains(ev.target)) setOpen(false);
+    });
+    document.addEventListener("keydown", (ev) => {
+      if (ev.key === "Escape" && langDd.classList.contains("is-open")) {
+        setOpen(false);
+        langBtn.focus();
+      }
+    });
+  }
 
   /* ============ nav ============ */
 
@@ -58,61 +89,22 @@
   });
   mobileMenu.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
 
-  /* ============ brasas no hero ============ */
+  /* ============ scrollspy: sublinhado cobre no link ativo ============ */
 
-  const canvas = document.getElementById("embers");
-  if (canvas && !reducedMotion) {
-    const ctx = canvas.getContext("2d");
-    let W, H, embers = [];
+  const spyLinks = Array.from(document.querySelectorAll(".nav__links a"));
+  const spySections = spyLinks
+    .map((a) => document.querySelector(a.getAttribute("href")))
+    .filter(Boolean);
 
-    function resize() {
-      W = canvas.width = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
-    }
-    resize();
-    window.addEventListener("resize", resize);
-
-    const COUNT = Math.min(70, Math.floor(window.innerWidth / 18));
-
-    function spawn(e) {
-      e.x = Math.random() * W;
-      e.y = H + 10 + Math.random() * 40;
-      e.r = 0.8 + Math.random() * 2.2;
-      e.vy = 0.4 + Math.random() * 1.1;
-      e.vx = (Math.random() - 0.5) * 0.35;
-      e.life = 0;
-      e.max = 250 + Math.random() * 300;
-      e.hue = 18 + Math.random() * 22; // laranja → âmbar
-      return e;
-    }
-    for (let i = 0; i < COUNT; i++) {
-      const e = spawn({});
-      e.y = Math.random() * H; // primeira leva espalhada
-      embers.push(e);
-    }
-
-    let visible = true;
-    new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }, { threshold: 0 }).observe(canvas);
-
-    (function tick() {
-      requestAnimationFrame(tick);
-      if (!visible) return;
-      ctx.clearRect(0, 0, W, H);
-      for (const e of embers) {
-        e.life++;
-        e.x += e.vx + Math.sin((e.life + e.max) * 0.02) * 0.3;
-        e.y -= e.vy;
-        if (e.y < -10 || e.life > e.max) spawn(e);
-        const fade = Math.max(0, 1 - e.life / e.max) * 0.85;
-        ctx.beginPath();
-        ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${e.hue}, 95%, 58%, ${fade})`;
-        ctx.shadowColor = "rgba(240,138,29,0.8)";
-        ctx.shadowBlur = 8;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-    })();
+  function updateSpy() {
+    const probe = window.scrollY + window.innerHeight * 0.4;
+    let current = null;
+    spySections.forEach((sec) => {
+      if (sec.offsetTop <= probe) current = "#" + sec.id;
+    });
+    spyLinks.forEach((a) => {
+      a.classList.toggle("is-active", a.getAttribute("href") === current);
+    });
   }
 
   /* ============ reveals ============ */
@@ -150,10 +142,8 @@
 
   /* ============ efeitos ligados ao scroll (um só listener) ============ */
 
-  const skewerFill = document.querySelector(".skewer__fill");
-  const skewerFlame = document.querySelector(".skewer__flame");
   const heroContent = document.querySelector("[data-parallax]");
-  const marqueeTrack = document.getElementById("marqueeTrack");
+  const conceptImg = document.querySelector("[data-parallax-slow]");
   const cuts = document.querySelector(".cuts");
   const cutsTrack = document.getElementById("cutsTrack");
   const cutsSticky = document.querySelector(".cuts__sticky");
@@ -170,25 +160,22 @@
       // nav compacta
       nav.classList.toggle("is-scrolled", y > 40);
 
+      // link ativo
+      updateSpy();
+
       if (reducedMotion) return;
 
-      // espeto de progresso
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      const p = total > 0 ? y / total : 0;
-      if (skewerFill) {
-        skewerFill.style.height = (p * 100) + "%";
-        skewerFlame.style.top = (p * 100) + "%";
-      }
-
-      // parallax do hero
+      // hero desvanece ao rolar
       if (heroContent && y < window.innerHeight * 1.2) {
         heroContent.style.transform = `translateY(${y * 0.28}px)`;
         heroContent.style.opacity = String(Math.max(0, 1 - y / (window.innerHeight * 0.85)));
       }
 
-      // marquee anda com o scroll
-      if (marqueeTrack) {
-        marqueeTrack.style.transform = `translateX(${-(y * 0.35) % (marqueeTrack.scrollWidth / 2)}px)`;
+      // parallax suave na fotografia do conceito
+      if (conceptImg) {
+        const rect = conceptImg.getBoundingClientRect();
+        const delta = rect.top + rect.height / 2 - window.innerHeight / 2;
+        conceptImg.style.transform = `translateY(${(-delta * 0.06).toFixed(1)}px)`;
       }
 
       // carrossel de cortes: progresso dentro da secção sticky
