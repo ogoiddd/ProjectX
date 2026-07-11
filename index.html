@@ -6,53 +6,42 @@
   <title>Fábrica da Picanha — Rodízio de Picanha · Grande Lisboa</title>
   <meta name="description" content="O melhor rodízio de picanha da Grande Lisboa. Odivelas, Alverca e Campo de Ourique. Reserve a sua mesa.">
   <meta property="og:title" content="Fábrica da Picanha — Rodízio de Picanha">
-  <meta property="og:description" content="Espetos sem fim, brasa no ponto e mesa farta. Reserve a sua mesa.">
-  <link rel="preload" href="fonts/anton-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <meta property="og:description" content="Um rodízio premium e autêntico de picanha. Reserve a sua mesa.">
+  <link rel="preload" href="fonts/playfair-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/karla-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="%231a1917"/><path d="M14 44V30l8 6v-6l8 6v-6l8 6 2-14 4-2 2 24z" fill="none" stroke="%23f08a1d" stroke-width="3" stroke-linejoin="round"/></svg>'>
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="%23131110"/><path d="M14 44V30l8 6v-6l8 6v-6l8 6 2-14 4-2 2 24z" fill="none" stroke="%23C89B6A" stroke-width="3" stroke-linejoin="round"/></svg>'>
 </head>
 <body>
-
-  <!-- Skewer scroll progress (signature) -->
-  <div class="skewer" aria-hidden="true">
-    <div class="skewer__track"></div>
-    <div class="skewer__fill"></div>
-    <div class="skewer__flame">
-      <svg viewBox="0 0 24 32" width="22" height="30"><path class="flame-outer" d="M12 1C14 8 21 11 21 20a9 9 0 1 1-18 0C3 13 8 10 8 5c2 1.4 3 3 3.2 5C12.4 8 12.4 4.4 12 1Z"/><path class="flame-inner" d="M12 14c1.4 3 4 4.4 4 8a4 4 0 1 1-8 0c0-3 2.6-4.6 4-8Z"/></svg>
-    </div>
-  </div>
 
   <!-- ================= NAV ================= -->
   <header class="nav" id="nav">
     <a class="nav__brand" href="#inicio" aria-label="Fábrica da Picanha — início">
-      <svg class="nav__logo" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
-        <circle cx="32" cy="32" r="31" fill="#191815" stroke="#3a372f" stroke-width="1"/>
-        <path d="M14 44V30l8 6v-6l8 6v-6l8 6 2-14 4-2 2 24z" fill="none" stroke="#f08a1d" stroke-width="2.6" stroke-linejoin="round"/>
-        <path d="M45 22v-5M50 24v-6" stroke="#f08a1d" stroke-width="2.2" stroke-linecap="round"/>
-      </svg>
-      <span class="nav__name">
-        <strong>FÁBRICA</strong>
-        <small data-i18n="brand.sub">RODÍZIO DE PICANHA</small>
-      </span>
+      <img class="nav__logo" src="img/logo-white.png" alt="Fábrica — Rodízio de Picanha" width="150" height="83">
     </a>
 
     <nav class="nav__links" aria-label="Navegação principal">
       <a href="#conceito" data-i18n="nav.concept">A Fábrica</a>
       <a href="#cortes" data-i18n="nav.cuts">Os Cortes</a>
+      <a href="#eventos" data-i18n="nav.events">Eventos</a>
       <a href="#restaurantes" data-i18n="nav.locations">Restaurantes</a>
       <a href="#reservas" data-i18n="nav.book">Reservas</a>
     </nav>
 
     <div class="nav__actions">
-      <div class="lang" role="group" aria-label="Idioma / Language">
-        <button class="lang__btn" data-lang="pt" aria-label="Português">PT</button>
-        <button class="lang__btn" data-lang="en" aria-label="English">EN</button>
-        <button class="lang__btn" data-lang="es" aria-label="Español">ES</button>
-        <button class="lang__btn" data-lang="fr" aria-label="Français">FR</button>
+      <div class="lang-dd" id="langDd">
+        <button class="lang-dd__btn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Idioma / Language">
+          <span data-lang-current>PT</span>
+          <svg class="lang-dd__chev" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="lang-dd__menu" id="langMenu">
+          <button class="lang__btn" type="button" data-lang="pt">PT — Português</button>
+          <button class="lang__btn" type="button" data-lang="en">EN — English</button>
+          <button class="lang__btn" type="button" data-lang="es">ES — Español</button>
+          <button class="lang__btn" type="button" data-lang="fr">FR — Français</button>
+        </div>
       </div>
-      <a class="btn btn--primary nav__cta" href="#reservas" data-i18n="nav.cta">Reservar mesa</a>
       <button class="nav__burger" id="burger" aria-label="Abrir menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -62,8 +51,9 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#conceito" data-i18n="nav.concept">A Fábrica</a>
     <a href="#cortes" data-i18n="nav.cuts">Os Cortes</a>
+    <a href="#eventos" data-i18n="nav.events">Eventos</a>
     <a href="#restaurantes" data-i18n="nav.locations">Restaurantes</a>
-    <a href="#reservas" class="mobile-menu__cta" data-i18n="nav.cta">Reservar mesa</a>
+    <a href="#reservas" class="mobile-menu__cta" data-i18n="nav.book">Reservas</a>
     <div class="lang lang--mobile" role="group" aria-label="Idioma / Language">
       <button class="lang__btn" data-lang="pt">PT</button>
       <button class="lang__btn" data-lang="en">EN</button>
@@ -76,65 +66,56 @@
 
     <!-- ================= HERO ================= -->
     <section class="hero" id="inicio">
-      <canvas class="hero__embers" id="embers" aria-hidden="true"></canvas>
-      <div class="hero__glow" aria-hidden="true"></div>
-
-      <div class="hero__content" data-parallax>
-        <p class="eyebrow reveal" data-i18n="hero.eyebrow">Churrascaria · Grande Lisboa</p>
-        <h1 class="hero__title">
-          <span class="hero__line"><span data-i18n="hero.l1">O MELHOR</span></span>
-          <span class="hero__line"><span data-i18n="hero.l2">RODÍZIO DE</span></span>
-          <span class="hero__line hero__line--accent"><span data-i18n="hero.l3">PICANHA</span></span>
-          <span class="hero__line hero__line--small"><span data-i18n="hero.l4">DA GRANDE LISBOA</span></span>
-        </h1>
-        <p class="hero__sub reveal" data-i18n="hero.sub">Espetos sem fim, brasa no ponto e mesa farta. Três casas, uma religião: carne bem servida.</p>
-        <div class="hero__cta reveal">
-          <a class="btn btn--primary btn--lg" href="#reservas" data-i18n="hero.book">Reservar mesa</a>
-          <a class="btn btn--ghost btn--lg" href="#cortes" data-i18n="hero.cuts">Ver os cortes</a>
-        </div>
-        <p class="hero__note reveal"><span class="chalk" data-i18n="hero.note">servido no espeto, cortado à mesa</span></p>
+      <div class="hero__media" aria-hidden="true">
+        <picture>
+          <source media="(max-width: 820px)" srcset="img/hero-tabuas-mobile.webp">
+          <img src="img/hero-tabuas.webp" alt="" fetchpriority="high" decoding="async">
+        </picture>
       </div>
 
-      <div class="hero__scrollhint" aria-hidden="true">
-        <span data-i18n="hero.scroll">desliza</span>
-        <div class="hero__scrollline"></div>
+      <div class="hero__content" data-parallax>
+        <p class="eyebrow hero__eyebrow" data-i18n="hero.eyebrow">Churrascaria · Grande Lisboa</p>
+        <h1 class="hero__title">
+          <span class="hero__line"><span data-i18n="hero.l1">Um Rodízio</span></span>
+          <span class="hero__line"><span data-i18n="hero.l2">Premium e Autêntico</span></span>
+          <span class="hero__line"><span data-i18n="hero.l3">de Picanha</span></span>
+        </h1>
+        <div class="hero__cta">
+          <a class="btn" href="#reservas" data-i18n="hero.book">Reservar mesa</a>
+          <a class="link-arrow" href="#cortes"><span data-i18n="hero.cuts">Ver os cortes</span><span class="link-arrow__glyph" aria-hidden="true">→</span></a>
+        </div>
       </div>
     </section>
 
-    <!-- marquee -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track" id="marqueeTrack">
-        <span>PICANHA</span><i>✦</i><span>MAMINHA</span><i>✦</i><span>ALCATRA</span><i>✦</i><span>FRALDINHA</span><i>✦</i><span>CORAÇÃO DE FRANGO</span><i>✦</i><span>LINGUIÇA</span><i>✦</i><span>ABACAXI GRELHADO</span><i>✦</i>
-        <span>PICANHA</span><i>✦</i><span>MAMINHA</span><i>✦</i><span>ALCATRA</span><i>✦</i><span>FRALDINHA</span><i>✦</i><span>CORAÇÃO DE FRANGO</span><i>✦</i><span>LINGUIÇA</span><i>✦</i><span>ABACAXI GRELHADO</span><i>✦</i>
-      </div>
-    </div>
-
     <!-- ================= CONCEITO ================= -->
     <section class="concept section" id="conceito">
-      <div class="section__head reveal">
-        <p class="eyebrow" data-i18n="concept.eyebrow">A Fábrica</p>
-        <h2 class="section__title" data-i18n="concept.title">Uma fábrica a sério. A matéria-prima é a brasa.</h2>
-      </div>
-
       <div class="concept__grid">
-        <div class="concept__text reveal">
-          <p data-i18n="concept.p1">Na Fábrica da Picanha o rodízio não pára: os espetos saem da grelha e vão diretos à mesa, cortados à frente de quem come. Carne no ponto ideal, sempre com o sabor autêntico do churrasco brasileiro.</p>
-          <p data-i18n="concept.p2">À volta da picanha, a mesa enche-se com o que manda a tradição: arroz de feijão, farofa, batata frita, vinagrete e saladas frescas. Ambiente acolhedor, serviço atento e uma refeição que fica na memória.</p>
-          <p class="chalk concept__chalk" data-i18n="concept.chalk">— vira o cartão para verde e deixa o resto connosco</p>
-        </div>
+        <figure class="concept__media reveal">
+          <img src="img/bar.webp" alt="O bar da Fábrica da Picanha, com o logótipo iluminado" loading="lazy" decoding="async" data-parallax-slow>
+        </figure>
 
-        <div class="concept__stats">
-          <div class="stat reveal">
-            <span class="stat__num" data-count="3">0</span>
-            <span class="stat__label" data-i18n="stats.rest">restaurantes</span>
+        <div class="concept__body">
+          <p class="eyebrow reveal" data-i18n="concept.eyebrow">A Fábrica</p>
+          <h2 class="section__title reveal" data-i18n="concept.title">Uma fábrica a sério. A matéria-prima é a brasa.</h2>
+          <div class="concept__text">
+            <p class="reveal" data-i18n="concept.p1">Na Fábrica da Picanha o rodízio não pára: os espetos saem da grelha e vão diretos à mesa, cortados à frente de quem come. Carne no ponto ideal, sempre com o sabor autêntico do churrasco brasileiro.</p>
+            <p class="reveal" data-i18n="concept.p2">À volta da picanha, a mesa enche-se com o que manda a tradição: arroz de feijão, farofa, batata frita, vinagrete e saladas frescas. Ambiente acolhedor, serviço atento e uma refeição que fica na memória.</p>
+            <p class="aside reveal" data-i18n="concept.chalk">— vira o cartão para verde e deixa o resto connosco</p>
           </div>
-          <div class="stat reveal">
-            <span class="stat__num"><span data-count="31">0</span><em data-i18n="stats.k"> mil</em></span>
-            <span class="stat__label" data-i18n="stats.fans">seguidores no Instagram</span>
-          </div>
-          <div class="stat reveal">
-            <span class="stat__num">∞</span>
-            <span class="stat__label" data-i18n="stats.rodizio">rodízio — o espeto não pára</span>
+
+          <div class="concept__stats reveal">
+            <div class="stat">
+              <span class="stat__num" data-count="3">0</span>
+              <span class="stat__label" data-i18n="stats.rest">restaurantes</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num"><span data-count="31">0</span><em data-i18n="stats.k"> mil</em></span>
+              <span class="stat__label" data-i18n="stats.fans">seguidores no Instagram</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num">∞</span>
+              <span class="stat__label" data-i18n="stats.rodizio">rodízio — o espeto não pára</span>
+            </div>
           </div>
         </div>
       </div>
@@ -228,7 +209,7 @@
               <li>Vinagrete</li>
               <li data-i18n="cuts.sides.5">Saladas frescas</li>
             </ul>
-            <a class="btn btn--primary" href="#reservas" data-i18n="cuts.cta">Quero uma mesa</a>
+            <a class="btn btn--onCopper" href="#reservas" data-i18n="cuts.cta">Quero uma mesa</a>
           </article>
 
         </div>
@@ -236,12 +217,12 @@
     </section>
 
     <!-- ================= COME E CALA-TE ================= -->
-    <section class="event">
+    <section class="event" id="eventos">
       <div class="event__inner reveal">
-        <p class="eyebrow eyebrow--dark" data-i18n="event.eyebrow">Noites especiais</p>
-        <h2 class="event__title">COME <span>E</span> CALA-TE</h2>
+        <p class="eyebrow" data-i18n="event.eyebrow">Noites especiais</p>
+        <h2 class="event__title">Come <span>e</span> Cala-te</h2>
         <p class="event__sub" data-i18n="event.sub">A noite mais famosa da Fábrica: rodízio completo, música ao vivo e zero desculpas. Fica atento ao Instagram — os lugares voam.</p>
-        <a class="btn btn--dark" href="https://www.instagram.com/fabricadapicanha" target="_blank" rel="noopener" data-i18n="event.cta">Seguir @fabricadapicanha</a>
+        <a class="btn" href="https://www.instagram.com/fabricadapicanha" target="_blank" rel="noopener" data-i18n="event.cta">Seguir @fabricadapicanha</a>
       </div>
     </section>
 
@@ -258,7 +239,7 @@
           <h3>Odivelas</h3>
           <p class="loc__area">Colinas do Cruzeiro</p>
           <p class="loc__desc" data-i18n="loc.odivelas">A casa-mãe, onde o primeiro espeto saiu da grelha.</p>
-          <a class="loc__link" href="#reservas" data-loc="Odivelas — Colinas do Cruzeiro" data-i18n="loc.bookhere">Reservar aqui →</a>
+          <a class="loc__link link-arrow" href="#reservas" data-loc="Odivelas — Colinas do Cruzeiro"><span data-i18n="loc.bookhere">Reservar aqui</span><span class="link-arrow__glyph" aria-hidden="true">→</span></a>
         </article>
 
         <article class="loc reveal">
@@ -266,7 +247,7 @@
           <h3>Alverca</h3>
           <p class="loc__area">Malvarosa</p>
           <p class="loc__desc" data-i18n="loc.alverca">Brasa acesa a norte do Tejo, com a mesma mesa farta.</p>
-          <a class="loc__link" href="#reservas" data-loc="Alverca — Malvarosa" data-i18n="loc.bookhere">Reservar aqui →</a>
+          <a class="loc__link link-arrow" href="#reservas" data-loc="Alverca — Malvarosa"><span data-i18n="loc.bookhere">Reservar aqui</span><span class="link-arrow__glyph" aria-hidden="true">→</span></a>
         </article>
 
         <article class="loc reveal">
@@ -274,7 +255,7 @@
           <h3>Lisboa</h3>
           <p class="loc__area">Campo de Ourique</p>
           <p class="loc__desc" data-i18n="loc.lisboa">No coração do bairro mais guloso da cidade.</p>
-          <a class="loc__link" href="#reservas" data-loc="Lisboa — Campo de Ourique" data-i18n="loc.bookhere">Reservar aqui →</a>
+          <a class="loc__link link-arrow" href="#reservas" data-loc="Lisboa — Campo de Ourique"><span data-i18n="loc.bookhere">Reservar aqui</span><span class="link-arrow__glyph" aria-hidden="true">→</span></a>
         </article>
 
         <article class="loc loc--soon reveal">
@@ -282,7 +263,7 @@
           <h3>Massamá</h3>
           <p class="loc__area">Sintra</p>
           <p class="loc__desc" data-i18n="loc.massama">A próxima fábrica já está a ganhar forma. Fica atento.</p>
-          <span class="loc__link loc__link--soon chalk" data-i18n="loc.soonnote">a brasa já está a aquecer…</span>
+          <span class="loc__link aside" data-i18n="loc.soonnote">a brasa já está a aquecer…</span>
         </article>
       </div>
     </section>
@@ -299,7 +280,7 @@
             <a href="https://www.thefork.pt" target="_blank" rel="noopener">TheFork</a> ·
             <a href="https://www.instagram.com/fabricadapicanha" target="_blank" rel="noopener">Instagram</a>
           </p>
-          <p class="chalk booking__chalk" data-i18n="book.chalk">— grupos grandes são connosco</p>
+          <p class="aside booking__aside" data-i18n="book.chalk">— grupos grandes são connosco</p>
         </div>
 
         <form class="booking__form" id="bookingForm" novalidate>
@@ -334,7 +315,7 @@
             <label for="fNote" data-i18n="form.note">Nota (opcional)</label>
             <input type="text" id="fNote" data-i18n-ph="form.noteph" placeholder="Aniversário, cadeira de bebé, restrições…">
           </div>
-          <button type="submit" class="btn btn--primary btn--lg booking__submit">
+          <button type="submit" class="btn booking__submit">
             <span data-i18n="form.submit">Enviar pedido por WhatsApp</span>
           </button>
           <p class="booking__hint" data-i18n="form.hint">Abre o WhatsApp com a mensagem pronta para +351 960 307 895.</p>
@@ -348,13 +329,8 @@
   <footer class="footer">
     <div class="footer__grid">
       <div class="footer__brand">
-        <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
-          <circle cx="32" cy="32" r="31" fill="#161512" stroke="#3a372f"/>
-          <path d="M14 44V30l8 6v-6l8 6v-6l8 6 2-14 4-2 2 24z" fill="none" stroke="#f08a1d" stroke-width="2.6" stroke-linejoin="round"/>
-          <path d="M45 22v-5M50 24v-6" stroke="#f08a1d" stroke-width="2.2" stroke-linecap="round"/>
-        </svg>
-        <p><strong>FÁBRICA</strong> · <span data-i18n="brand.sub">RODÍZIO DE PICANHA</span></p>
-        <p class="footer__tag chalk" data-i18n="footer.tag">carne no ponto, desde o primeiro espeto</p>
+        <img src="img/logo-white.png" alt="Fábrica — Rodízio de Picanha" width="160" height="88" loading="lazy">
+        <p class="footer__tag aside" data-i18n="footer.tag">carne no ponto, desde o primeiro espeto</p>
       </div>
       <div class="footer__col">
         <h4 data-i18n="footer.rest">Restaurantes</h4>
