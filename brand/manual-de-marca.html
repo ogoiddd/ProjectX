@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cristalina — Manual de Marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --marinho:#0B2C4D;
+    --atlantico:#16406B;
+    --cristal:#DCE9F2;
+    --nevoa:#F6F9FB;
+    --branco:#FFFFFF;
+    --dourado:#C2A14D;
+    --tinta:#22364A;
+    --display:'Marcellus', Georgia, 'Times New Roman', serif;
+    --texto:'Nunito Sans','Segoe UI',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--texto);color:var(--tinta);background:var(--branco);line-height:1.65;font-size:17px}
+  h1,h2,h3{font-family:var(--display);font-weight:400;color:var(--marinho)}
+  img,svg{max-width:100%;height:auto}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+
+  /* Eyebrow + linha de água dourada: motivo recorrente da marca */
+  .eyebrow{display:flex;align-items:center;gap:14px;font-size:12px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--dourado);margin-bottom:14px}
+  .eyebrow::before{content:"";display:block;width:44px;height:2px;background:var(--dourado);border-radius:2px}
+
+  /* ---------- Capa ---------- */
+  .capa{background:var(--marinho);color:var(--branco);position:relative;overflow:hidden}
+  .capa .wrap{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding-top:64px;padding-bottom:96px;position:relative;z-index:1}
+  .capa .simbolo{width:96px;margin-bottom:36px}
+  .capa h1{color:var(--branco);font-size:clamp(56px,9vw,104px);letter-spacing:.04em;line-height:1.05}
+  .capa .tagline{margin-top:18px;color:var(--dourado);font-size:13px;font-weight:600;letter-spacing:.42em;text-transform:uppercase}
+  .capa .essencia{margin-top:34px;max-width:520px;color:var(--cristal);font-size:19px}
+  .capa .linha-agua{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--dourado)}
+  .capa .marca-agua{position:absolute;right:-4%;bottom:-18%;width:min(46vw,520px);opacity:.06;z-index:0}
+
+  /* ---------- Secções ---------- */
+  section{padding:96px 0}
+  section.alt{background:var(--nevoa)}
+  section.escura{background:var(--marinho)}
+  section.escura h2,section.escura h3{color:var(--branco)}
+  section.escura p{color:var(--cristal)}
+  h2{font-size:clamp(32px,4.5vw,44px);margin-bottom:18px}
+  .intro{max-width:640px;margin-bottom:48px}
+
+  /* ---------- Conceito ---------- */
+  .conceito-grid{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:56px;align-items:center}
+  .conceito-figura{background:var(--nevoa);border-radius:16px;padding:48px;display:flex;justify-content:center}
+  .conceito-figura svg{width:150px}
+  .conceito-lista{list-style:none;display:grid;gap:26px}
+  .conceito-lista li{padding-left:22px;border-left:2px solid var(--dourado)}
+  .conceito-lista strong{display:block;font-family:var(--display);font-size:20px;color:var(--marinho);margin-bottom:4px;font-weight:400}
+
+  /* ---------- Logótipo ---------- */
+  .versoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+  .versao{border:1px solid #E3EAF1;border-radius:14px;overflow:hidden;background:var(--branco)}
+  .versao .palco{display:flex;align-items:center;justify-content:center;padding:44px 28px;min-height:200px}
+  .versao .palco.escuro{background:var(--marinho)}
+  .versao .legenda{padding:16px 22px;border-top:1px solid #E3EAF1;font-size:14px}
+  .versao .legenda b{display:block;color:var(--marinho);font-size:15px}
+  .regras{margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .regra{background:var(--nevoa);border-radius:12px;padding:22px 24px;font-size:15px}
+  .regra .sim{color:#2E7D4F;font-weight:700}
+  .regra .nao{color:#B3402E;font-weight:700}
+
+  /* ---------- Cores ---------- */
+  .paleta{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
+  .cor{border-radius:14px;overflow:hidden;border:1px solid #E3EAF1}
+  .cor .amostra{height:130px}
+  .cor .info{padding:16px 18px;background:var(--branco);font-size:14px}
+  .cor .info b{display:block;font-family:var(--display);font-weight:400;font-size:17px;color:var(--marinho)}
+  .cor .info code{font-size:13px;color:#5A6B7C}
+  .proporcao{margin-top:44px}
+  .proporcao .barra{display:flex;height:56px;border-radius:12px;overflow:hidden;border:1px solid #E3EAF1}
+  .proporcao .barra div{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;letter-spacing:.08em}
+  .proporcao p{margin-top:14px;font-size:15px;color:#5A6B7C}
+
+  /* ---------- Tipografia ---------- */
+  .tipo-bloco{display:grid;grid-template-columns:200px 1fr;gap:36px;padding:36px 0;border-bottom:1px solid #E3EAF1;align-items:baseline}
+  .tipo-bloco:last-child{border-bottom:none}
+  .tipo-rotulo{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--dourado)}
+  .tipo-amostra-display{font-family:var(--display);font-size:clamp(30px,4.5vw,46px);color:var(--marinho);line-height:1.2}
+  .tipo-amostra-texto{font-size:18px;max-width:560px}
+  .tipo-nota{font-size:14px;color:#5A6B7C;margin-top:10px}
+
+  /* ---------- Tom de voz ---------- */
+  .voz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+  .voz{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:30px}
+  .voz h3{font-size:22px;margin-bottom:10px}
+  .voz .exemplo{margin-top:16px;padding-top:16px;border-top:1px solid rgba(194,161,77,.5);font-style:italic;color:var(--branco);font-size:16px}
+
+  /* ---------- Aplicações ---------- */
+  .aplicacoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;align-items:start}
+  .cartao{aspect-ratio:85/55;background:var(--marinho);border-radius:12px;padding:26px 30px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 18px 40px rgba(11,44,77,.28)}
+  .cartao .topo{display:flex;align-items:center;gap:14px}
+  .cartao .topo svg{width:30px}
+  .cartao .nome{font-family:var(--display);color:var(--branco);font-size:24px;letter-spacing:.05em}
+  .cartao .dados{color:var(--cristal);font-size:12.5px;line-height:1.7}
+  .cartao .dados b{color:var(--dourado);letter-spacing:.14em;text-transform:uppercase;font-size:11px}
+  .cartao-verso{aspect-ratio:85/55;background:var(--branco);border:1px solid #E3EAF1;border-radius:12px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 18px 40px rgba(11,44,77,.10)}
+  .cartao-verso svg{width:64px}
+  .cartao-verso::after{content:"";position:absolute;left:0;right:0;bottom:26%;height:2px;background:var(--dourado)}
+  .app-legenda{font-size:14px;color:#5A6B7C;margin-top:12px}
+
+  footer{background:var(--marinho);color:var(--cristal);padding:44px 0;font-size:14px;border-top:3px solid var(--dourado)}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+
+  @media (max-width:760px){
+    .conceito-grid{grid-template-columns:1fr}
+    .tipo-bloco{grid-template-columns:1fr;gap:10px}
+    section{padding:64px 0}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .capa .simbolo{animation:surgir .9s ease-out both}
+    .capa h1{animation:surgir .9s .12s ease-out both}
+    .capa .tagline,.capa .essencia{animation:surgir .9s .24s ease-out both}
+    @keyframes surgir{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ CAPA ============ -->
+<header class="capa">
+  <svg class="marca-agua" viewBox="0 0 100 132" aria-hidden="true">
+    <path d="M50 4 C50 4 94 56 94 84 A44 44 0 1 1 6 84 C6 56 50 4 50 4 Z" fill="#FFFFFF"/>
+  </svg>
+  <div class="wrap">
+    <svg class="simbolo" viewBox="0 0 100 132" aria-hidden="true">
+      <path d="M50 4 C50 4 94 56 94 84 A44 44 0 1 1 6 84 C6 56 50 4 50 4 Z" fill="#FFFFFF"/>
+      <path d="M50 12 L27 88 L50 124 L73 88 Z" fill="#DCE9F2"/>
+      <g stroke="#0B2C4D" stroke-width="2" stroke-linecap="round" fill="none">
+        <path d="M50 12 L27 88" opacity="0.9"/><path d="M50 12 L73 88" opacity="0.9"/>
+        <path d="M27 88 L50 124" opacity="0.5"/><path d="M73 88 L50 124" opacity="0.5"/>
+      </g>
+      <path d="M9 88 L91 88" stroke="#C2A14D" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <h1>cristalina</h1>
+    <p class="tagline">Limpeza &amp; manutenção de piscinas</p>
+    <p class="essencia">A sua piscina, sempre pronta. Tratamos da água para que só tenha de pensar em aproveitá-la — com o conforto de saber que está em boas mãos.</p>
+  </div>
+  <div class="linha-agua" aria-hidden="true"></div>
+</header>
+
+<!-- ============ CONCEITO ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">O conceito</p>
+    <h2>Uma gota de água, lapidada como um cristal</h2>
+    <p class="intro">O símbolo une as duas metades do nome: a <strong>gota</strong> é a água da piscina; as <strong>facetas</strong> no interior são o cristal — água tão limpa que brilha. A atravessá-la, uma <strong>linha de água dourada</strong>: o nível de qualidade que assumimos manter, semana após semana.</p>
+    <div class="conceito-grid">
+      <div class="conceito-figura">
+        <svg viewBox="0 0 100 132" aria-label="Símbolo Cristalina">
+          <path d="M50 4 C50 4 94 56 94 84 A44 44 0 1 1 6 84 C6 56 50 4 50 4 Z" fill="#0B2C4D"/>
+          <path d="M50 12 L27 88 L50 124 L73 88 Z" fill="#16406B"/>
+          <g stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none">
+            <path d="M50 12 L27 88" opacity="0.9"/><path d="M50 12 L73 88" opacity="0.9"/>
+            <path d="M27 88 L50 124" opacity="0.5"/><path d="M73 88 L50 124" opacity="0.5"/>
+          </g>
+          <path d="M9 88 L91 88" stroke="#C2A14D" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <ul class="conceito-lista">
+        <li><strong>Limpeza</strong>A gota facetada só funciona porque é simples: formas geométricas nítidas, sem ruído. O branco domina os espaços e as superfícies da marca.</li>
+        <li><strong>Conforto</strong>O azul marinho profundo transmite calma e segurança — a tranquilidade de quem entrega a piscina a especialistas e deixa de se preocupar.</li>
+        <li><strong>Compromisso</strong>A linha de água dourada é a assinatura da marca: um padrão que não desce. Aparece no símbolo, nos cartões, no site — sempre discreta, sempre presente.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOGÓTIPO ============ -->
+<section class="alt">
+  <div class="wrap">
+    <p class="eyebrow">O logótipo</p>
+    <h2>Versões e regras de utilização</h2>
+    <p class="intro">Quatro versões cobrem todas as necessidades. Em cada aplicação, escolha a versão que dá mais ar ao símbolo — nunca comprima, rode ou recolora o logótipo.</p>
+    <div class="versoes">
+      <div class="versao">
+        <div class="palco"><img src="logo/logo-horizontal.svg" alt="Logótipo horizontal em fundo claro" style="width:340px"></div>
+        <div class="legenda"><b>Horizontal · fundo claro</b>Versão principal: site, documentos, orçamentos, faturas.</div>
+      </div>
+      <div class="versao">
+        <div class="palco escuro"><img src="logo/logo-horizontal-fundo-escuro.svg" alt="Logótipo horizontal em fundo escuro" style="width:340px"></div>
+        <div class="legenda"><b>Horizontal · fundo escuro</b>Sobre azul marinho ou fotografia escura: viatura, fardas, rodapés.</div>
+      </div>
+      <div class="versao">
+        <div class="palco"><img src="logo/logo-vertical.svg" alt="Logótipo vertical" style="width:190px"></div>
+        <div class="legenda"><b>Vertical</b>Formatos quadrados: redes sociais, carimbos, etiquetas.</div>
+      </div>
+      <div class="versao">
+        <div class="palco"><img src="logo/simbolo.svg" alt="Símbolo isolado" style="width:76px"></div>
+        <div class="legenda"><b>Símbolo isolado</b>Avatar, favicon, ícone de app — quando o nome já está presente ou o espaço é mínimo.</div>
+      </div>
+    </div>
+    <div class="regras">
+      <div class="regra"><span class="sim">Sim</span> — deixar uma margem de proteção à volta do logótipo igual à altura da letra «c» do nome.</div>
+      <div class="regra"><span class="sim">Sim</span> — usar a versão monocromática (uma só cor) em carimbos, gravação e impressão a uma cor.</div>
+      <div class="regra"><span class="nao">Não</span> — mudar as cores, adicionar sombras ou contornos, nem usar o dourado como cor de fundo.</div>
+      <div class="regra"><span class="nao">Não</span> — colocar a versão de fundo claro sobre fotografias escuras ou movimentadas.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CORES ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">A paleta</p>
+    <h2>Marinho que acalma, branco que limpa, ouro que compromete</h2>
+    <div class="paleta">
+      <div class="cor"><div class="amostra" style="background:#0B2C4D"></div><div class="info"><b>Azul Marinho</b><code>#0B2C4D · RGB 11 44 77</code><br>Cor principal. Fundos, títulos, símbolo.</div></div>
+      <div class="cor"><div class="amostra" style="background:#16406B"></div><div class="info"><b>Azul Atlântico</b><code>#16406B · RGB 22 64 107</code><br>Apoio ao marinho: facetas, hovers, gráficos.</div></div>
+      <div class="cor"><div class="amostra" style="background:#DCE9F2;border-bottom:1px solid #E3EAF1"></div><div class="info"><b>Azul Cristal</b><code>#DCE9F2 · RGB 220 233 242</code><br>Texto sobre marinho, detalhes de água.</div></div>
+      <div class="cor"><div class="amostra" style="background:#FFFFFF;border-bottom:1px solid #E3EAF1"></div><div class="info"><b>Branco Puro</b><code>#FFFFFF · RGB 255 255 255</code><br>Espaço e respiração. A limpeza da marca.</div></div>
+      <div class="cor"><div class="amostra" style="background:#C2A14D"></div><div class="info"><b>Dourado</b><code>#C2A14D · RGB 194 161 77</code><br>Só em detalhes: linha de água, tagline, filetes.</div></div>
+    </div>
+    <div class="proporcao">
+      <div class="barra">
+        <div style="flex:55;background:#0B2C4D;color:#DCE9F2">MARINHO 55%</div>
+        <div style="flex:35;background:#FFFFFF;color:#0B2C4D;border-top:1px solid #E3EAF1;border-bottom:1px solid #E3EAF1">BRANCO 35%</div>
+        <div style="flex:10;background:#C2A14D;color:#0B2C4D">10%</div>
+      </div>
+      <p>O dourado nunca ultrapassa ~10% de qualquer peça. É um metal precioso: usa-se em filete, não em balde.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TIPOGRAFIA ============ -->
+<section class="alt">
+  <div class="wrap">
+    <p class="eyebrow">A tipografia</p>
+    <h2>Serena nos títulos, próxima no texto</h2>
+    <div class="tipo-bloco">
+      <div class="tipo-rotulo">Títulos · Marcellus</div>
+      <div>
+        <div class="tipo-amostra-display">Água cristalina, o ano inteiro.</div>
+        <p class="tipo-nota">Serifa romana, calma e elegante — o tom de uma casa de confiança. Usar sempre em peso regular, nunca em bold nem itálico.</p>
+      </div>
+    </div>
+    <div class="tipo-bloco">
+      <div class="tipo-rotulo">Texto · Nunito Sans</div>
+      <div>
+        <p class="tipo-amostra-texto">Fazemos a manutenção semanal da sua piscina: análise e equilíbrio da água, aspiração, limpeza de filtros e verificação dos equipamentos. Se algo precisar de atenção, avisamos antes de agir.</p>
+        <p class="tipo-nota">Redonda e legível, com um toque acolhedor. Regular para texto corrido, Semibold 600 para destaques e botões.</p>
+      </div>
+    </div>
+    <div class="tipo-bloco">
+      <div class="tipo-rotulo">Detalhe · Maiúsculas espaçadas</div>
+      <div>
+        <p style="font-weight:600;letter-spacing:.42em;text-transform:uppercase;color:#C2A14D;font-size:13px">Limpeza &amp; manutenção de piscinas</p>
+        <p class="tipo-nota">Etiquetas, taglines e eyebrows: Nunito Sans Semibold, maiúsculas, espaçamento largo, quase sempre em dourado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOM DE VOZ ============ -->
+<section class="escura">
+  <div class="wrap">
+    <p class="eyebrow">O tom de voz</p>
+    <h2>Como a Cristalina fala</h2>
+    <p class="intro">Falamos como um profissional de confiança à porta de casa: claro, caloroso e sem alarmismos. Explicamos o que fazemos, cumprimos o que dizemos.</p>
+    <div class="voz-grid">
+      <div class="voz">
+        <h3>Tranquilizador</h3>
+        <p>Tiramos preocupações em vez de as criar. Nada de linguagem técnica sem tradução, nada de urgências fabricadas.</p>
+        <p class="exemplo">«Está tudo tratado. A água foi analisada e equilibrada — pode usar a piscina hoje mesmo.»</p>
+      </div>
+      <div class="voz">
+        <h3>Concreto</h3>
+        <p>Dizemos o que foi feito, quando voltamos e quanto custa. A confiança constrói-se com detalhes verificáveis.</p>
+        <p class="exemplo">«Visita concluída às 10h30: aspiração, limpeza do filtro e reposição de cloro. Próxima visita: quinta-feira.»</p>
+      </div>
+      <div class="voz">
+        <h3>Comprometido</h3>
+        <p>Assumimos o resultado, não apenas o serviço. Quando algo falha, dizemos primeiro e resolvemos depressa.</p>
+        <p class="exemplo">«Se a água não estiver perfeita quando chegar o fim de semana, voltamos sem custos.»</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APLICAÇÕES ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Aplicações</p>
+    <h2>A marca em uso</h2>
+    <p class="intro">O cartão de visita mostra a lógica de toda a comunicação: frente em marinho com a informação essencial, verso em branco com o símbolo e a linha de água dourada.</p>
+    <div class="aplicacoes">
+      <div>
+        <div class="cartao">
+          <div class="topo">
+            <svg viewBox="0 0 100 132" aria-hidden="true">
+              <path d="M50 4 C50 4 94 56 94 84 A44 44 0 1 1 6 84 C6 56 50 4 50 4 Z" fill="#FFFFFF"/>
+              <path d="M9 88 L91 88" stroke="#C2A14D" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <span class="nome">cristalina</span>
+          </div>
+          <div class="dados">
+            <b>Limpeza &amp; manutenção de piscinas</b><br>
+            912 000 000 · ola@cristalina.pt<br>
+            cristalina.pt
+          </div>
+        </div>
+        <p class="app-legenda">Frente — marinho, nome em Marcellus, contactos em Nunito Sans.</p>
+      </div>
+      <div>
+        <div class="cartao-verso">
+          <svg viewBox="0 0 100 132" aria-hidden="true">
+            <path d="M50 4 C50 4 94 56 94 84 A44 44 0 1 1 6 84 C6 56 50 4 50 4 Z" fill="#0B2C4D"/>
+            <path d="M50 12 L27 88 L50 124 L73 88 Z" fill="#16406B"/>
+            <g stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none">
+              <path d="M50 12 L27 88" opacity="0.9"/><path d="M50 12 L73 88" opacity="0.9"/>
+              <path d="M27 88 L50 124" opacity="0.5"/><path d="M73 88 L50 124" opacity="0.5"/>
+            </g>
+            <path d="M9 88 L91 88" stroke="#C2A14D" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="app-legenda">Verso — branco com o símbolo; a linha de água dourada atravessa o cartão.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Cristalina — Manual de Marca · v1.0</span>
+    <span>Marinho #0B2C4D · Branco #FFFFFF · Dourado #C2A14D</span>
+  </div>
+</footer>
+
+</body>
+</html>
