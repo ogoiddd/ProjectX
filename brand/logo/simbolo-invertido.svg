@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 132" width="200" height="264" role="img" aria-label="Cristalina — símbolo invertido">
+  <title>Cristalina — símbolo invertido (para fundos escuros)</title>
+  <!-- Gota -->
+  <path d="M50 4 C50 4 94 56 94 84 A44 44 0 1 1 6 84 C6 56 50 4 50 4 Z" fill="#FFFFFF"/>
+  <!-- Arestas do cristal -->
+  <g stroke="#0B2C4D" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M50 12 L27 88"/>
+    <path d="M50 12 L73 88"/>
+    <path d="M27 88 L50 124"/>
+    <path d="M73 88 L50 124"/>
+  </g>
+</svg>
