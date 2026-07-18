@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cristalina — Limpeza &amp; Manutenção de Piscinas</title>
+<meta name="description" content="Manutenção semanal de piscinas: análise e equilíbrio da água, aspiração, filtros e equipamentos. A sua piscina sempre pronta, com água cristalina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --marinho:#0B2C4D;
+    --atlantico:#16406B;
+    --cristal:#DCE9F2;
+    --nevoa:#F6F9FB;
+    --branco:#FFFFFF;
+    --dourado:#C2A14D;
+    --tinta:#22364A;
+    --cinza:#5A6B7C;
+    --display:'Marcellus', Georgia, 'Times New Roman', serif;
+    --texto:'Nunito Sans','Segoe UI',Arial,sans-serif;
+    --raio:16px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--texto);color:var(--tinta);background:var(--branco);line-height:1.65;font-size:16.5px}
+  h1,h2,h3{font-family:var(--display);font-weight:400;color:var(--marinho);text-wrap:balance}
+  img,svg{max-width:100%;height:auto}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--dourado);margin-bottom:14px}
+  .eyebrow::before{content:"";width:40px;height:2px;background:var(--dourado);border-radius:2px}
+  .btn{display:inline-block;font-family:var(--texto);font-weight:700;font-size:15px;padding:13px 28px;border-radius:999px;border:2px solid transparent;cursor:pointer;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
+  .btn:hover{transform:translateY(-1px)}
+  .btn:focus-visible{outline:3px solid var(--dourado);outline-offset:2px}
+  .btn-ouro{background:var(--dourado);color:var(--marinho)}
+  .btn-marinho{background:var(--marinho);color:var(--branco)}
+  .btn-contorno{border-color:var(--marinho);color:var(--marinho);background:transparent}
+  .btn-contorno-claro{border-color:rgba(255,255,255,.55);color:var(--branco);background:transparent}
+
+  /* ---------- Topbar ---------- */
+  .topbar{background:var(--marinho);color:var(--cristal);font-size:13px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:9px;padding-bottom:9px}
+  .topbar b{color:var(--branco);font-weight:600}
+  .topbar .lado{display:flex;gap:26px;flex-wrap:wrap}
+  .topbar .dourado{color:var(--dourado)}
+
+  /* ---------- Nav ---------- */
+  .nav{background:var(--branco);border-bottom:1px solid #E3EAF1;position:sticky;top:0;z-index:50}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:14px;padding-bottom:14px}
+  .marca{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .marca svg{width:30px;flex:none}
+  .marca .nome{font-family:var(--display);font-size:24px;color:var(--marinho);letter-spacing:.04em}
+  .nav ul{display:flex;gap:30px;list-style:none;font-weight:600;font-size:15px}
+  .nav ul a{text-decoration:none;color:var(--tinta);padding:6px 2px;border-bottom:2px solid transparent}
+  .nav ul a:hover,.nav ul a[aria-current]{color:var(--marinho);border-bottom-color:var(--dourado)}
+  @media (max-width:900px){.nav ul{display:none}}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:72px 0 84px;text-align:center}
+  .hero h1{font-size:clamp(38px,6.6vw,72px);line-height:1.12;letter-spacing:.01em}
+  .hero h1 .gota-inline{display:inline-flex;width:.62em;vertical-align:baseline;transform:translateY(.08em);margin:0 .08em}
+  .hero .sub{max-width:600px;margin:22px auto 0;font-size:18px;color:var(--cinza)}
+  .hero .acoes{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .painel-hero{margin-top:56px;border-radius:26px;overflow:hidden;position:relative;box-shadow:0 30px 60px rgba(11,44,77,.18)}
+  .painel-hero svg{display:block;width:100%;height:auto}
+  .painel-hero .filete{position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--dourado)}
+
+  /* ---------- Secções ---------- */
+  section{padding:92px 0}
+  section.alt{background:var(--nevoa)}
+  h2{font-size:clamp(30px,4.2vw,44px);margin-bottom:14px}
+  .cabeca{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px;flex-wrap:wrap}
+  .cabeca p{max-width:520px;color:var(--cinza)}
+
+  /* ---------- Serviços ---------- */
+  .servicos-grid{display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:start}
+  .lista-servicos{list-style:none;counter-reset:svc}
+  .lista-servicos li{counter-increment:svc;border-bottom:1px solid #E3EAF1}
+  .lista-servicos a{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 4px;text-decoration:none;font-weight:700;font-size:16.5px;color:var(--tinta)}
+  .lista-servicos a::after{content:counter(svc);font-family:var(--display);color:var(--dourado);font-size:15px}
+  .lista-servicos a:hover{color:var(--marinho);padding-left:10px;transition:padding .15s ease}
+  .lista-servicos .btn{margin-top:26px}
+  .cartoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+  .cartao-servico{border-radius:var(--raio);overflow:hidden;position:relative;min-height:290px;display:flex;align-items:flex-end;box-shadow:0 14px 34px rgba(11,44,77,.14)}
+  .cartao-servico svg.fundo{position:absolute;inset:0;width:100%;height:100%}
+  .cartao-servico .rotulo{position:relative;z-index:1;margin:16px;background:rgba(11,44,77,.82);color:var(--branco);border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.45;border-left:3px solid var(--dourado)}
+  .cartao-servico .rotulo b{display:block;font-family:var(--display);font-weight:400;font-size:16px}
+
+  /* ---------- Sobre ---------- */
+  .sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .painel-agua{border-radius:22px;overflow:hidden;position:relative;box-shadow:0 22px 48px rgba(11,44,77,.16)}
+  .painel-agua svg{display:block;width:100%;height:auto}
+  .sobre-texto p{color:var(--cinza);margin-bottom:14px}
+  .sobre-texto .btn{margin-top:14px}
+  .selo{position:absolute;top:18px;right:18px;background:var(--branco);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(11,44,77,.22)}
+  .selo svg{width:26px}
+
+  /* ---------- Porquê ---------- */
+  .porque .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:36px;margin:44px 0}
+  .stat .num{font-family:var(--display);font-size:52px;color:var(--marinho);line-height:1}
+  .stat .num small{font-size:24px;color:var(--dourado)}
+  .stat p{color:var(--cinza);margin-top:8px;max-width:260px}
+
+  /* ---------- Testemunhos ---------- */
+  .quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px}
+  .quote{background:var(--branco);border:1px solid #E3EAF1;border-radius:var(--raio);padding:32px;position:relative}
+  .quote::before{content:"“";font-family:var(--display);font-size:64px;color:var(--dourado);line-height:0;display:block;margin:18px 0 6px}
+  .quote p{color:var(--tinta)}
+  .quote .pessoa{display:flex;align-items:center;gap:14px;margin-top:22px;padding-top:18px;border-top:1px solid #EDF2F7}
+  .avatar{width:46px;height:46px;border-radius:50%;background:var(--marinho);color:var(--branco);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:18px;flex:none}
+  .pessoa b{display:block;color:var(--marinho)}
+  .pessoa .estrelas{color:var(--dourado);font-size:13px;letter-spacing:2px}
+  .pessoa small{color:var(--cinza)}
+
+  /* ---------- Planos ---------- */
+  .planos{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:26px;align-items:stretch}
+  .plano{background:var(--branco);border:1px solid #E3EAF1;border-radius:var(--raio);padding:38px 32px;display:flex;flex-direction:column;text-align:center}
+  .plano .tier{display:inline-block;margin:0 auto 22px;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--dourado);border:1px solid var(--dourado);border-radius:999px;padding:6px 16px}
+  .plano .preco{font-family:var(--display);font-size:52px;color:var(--marinho);line-height:1}
+  .plano .preco small{font-family:var(--texto);font-size:15px;color:var(--cinza)}
+  .plano ul{list-style:none;margin:28px 0 32px;text-align:left;display:grid;gap:12px;font-size:15px}
+  .plano li{padding-left:26px;position:relative}
+  .plano li::before{content:"";position:absolute;left:0;top:7px;width:14px;height:7px;border-left:2px solid var(--dourado);border-bottom:2px solid var(--dourado);transform:rotate(-45deg)}
+  .plano li.fora{color:#9FB0C0}
+  .plano li.fora::before{border-color:#C8D4DE}
+  .plano .btn{margin-top:auto}
+  .plano.destaque{background:var(--marinho);border-color:var(--marinho);box-shadow:0 26px 54px rgba(11,44,77,.30);transform:scale(1.03)}
+  .plano.destaque .preco{color:var(--branco)}
+  .plano.destaque .preco small{color:var(--cristal)}
+  .plano.destaque ul{color:var(--cristal)}
+  .plano.destaque li.fora{color:rgba(220,233,242,.45)}
+  .plano-nota{text-align:center;color:var(--cinza);font-size:14px;margin-top:26px}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--marinho);color:var(--cristal);border-top:4px solid var(--dourado);padding:72px 0 34px;font-size:14.5px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.6fr;gap:44px}
+  .foot-marca .marca .nome{color:var(--branco)}
+  .foot-marca p{margin-top:16px;color:rgba(220,233,242,.75);max-width:280px}
+  .foot-col h3{color:var(--branco);font-size:17px;margin-bottom:16px}
+  .foot-col ul{list-style:none;display:grid;gap:10px}
+  .foot-col a{color:rgba(220,233,242,.85);text-decoration:none}
+  .foot-col a:hover{color:var(--dourado)}
+  .newsletter p{color:rgba(220,233,242,.75);margin-bottom:14px}
+  .newsletter form{display:flex;gap:10px;flex-wrap:wrap}
+  .newsletter input{flex:1;min-width:190px;padding:12px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.07);color:var(--branco);font-family:var(--texto);font-size:14.5px}
+  .newsletter input::placeholder{color:rgba(220,233,242,.6)}
+  .newsletter input:focus-visible{outline:2px solid var(--dourado);outline-offset:1px}
+  .newsletter small{display:block;margin-top:12px;color:rgba(220,233,242,.55)}
+  .foot-fim{margin-top:52px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:rgba(220,233,242,.65)}
+  .foot-fim a{color:inherit}
+
+  @media (max-width:900px){
+    section{padding:64px 0}
+    .servicos-grid,.sobre-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .plano.destaque{transform:none}
+    .topbar .lado span:nth-child(3){display:none}
+  }
+  @media (max-width:560px){.foot-grid{grid-template-columns:1fr}}
+
+  @media (prefers-reduced-motion:no-preference){
+    .hero h1,.hero .sub,.hero .acoes{animation:surgir .8s ease-out both}
+    .hero .sub{animation-delay:.1s}.hero .acoes{animation-delay:.2s}
+    .painel-hero{animation:surgir .9s .25s ease-out both}
+    @keyframes surgir{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+    .agua-caustica path{animation:ondular 7s ease-in-out infinite alternate}
+    .agua-caustica path:nth-child(2){animation-delay:-2s}
+    .agua-caustica path:nth-child(3){animation-delay:-4s}
+    @keyframes ondular{from{transform:translateX(0)}to{transform:translateX(-26px)}}
+  }
+</style>
+</head>
+<body>
+
+<!-- Defs partilhadas: gradientes de água e símbolo -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="agua" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16406B"/>
+      <stop offset=".55" stop-color="#0B2C4D"/>
+      <stop offset="1" stop-color="#081F37"/>
+    </linearGradient>
+    <linearGradient id="agua-clara" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#DCE9F2"/>
+      <stop offset="1" stop-color="#9CC3DC"/>
+    </linearGradient>
+    <g id="simbolo-gota">
+      <path d="M50 4 C50 4 94 56 94 84 A44 44 0 1 1 6 84 C6 56 50 4 50 4 Z" fill="#0B2C4D"/>
+      <g stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none">
+        <path d="M50 12 L27 88"/><path d="M50 12 L73 88"/>
+        <path d="M27 88 L50 124"/><path d="M73 88 L50 124"/>
+        <path d="M10 78 L27 88 L73 88 L90 78"/>
+      </g>
+    </g>
+    <g id="simbolo-gota-branca">
+      <path d="M50 4 C50 4 94 56 94 84 A44 44 0 1 1 6 84 C6 56 50 4 50 4 Z" fill="#FFFFFF"/>
+      <g stroke="#0B2C4D" stroke-width="2" stroke-linecap="round" fill="none">
+        <path d="M50 12 L27 88"/><path d="M50 12 L73 88"/>
+        <path d="M27 88 L50 124"/><path d="M73 88 L50 124"/>
+        <path d="M10 78 L27 88 L73 88 L90 78"/>
+      </g>
+    </g>
+  </defs>
+</svg>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="lado">
+      <span><b>Lisboa</b> e arredores</span>
+      <span class="dourado">912 000 000</span>
+      <span>Seg–Sex · 8h30–18h00</span>
+    </div>
+    <span>ola@cristalina.pt</span>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" aria-label="Principal">
+  <div class="wrap">
+    <a class="marca" href="#inicio">
+      <svg viewBox="0 0 100 132" aria-hidden="true"><use href="#simbolo-gota"/></svg>
+      <span class="nome">Cristalina</span>
+    </a>
+    <ul>
+      <li><a href="#inicio" aria-current="page">Início</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#sobre">Sobre nós</a></li>
+      <li><a href="#planos">Planos</a></li>
+      <li><a href="#contactos">Contactos</a></li>
+    </ul>
+    <a class="btn btn-ouro" href="#planos">Pedir orçamento</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="inicio">
+  <div class="wrap">
+    <h1>Piscinas impecáveis,<br>água <svg class="gota-inline" viewBox="0 0 100 132" aria-hidden="true"><use href="#simbolo-gota"/></svg> Cristalina.</h1>
+    <p class="sub">Manutenção profissional de piscinas para casas e condomínios. Tratamos da água para que só tenha de pensar em aproveitá-la.</p>
+    <div class="acoes">
+      <a class="btn btn-marinho" href="#planos">Ver planos de manutenção</a>
+      <a class="btn btn-contorno" href="#servicos">Conhecer os serviços</a>
+    </div>
+    <div class="painel-hero">
+      <svg viewBox="0 0 1120 430" role="img" aria-label="Ilustração de água de piscina em tons de azul">
+        <rect width="1120" height="430" fill="url(#agua)"/>
+        <g class="agua-caustica" stroke="#DCE9F2" fill="none" opacity=".28">
+          <path d="M-30 120 Q 90 90 210 120 T 450 120 T 690 120 T 930 120 T 1170 120" stroke-width="2"/>
+          <path d="M-30 220 Q 90 190 210 220 T 450 220 T 690 220 T 930 220 T 1170 220" stroke-width="2.5"/>
+          <path d="M-30 330 Q 90 300 210 330 T 450 330 T 690 330 T 930 330 T 1170 330" stroke-width="2"/>
+        </g>
+        <g opacity=".1" transform="translate(870,120) scale(1.9)">
+          <use href="#simbolo-gota-branca"/>
+        </g>
+        <g transform="translate(80,120)">
+          <rect x="0" y="0" width="330" height="190" rx="16" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.25)"/>
+          <text x="28" y="52" font-family="'Nunito Sans','Segoe UI',Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="3" fill="#C2A14D">ESTA SEMANA NA SUA PISCINA</text>
+          <text x="28" y="92" font-family="'Nunito Sans','Segoe UI',Arial,sans-serif" font-size="17" fill="#FFFFFF">✓ Água analisada e equilibrada</text>
+          <text x="28" y="124" font-family="'Nunito Sans','Segoe UI',Arial,sans-serif" font-size="17" fill="#FFFFFF">✓ Fundo aspirado, filtro lavado</text>
+          <text x="28" y="156" font-family="'Nunito Sans','Segoe UI',Arial,sans-serif" font-size="17" fill="#DCE9F2">Próxima visita: quinta-feira</text>
+        </g>
+      </svg>
+      <div class="filete" aria-hidden="true"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SERVIÇOS ============ -->
+<section id="servicos" class="alt">
+  <div class="wrap">
+    <div class="cabeca">
+      <div>
+        <p class="eyebrow">Os nossos serviços</p>
+        <h2>Tudo o que a sua piscina precisa</h2>
+        <p>Preços justos, trabalho rigoroso e um relatório claro no fim de cada visita — sabe sempre o que foi feito e porquê.</p>
+      </div>
+      <a class="btn btn-contorno" href="#planos">Ver todos os serviços</a>
+    </div>
+    <div class="servicos-grid">
+      <ul class="lista-servicos">
+        <li><a href="#planos">Análise e equilíbrio químico</a></li>
+        <li><a href="#planos">Aspiração e limpeza do fundo</a></li>
+        <li><a href="#planos">Limpeza de filtros e bombas</a></li>
+        <li><a href="#planos">Tratamento de algas</a></li>
+        <li><a href="#planos">Reparação de equipamentos</a></li>
+        <li><a href="#planos">Aberturas e fechos de época</a></li>
+      </ul>
+      <div class="cartoes">
+        <div class="cartao-servico">
+          <svg class="fundo" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="300" height="300" fill="url(#agua)"/>
+            <g class="agua-caustica" stroke="#DCE9F2" fill="none" opacity=".3">
+              <path d="M-20 80 Q 40 60 100 80 T 220 80 T 340 80" stroke-width="2"/>
+              <path d="M-20 150 Q 40 130 100 150 T 220 150 T 340 150" stroke-width="2"/>
+            </g>
+            <g transform="translate(108,60) scale(0.85)" opacity=".9"><use href="#simbolo-gota-branca"/></g>
+          </svg>
+          <div class="rotulo"><b>Água equilibrada</b>pH, cloro e alcalinidade medidos em cada visita.</div>
+        </div>
+        <div class="cartao-servico">
+          <svg class="fundo" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="300" height="300" fill="url(#agua-clara)"/>
+            <g stroke="#FFFFFF" fill="none" opacity=".55">
+              <path d="M0 60 H300 M0 120 H300 M0 180 H300 M0 240 H300" stroke-width="1.5"/>
+              <path d="M60 0 V300 M120 0 V300 M180 0 V300 M240 0 V300" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(108,60) scale(0.85)"><use href="#simbolo-gota"/></g>
+          </svg>
+          <div class="rotulo"><b>Fundo e paredes</b>Aspiração, escovagem e linha de água sem marcas.</div>
+        </div>
+        <div class="cartao-servico">
+          <svg class="fundo" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="300" height="300" fill="#0B2C4D"/>
+            <g stroke="#C2A14D" fill="none" opacity=".8">
+              <circle cx="150" cy="130" r="58" stroke-width="2.5"/>
+              <path d="M150 130 L150 84 M150 130 L184 152" stroke-width="2.5" stroke-linecap="round"/>
+            </g>
+            <g stroke="#DCE9F2" opacity=".35" fill="none">
+              <path d="M-20 240 Q 40 220 100 240 T 220 240 T 340 240" stroke-width="2"/>
+            </g>
+          </svg>
+          <div class="rotulo"><b>Equipamentos em dia</b>Bombas, filtros e tratamento verificados antes de avariarem.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOBRE ============ -->
+<section id="sobre">
+  <div class="wrap sobre-grid">
+    <div class="painel-agua">
+      <svg viewBox="0 0 560 430" role="img" aria-label="Ilustração de água calma com o símbolo da Cristalina">
+        <rect width="560" height="430" fill="url(#agua)"/>
+        <g class="agua-caustica" stroke="#DCE9F2" fill="none" opacity=".26">
+          <path d="M-30 110 Q 60 85 150 110 T 330 110 T 510 110 T 690 110" stroke-width="2"/>
+          <path d="M-30 210 Q 60 185 150 210 T 330 210 T 510 210 T 690 210" stroke-width="2.5"/>
+          <path d="M-30 320 Q 60 295 150 320 T 330 320 T 510 320 T 690 320" stroke-width="2"/>
+        </g>
+        <g transform="translate(215,110) scale(1.0)"><use href="#simbolo-gota-branca"/></g>
+      </svg>
+      <div class="selo" aria-hidden="true">
+        <svg viewBox="0 0 100 132"><use href="#simbolo-gota"/></svg>
+      </div>
+    </div>
+    <div class="sobre-texto">
+      <p class="eyebrow">Sobre nós</p>
+      <h2>Limpeza profissional, com um toque pessoal</h2>
+      <p>Tratamos cada piscina como se fosse nossa. Em cada visita medimos e equilibramos a água, limpamos o que precisa de ser limpo e verificamos os equipamentos — e no fim recebe um resumo simples do que foi feito.</p>
+      <p>Se algo precisar de atenção, avisamos antes de agir. Sem surpresas na fatura, sem linguagem técnica por traduzir.</p>
+      <a class="btn btn-marinho" href="#planos">Ver planos de manutenção</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORQUÊ ============ -->
+<section class="alt porque">
+  <div class="wrap">
+    <div class="cabeca">
+      <div>
+        <p class="eyebrow">Porquê a Cristalina</p>
+        <h2>Compromisso que se vê na água</h2>
+        <p>Operação transparente e pontual, para casas particulares e condomínios.</p>
+      </div>
+      <a class="btn btn-contorno" href="#contactos">Fale connosco</a>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="num">52<small> semanas</small></div>
+        <p>Água tratada o ano inteiro — também no inverno, quando ninguém está a ver.</p>
+      </div>
+      <div class="stat">
+        <div class="num">24<small>h</small></div>
+        <p>Resposta garantida a qualquer pedido ou avaria comunicada.</p>
+      </div>
+      <div class="stat">
+        <div class="num">100<small>%</small></div>
+        <p>Das visitas terminam com relatório enviado no próprio dia.</p>
+      </div>
+    </div>
+    <div class="painel-agua">
+      <svg viewBox="0 0 1072 300" role="img" aria-label="Ilustração panorâmica de água de piscina">
+        <rect width="1072" height="300" fill="url(#agua-clara)"/>
+        <g stroke="#FFFFFF" fill="none" opacity=".5">
+          <path d="M0 70 H1072 M0 150 H1072 M0 230 H1072" stroke-width="1.5"/>
+          <path d="M134 0 V300 M268 0 V300 M402 0 V300 M536 0 V300 M670 0 V300 M804 0 V300 M938 0 V300" stroke-width="1.5"/>
+        </g>
+        <g class="agua-caustica" stroke="#0B2C4D" fill="none" opacity=".18">
+          <path d="M-30 90 Q 90 60 210 90 T 450 90 T 690 90 T 930 90 T 1170 90" stroke-width="3"/>
+          <path d="M-30 200 Q 90 170 210 200 T 450 200 T 690 200 T 930 200 T 1170 200" stroke-width="3"/>
+        </g>
+        <g transform="translate(486,84) scale(1.0)"><use href="#simbolo-gota"/></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTEMUNHOS ============ -->
+<section>
+  <div class="wrap">
+    <div class="cabeca">
+      <div>
+        <p class="eyebrow">Testemunhos</p>
+        <h2>O que dizem os nossos clientes</h2>
+      </div>
+    </div>
+    <div class="quotes">
+      <figure class="quote">
+        <span aria-hidden="true"></span>
+        <blockquote><p>Desde que a Cristalina assumiu a manutenção, nunca mais me preocupei com a piscina. Chegam à hora combinada, a água está sempre perfeita e recebo o resumo de cada visita no telemóvel.</p></blockquote>
+        <figcaption class="pessoa">
+          <span class="avatar" aria-hidden="true">M</span>
+          <span><b>Marta S.</b><small>Moradia em Cascais</small><br><span class="estrelas" aria-label="5 em 5 estrelas">★★★★★</span></span>
+        </figcaption>
+      </figure>
+      <figure class="quote">
+        <span aria-hidden="true"></span>
+        <blockquote><p>Geríamos a piscina do condomínio com três fornecedores diferentes. A Cristalina trata de tudo — química, limpeza e avarias — e a prestação de contas à administração ficou muito mais simples.</p></blockquote>
+        <figcaption class="pessoa">
+          <span class="avatar" aria-hidden="true">R</span>
+          <span><b>Rui A.</b><small>Administração de condomínio, Oeiras</small><br><span class="estrelas" aria-label="5 em 5 estrelas">★★★★★</span></span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLANOS ============ -->
+<section id="planos" class="alt">
+  <div class="wrap">
+    <div class="cabeca">
+      <div>
+        <p class="eyebrow">Planos de manutenção</p>
+        <h2>Escolha o ritmo, nós tratamos do resto</h2>
+        <p>Sem fidelização escondida: todos os planos são mensais e pode mudar quando quiser.</p>
+      </div>
+    </div>
+    <div class="planos">
+      <div class="plano">
+        <span class="tier">Essencial</span>
+        <div class="preco">89€<small> /mês</small></div>
+        <ul>
+          <li>Visita quinzenal</li>
+          <li>Análise e equilíbrio da água</li>
+          <li>Limpeza de cestos e linha de água</li>
+          <li class="fora">Aspiração completa do fundo</li>
+          <li class="fora">Verificação de equipamentos</li>
+        </ul>
+        <a class="btn btn-contorno" href="mailto:ola@cristalina.pt?subject=Plano%20Essencial">Começar</a>
+      </div>
+      <div class="plano destaque">
+        <span class="tier">Completo</span>
+        <div class="preco">139€<small> /mês</small></div>
+        <ul>
+          <li>Visita semanal</li>
+          <li>Análise e equilíbrio da água</li>
+          <li>Limpeza de cestos e linha de água</li>
+          <li>Aspiração completa do fundo</li>
+          <li>Verificação de equipamentos</li>
+        </ul>
+        <a class="btn btn-ouro" href="mailto:ola@cristalina.pt?subject=Plano%20Completo">Começar</a>
+      </div>
+      <div class="plano">
+        <span class="tier">Condomínios</span>
+        <div class="preco">desde 219€<small> /mês</small></div>
+        <ul>
+          <li>Plano à medida do regulamento</li>
+          <li>Registos para a autoridade de saúde</li>
+          <li>Manutenção técnica incluída</li>
+          <li>Relatório mensal à administração</li>
+          <li>Piquete de avarias prioritário</li>
+        </ul>
+        <a class="btn btn-contorno" href="mailto:ola@cristalina.pt?subject=Plano%20Condom%C3%ADnios">Pedir proposta</a>
+      </div>
+    </div>
+    <p class="plano-nota">Produtos químicos faturados ao custo, sem margem. Se a água não estiver perfeita quando chegar o fim de semana, voltamos sem custos.</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contactos">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-marca">
+        <a class="marca" href="#inicio">
+          <svg viewBox="0 0 100 132" aria-hidden="true"><use href="#simbolo-gota-branca"/></svg>
+          <span class="nome">Cristalina</span>
+        </a>
+        <p>Limpeza e manutenção de piscinas em Lisboa e arredores. Água analisada, equilibrada e pronta a usar — semana após semana.</p>
+      </div>
+      <div class="foot-col">
+        <h3>Serviços</h3>
+        <ul>
+          <li><a href="#servicos">Manutenção semanal</a></li>
+          <li><a href="#servicos">Tratamento de algas</a></li>
+          <li><a href="#servicos">Reparações</a></li>
+          <li><a href="#servicos">Aberturas de época</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Empresa</h3>
+        <ul>
+          <li><a href="#sobre">Sobre nós</a></li>
+          <li><a href="#planos">Planos e preços</a></li>
+          <li><a href="mailto:ola@cristalina.pt">ola@cristalina.pt</a></li>
+          <li><a href="tel:+351912000000">912 000 000</a></li>
+        </ul>
+      </div>
+      <div class="foot-col newsletter">
+        <h3>Fique a par</h3>
+        <p>Dicas de época e lembretes úteis para donos de piscina. Um e-mail por mês, nada mais.</p>
+        <form action="mailto:ola@cristalina.pt" method="post" enctype="text/plain">
+          <input type="email" name="email" placeholder="O seu e-mail" aria-label="O seu e-mail" required>
+          <button class="btn btn-ouro" type="submit">Subscrever</button>
+        </form>
+        <small>Ao subscrever aceita receber comunicações da Cristalina. Pode cancelar a qualquer momento.</small>
+      </div>
+    </div>
+    <div class="foot-fim">
+      <span>© 2026 Cristalina — Limpeza &amp; Manutenção de Piscinas</span>
+      <span><a href="#">Privacidade</a> · <a href="#">Termos</a> · <a href="https://www.livroreclamacoes.pt">Livro de Reclamações</a></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
