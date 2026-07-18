@@ -15,7 +15,7 @@
     <path d="M10 78 L27 88 L73 88 L90 78" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/>
   </g>
   <!-- Nome -->
-  <text x="132" y="82" font-family="Marcellus, Georgia, 'Times New Roman', serif" font-size="54" letter-spacing="3" fill="#0B2C4D">cristalina</text>
+  <text x="132" y="82" font-family="Marcellus, Georgia, 'Times New Roman', serif" font-size="54" letter-spacing="3" fill="#0B2C4D">Cristalina</text>
   <!-- Tagline -->
   <text x="135" y="112" font-family="'Nunito Sans', 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="4.6" fill="#C2A14D">LIMPEZA &amp; MANUTENÇÃO DE PISCINAS</text>
 </svg>
