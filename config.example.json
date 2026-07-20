@@ -1,0 +1,36 @@
+{
+  "monitor": {
+    "mode": "polling",
+    "accounts": ["realDonaldTrump", "elonmusk"],
+    "pollIntervalMs": 10000,
+    "includeReplies": false,
+    "includeRetweets": false
+  },
+  "parser": {
+    "fetchExternalSites": true,
+    "maxExternalSitesPerPost": 3,
+    "siteFetchTimeoutMs": 5000,
+    "maxSiteBytes": 1500000
+  },
+  "validation": {
+    "requireOnChainMint": true,
+    "dexscreenerEnrich": true
+  },
+  "alerts": {
+    "telegram": true,
+    "discord": false
+  },
+  "executor": {
+    "enabled": false,
+    "paperTrading": true,
+    "buyAmountSol": 0.01,
+    "maxSolPerTrade": 0.05,
+    "maxSlippageBps": 300,
+    "priorityFeeLamports": 200000,
+    "jupiterBaseUrl": "https://lite-api.jup.ag/swap/v1",
+    "skipPreflight": false,
+    "killSwitchFile": "KILL_SWITCH",
+    "tradesLogFile": "data/trades.jsonl"
+  },
+  "logLevel": "info"
+}
