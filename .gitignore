@@ -1,1 +1,15 @@
 node_modules/
+
+# Segredos e estado do bot — NUNCA fazer commit
+.env
+state.json
+*.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/

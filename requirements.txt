@@ -1,0 +1,8 @@
+# Cliente oficial da Polymarket para a CLOB API (execução de ordens)
+py-clob-client>=0.19.0
+
+# HTTP para a Data API (deteção de trades) e chamadas REST
+requests>=2.31.0
+
+# Carregamento de variáveis de ambiente a partir do ficheiro .env
+python-dotenv>=1.0.0
