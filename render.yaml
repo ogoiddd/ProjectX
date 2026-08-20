@@ -1,0 +1,19 @@
+# Deploy no Render (https://render.com) — plano gratuito.
+# 1. Faz push deste repositório para o GitHub.
+# 2. No Render: New + → Blueprint → aponta para este repo.
+# 3. Define a variável de ambiente ODDS_API_KEY (secreta) no dashboard.
+services:
+  - type: web
+    name: odds-value
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m odds_value.web
+    envVars:
+      - key: ODDS_API_KEY
+        sync: false          # define o valor no dashboard (secreto)
+      - key: API_FOOTBALL_KEY
+        sync: false          # opcional
+      - key: PYTHON_VERSION
+        value: "3.11"
+    healthCheckPath: /health

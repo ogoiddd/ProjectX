@@ -14,47 +14,12 @@ The Odds API:
 from __future__ import annotations
 
 import argparse
-import csv
-import json
 import sys
 from typing import Sequence
 
 from .devig import devig_proportional, devig_shin, margin
-from .fetch import fetch_odds_the_odds_api, parse_the_odds_api
-from .value import (
-    DEFAULT_EV_THRESHOLD,
-    ContextFlags,
-    ValueSelection,
-    analyze_market,
-    rank_by_value,
-)
-
-
-def _analyze_games(games, method: str, ev_threshold: float) -> tuple[list[ValueSelection], int]:
-    """Corre a análise sobre todos os jogos. Devolve (valores, mercados_analisados)."""
-    all_values: list[ValueSelection] = []
-    markets_analyzed = 0
-    for g in games:
-        for mkt in g.markets:
-            markets_analyzed += 1
-            ctx = ContextFlags(
-                second_leg_knockout=g.context.second_leg_knockout,
-                high_altitude=g.context.high_altitude,
-                special_conditions=g.context.special_conditions,
-                combined_market="+" in mkt.market or "&" in mkt.market,
-            )
-            all_values.extend(
-                analyze_market(
-                    game=g.game,
-                    market=mkt.market,
-                    selections=mkt.selections,
-                    quotes=mkt.quotes,
-                    context=ctx,
-                    method=method,
-                    ev_threshold=ev_threshold,
-                )
-            )
-    return rank_by_value(all_values), markets_analyzed
+from .pipeline import analyze_games, load_games, values_to_csv
+from .value import DEFAULT_EV_THRESHOLD, ValueSelection
 
 
 def _clip(text: str, width: int) -> str:
@@ -103,19 +68,7 @@ def print_table(values: Sequence[ValueSelection]) -> None:
 def write_csv(values: Sequence[ValueSelection], path: str) -> None:
     """Exporta os resultados para CSV."""
     with open(path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow([
-            "jogo", "mercado", "selecao", "melhor_odd", "casa",
-            "prob_consenso", "odd_justa", "ev_pct", "n_casas",
-            "dispersao_odds", "outlier", "avisos",
-        ])
-        for v in values:
-            writer.writerow([
-                v.game, v.market, v.selection, f"{v.best_odds:.4f}", v.best_book,
-                f"{v.consensus_prob:.4f}", f"{v.fair_odds:.4f}", f"{v.ev_pct:.2f}",
-                v.n_books, f"{v.odds_dispersion:.4f}", int(v.is_outlier),
-                " | ".join(v.warnings),
-            ])
+        f.write(values_to_csv(values))
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -159,14 +112,12 @@ def _compare_devig_demo(games) -> None:
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
 
-    if args.from_json:
-        with open(args.from_json, encoding="utf-8") as f:
-            raw = json.load(f)
-    else:
-        raw = fetch_odds_the_odds_api(
-            sport=args.sport, regions=args.regions, markets=args.markets,
-        )
-    games = parse_the_odds_api(raw)
+    games = load_games(
+        from_json=args.from_json,
+        sport=args.sport,
+        regions=args.regions,
+        markets=args.markets,
+    )
 
     if not games:
         print("Sem jogos/mercados válidos na resposta.", file=sys.stderr)
@@ -175,7 +126,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.compare_devig:
         _compare_devig_demo(games)
 
-    values, markets_analyzed = _analyze_games(games, args.method, args.ev_threshold)
+    values, markets_analyzed = analyze_games(games, args.method, args.ev_threshold)
     print_table(values)
 
     if args.csv:

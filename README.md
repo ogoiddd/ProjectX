@@ -73,6 +73,47 @@ Opções principais:
 
 ---
 
+## Web app — usar no telemóvel (iPhone/Android) em qualquer lugar
+
+Há uma interface web incluída (`odds_value/web.py`), construída **só com a
+biblioteca-padrão do Python** — não precisa de Flask/FastAPI, só de `requests`.
+
+Correr localmente:
+
+```bash
+export ODDS_API_KEY=xxxxxxxx
+python -m odds_value.web        # abre http://localhost:8000
+```
+
+Abres o endereço no browser (Safari/Chrome), escolhes competição, mercados e
+método, e obténs a tabela de valor com um botão para descarregar o CSV. Podes
+"Adicionar ao ecrã inicial" no iPhone para ficar com aparência de app. Há uma
+opção **"usar dados de exemplo"** para testar sem chave de API.
+
+### Alojar de graça (para aceder de qualquer lado)
+
+O objetivo "usar em qualquer lugar" resolve-se alojando a web app; o iPhone só
+abre o link. O repositório já traz os ficheiros de deploy.
+
+**Render (recomendado, plano gratuito):**
+1. Faz push deste repositório para o GitHub.
+2. Em render.com: **New + → Blueprint** e aponta para o repo (usa `render.yaml`).
+3. No dashboard, define a variável de ambiente **`ODDS_API_KEY`** (secreta).
+4. Fica disponível num URL `https://…onrender.com` — abre-o no iPhone.
+
+**Railway / Fly.io / Heroku:** usam o `Procfile` (`web: python -m odds_value.web`);
+define lá a variável `ODDS_API_KEY`. A app lê a porta de `PORT` automaticamente.
+
+**No próprio iPhone (a-Shell, sem servidor):** instala o a-Shell, faz
+`pip install requests`, copia a pasta `odds_value/`, e corre
+`python -m odds_value.web`; depois abre `http://localhost:8000` no Safari.
+Serve para uso local no aparelho (não fica acessível fora dele).
+
+> ⚠️ **Segurança:** aloja atrás de HTTPS (Render/Railway dão-no de borla) e não
+> exponhas a tua `ODDS_API_KEY` no cliente — ela fica só no servidor.
+
+---
+
 ## Os dois métodos de remoção de margem
 
 - **Normalização proporcional** — escala as probabilidades implícitas para
@@ -140,13 +181,16 @@ proporcional, Shin, `z` de Shin, consenso ponderado) e a deteção de valor
 
 ```
 odds_value/
-  fetch.py    # clientes The Odds API / API-Football + heurísticas de contexto
-  devig.py    # remoção de margem (proporcional + Shin) e consenso
-  value.py    # EV%, dispersão, outliers, filtros de contexto
-  cli.py      # tabela em consola, CSV, resumo
+  fetch.py     # clientes The Odds API / API-Football + heurísticas de contexto
+  devig.py     # remoção de margem (proporcional + Shin) e consenso
+  value.py     # EV%, dispersão, outliers, filtros de contexto
+  pipeline.py  # recolha → análise + serialização CSV (partilhado CLI/web)
+  cli.py       # tabela em consola, CSV, resumo
+  web.py       # web app (stdlib) para usar no browser/telemóvel
 tests/
   test_devig.py
   test_value.py
 examples/
   the_odds_api_sample.json   # resposta de exemplo para correr offline
+Procfile, render.yaml, runtime.txt   # deploy (Render/Railway/Fly.io)
 ```
