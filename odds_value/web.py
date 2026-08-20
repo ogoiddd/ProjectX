@@ -143,26 +143,36 @@ Sem chave, ativa a demo acima.</p>
 </body></html>"""
 
 
-def _results_page(params: dict[str, str], values, markets_analyzed: int) -> str:
+_COLSPAN = 10
+
+
+def _results_page(params: dict[str, str], report) -> str:
     method = params.get("method", "shin")
     ev = params.get("ev", "2")
     csv_params = urlencode({**params})
+    values = report.values
     outliers = sum(1 for v in values if v.is_outlier)
+    only_one = sum(1 for v in values if len(v.flagged_by) == 1)
 
     if values:
         rows = "".join(_result_row(v) for v in values)
         table = f"""<div class="tablewrap"><table>
 <thead><tr>
 <th>Jogo</th><th>Mercado</th><th>Seleção</th>
-<th class="num">Melhor odd</th><th>Casa</th>
-<th class="num">Prob. cons.</th><th class="num">Odd justa</th><th class="num">EV%</th>
+<th class="num">Melhor</th><th>Casa</th>
+<th class="num">Mediana</th><th class="num">Desvio</th>
+<th class="num">Prob. cons.</th><th class="num">EV%</th><th>Confirma</th>
 </tr></thead><tbody>{rows}</tbody></table></div>"""
     else:
-        table = '<p class="muted">Nenhum mercado com EV acima do limite.</p>'
+        table = '<p class="muted">Nenhuma seleção com EV acima do limite.</p>'
 
-    outlier_note = (
-        f' · {outliers} outlier(s) — confirmar antes de apostar' if outliers else ""
-    )
+    notes = []
+    if outliers:
+        notes.append(f"{outliers} outlier(s)")
+    if only_one:
+        notes.append(f"{only_one} confirmada(s) por só 1 método")
+    note = (" · " + " · ".join(notes)) if notes else ""
+
     return f"""<!doctype html>
 <html lang="pt"><head>
 <meta charset="utf-8">
@@ -176,13 +186,16 @@ def _results_page(params: dict[str, str], values, markets_analyzed: int) -> str:
   <a href="/analyze.csv?{_esc(csv_params)}"><button type="button">⬇ Descarregar CSV</button></a>
 </div>
 {table}
+{_bookmaker_stats_html(report)}
 <div class="summary">
-  {len(values)} mercados com EV positivo de {markets_analyzed} analisados
-  (devig: {_esc(method)}, limite: +{_esc(ev)}%){_esc(outlier_note)}.
+  {len(values)} seleções com EV positivo de {report.markets_analyzed} mercados
+  analisados ({report.markets_discarded_few_books} descartados por poucas casas;
+  devig: {_esc(method)}, limite: +{_esc(ev)}%){_esc(note)}.
 </div>
 <p class="disclaimer">O consenso é uma estimativa, não a verdade. Uma odd muito acima
-do resto pode ser valor genuíno ou erro/informação em falta. Isto não é
-aconselhamento de apostas — joga de forma responsável.</p>
+do resto pode ser valor genuíno ou erro/informação em falta. "Confirma" mostra se
+os dois métodos de devig (Shin e proporcional) concordam — sinais de um só método
+são menos robustos. Isto não é aconselhamento de apostas — joga de forma responsável.</p>
 </body></html>"""
 
 
@@ -191,17 +204,39 @@ def _result_row(v: ValueSelection) -> str:
     warns = ""
     if v.warnings:
         warns = (
-            '<tr><td colspan="8" class="warn">⚠ '
+            f'<tr><td colspan="{_COLSPAN}" class="warn">⚠ '
             + " · ".join(_esc(w) for w in v.warnings)
             + "</td></tr>"
         )
+    agree_cls = "" if len(v.flagged_by) == len(("shin", "proportional")) else ' class="warn"'
     return f"""<tr{cls}>
 <td>{_esc(v.game)}</td><td>{_esc(v.market)}</td><td>{_esc(v.selection)}</td>
 <td class="num">{v.best_odds:.2f}</td><td>{_esc(v.best_book)}</td>
+<td class="num">{v.median_odds:.2f}</td><td class="num">{v.odds_dispersion:.2f}</td>
 <td class="num">{v.consensus_prob * 100:.1f}%</td>
-<td class="num">{v.fair_odds:.2f}</td>
 <td class="num ev">{v.ev_pct:+.1f}%</td>
+<td{agree_cls}>{_esc(v.agreement)}</td>
 </tr>{warns}"""
+
+
+def _bookmaker_stats_html(report) -> str:
+    """(4) Tabela: quantas vezes cada casa deu a melhor odd."""
+    counts = report.best_book_counts
+    if not counts:
+        return ""
+    total = report.selections_evaluated
+    rows = ""
+    for book, count in counts.most_common():
+        share = count / total * 100 if total else 0.0
+        flag = ' class="warn"' if share >= 40 and total >= 5 else ""
+        note = " ⚠ possível outlier sistemático" if flag else ""
+        rows += (f'<tr><td>{_esc(book)}</td><td class="num">{count}</td>'
+                 f'<td class="num"{flag}>{share:.1f}%{_esc(note)}</td></tr>')
+    return f"""<h2 style="font-size:1rem;margin:1.2rem 0 .3rem">Melhor odd por casa
+<span class="muted">(em {total} seleções)</span></h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Casa</th><th class="num">Nº</th><th class="num">%</th></tr></thead>
+<tbody>{rows}</tbody></table></div>"""
 
 
 def _run(params: dict[str, str]):
@@ -252,7 +287,7 @@ class Handler(BaseHTTPRequestHandler):
 
         if parsed.path in ("/analyze", "/analyze.csv"):
             try:
-                values, markets_analyzed = _run(params)
+                report = _run(params)
             except MissingApiKey:
                 self._send(_form_page(
                     params,
@@ -265,14 +300,14 @@ class Handler(BaseHTTPRequestHandler):
 
             if parsed.path == "/analyze.csv":
                 self._send(
-                    values_to_csv(values),
+                    values_to_csv(report.values),
                     ctype="text/csv; charset=utf-8",
                     extra_headers={
                         "Content-Disposition": 'attachment; filename="valor.csv"'
                     },
                 )
             else:
-                self._send(_results_page(params, values, markets_analyzed))
+                self._send(_results_page(params, report))
             return
 
         self._send("404", status=404, ctype="text/plain; charset=utf-8")

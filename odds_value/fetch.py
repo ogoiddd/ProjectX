@@ -20,12 +20,29 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass, field
-from typing import Any
-
-import requests
+from typing import TYPE_CHECKING, Any
 
 from .devig import BookQuote
 from .value import ContextFlags
+
+if TYPE_CHECKING:  # só para type hints; não importa em runtime
+    import requests
+
+
+def _import_requests():
+    """Importa ``requests`` só quando é preciso rede.
+
+    Assim o modo demo/offline (``--from-json``) e os testes não exigem a
+    dependência instalada — apenas as chamadas reais às APIs a precisam.
+    """
+    try:
+        import requests  # noqa: PLC0415 (import tardio intencional)
+        return requests
+    except ModuleNotFoundError as exc:  # pragma: no cover
+        raise RuntimeError(
+            "O pacote 'requests' é necessário para chamadas às APIs. "
+            "Instala com: pip install requests"
+        ) from exc
 
 ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 API_FOOTBALL_BASE = "https://v3.football.api-sports.io"
@@ -109,7 +126,7 @@ def fetch_odds_the_odds_api(
     ``h2h,totals,btts`` conforme o desporto.
     """
     key = _require_key("ODDS_API_KEY")
-    sess = session or requests.Session()
+    sess = session or _import_requests().Session()
     url = f"{ODDS_API_BASE}/sports/{sport}/odds"
     params = {
         "apiKey": key,
@@ -200,7 +217,7 @@ def fetch_team_form_api_football(
 ) -> dict[str, Any]:
     """Últimos ``last`` jogos de uma equipa (forma, golos marcados/sofridos)."""
     key = _require_key("API_FOOTBALL_KEY")
-    sess = session or requests.Session()
+    sess = session or _import_requests().Session()
     url = f"{API_FOOTBALL_BASE}/fixtures"
     params = {"team": team_id, "last": last}
     headers = {"x-apisports-key": key}

@@ -18,8 +18,8 @@ import sys
 from typing import Sequence
 
 from .devig import devig_proportional, devig_shin, margin
-from .pipeline import analyze_games, load_games, values_to_csv
-from .value import DEFAULT_EV_THRESHOLD, ValueSelection
+from .pipeline import AnalysisReport, analyze_games, load_games, values_to_csv
+from .value import DEFAULT_EV_THRESHOLD, MIN_BOOKS, MIN_CONSENSUS_PROB, ValueSelection
 
 
 def _clip(text: str, width: int) -> str:
@@ -35,20 +35,24 @@ def print_table(values: Sequence[ValueSelection]) -> None:
         return
 
     headers = [
-        "Jogo", "Mercado", "Seleção", "Melhor odd", "Casa",
-        "Prob. cons.", "Odd justa", "EV%",
+        "Jogo", "Mercado", "Seleção", "Melhor odd", "Casa", "Mediana",
+        "Desvio", "Prob. cons.", "Odd justa", "EV%", "Shin/Prop", "Confirma",
     ]
     rows = []
     for v in values:
         rows.append([
-            _clip(v.game, 28),
-            _clip(v.market, 14),
-            _clip(v.selection, 18),
+            _clip(v.game, 26),
+            _clip(v.market, 13),
+            _clip(v.selection, 16),
             f"{v.best_odds:.2f}",
-            _clip(v.best_book, 12),
+            _clip(v.best_book, 11),
+            f"{v.median_odds:.2f}",
+            f"{v.odds_dispersion:.2f}",
             f"{v.consensus_prob * 100:.1f}%",
             f"{v.fair_odds:.2f}",
             f"{v.ev_pct:+.1f}%",
+            f"{v.ev_shin * 100:+.1f}/{v.ev_proportional * 100:+.1f}",
+            v.agreement,
         ])
 
     widths = [len(h) for h in headers]
@@ -88,6 +92,10 @@ def build_parser() -> argparse.ArgumentParser:
                    help="Método de remoção de margem para o consenso.")
     p.add_argument("--ev-threshold", type=float, default=DEFAULT_EV_THRESHOLD,
                    help="EV mínimo para sinalizar (fracionário; 0.02 = +2%%).")
+    p.add_argument("--min-books", type=int, default=MIN_BOOKS,
+                   help="Nº mínimo de casas por mercado (abaixo disto, descarta).")
+    p.add_argument("--min-prob", type=float, default=MIN_CONSENSUS_PROB,
+                   help="Prob. de consenso mínima por seleção (abaixo, ignora).")
     p.add_argument("--csv", metavar="FICHEIRO", help="Caminho para exportar CSV.")
     p.add_argument("--compare-devig", action="store_true",
                    help="Mostra comparação proporcional vs Shin para o 1º mercado.")
@@ -126,22 +134,47 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.compare_devig:
         _compare_devig_demo(games)
 
-    values, markets_analyzed = analyze_games(games, args.method, args.ev_threshold)
-    print_table(values)
+    report = analyze_games(
+        games,
+        method=args.method,
+        ev_threshold=args.ev_threshold,
+        min_books=args.min_books,
+        min_prob=args.min_prob,
+    )
+    print_table(report.values)
+    print_bookmaker_stats(report)
 
     if args.csv:
-        write_csv(values, args.csv)
+        write_csv(report.values, args.csv)
         print(f"\nCSV exportado para: {args.csv}")
 
     print(
-        f"\nResumo: {len(values)} mercados com EV positivo encontrados "
-        f"de {markets_analyzed} analisados "
-        f"(método de devig: {args.method}, limite EV: {args.ev_threshold * 100:+.1f}%)."
+        f"\nResumo: {report.n_value} seleções com EV positivo encontradas "
+        f"de {report.markets_analyzed} mercados analisados "
+        f"({report.markets_discarded_few_books} descartados por < {args.min_books} casas; "
+        f"devig: {args.method}, limite EV: {args.ev_threshold * 100:+.1f}%, "
+        f"prob. mín.: {args.min_prob * 100:.0f}%)."
     )
-    outliers = sum(1 for v in values if v.is_outlier)
+    outliers = sum(1 for v in report.values if v.is_outlier)
     if outliers:
-        print(f"         {outliers} sinalizados como outlier — confirmar antes de apostar.")
+        print(f"         {outliers} sinalizadas como outlier — confirmar antes de apostar.")
+    only_one = sum(1 for v in report.values if len(v.flagged_by) == 1)
+    if only_one:
+        print(f"         {only_one} confirmadas por apenas um método (menos robustas).")
     return 0
+
+
+def print_bookmaker_stats(report: AnalysisReport) -> None:
+    """(4) Estatística: quantas vezes cada casa deu a melhor odd."""
+    if not report.best_book_counts:
+        return
+    total = report.selections_evaluated
+    print(f"\nMelhor odd por casa (em {total} seleções avaliadas):")
+    for book, count in report.best_book_counts.most_common():
+        share = count / total * 100 if total else 0.0
+        flag = "  ← aparece muito acima do resto (possível outlier sistemático)" \
+            if share >= 40 and total >= 5 else ""
+        print(f"  {book:<18} {count:>3}  ({share:4.1f}%){flag}")
 
 
 if __name__ == "__main__":

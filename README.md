@@ -28,6 +28,25 @@ fetch.py   ──►  devig.py   ──►  value.py   ──►  cli.py
    mercados combinados (margem alta) para reduzir falsos positivos.
 5. **Output** — tabela em consola, CSV e resumo final.
 
+### Filtros de fiabilidade
+
+Para reduzir falsos positivos onde os cálculos são frágeis:
+
+- **Mín. 5 casas por mercado** — mercados com menos casas são **descartados**
+  (consenso pouco fiável). Ajustável com `--min-books`.
+- **Prob. de consenso ≥ 10%** — seleções na cauda (azarões extremos) são
+  **ignoradas**: o devig é pouco fiável aí e o EV fica hipersensível a erros.
+  Ajustável com `--min-prob`.
+- **Concordância Shin × proporcional** — cada sinal é avaliado sob os **dois**
+  métodos de devig; a coluna `Confirma` diz se ambos concordam. Sinais de um
+  só método são marcados como **menos robustos**.
+- **Mediana e desvio** — além da melhor odd, mostra-se a **odd mediana** e o
+  **desvio-padrão** entre casas, para contextualizar quão fora da linha está a
+  melhor odd.
+- **Estatística por casa** — conta quantas vezes cada bookmaker aparece como
+  "melhor odd"; uma casa que domina (≥40%) é assinalada como possível
+  **outlier sistemático** (linhas moles/desatualizadas, não valor real).
+
 ---
 
 ## Instalação
@@ -62,14 +81,20 @@ Opções principais:
 | `--regions` | `eu,uk,us,au` |
 | `--method` | `proportional` ou `shin` (devig usado no consenso) |
 | `--ev-threshold` | EV mínimo para sinalizar (fracionário; `0.02` = +2%) |
+| `--min-books` | nº mínimo de casas por mercado (padrão 5) |
+| `--min-prob` | prob. de consenso mínima por seleção (padrão `0.10`) |
 | `--compare-devig` | mostra proporcional vs Shin para o 1.º mercado |
 | `--csv` | caminho do CSV de saída |
 | `--from-json` | lê JSON local em vez de chamar a API |
 
 ### Colunas da tabela / CSV
 
-`jogo · mercado · seleção · melhor odd · casa · prob. consenso · odd justa · EV%`
-(o CSV inclui ainda `n_casas`, `dispersao_odds`, `outlier`, `avisos`).
+`jogo · mercado · seleção · melhor odd · casa · mediana · desvio · prob. consenso ·
+odd justa · EV% · EV Shin/Prop · confirma (concordância dos métodos)`.
+O CSV inclui ainda `ev_shin_pct`, `ev_prop_pct`, `metodos_confirmam`, `n_casas`,
+`dispersao_odds`, `outlier`, `avisos`. No fim, um resumo lista quantas casas
+deram a melhor odd (estatística de outliers) e quantos mercados foram
+descartados por terem menos de 5 casas.
 
 ---
 
