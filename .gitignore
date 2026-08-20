@@ -1,1 +1,12 @@
 node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Outputs
+*.csv
+!examples/*.csv
