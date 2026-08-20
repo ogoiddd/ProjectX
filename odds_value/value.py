@@ -85,7 +85,7 @@ class ValueSelection:
     selection: str
     best_odds: float
     best_book: str
-    median_odds: float              # odd mediana entre as casas
+    median_odds: float              # odd mediana entre TODAS as casas
     consensus_prob: float           # prob. de consenso do método primário
     fair_odds: float                # odd justa do método primário
     ev: float                       # EV fracionário do método primário
@@ -95,11 +95,16 @@ class ValueSelection:
     n_books: int
     odds_dispersion: float          # desvio-padrão das odds entre casas
     is_outlier: bool                # melhor odd muito acima do resto
+    section: str = "actionable"     # "actionable" (whitelist) ou "reference"
     warnings: list[str] = field(default_factory=list)
 
     @property
     def ev_pct(self) -> float:
         return self.ev * 100.0
+
+    @property
+    def is_actionable(self) -> bool:
+        return self.section == "actionable"
 
     @property
     def best_ev(self) -> float:
@@ -144,6 +149,31 @@ class MarketResult:
     discarded_few_books: bool = False
 
 
+def normalize_whitelist(books: Sequence[str] | str | None) -> set[str] | None:
+    """Normaliza a whitelist de casas. Devolve ``None`` se não houver whitelist.
+
+    Aceita uma string separada por vírgulas ou uma sequência de nomes.
+    """
+    if books is None:
+        return None
+    if isinstance(books, str):
+        books = books.split(",")
+    tokens = {b.strip().lower() for b in books if b and b.strip()}
+    return tokens or None
+
+
+def book_in_whitelist(bookmaker: str, whitelist: set[str] | None) -> bool:
+    """True se ``bookmaker`` corresponde à whitelist (ou se não há whitelist).
+
+    A correspondência é tolerante: ``betfair`` casa com ``betfair_ex_eu`` e
+    vice-versa (comparação por inclusão, sem distinção de maiúsculas).
+    """
+    if not whitelist:
+        return True
+    b = bookmaker.lower()
+    return any(t == b or t in b or b in t for t in whitelist)
+
+
 def analyze_market(
     game: str,
     market: str,
@@ -154,12 +184,18 @@ def analyze_market(
     ev_threshold: float = DEFAULT_EV_THRESHOLD,
     min_books: int = MIN_BOOKS,
     min_prob: float = MIN_CONSENSUS_PROB,
+    whitelist: Sequence[str] | str | None = None,
 ) -> MarketResult:
     """Avalia todas as seleções de um mercado.
 
     ``quotes`` são as odds de cada casa para as ``selections`` (mesma ordem).
     ``method`` é o método primário (o que preenche as colunas principais);
     o outro é sempre calculado para comparação.
+
+    ``whitelist``: casas onde o utilizador pode apostar. TODAS as casas entram
+    no consenso, mas só as da whitelist geram sinais "acionáveis"; o valor
+    encontrado nas restantes é marcado como "referência" (útil só para calibrar
+    o consenso). Sem whitelist, tudo é considerado acionável.
     """
     context = context or ContextFlags()
     n_books = len(quotes)
@@ -173,20 +209,21 @@ def analyze_market(
     if method not in METHODS:
         method = "shin"
     alt = "proportional" if method == "shin" else "shin"
+    wl = normalize_whitelist(whitelist)
 
+    # Consenso usa SEMPRE todas as casas (mais dados = melhor estimativa).
     con = {m: consensus(quotes, method=m) for m in METHODS}
     con_primary = con[method]
     warnings = context.warnings()
 
     result = MarketResult(game=game, market=market, n_books=n_books)
     for i, sel in enumerate(selections):
-        col = [q.odds[i] for q in quotes]           # odds desta seleção em todas as casas
-        best_idx = max(range(len(col)), key=lambda k: col[k])
-        best_odds = col[best_idx]
-        best_book = quotes[best_idx].bookmaker
+        pairs = [(q.bookmaker, q.odds[i]) for q in quotes]   # (casa, odd) todas
+        col = [o for _, o in pairs]
+        overall_best = max(pairs, key=lambda p: p[1])
 
-        # (4) Regista a melhor casa desta seleção, para a estatística por casa.
-        result.best_books.append(best_book)
+        # (4) Estatística por casa usa a melhor odd global (independente da whitelist).
+        result.best_books.append(overall_best[0])
 
         prob = con_primary.probabilities[i]
         fair = con_primary.fair_odds[i]
@@ -195,54 +232,58 @@ def analyze_market(
         if prob < min_prob:
             continue
 
-        ev_by_method = {
-            m: expected_value(best_odds, con[m].probabilities[i]) for m in METHODS
-        }
-        flagged_by = [m for m in METHODS if ev_by_method[m] >= ev_threshold]
-        if not flagged_by:
-            continue
-
         median_odds = statistics.median(col)
         dispersion = statistics.pstdev(col) if len(col) > 1 else 0.0
-        # Outlier: melhor odd muito acima da odd justa de consenso.
-        is_outlier = fair > 0 and (best_odds / fair - 1.0) >= OUTLIER_ODDS_RATIO
 
-        sel_warnings = list(warnings)
-        if is_outlier:
-            sel_warnings.append(
-                f"Melhor odd ({best_odds:.2f}) está {best_odds / fair - 1.0:+.0%} "
-                f"acima da odd justa ({fair:.2f}): pode ser valor OU erro/"
-                "informação em falta na casa. Confirmar antes de apostar."
-            )
-        # (2) Sinal confirmado por um só método é menos robusto.
-        if len(flagged_by) == 1:
-            only = _METHOD_LABEL[flagged_by[0]]
-            other = _METHOD_LABEL[alt if flagged_by[0] == method else method]
-            sel_warnings.append(
-                f"Sinal só confirmado pelo método {only}; o método {other} não o "
-                "marca como valor — menos robusto."
+        def _make(book: str, odds: float, section: str) -> ValueSelection | None:
+            ev_by_method = {
+                m: expected_value(odds, con[m].probabilities[i]) for m in METHODS
+            }
+            flagged_by = [m for m in METHODS if ev_by_method[m] >= ev_threshold]
+            if not flagged_by:
+                return None
+
+            is_outlier = fair > 0 and (odds / fair - 1.0) >= OUTLIER_ODDS_RATIO
+            sel_warnings = list(warnings)
+            if is_outlier:
+                sel_warnings.append(
+                    f"Melhor odd ({odds:.2f}) está {odds / fair - 1.0:+.0%} acima da "
+                    f"odd justa ({fair:.2f}): pode ser valor OU erro/informação em "
+                    "falta na casa. Confirmar antes de apostar."
+                )
+            # (2) Sinal confirmado por um só método é menos robusto.
+            if len(flagged_by) == 1:
+                only = _METHOD_LABEL[flagged_by[0]]
+                other = _METHOD_LABEL[alt if flagged_by[0] == method else method]
+                sel_warnings.append(
+                    f"Sinal só confirmado pelo método {only}; o método {other} não o "
+                    "marca como valor — menos robusto."
+                )
+            return ValueSelection(
+                game=game, market=market, selection=sel,
+                best_odds=odds, best_book=book, median_odds=median_odds,
+                consensus_prob=prob, fair_odds=fair,
+                ev=ev_by_method[method], ev_shin=ev_by_method["shin"],
+                ev_proportional=ev_by_method["proportional"], flagged_by=flagged_by,
+                n_books=n_books, odds_dispersion=dispersion, is_outlier=is_outlier,
+                section=section, warnings=sel_warnings,
             )
 
-        result.values.append(
-            ValueSelection(
-                game=game,
-                market=market,
-                selection=sel,
-                best_odds=best_odds,
-                best_book=best_book,
-                median_odds=median_odds,
-                consensus_prob=prob,
-                fair_odds=fair,
-                ev=ev_by_method[method],
-                ev_shin=ev_by_method["shin"],
-                ev_proportional=ev_by_method["proportional"],
-                flagged_by=flagged_by,
-                n_books=n_books,
-                odds_dispersion=dispersion,
-                is_outlier=is_outlier,
-                warnings=sel_warnings,
-            )
-        )
+        # Melhor odd DENTRO da whitelist (acionável) e FORA dela (referência).
+        wl_pairs = [(b, o) for b, o in pairs if book_in_whitelist(b, wl)]
+        rest_pairs = [(b, o) for b, o in pairs if not book_in_whitelist(b, wl)]
+
+        if wl_pairs:
+            b, o = max(wl_pairs, key=lambda p: p[1])
+            vs = _make(b, o, "actionable")
+            if vs:
+                result.values.append(vs)
+        # Só há secção "referência" quando existe whitelist a definir "as outras".
+        if wl and rest_pairs:
+            b, o = max(rest_pairs, key=lambda p: p[1])
+            vs = _make(b, o, "reference")
+            if vs:
+                result.values.append(vs)
     return result
 
 

@@ -93,6 +93,7 @@ def _form_page(params: dict[str, str], message: str = "") -> str:
     method = params.get("method", "shin")
     ev = params.get("ev", "2")
     demo = params.get("demo", "")
+    books = params.get("books", "")
 
     sport_opts = "".join(
         f'<option value="{_esc(k)}"{" selected" if k == sport else ""}>{_esc(v)}</option>'
@@ -131,6 +132,9 @@ def _form_page(params: dict[str, str], message: str = "") -> str:
       <input name="ev" type="number" step="0.5" value="{_esc(ev)}">
     </label>
   </div>
+  <label>Casas onde posso apostar <span class="muted">(opcional, separadas por vírgula)</span>
+    <input name="books" value="{_esc(books)}" placeholder="bet365,betfair,unibet">
+  </label>
   <label class="muted">
     <input type="checkbox" name="demo" value="1"{" checked" if demo else ""}
            style="width:auto;display:inline;margin-right:.4rem">
@@ -146,31 +150,45 @@ Sem chave, ativa a demo acima.</p>
 _COLSPAN = 10
 
 
-def _results_page(params: dict[str, str], report) -> str:
-    method = params.get("method", "shin")
-    ev = params.get("ev", "2")
-    csv_params = urlencode({**params})
-    values = report.values
-    outliers = sum(1 for v in values if v.is_outlier)
-    only_one = sum(1 for v in values if len(v.flagged_by) == 1)
-
-    if values:
-        rows = "".join(_result_row(v) for v in values)
-        table = f"""<div class="tablewrap"><table>
+def _values_table(values) -> str:
+    if not values:
+        return '<p class="muted">Nenhuma seleção com EV acima do limite.</p>'
+    rows = "".join(_result_row(v) for v in values)
+    return f"""<div class="tablewrap"><table>
 <thead><tr>
 <th>Jogo</th><th>Mercado</th><th>Seleção</th>
 <th class="num">Melhor</th><th>Casa</th>
 <th class="num">Mediana</th><th class="num">Desvio</th>
 <th class="num">Prob. cons.</th><th class="num">EV%</th><th>Confirma</th>
 </tr></thead><tbody>{rows}</tbody></table></div>"""
+
+
+def _results_page(params: dict[str, str], report) -> str:
+    method = params.get("method", "shin")
+    ev = params.get("ev", "2")
+    csv_params = urlencode({**params})
+    actionable = report.actionable
+    outliers = sum(1 for v in actionable if v.is_outlier)
+    only_one = sum(1 for v in actionable if len(v.flagged_by) == 1)
+
+    if report.has_whitelist:
+        sections = (
+            '<h2 style="font-size:1.05rem;margin:1rem 0 .3rem">✅ Acionável '
+            '<span class="muted">— casas onde podes apostar</span></h2>'
+            + _values_table(actionable)
+            + '<h2 style="font-size:1.05rem;margin:1.4rem 0 .3rem">🔎 Referência '
+            '<span class="muted">— valor noutras casas, só para calibrar o consenso</span></h2>'
+            + _values_table(report.reference)
+        )
     else:
-        table = '<p class="muted">Nenhuma seleção com EV acima do limite.</p>'
+        sections = _values_table(actionable)
 
     notes = []
     if outliers:
         notes.append(f"{outliers} outlier(s)")
     if only_one:
         notes.append(f"{only_one} confirmada(s) por só 1 método")
+    ref_note = f", {len(report.reference)} de referência" if report.has_whitelist else ""
     note = (" · " + " · ".join(notes)) if notes else ""
 
     return f"""<!doctype html>
@@ -185,11 +203,12 @@ def _results_page(params: dict[str, str], report) -> str:
   <a href="/"><button class="secondary" type="button">◀ Nova pesquisa</button></a>
   <a href="/analyze.csv?{_esc(csv_params)}"><button type="button">⬇ Descarregar CSV</button></a>
 </div>
-{table}
+{sections}
 {_bookmaker_stats_html(report)}
 <div class="summary">
-  {len(values)} seleções com EV positivo de {report.markets_analyzed} mercados
-  analisados ({report.markets_discarded_few_books} descartados por poucas casas;
+  {len(actionable)} seleções acionáveis com EV positivo{_esc(ref_note)} de
+  {report.markets_analyzed} mercados analisados
+  ({report.markets_discarded_few_books} descartados por poucas casas;
   devig: {_esc(method)}, limite: +{_esc(ev)}%){_esc(note)}.
 </div>
 <p class="disclaimer">O consenso é uma estimativa, não a verdade. Uma odd muito acima
@@ -256,7 +275,10 @@ def _run(params: dict[str, str]):
         regions=params.get("regions", "eu,uk"),
         markets=params.get("markets", "h2h,totals"),
     )
-    return analyze_games(games, method=method, ev_threshold=ev_threshold)
+    return analyze_games(
+        games, method=method, ev_threshold=ev_threshold,
+        whitelist=params.get("books") or None,
+    )
 
 
 class Handler(BaseHTTPRequestHandler):

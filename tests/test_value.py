@@ -7,7 +7,9 @@ from odds_value.pipeline import analyze_games, values_to_csv
 from odds_value.value import (
     ContextFlags,
     analyze_market,
+    book_in_whitelist,
     expected_value,
+    normalize_whitelist,
     rank_by_value,
 )
 from odds_value.fetch import GameOdds, MarketOdds
@@ -163,6 +165,91 @@ def test_pipeline_best_book_counts_and_discards():
     assert report.selections_evaluated == 2
 
 
+# --- whitelist: acionável vs referência ----------------------------------- #
+def test_normalize_whitelist():
+    assert normalize_whitelist(None) is None
+    assert normalize_whitelist("") is None
+    assert normalize_whitelist("bet365, betfair") == {"bet365", "betfair"}
+    assert normalize_whitelist(["Bet365", " Unibet "]) == {"bet365", "unibet"}
+
+
+def test_book_in_whitelist_tolerant_match():
+    wl = normalize_whitelist("betfair,bet365")
+    assert book_in_whitelist("betfair_ex_eu", wl)   # inclusão parcial
+    assert book_in_whitelist("bet365", wl)
+    assert not book_in_whitelist("pinnacle", wl)
+    # sem whitelist, tudo passa
+    assert book_in_whitelist("qualquer", None)
+
+
+def test_no_whitelist_all_actionable():
+    quotes = _books([
+        ("pinnacle", [2.0, 2.0]), ("bet365", [2.0, 2.0]), ("williamhill", [2.0, 2.0]),
+        ("unibet", [2.0, 2.0]), ("softbook", [2.60, 1.55]),
+    ])
+    res = analyze_market("A vs B", "1X2", ["A", "B"], quotes, method="proportional")
+    assert all(v.section == "actionable" for v in res.values)
+
+
+def test_whitelist_splits_actionable_and_reference():
+    # softbook (não-whitelist) dá a melhor odd em A; bet365 (whitelist) também
+    # tem valor mas menor. Deve haver acionável (bet365) e referência (softbook).
+    quotes = _books([
+        ("pinnacle", [2.0, 2.0]), ("williamhill", [2.0, 2.0]), ("unibet", [2.0, 2.0]),
+        ("bet365", [2.35, 1.75]),      # whitelist, com algum valor em A
+        ("softbook", [2.70, 1.55]),    # fora da whitelist, ainda mais valor em A
+    ])
+    res = analyze_market("A vs B", "1X2", ["A", "B"], quotes,
+                         method="proportional", whitelist="bet365,betfair")
+    a_action = [v for v in res.values if v.selection == "A" and v.section == "actionable"]
+    a_ref = [v for v in res.values if v.selection == "A" and v.section == "reference"]
+    assert a_action and a_action[0].best_book == "bet365"
+    assert a_ref and a_ref[0].best_book == "softbook"
+    # a odd de referência é melhor do que a acionável (valor que não consigo apanhar)
+    assert a_ref[0].best_odds > a_action[0].best_odds
+
+
+def test_whitelist_no_actionable_when_value_only_outside():
+    # Só softbook (fora da whitelist) tem valor; a whitelist não deve acionar nada.
+    quotes = _books([
+        ("pinnacle", [2.0, 2.0]), ("williamhill", [2.0, 2.0]), ("unibet", [2.0, 2.0]),
+        ("bet365", [1.80, 1.80]),      # whitelist, odds curtas: sem valor em lado nenhum
+        ("softbook", [2.60, 1.55]),    # fora da whitelist, com valor em A
+    ])
+    res = analyze_market("A vs B", "1X2", ["A", "B"], quotes,
+                         method="proportional", whitelist="bet365")
+    assert not [v for v in res.values if v.section == "actionable"]
+    assert [v for v in res.values if v.section == "reference"]
+
+
+def test_whitelist_consensus_uses_all_books():
+    # O consenso não muda com a whitelist (usa sempre todas as casas): a
+    # prob_consenso da seleção A é igual com e sem whitelist.
+    quotes = _books([
+        ("pinnacle", [2.0, 2.0]), ("williamhill", [2.0, 2.0]), ("unibet", [2.0, 2.0]),
+        ("bet365", [2.35, 1.75]), ("softbook", [2.70, 1.55]),
+    ])
+    without = analyze_market("A vs B", "1X2", ["A", "B"], quotes, method="proportional")
+    withwl = analyze_market("A vs B", "1X2", ["A", "B"], quotes,
+                            method="proportional", whitelist="bet365")
+    pa_without = next(v for v in without.values if v.selection == "A").consensus_prob
+    pa_with = next(v for v in withwl.values
+                   if v.selection == "A" and v.section == "actionable").consensus_prob
+    assert pa_without == pytest.approx(pa_with)
+
+
+def test_pipeline_report_actionable_reference_split():
+    good = _game_with("1X2", ["A", "B"], [
+        ("pinnacle", [2.0, 2.0]), ("williamhill", [2.0, 2.0]), ("unibet", [2.0, 2.0]),
+        ("bet365", [2.35, 1.75]), ("softbook", [2.70, 1.55]),
+    ])
+    report = analyze_games([good], method="proportional", whitelist="bet365")
+    assert report.has_whitelist
+    assert any(v.best_book == "bet365" for v in report.actionable)
+    assert any(v.best_book == "softbook" for v in report.reference)
+    assert report.n_value == len(report.actionable)
+
+
 def test_pipeline_csv_has_new_columns():
     good = _game_with("1X2", ["A", "B"], [
         ("pinnacle", [2.0, 2.0]), ("bet365", [2.0, 2.0]), ("williamhill", [2.0, 2.0]),
@@ -171,5 +258,5 @@ def test_pipeline_csv_has_new_columns():
     report = analyze_games([good], method="proportional")
     csv = values_to_csv(report.values)
     header = csv.splitlines()[0]
-    for col in ("odd_mediana", "ev_shin_pct", "ev_prop_pct", "metodos_confirmam"):
+    for col in ("seccao", "odd_mediana", "ev_shin_pct", "ev_prop_pct", "metodos_confirmam"):
         assert col in header

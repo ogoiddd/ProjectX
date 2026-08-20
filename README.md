@@ -47,6 +47,22 @@ Para reduzir falsos positivos onde os cálculos são frágeis:
   "melhor odd"; uma casa que domina (≥40%) é assinalada como possível
   **outlier sistemático** (linhas moles/desatualizadas, não valor real).
 
+### Whitelist: acionável vs referência
+
+Podes indicar as **casas onde consegues apostar** (`--books`, ou o campo na
+web). Nesse caso o output separa-se em duas secções:
+
+- **Acionável** — valor na melhor odd **entre as tuas casas**. É o que podes
+  mesmo jogar.
+- **Referência** — valor a viver **noutras casas** (a que não tens acesso).
+  Não é acionável, mas é informativo: se as casas afiadas (Pinnacle) estão
+  bem acima do consenso, confirma que a linha tem valor.
+
+Ponto importante: **todas** as casas continuam a entrar no cálculo do
+consenso (mais dados = melhor estimativa). A whitelist só decide o que conta
+como *oportunidade*, não o que entra na média. A correspondência de nomes é
+tolerante (`betfair` casa com `betfair_ex_eu`).
+
 ---
 
 ## Instalação
@@ -83,6 +99,7 @@ Opções principais:
 | `--ev-threshold` | EV mínimo para sinalizar (fracionário; `0.02` = +2%) |
 | `--min-books` | nº mínimo de casas por mercado (padrão 5) |
 | `--min-prob` | prob. de consenso mínima por seleção (padrão `0.10`) |
+| `--books` | whitelist de casas onde podes apostar (separadas por vírgula) |
 | `--compare-devig` | mostra proporcional vs Shin para o 1.º mercado |
 | `--csv` | caminho do CSV de saída |
 | `--from-json` | lê JSON local em vez de chamar a API |

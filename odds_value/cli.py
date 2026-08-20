@@ -96,6 +96,9 @@ def build_parser() -> argparse.ArgumentParser:
                    help="Nº mínimo de casas por mercado (abaixo disto, descarta).")
     p.add_argument("--min-prob", type=float, default=MIN_CONSENSUS_PROB,
                    help="Prob. de consenso mínima por seleção (abaixo, ignora).")
+    p.add_argument("--books", metavar="LISTA", default=None,
+                   help="Whitelist de casas onde podes apostar (separadas por vírgula). "
+                        "Só estas geram sinais 'acionáveis'; as outras vão para 'referência'.")
     p.add_argument("--csv", metavar="FICHEIRO", help="Caminho para exportar CSV.")
     p.add_argument("--compare-devig", action="store_true",
                    help="Mostra comparação proporcional vs Shin para o 1º mercado.")
@@ -140,27 +143,36 @@ def main(argv: Sequence[str] | None = None) -> int:
         ev_threshold=args.ev_threshold,
         min_books=args.min_books,
         min_prob=args.min_prob,
+        whitelist=args.books,
     )
-    print_table(report.values)
+
+    print("\n=== ACIONÁVEL (casas onde podes apostar) ===")
+    print_table(report.actionable)
+    if report.has_whitelist:
+        print("\n=== REFERÊNCIA (valor noutras casas — só para calibrar o consenso) ===")
+        print_table(report.reference)
+
     print_bookmaker_stats(report)
 
     if args.csv:
-        write_csv(report.values, args.csv)
+        write_csv(report.values, args.csv)   # CSV inclui ambas as secções
         print(f"\nCSV exportado para: {args.csv}")
 
+    wl_note = f", whitelist: {args.books}" if report.has_whitelist else ""
     print(
-        f"\nResumo: {report.n_value} seleções com EV positivo encontradas "
-        f"de {report.markets_analyzed} mercados analisados "
-        f"({report.markets_discarded_few_books} descartados por < {args.min_books} casas; "
-        f"devig: {args.method}, limite EV: {args.ev_threshold * 100:+.1f}%, "
-        f"prob. mín.: {args.min_prob * 100:.0f}%)."
+        f"\nResumo: {report.n_value} seleções ACIONÁVEIS com EV positivo "
+        f"({len(report.reference)} de referência) de {report.markets_analyzed} "
+        f"mercados analisados ({report.markets_discarded_few_books} descartados por "
+        f"< {args.min_books} casas; devig: {args.method}, "
+        f"limite EV: {args.ev_threshold * 100:+.1f}%, prob. mín.: {args.min_prob * 100:.0f}%"
+        f"{wl_note})."
     )
-    outliers = sum(1 for v in report.values if v.is_outlier)
+    outliers = sum(1 for v in report.actionable if v.is_outlier)
     if outliers:
-        print(f"         {outliers} sinalizadas como outlier — confirmar antes de apostar.")
-    only_one = sum(1 for v in report.values if len(v.flagged_by) == 1)
+        print(f"         {outliers} acionáveis marcadas como outlier — confirmar antes de apostar.")
+    only_one = sum(1 for v in report.actionable if len(v.flagged_by) == 1)
     if only_one:
-        print(f"         {only_one} confirmadas por apenas um método (menos robustas).")
+        print(f"         {only_one} acionáveis confirmadas por um só método (menos robustas).")
     return 0
 
 

@@ -21,6 +21,7 @@ from .value import (
     ContextFlags,
     ValueSelection,
     analyze_market,
+    normalize_whitelist,
     rank_by_value,
 )
 
@@ -34,10 +35,21 @@ class AnalysisReport:
     markets_discarded_few_books: int = 0                          # descartados (<min_books)
     best_book_counts: Counter = field(default_factory=Counter)    # casa -> nº de "melhor odd"
     selections_evaluated: int = 0                                 # seleções com melhor-odd
+    has_whitelist: bool = False                                   # whitelist configurada?
+
+    @property
+    def actionable(self) -> list[ValueSelection]:
+        """Valor em casas onde o utilizador pode apostar."""
+        return [v for v in self.values if v.section == "actionable"]
+
+    @property
+    def reference(self) -> list[ValueSelection]:
+        """Valor noutras casas (só para calibrar o consenso)."""
+        return [v for v in self.values if v.section == "reference"]
 
     @property
     def n_value(self) -> int:
-        return len(self.values)
+        return len(self.actionable)
 
 
 def analyze_games(
@@ -46,9 +58,10 @@ def analyze_games(
     ev_threshold: float = DEFAULT_EV_THRESHOLD,
     min_books: int = MIN_BOOKS,
     min_prob: float = MIN_CONSENSUS_PROB,
+    whitelist: Sequence[str] | str | None = None,
 ) -> AnalysisReport:
     """Corre a análise de valor sobre todos os jogos e agrega estatísticas."""
-    report = AnalysisReport()
+    report = AnalysisReport(has_whitelist=bool(normalize_whitelist(whitelist)))
     for g in games:
         for mkt in g.markets:
             ctx = ContextFlags(
@@ -67,6 +80,7 @@ def analyze_games(
                 ev_threshold=ev_threshold,
                 min_books=min_books,
                 min_prob=min_prob,
+                whitelist=whitelist,
             )
             if res.discarded_few_books:
                 report.markets_discarded_few_books += 1
@@ -104,15 +118,16 @@ def load_games(
 
 
 CSV_HEADER = [
-    "jogo", "mercado", "selecao", "melhor_odd", "casa", "odd_mediana",
+    "seccao", "jogo", "mercado", "selecao", "melhor_odd", "casa", "odd_mediana",
     "prob_consenso", "odd_justa", "ev_pct", "ev_shin_pct", "ev_prop_pct",
     "metodos_confirmam", "n_casas", "dispersao_odds", "outlier", "avisos",
 ]
 
 
 def _csv_row(v: ValueSelection) -> list[Any]:
+    seccao = "acionavel" if v.section == "actionable" else "referencia"
     return [
-        v.game, v.market, v.selection, f"{v.best_odds:.4f}", v.best_book,
+        seccao, v.game, v.market, v.selection, f"{v.best_odds:.4f}", v.best_book,
         f"{v.median_odds:.4f}", f"{v.consensus_prob:.4f}", f"{v.fair_odds:.4f}",
         f"{v.ev_pct:.2f}", f"{v.ev_shin * 100:.2f}", f"{v.ev_proportional * 100:.2f}",
         v.agreement, v.n_books, f"{v.odds_dispersion:.4f}", int(v.is_outlier),
