@@ -1,0 +1,87 @@
+[
+  {
+    "id": "demo-match-1",
+    "sport_key": "soccer_epl",
+    "commence_time": "2026-08-22T14:00:00Z",
+    "home_team": "Arsenal",
+    "away_team": "Chelsea",
+    "bookmakers": [
+      {
+        "key": "pinnacle",
+        "markets": [
+          {"key": "h2h", "outcomes": [
+            {"name": "Arsenal", "price": 2.05},
+            {"name": "Draw", "price": 3.55},
+            {"name": "Chelsea", "price": 3.75}
+          ]}
+        ]
+      },
+      {
+        "key": "bet365",
+        "markets": [
+          {"key": "h2h", "outcomes": [
+            {"name": "Arsenal", "price": 2.00},
+            {"name": "Draw", "price": 3.50},
+            {"name": "Chelsea", "price": 3.60}
+          ]}
+        ]
+      },
+      {
+        "key": "williamhill",
+        "markets": [
+          {"key": "h2h", "outcomes": [
+            {"name": "Arsenal", "price": 1.95},
+            {"name": "Draw", "price": 3.40},
+            {"name": "Chelsea", "price": 3.80}
+          ]}
+        ]
+      },
+      {
+        "key": "softbook_value",
+        "markets": [
+          {"key": "h2h", "outcomes": [
+            {"name": "Arsenal", "price": 2.10},
+            {"name": "Draw", "price": 3.60},
+            {"name": "Chelsea", "price": 4.40}
+          ]}
+        ]
+      }
+    ]
+  },
+  {
+    "id": "demo-match-2",
+    "sport_key": "soccer_conmebol_copa_libertadores",
+    "commence_time": "2026-08-23T23:00:00Z",
+    "home_team": "Bolivar La Paz",
+    "away_team": "Flamengo",
+    "bookmakers": [
+      {
+        "key": "pinnacle",
+        "markets": [
+          {"key": "totals", "outcomes": [
+            {"name": "Over", "price": 1.95, "point": 2.5},
+            {"name": "Under", "price": 1.95, "point": 2.5}
+          ]}
+        ]
+      },
+      {
+        "key": "bet365",
+        "markets": [
+          {"key": "totals", "outcomes": [
+            {"name": "Over", "price": 1.90, "point": 2.5},
+            {"name": "Under", "price": 1.90, "point": 2.5}
+          ]}
+        ]
+      },
+      {
+        "key": "softbook_value",
+        "markets": [
+          {"key": "totals", "outcomes": [
+            {"name": "Over", "price": 2.15, "point": 2.5},
+            {"name": "Under", "price": 1.78, "point": 2.5}
+          ]}
+        ]
+      }
+    ]
+  }
+]
