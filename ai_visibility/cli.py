@@ -58,20 +58,31 @@ def main(argv: list[str] | None = None) -> int:
     s = audit.score
     hits = sum(1 for r in audit.results if r.business_mentioned)
     total = len(audit.results)
+    failed = [r for r in audit.results if r.error]
 
     print(f"\n=== {b.name} — {b.category} — {b.city or ''}{',' if b.city and b.state else ''} {b.state or ''}".rstrip())
     print(f"URL analisado: {b.fetched_url or b.url}")
     print(f"Provider: {audit.provider} · Modelo: {audit.model}")
     print()
+    if failed:
+        # honesto: se todas as queries falharam, o Presence não é real
+        pct_failed = int(100 * len(failed) / total) if total else 0
+        print(f"⚠ {len(failed)}/{total} queries falharam contra o LLM ({pct_failed}%).")
+        # mostra o 1º erro para diagnóstico
+        print(f"  Primeiro erro: {failed[0].error}")
+        if len(failed) == total:
+            print("  Nenhuma menção pode ser inferida — o score de Presence é 0 por falta de dados, não por invisibilidade real.")
+        print()
     print(f"AI Visibility Score: {s.total}/100 ({s.tier})")
-    print(f"  Presence:        {s.presence}/45   [{hits}/{total} menções]")
+    print(f"  Presence:        {s.presence}/45   [{hits}/{total - len(failed)} menções em queries bem-sucedidas]")
     print(f"  Content Depth:   {s.content_depth}/30")
     print(f"  Structured Data: {s.structured_data}/25")
     print()
-    print("Top concorrentes mencionados pelo AI:")
-    for name, count in audit.summary["top_competitors"][:5]:
-        print(f"  - {name} ({count}x)")
-    print()
+    if audit.summary["top_competitors"]:
+        print("Top concorrentes mencionados pelo AI:")
+        for name, count in audit.summary["top_competitors"][:5]:
+            print(f"  - {name} ({count}x)")
+        print()
     print("Ficheiros gerados:")
     for k, v in paths.items():
         print(f"  {k:>16}: {v}")

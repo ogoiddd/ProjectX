@@ -149,8 +149,13 @@ def _call_openai(
     api_key: str,
     session: requests.Session,
     timeout: float,
+    max_retries: int = 3,
 ) -> tuple[str, int]:
-    """Chama o endpoint chat.completions e devolve (texto, latency_ms)."""
+    """Chama o endpoint chat.completions e devolve (texto, latency_ms).
+
+    Faz retry com backoff exponencial (1s, 2s, 4s) em 429/5xx — respeita o
+    header ``Retry-After`` quando presente.
+    """
     payload = {
         "model": model,
         "messages": [
@@ -173,12 +178,27 @@ def _call_openai(
         "Content-Type": "application/json",
     }
     t0 = time.time()
-    resp = session.post(OPENAI_URL, json=payload, headers=headers, timeout=timeout)
-    latency_ms = int((time.time() - t0) * 1000)
-    resp.raise_for_status()
-    data = resp.json()
-    text = data["choices"][0]["message"]["content"]
-    return text, latency_ms
+    last_status: int | None = None
+    last_body: str = ""
+    for attempt in range(max_retries + 1):
+        resp = session.post(OPENAI_URL, json=payload, headers=headers, timeout=timeout)
+        if resp.status_code < 400:
+            latency_ms = int((time.time() - t0) * 1000)
+            data = resp.json()
+            text = data["choices"][0]["message"]["content"]
+            return text, latency_ms
+
+        last_status = resp.status_code
+        last_body = (resp.text or "")[:400]
+        # não tentar de novo em erros do cliente (excepto 429)
+        retryable = resp.status_code == 429 or 500 <= resp.status_code < 600
+        if not retryable or attempt == max_retries:
+            break
+        retry_after = resp.headers.get("Retry-After")
+        wait = float(retry_after) if retry_after and retry_after.replace(".", "").isdigit() else (2 ** attempt)
+        time.sleep(wait)
+
+    raise RuntimeError(f"OpenAI HTTP {last_status}: {last_body}")
 
 
 def _mock_response(prompt: str, category: str, location: str, business_name: str) -> str:
@@ -285,6 +305,16 @@ def run_queries(
                 response_text="",
                 business_mentioned=False,
                 error=f"network: {exc}",
+            ))
+        except RuntimeError as exc:
+            # RuntimeError vem do _call_openai com o status HTTP + body
+            results.append(QueryResult(
+                query=q,
+                provider=provider,
+                model=model,
+                response_text="",
+                business_mentioned=False,
+                error=str(exc),
             ))
         except Exception as exc:
             results.append(QueryResult(
