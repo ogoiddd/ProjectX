@@ -1,3 +1,100 @@
+# ProjectX
+
+Este repositório reúne dois módulos independentes:
+
+- **[`ai_visibility/`](#ai_visibility--auditoria-de-visibilidade-em-ai)** —
+  auditoria de visibilidade em AI (ChatGPT/Perplexity) para negócios locais.
+  Gera um relatório PDF-pronto e uma *directory page* AI-friendly para ser
+  vendida como serviço recorrente.
+- **[`odds_value/`](#odds_value--análise-de-valor-em-odds-de-futebol)** —
+  análise de valor esperado positivo em odds de futebol.
+
+---
+
+# ai_visibility — auditoria de visibilidade em AI
+
+Auditoria "à la [highrank.ai](https://highrank.ai)": dado o URL de um negócio,
+corre queries realistas de comprador contra o ChatGPT (ou outro LLM), verifica
+se o negócio é mencionado, compara com concorrentes citados pelo AI, e gera:
+
+1. **Relatório HTML/PDF** — o *lead magnet* enviado por email ao dono do
+   negócio (score /100, breakdown, recomendações).
+2. **Directory page AI-friendly** — página autónoma com `LocalBusiness` +
+   `FAQPage` JSON-LD, o *deliverable* recorrente (~$600/mês no modelo original).
+
+## Como funciona
+
+```
+fetch.py ──► queries.py ──► llm_check.py ──► score.py ──► report.py + directory.py
+(site)     (10 buyer     (ChatGPT/mock)    (/100)      (HTML PDF + directory)
+             queries)
+```
+
+1. **Fetch** — descarrega a landing page, extrai título, headings, texto,
+   JSON-LD (LocalBusiness/FAQPage), Open Graph, telefone e localização, tudo
+   com `html.parser` da stdlib.
+2. **Queries** — gera 10 queries determinísticas por *intent*
+   (discovery/comparison/trust/local) usando categoria + localização.
+3. **LLM check** — corre cada query no OpenAI ChatGPT (`gpt-4o-mini` por
+   omissão) via `chat.completions`. Deteta menções do negócio na resposta
+   com normalização de nome (aceita variações "Bigfoot" vs "Bigfoot Windows
+   and Roofing, LLC"). Extrai também até 10 concorrentes citados pelo AI.
+4. **Score** — combina três dimensões (peso do total): **Presence 45** ·
+   **Content Depth 30** · **Structured Data 25**. Devolve tier
+   Invisible/Emerging/Growing/Established/Dominant + recomendações concretas.
+5. **Output** — relatório HTML pronto para imprimir → PDF (Cmd/Ctrl+P) +
+   directory page pronta a publicar.
+
+## Instalação
+
+```bash
+pip install -r requirements.txt   # requests
+export OPENAI_API_KEY=sk-...      # opcional: sem chave, corre em modo mock
+```
+
+## Uso
+
+```bash
+# CLI
+python -m ai_visibility https://tadlockroofing.com --out ./reports
+python -m ai_visibility https://x.com --provider mock   # sem gastar créditos
+
+# Web app (para telemóvel ou partilhar link)
+python -m ai_visibility.web           # http://localhost:8000
+```
+
+Ficheiros gerados em `--out`:
+
+| Ficheiro | O que é | Uso |
+|---|---|---|
+| `<slug>-ai-visibility-report.html` | Relatório HTML/PDF (score, breakdown, queries) | Enviar por email como *lead magnet* |
+| `<slug>-directory.html` | Directory page com JSON-LD LocalBusiness+FAQPage | Publicar no domínio do cliente (*deliverable* recorrente) |
+| `<slug>-audit.json` | Dados crus da auditoria | Para dashboards, comparação antes/depois |
+
+## Modo mock
+
+Sem `OPENAI_API_KEY` a auditoria corre em modo *mock* — a resposta do LLM é
+determinística e simula o cenário do vídeo original ("apareceu em 0 de 10").
+Útil para desenvolvimento, testes e demos. Alterna com `--provider mock` ou
+`--provider openai`.
+
+## Deploy
+
+Reutiliza `render.yaml` / `Procfile` — troca o `startCommand` para
+`python -m ai_visibility.web` e define `OPENAI_API_KEY` no dashboard.
+
+## Testes
+
+```bash
+python -m pytest tests/test_ai_visibility.py -v
+```
+
+Cobrem: extração HTML, deteção de categoria/nome, parse JSON-LD, geração
+de queries, normalização de menções, extração de concorrentes, score e
+geração de directory page.
+
+---
+
 # odds_value — análise de valor em odds de futebol
 
 Ferramenta em Python para encontrar **valor esperado positivo (EV+)** em
