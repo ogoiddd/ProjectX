@@ -105,8 +105,8 @@ a[href^="tel:"], .hours-table td { white-space: nowrap; }
 .rating a { text-decoration-color: rgba(247,248,251,.35); }
 .motion-toggle {
   position: absolute; right: var(--gutter); bottom: clamp(20px, 4vh, 36px); z-index: 2;
-  min-height: 40px; padding: 0 14px; border-radius: 2px; border: 1px solid rgba(247,248,251,.4);
-  background: rgba(18,19,20,.6); color: var(--cal); font: 600 .72rem var(--mono); letter-spacing: .06em; text-transform: uppercase; cursor: pointer;
+  min-height: 44px; padding: 0 16px; border-radius: 2px; border: 1px solid rgba(247,248,251,.4);
+  background: rgba(18,19,20,.6); color: var(--cal); font: 600 .8rem var(--mono); letter-spacing: .06em; text-transform: uppercase; cursor: pointer;
 }
 .motion-toggle:hover { border-color: var(--cal); }
 
@@ -245,7 +245,7 @@ a[href^="tel:"], .hours-table td { white-space: nowrap; }
   .foot-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 899px) { .band .frame { aspect-ratio: 4 / 3; } .band-inset { width: 38vw; bottom: -18%; } }
-@media (max-width: 380px) { .brand-name { display: none; } }
+@media (max-width: 440px) { .brand-name { display: none; } }
 @media (max-width: 520px) { .foot-grid { grid-template-columns: 1fr; } }
 
 @media (prefers-reduced-motion: reduce) {
@@ -257,3 +257,39 @@ a[href^="tel:"], .hours-table td { white-space: nowrap; }
 /* Captions and small print */
 .cap { display: block; margin-top: .7rem; color: var(--ink-soft); }
 .foot-legalname { color: rgba(247,248,251,.6); font-size: .9rem; }
+
+/* ---------- Phones and tablets ---------- */
+.brand { min-height: 44px; min-width: 44px; }
+.rating a, .reviews-src a, .foot-grid a, .foot-legal a, .foot-small a { display: inline-block; padding: 12px 0; margin: -12px 0; }
+.foot-legal { gap: .9rem 1.6rem; }
+.foot-legal li { min-height: 44px; display: flex; align-items: center; }
+.menu-btn { display: none; min-width: 44px; min-height: 44px; padding: 0 14px; border: 1.5px solid currentColor; border-radius: 2px; background: transparent; color: inherit; font: 600 .8rem var(--mono); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+.menu { position: absolute; left: 0; right: 0; top: 100%; background: var(--azul); border-bottom: 12px solid; border-image: linear-gradient(var(--sinal) 0 30%, var(--verde) 30%) 1; padding: 4px var(--gutter) 12px; }
+.menu[hidden] { display: none; }
+.menu a { display: flex; align-items: center; min-height: 56px; color: #fff; text-decoration: none; font-family: var(--display); font-variation-settings: "wdth" 115; font-weight: 800; font-size: 1.25rem; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,.18); }
+.menu a.menu-call { color: var(--sinal); border-bottom: 0; }
+.bar.open { background: var(--azul); color: #fff; }
+.map-wrap { display: block; position: relative; overflow: hidden; }
+@media (max-width: 899px) {
+  .menu-btn { display: inline-flex; align-items: center; }
+  .bar-call { display: none; }
+  .hero h1 { font-size: clamp(2.1rem, 10.4vw, 4.2rem); }
+  /* zoom the map around the workshop so street names stay readable */
+  .map-wrap { aspect-ratio: 4 / 3; }
+  .map-wrap .map-svg { position: absolute; width: 175%; max-width: none; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  .m-lbl { font-size: 17px; stroke-width: 6px; }
+  .m-pin text { font-size: 24px; text-anchor: middle; transform: translate(-16px, 52px); }
+  .quote blockquote p { font-size: 1.1rem; }
+}
+@media (max-width: 899px) and (min-width: 600px) { .bar-call { display: inline-flex; } }
+/* phone held sideways: keep the hero readable without filling the screen with the headline */
+@media (orientation: landscape) and (max-height: 520px) {
+  .hero { min-height: auto; align-items: start; }
+  .hero-copy { padding-top: 84px; padding-bottom: 32px; }
+  .hero h1 { font-size: clamp(1.8rem, 6vh + 2vw, 3rem); max-width: none; margin-bottom: 1rem; }
+  .hero h1 span { display: inline; }
+  .lede { margin-bottom: 1.2rem; font-size: 1rem; }
+  .motion-toggle { display: none; }
+  .sidewall { width: 30vw; right: -10vw; top: -14vw; }
+  .dock { min-height: calc(48px + env(safe-area-inset-bottom)); }
+}

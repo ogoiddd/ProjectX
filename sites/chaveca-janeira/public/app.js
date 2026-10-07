@@ -47,7 +47,7 @@
     'foot.hours.v': 'Mon–Fri 9:00–19:00<br>Sat 9:00–13:00 · Sun closed',
     'foot.link': 'Page on euromaster.pt', 'foot.legal': 'Legal information and privacy', 'foot.complaints': 'Complaints book (Livro de Reclamações)',
     'foot.ral': 'In the event of a dispute, consumers may turn to CIMAAL, the Algarve consumer arbitration centre (<a href="https://www.consumoalgarve.pt" target="_blank" rel="noopener">www.consumoalgarve.pt</a>). More information on the Portal do Consumidor, <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">www.consumidor.gov.pt</a>.',
-    'dock': 'Call now'
+    'dock': 'Call now', 'menu': 'Menu'
   };
   const PT = {};
   $$('[data-i18n]').forEach(el => { PT[el.dataset.i18n] = el.innerHTML; });
@@ -70,6 +70,17 @@
     try { localStorage.setItem('lang', lang); } catch {}
     applyLang();
   });
+
+  /* ---------- Mobile menu ---------- */
+  const menuBtn = $('#menuBtn'), menu = $('#menu');
+  function setMenu(open) {
+    menu.hidden = !open; menuBtn.setAttribute('aria-expanded', String(open));
+    $('.bar').classList.toggle('open', open);
+  }
+  menuBtn.addEventListener('click', () => setMenu(menu.hidden));
+  menu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); menuBtn.focus(); } });
+  matchMedia('(min-width: 900px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 
   /* ---------- Open now (Europe/Lisbon) ---------- */
   const HOURS = { 1: [9, 19], 2: [9, 19], 3: [9, 19], 4: [9, 19], 5: [9, 19], 6: [9, 13] };
