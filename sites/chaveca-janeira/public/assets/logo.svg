@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Chaveca &amp; Janeira">
+  <clipPath id="c"><rect width="64" height="64" rx="6"/></clipPath>
+  <g clip-path="url(#c)">
+    <rect width="64" height="64" fill="#0A3CA8"/>
+    <rect y="52" width="64" height="3" fill="#F5D10A"/>
+    <rect y="55" width="64" height="9" fill="#00866B"/>
+  </g>
+  <circle cx="32" cy="27" r="18.5" fill="none" stroke="#F5D10A" stroke-width="6" stroke-dasharray="3.6 2.2"/>
+  <circle cx="32" cy="27" r="13.6" fill="none" stroke="#F5D10A" stroke-width="1.6"/>
+  <text x="32" y="34" text-anchor="middle" font-family="Archivo, Arial Black, Arial, sans-serif" font-weight="900" font-size="19" fill="#FFFFFF">&amp;</text>
+</svg>

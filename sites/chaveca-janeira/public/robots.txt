@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chaveca-janeira-faro.vercel.app/sitemap.xml

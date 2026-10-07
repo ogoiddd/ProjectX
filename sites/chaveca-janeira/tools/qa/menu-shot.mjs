@@ -1,0 +1,11 @@
+import { chromium, devices } from 'playwright';
+const [url, out] = process.argv.slice(2);
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--proxy-server=' + process.env.HTTPS_PROXY, '--proxy-bypass-list=127.0.0.1;localhost'] });
+const p = await (await b.newContext(devices['iPhone SE'])).newPage();
+await p.goto(url); await p.waitForTimeout(1000);
+await p.click('#menuBtn'); await p.waitForTimeout(300);
+await p.screenshot({ path: out + '/menu-open.png' });
+await p.click('#menu a[href="#horario"]'); await p.waitForTimeout(1200);
+console.log('after tap: menu hidden =', await p.evaluate(() => document.querySelector('#menu').hidden), 'scrollY', await p.evaluate(() => scrollY));
+await p.screenshot({ path: out + '/menu-after.png' });
+await b.close();
