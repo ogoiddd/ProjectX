@@ -10,3 +10,7 @@ venv/
 # Outputs
 *.csv
 !examples/*.csv
+
+# Playwright CLI (snapshots/outputs; local browser config)
+.playwright-cli/
+.playwright/
