@@ -10,17 +10,17 @@
     'nav.services': 'Services', 'nav.reviews': 'Reviews', 'nav.hours': 'Hours', 'nav.location': 'Location',
     'hero.eyebrow': 'Euromaster network · Faro',
     'hero.t1': 'Tyres and', 'hero.t2': 'quick servicing', 'hero.t3': 'in Faro.',
-    'hero.lede': 'We change, repair and align tyres and look after your car’s routine maintenance — oil, filters, brakes and battery — on Estrada da Senhora da Saúde.',
+    'hero.lede': 'We change, repair and align tyres and look after your car’s routine maintenance: oil, filters, brakes and battery. You’ll find us on Estrada da Senhora da Saúde, in Faro.',
     'cta.call': 'Call 289 887 200', 'cta.directions': 'Get directions',
-    'hero.rating': '4.5 on Google · 407 reviews',
+    'hero.rating': 'Google: 4.5 from 407 reviews',
     'video.pause': 'Pause video', 'video.play': 'Play video',
-    'about.kicker': 'The workshop', 'about.title': 'More than a tyre change.',
+    'about.kicker': 'The workshop', 'about.title': 'Tyres and servicing in one place.',
     'about.p1': 'Euromaster Chaveca & Janeira is a workshop in Faro where, besides changing your tyres, you’ll find quick mechanical services for cars and light vehicles: oil changes, batteries, brakes and more.',
     'about.p2': 'We work with top-quality parts and the leading tyre brands. Whether it’s a puncture halfway through a trip or routine maintenance, call ahead or drop by.',
     'facts.network.k': 'Network', 'facts.network.v': 'Euromaster',
     'facts.vehicles.k': 'Vehicles', 'facts.vehicles.v': 'Cars and light vehicles',
     'facts.access.k': 'Access', 'facts.access.v': 'Wheelchair-accessible entrance and parking',
-    'services.kicker': 'Workshop services', 'services.title': 'Everything the wheel touches.',
+    'services.kicker': 'Workshop services', 'services.title': '13 services, from tyres to brakes.',
     'svc.tyres': 'Tyres', 'svc.mech': 'Quick servicing',
     'svc.change': 'Tyre change', 'svc.change.d': 'From the leading brands, for your car.',
     'svc.repair': 'Puncture repair', 'svc.repair.d': 'We check the damage and tell you whether it can be repaired or the tyre needs replacing.',
@@ -30,14 +30,17 @@
     'svc.warranty': 'Master Garantia', 'svc.warranty.d': 'Tyre warranty against damage for the life of the tyre, with no mileage limit, valid at any Euromaster centre.',
     'svc.oil': 'Oil change', 'svc.filters': 'Car filters', 'svc.brakes': 'Brake system', 'svc.brakes.d': 'Brake pads and a check of the whole system.',
     'svc.shocks': 'Shock absorbers', 'svc.battery': 'Battery', 'svc.wipers': 'Wiper blades', 'svc.aro': 'Official service (ARO)',
-    'reviews.kicker': 'Customer reviews', 'reviews.title': 'from 407 reviews on Google.',
-    'reviews.note': 'Quoted exactly as written, in the original language.',
+    'reviews.title': 'What customers write',
+    'reviews.note': '4.5 from 407 reviews on Google. Three of them, copied exactly as written:',
+    'reviews.all': 'Read all reviews on Google Maps',
     'hours.kicker': 'Opening hours', 'hours.title': 'Open Monday to Saturday.', 'hours.caption': 'Opening hours',
     'd.mon': 'Monday', 'd.tue': 'Tuesday', 'd.wed': 'Wednesday', 'd.thu': 'Thursday', 'd.fri': 'Friday', 'd.sat': 'Saturday', 'd.sun': 'Sunday', 'd.closed': 'Closed',
     'where.kicker': 'Location', 'where.cta': 'Open directions in Google Maps',
+    'where.note': 'Between Avenida Calouste Gulbenkian and the Fórum roundabout.',
     'foot.name': 'Workshop', 'foot.addr': 'Address', 'foot.hours': 'Hours', 'foot.phone': 'Phone',
     'foot.hours.v': 'Mon–Fri 9:00–19:00<br>Sat 9:00–13:00 · Sun closed',
-    'foot.network': 'A Euromaster network centre.', 'foot.link': 'Page on euromaster.pt',
+    'foot.link': 'Page on euromaster.pt', 'foot.legal': 'Privacy and terms', 'foot.complaints': 'Complaints book (Livro de Reclamações)',
+    'foot.ral': 'In the event of a dispute, consumers may turn to an alternative consumer dispute resolution body. More information on the Portal do Consumidor, <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">www.consumidor.gov.pt</a>.',
     'dock': 'Call now'
   };
   const PT = {};
@@ -184,10 +187,6 @@
     if (reduce.matches) { $$('[data-depth],[data-depth-inner],[data-roll]').forEach(el => { el.style.transform = ''; el.style.opacity = ''; }); video.pause(); }
     else { startVideo(); onScroll(); }
   });
-
-  /* ---------- Reveal ---------- */
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.18 });
-  $$('[data-reveal]').forEach(el => io.observe(el));
 
   applyLang();
   frame();

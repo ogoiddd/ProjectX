@@ -19,3 +19,12 @@ node render.mjs /tmp/fh 240 hero 2560 1440 0 24 10
 node render.mjs /tmp/fp 240 portrait 1440 2560 0 24 10
 ./encode.sh /tmp/fh /tmp/fp ../../public/assets
 ```
+
+## Location map
+
+`tools/map/osm2svg.py` draws the street map from an OpenStreetMap extract (© OpenStreetMap contributors, ODbL):
+
+```bash
+curl -o osm.json "https://api.openstreetmap.org/api/0.6/map.json?bbox=-7.9465,37.0190,-7.9322,37.0286"
+python3 tools/map/osm2svg.py osm.json map.svg   # paste the <svg> into the #local map card
+```
