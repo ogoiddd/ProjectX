@@ -299,3 +299,46 @@ a[href^="tel:"], .hours-table td { white-space: nowrap; }
 .motion-toggle { transition: opacity .25s, visibility .25s; }
 .motion-toggle.hide { opacity: 0; visibility: hidden; }
 @media (prefers-reduced-motion: reduce) { .bar.hide { transform: translateY(calc(-100% - 14px)) !important; } }
+
+/* ---------- Interaction ---------- */
+:target, section[id], [id="horario"], [id="local"] { scroll-margin-top: 24px; }
+.status-link { display: inline-flex; align-items: center; gap: .55rem; text-decoration: none; min-height: 44px; }
+.status-link:hover #status { text-decoration: underline; }
+/* hero shortcuts: navy sign plates, like the ones on the facade */
+.jump { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1.4rem; }
+.jump a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .9rem; background: var(--placa); color: #fff; text-decoration: none;
+  font: 600 .8rem var(--mono); letter-spacing: .06em; text-transform: uppercase; border: 1px solid rgba(255,255,255,.25); transition: background-color .15s, color .15s; }
+.jump a:hover, .jump a:focus-visible { background: var(--sinal); color: var(--borracha); }
+/* nav: current section */
+.nav a[aria-current="true"] { border-bottom-color: var(--sinal); }
+.menu a[aria-current="true"] { color: var(--sinal); }
+/* services: tap a row to open it */
+.svc-list li:has(> details) { padding: 0; }
+.svc summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 56px; padding: .6rem 0; cursor: pointer; list-style: none; }
+.svc summary::-webkit-details-marker { display: none; }
+.svc summary:hover strong { color: var(--azul); }
+.svc-plus { position: relative; flex: none; width: 28px; height: 28px; border: 1.5px solid var(--borracha); }
+.svc-plus::before, .svc-plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; background: currentColor; transform: translate(-50%, -50%); }
+.svc-plus::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform .2s; }
+.svc[open] .svc-plus { background: var(--azul); border-color: var(--azul); color: #fff; }
+.svc[open] .svc-plus::after { transform: translate(-50%, -50%) rotate(0deg); }
+.svc-more { padding: 0 0 1.1rem; display: grid; gap: .7rem; justify-items: start; }
+.svc-more p { margin: 0; color: var(--ink-soft); font-size: .98rem; max-width: 46ch; }
+.svc-call { display: inline-flex; align-items: center; min-height: 44px; padding: 0 1rem; background: var(--azul); color: #fff; font-weight: 700; text-decoration: none; }
+.svc-call:hover { background: var(--placa); }
+/* location actions */
+.where-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-top: .6rem; }
+.act { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 .8rem; background: #fff; color: var(--borracha); border: 1.5px solid var(--borracha); font: 600 .95rem var(--body); text-decoration: none; cursor: pointer; transition: background-color .15s, color .15s; }
+.act:hover { background: var(--borracha); color: #fff; }
+.to-top { margin: 2.4rem 0 0; }
+.to-top a { display: inline-flex; align-items: center; min-height: 44px; color: var(--sinal); font-weight: 700; }
+.toast { position: fixed; left: 50%; bottom: calc(80px + env(safe-area-inset-bottom)); z-index: 80; margin: 0; padding: .8rem 1.1rem; background: var(--borracha); color: #fff; font-weight: 600;
+  transform: translate(-50%, 20px); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+/* mobile action bar: three actions */
+.dock { justify-content: stretch; gap: 0; padding-left: 0; padding-right: 0; }
+.dock a { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 58px; color: var(--borracha); text-decoration: none; border-left: 2px solid rgba(13,26,51,.25); }
+.dock a:first-child { border-left: 0; }
+.dock .dock-call { background: var(--azul); color: #fff; }
+@media (min-width: 900px) { .where-actions { grid-template-columns: repeat(4, auto); justify-content: start; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

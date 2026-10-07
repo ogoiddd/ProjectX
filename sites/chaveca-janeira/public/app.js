@@ -47,11 +47,18 @@
     'foot.hours.v': 'Mon–Fri 9:00–19:00<br>Sat 9:00–13:00 · Sun closed',
     'foot.link': 'Page on euromaster.pt', 'foot.legal': 'Legal information and privacy', 'foot.complaints': 'Complaints book (Livro de Reclamações)',
     'foot.ral': 'In the event of a dispute, consumers may turn to CIMAAL, the Algarve consumer arbitration centre (<a href="https://www.consumoalgarve.pt" target="_blank" rel="noopener">www.consumoalgarve.pt</a>). More information on the Portal do Consumidor, <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">www.consumidor.gov.pt</a>.',
-    'dock': 'Call now', 'menu': 'Menu'
+    'dock': 'Call', 'menu': 'Menu', 'dock.dir': 'Directions', 'dock.label': 'Quick actions', 'jump.label': 'Shortcuts',
+    'svc.book': 'Call to book', 'svc.n2.d': 'Nitrogen escapes more slowly than air, so tyre pressure stays stable for longer.',
+    'svc.oil.d': 'Engine oil change following your car’s maintenance schedule.', 'svc.filters.d': 'Checking and replacing your car’s filters.',
+    'svc.shocks.d': 'Checking and replacing shock absorbers.', 'svc.battery.d': 'Battery testing and replacement.',
+    'svc.wipers.d': 'Replacing wiper blades so you can see clearly in the rain.', 'svc.ac.d': 'Air conditioning check and recharge.',
+    'svc.aro.d': 'Servicing your car to the manufacturer’s maintenance schedule.',
+    'where.copy': 'Copy address', 'where.vcard': 'Save contact', 'copied': 'Address copied', 'foot.top': 'Back to top'
   };
   const PT = {};
   $$('[data-i18n]').forEach(el => { PT[el.dataset.i18n] = el.innerHTML; });
   $$('[data-i18n-alt]').forEach(el => { PT[el.dataset.i18nAlt] = el.alt; });
+  $$('[data-i18n-aria]').forEach(el => { PT[el.dataset.i18nAria] = el.getAttribute('aria-label'); });
   PT['video.play'] = 'Reproduzir vídeo';
   let lang = 'pt';
   try { if (localStorage.getItem('lang') === 'en') lang = 'en'; } catch {}
@@ -60,6 +67,7 @@
     doc.lang = lang === 'en' ? 'en' : 'pt-PT';
     $$('[data-i18n]').forEach(el => { const v = t(el.dataset.i18n); if (v != null) el.innerHTML = v; });
     $$('[data-i18n-alt]').forEach(el => { const v = t(el.dataset.i18nAlt); if (v != null) el.alt = v; });
+    $$('[data-i18n-aria]').forEach(el => { const v = t(el.dataset.i18nAria); if (v != null) el.setAttribute('aria-label', v); });
     const b = $('#lang');
     b.textContent = lang === 'en' ? 'PT' : 'EN';
     b.setAttribute('aria-label', lang === 'en' ? 'Mudar para português' : 'Switch to English');
@@ -109,6 +117,15 @@
       msg = en ? `Closed · opens ${when} at 9:00` : `Fechado · abre ${when} às 9:00`;
     }
     const s = $('#status'); if (s) s.textContent = msg;
+    // hours heading: live countdown while open
+    const head = $('#openNow');
+    if (head) {
+      if (open) {
+        const left = h[1] * 60 - mins, hh = Math.floor(left / 60), mm = left % 60;
+        const dur = (hh ? `${hh} h ` : '') + `${mm} min`;
+        head.textContent = en ? `Open now. Closes in ${dur}.` : `Aberto agora. Fecha daqui a ${dur}.`;
+      } else head.textContent = msg.replace(/ · (\w)/, (_, c) => '. ' + c.toUpperCase()) + '.';
+    }
     $('.dot')?.classList.toggle('closed', !open);
     $$('.hours-table tr').forEach(tr => {
       const today = +tr.dataset.day === day;
@@ -212,6 +229,48 @@
   reduce.addEventListener('change', () => {
     if (reduce.matches) { $$('[data-depth],[data-depth-inner],[data-roll]').forEach(el => { el.style.transform = ''; el.style.opacity = ''; }); video.pause(); }
     else { startVideo(); onScroll(); }
+  });
+
+  /* ---------- Jump links: smooth scroll to the section, clear of the header ---------- */
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
+    const id = a.getAttribute('href').slice(1);
+    const target = id === 'topo' ? document.body : document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    const top = id === 'topo' ? 0 : target.getBoundingClientRect().top + scrollY;
+    // going down the header slides away; going up it comes back and covers ~90px
+    const offset = top > scrollY ? 20 : bar.offsetHeight + 20;
+    scrollTo({ top: Math.max(0, top - offset), behavior: reduce.matches ? 'auto' : 'smooth' });
+    history.replaceState(null, '', id === 'topo' ? location.pathname : '#' + id);
+    if (id !== 'topo') { target.setAttribute('tabindex', '-1'); target.focus({ preventScroll: true }); }
+  });
+
+  /* ---------- Current section in the nav ---------- */
+  const spyLinks = $$('.nav a, .menu a[href^="#"]');
+  const wide = matchMedia('(min-width: 900px)');
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      // on wide screens hours and location sit side by side, so they light up together
+      const ids = wide.matches && ['horario', 'local'].includes(en.target.id) ? ['horario', 'local'] : [en.target.id];
+      spyLinks.forEach(l => {
+        if (ids.includes(l.getAttribute('href').slice(1))) l.setAttribute('aria-current', 'true');
+        else l.removeAttribute('aria-current');
+      });
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  ['servicos', 'opinioes', 'horario', 'local'].forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
+
+  /* ---------- Copy address ---------- */
+  const toastEl = $('#toast'); let toastT;
+  function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 2200); }
+  $('#copyAddr')?.addEventListener('click', async () => {
+    const addr = 'Estrada da Senhora da Saúde 58, 8000-500 Faro';
+    try { await navigator.clipboard.writeText(addr); }
+    catch { const ta = Object.assign(document.createElement('textarea'), { value: addr }); document.body.append(ta); ta.select(); document.execCommand('copy'); ta.remove(); }
+    toast(lang === 'en' ? 'Address copied' : 'Morada copiada');
   });
 
   applyLang();
