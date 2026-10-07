@@ -229,7 +229,7 @@ a[href^="tel:"], .hours-table td { white-space: nowrap; }
   .bar-call span { display: none; }
   .bar-call { width: 44px; padding: 0; justify-content: center; }
   .hero-poster, .hero-video { object-position: 50% 100%; }
-  .hero-shade { background: linear-gradient(180deg, rgba(10,9,8,.75) 0%, rgba(10,9,8,.55) 45%, rgba(10,9,8,.2) 70%, rgba(10,9,8,.8) 100%); }
+  .hero-shade { background: linear-gradient(180deg, rgba(10,9,8,.8) 0%, rgba(10,9,8,.7) 50%, rgba(10,9,8,.35) 72%, rgba(10,9,8,.85) 100%); }
   .hero { align-items: start; }
   .hero-copy { padding-top: calc(96px + env(safe-area-inset-top)); }
   .motion-toggle { left: var(--gutter); right: auto; }
@@ -246,6 +246,7 @@ a[href^="tel:"], .hours-table td { white-space: nowrap; }
   .foot-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 380px) { .brand-name { display: none; } }
+@media (max-width: 520px) { .foot-grid { grid-template-columns: 1fr; } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

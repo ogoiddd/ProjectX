@@ -101,11 +101,13 @@
   const toggle = $('#motionToggle');
   const saveData = navigator.connection && navigator.connection.saveData;
   let userPaused = false;
+  // VP9 WebM where it is natively supported (smaller), H.264 MP4 everywhere else (Safari, iOS).
+  const ext = video.canPlayType('video/webm; codecs="vp9"') === 'probably' ? '.webm' : '.mp4';
   function pickSource() {
     const portrait = matchMedia('(orientation: portrait)').matches;
-    if (portrait) return video.dataset.portrait;
     const w = innerWidth * Math.min(devicePixelRatio || 1, 2);
-    return w > 1400 ? video.dataset.landscape : video.dataset.landscapeSm;
+    const base = portrait ? video.dataset.portrait : w > 1400 ? video.dataset.landscape : video.dataset.landscapeSm;
+    return base + ext;
   }
   function startVideo() {
     if (saveData || reduce.matches || userPaused) return;
