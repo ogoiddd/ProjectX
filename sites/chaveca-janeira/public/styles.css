@@ -68,7 +68,7 @@ a[href^="tel:"], .hours-table td { white-space: nowrap; }
 .bar {
   position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   padding: 12px var(--gutter); padding-top: max(12px, env(safe-area-inset-top));
-  color: var(--cal); transition: background-color .2s, color .2s;
+  color: var(--cal); transition: background-color .2s, color .2s, transform .3s ease;
 }
 .bar.scrolled { background: var(--azul); color: #fff; border-bottom: 12px solid; border-image: linear-gradient(var(--sinal) 0 30%, var(--verde) 30%) 1; }
 .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; }
@@ -293,3 +293,9 @@ a[href^="tel:"], .hours-table td { white-space: nowrap; }
   .sidewall { width: 30vw; right: -10vw; top: -14vw; }
   .dock { min-height: calc(48px + env(safe-area-inset-bottom)); }
 }
+
+/* Header and video button get out of the way while scrolling */
+.bar.hide { transform: translateY(calc(-100% - 14px)); }
+.motion-toggle { transition: opacity .25s, visibility .25s; }
+.motion-toggle.hide { opacity: 0; visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { .bar.hide { transform: translateY(calc(-100% - 14px)) !important; } }

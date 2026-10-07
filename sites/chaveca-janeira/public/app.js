@@ -171,11 +171,18 @@
   const inner = $$('[data-depth-inner]').map(el => ({ el, d: parseFloat(el.dataset.depthInner), box: el.parentElement }));
   const rollers = $$('[data-roll]').map(el => ({ el, d: parseFloat(el.dataset.roll), box: el.parentElement }));
   const bar = $('.bar'), dock = $('.dock'), hero = $('.hero');
-  let ticking = false, vh = innerHeight;
+  let ticking = false, vh = innerHeight, lastY = scrollY;
   function frame() {
     ticking = false;
     const y = scrollY;
     bar.classList.toggle('scrolled', y > vh * 0.7);
+    // header hides while scrolling down, comes back when scrolling up or near the top
+    const dy = y - lastY;
+    if (y < 10) bar.classList.remove('hide');
+    else if (dy > 4 && menu.hidden) bar.classList.add('hide');
+    else if (dy < -4) bar.classList.remove('hide');
+    lastY = y;
+    toggle.classList.toggle('hide', y > 10);
     dock.classList.toggle('show', y > vh * 0.6);
     if (reduce.matches) return;
     const heroH = hero.offsetHeight;
