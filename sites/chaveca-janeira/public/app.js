@@ -14,13 +14,14 @@
     'cta.call': 'Call 289 887 200', 'cta.directions': 'Get directions',
     'hero.rating': 'Google: 4.5 from 407 reviews',
     'video.pause': 'Pause video', 'video.play': 'Play video',
-    'about.kicker': 'The workshop', 'about.title': 'Tyres and servicing in one place.',
-    'about.p1': 'Euromaster Chaveca & Janeira is a workshop in Faro where, besides changing your tyres, you’ll find quick mechanical services for cars and light vehicles: oil changes, batteries, brakes and more.',
+    'about.kicker': 'The workshop', 'about.title': 'Tyres in the Algarve since 1957.',
+    'about.p0': 'Chaveca & Janeira was founded in 1957 in São Brás de Alportel by Sebastião de Sousa Chaveca and Joaquim Guerreiro Janeira to retread lorry tyres. It is still a family business.',
+    'about.p1': 'At the Faro workshop, besides changing your tyres, you’ll find quick mechanical services for cars and light vehicles: oil changes, batteries, brakes and more.',
     'about.p2': 'We work with top-quality parts and the leading tyre brands. Whether it’s a puncture halfway through a trip or routine maintenance, call ahead or drop by.',
-    'facts.network.k': 'Network', 'facts.network.v': 'Euromaster',
+    'facts.company.k': 'Company', 'facts.network.k': 'Network', 'facts.network.v': 'Euromaster',
     'facts.vehicles.k': 'Vehicles', 'facts.vehicles.v': 'Cars and light vehicles',
     'facts.access.k': 'Access', 'facts.access.v': 'Wheelchair-accessible entrance and parking',
-    'services.kicker': 'Workshop services', 'services.title': '13 services, from tyres to brakes.',
+    'services.kicker': 'Workshop services', 'services.title': '14 services, from tyres to brakes.',
     'svc.tyres': 'Tyres', 'svc.mech': 'Quick servicing',
     'svc.change': 'Tyre change', 'svc.change.d': 'From the leading brands, for your car.',
     'svc.repair': 'Puncture repair', 'svc.repair.d': 'We check the damage and tell you whether it can be repaired or the tyre needs replacing.',
@@ -29,8 +30,13 @@
     'svc.n2': 'Nitrogen tyre inflation',
     'svc.warranty': 'Master Garantia', 'svc.warranty.d': 'Tyre warranty against damage for the life of the tyre, with no mileage limit, valid at any Euromaster centre.',
     'svc.oil': 'Oil change', 'svc.filters': 'Car filters', 'svc.brakes': 'Brake system', 'svc.brakes.d': 'Brake pads and a check of the whole system.',
-    'svc.shocks': 'Shock absorbers', 'svc.battery': 'Battery', 'svc.wipers': 'Wiper blades', 'svc.aro': 'Official service (ARO)',
+    'svc.shocks': 'Shock absorbers', 'svc.ac': 'Air conditioning', 'svc.battery': 'Battery', 'svc.wipers': 'Wiper blades', 'svc.aro': 'Official service (ARO)',
     'reviews.title': 'What customers write',
+    'cap.facade': 'Estrada da Senhora da Saúde 58, Faro', 'cap.911': 'Wheel alignment at the workshop', 'cap.workshop': 'Inside the workshop',
+    'img.facade': 'The workshop front on Estrada da Senhora da Saúde, with the blue, yellow and green Euromaster fascia and signs for quick servicing, tyres, alignment and air conditioning',
+    'img.911': 'White Porsche 911 on the alignment lift with the aligner targets fitted to the wheels',
+    'img.workshop': 'Inside the workshop: iron roof trusses, red wheel aligners and tyre changers, and the yellow work-zone line',
+    'img.rs6': 'Audi RS 6 on the alignment lift with its headlights on',
     'reviews.note': '4.5 from 407 reviews on Google. Three of them, copied exactly as written:',
     'reviews.all': 'Read all reviews on Google Maps',
     'hours.kicker': 'Opening hours', 'hours.title': 'Open Monday to Saturday.', 'hours.caption': 'Opening hours',
@@ -39,12 +45,13 @@
     'where.note': 'Between Avenida Calouste Gulbenkian and the Fórum roundabout.',
     'foot.name': 'Workshop', 'foot.addr': 'Address', 'foot.hours': 'Hours', 'foot.phone': 'Phone',
     'foot.hours.v': 'Mon–Fri 9:00–19:00<br>Sat 9:00–13:00 · Sun closed',
-    'foot.link': 'Page on euromaster.pt', 'foot.legal': 'Privacy and terms', 'foot.complaints': 'Complaints book (Livro de Reclamações)',
-    'foot.ral': 'In the event of a dispute, consumers may turn to an alternative consumer dispute resolution body. More information on the Portal do Consumidor, <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">www.consumidor.gov.pt</a>.',
+    'foot.link': 'Page on euromaster.pt', 'foot.legal': 'Legal information and privacy', 'foot.complaints': 'Complaints book (Livro de Reclamações)',
+    'foot.ral': 'In the event of a dispute, consumers may turn to CIMAAL, the Algarve consumer arbitration centre (<a href="https://www.consumoalgarve.pt" target="_blank" rel="noopener">www.consumoalgarve.pt</a>). More information on the Portal do Consumidor, <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">www.consumidor.gov.pt</a>.',
     'dock': 'Call now'
   };
   const PT = {};
   $$('[data-i18n]').forEach(el => { PT[el.dataset.i18n] = el.innerHTML; });
+  $$('[data-i18n-alt]').forEach(el => { PT[el.dataset.i18nAlt] = el.alt; });
   PT['video.play'] = 'Reproduzir vídeo';
   let lang = 'pt';
   try { if (localStorage.getItem('lang') === 'en') lang = 'en'; } catch {}
@@ -52,6 +59,7 @@
   function applyLang() {
     doc.lang = lang === 'en' ? 'en' : 'pt-PT';
     $$('[data-i18n]').forEach(el => { const v = t(el.dataset.i18n); if (v != null) el.innerHTML = v; });
+    $$('[data-i18n-alt]').forEach(el => { const v = t(el.dataset.i18nAlt); if (v != null) el.alt = v; });
     const b = $('#lang');
     b.textContent = lang === 'en' ? 'PT' : 'EN';
     b.setAttribute('aria-label', lang === 'en' ? 'Mudar para português' : 'Switch to English');

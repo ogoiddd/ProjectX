@@ -28,3 +28,11 @@ node render.mjs /tmp/fp 240 portrait 1440 2560 0 24 10
 curl -o osm.json "https://api.openstreetmap.org/api/0.6/map.json?bbox=-7.9465,37.0190,-7.9322,37.0286"
 python3 tools/map/osm2svg.py osm.json map.svg   # paste the <svg> into the #local map card
 ```
+
+## Photos
+
+The workshop photos are the owner's own uploads to the Google Business Profile, used with the owner's permission. `tools/photos/enhance.sh` blurs visible number plates, applies one consistent grade and exports WebP sizes.
+
+## Company and legal sources
+
+Chaveca & Janeira, Lda., NIPC 500331596, Rua do Colégio 16, 8150-132 São Brás de Alportel (business registries); founding history from the São Brás de Alportel municipality profile; RAL entity CIMAAL (consumoalgarve.pt).
