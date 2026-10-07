@@ -184,7 +184,7 @@
   matchMedia('(orientation: portrait)').addEventListener('change', () => { if (!video.paused) startVideo(); });
 
   /* ---------- Parallax: transform-only, rAF-batched, 3 depths in the hero ---------- */
-  const layers = $$('[data-depth]').map(el => ({ el, d: parseFloat(el.dataset.depth), spin: parseFloat(el.dataset.spin || 0), fade: el.hasAttribute('data-fade') }));
+  const layers = $$('[data-depth]').map(el => ({ el, d: parseFloat(el.dataset.depth), fade: el.hasAttribute('data-fade') }));
   const inner = $$('[data-depth-inner]').map(el => ({ el, d: parseFloat(el.dataset.depthInner), box: el.parentElement }));
   const rollers = $$('[data-roll]').map(el => ({ el, d: parseFloat(el.dataset.roll), box: el.parentElement }));
   const bar = $('.bar'), dock = $('.dock'), hero = $('.hero');
@@ -204,9 +204,7 @@
     if (reduce.matches) return;
     const heroH = hero.offsetHeight;
     for (const l of layers) {
-      if (l.spin) {
-        l.el.style.transform = `translate3d(0, ${(y * l.d).toFixed(1)}px, 0) rotate(${(y * l.spin).toFixed(2)}deg)`;
-      } else if (y < heroH * 1.2) {
+      if (y < heroH * 1.2) {
         l.el.style.transform = `translate3d(0, ${(y * l.d).toFixed(1)}px, 0)`;
         if (l.fade) l.el.style.opacity = Math.max(0, 1 - y / (heroH * 0.75)).toFixed(3);
       }
