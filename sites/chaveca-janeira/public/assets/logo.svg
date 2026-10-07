@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Chaveca &amp; Janeira">
+  <rect width="64" height="64" rx="14" fill="#121314"/>
+  <circle cx="32" cy="32" r="22.5" fill="none" stroke="#F2B705" stroke-width="7" stroke-dasharray="4.2 2.86"/>
+  <circle cx="32" cy="32" r="17" fill="none" stroke="#F2B705" stroke-width="2"/>
+  <text x="32" y="40.5" text-anchor="middle" font-family="Archivo, Arial Black, Arial, sans-serif" font-weight="900" font-size="23" fill="#F6F4EF">&amp;</text>
+</svg>
