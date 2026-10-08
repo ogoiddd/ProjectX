@@ -4,7 +4,7 @@ const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', a
 for (const [n, d] of [['iphone', devices['iPhone 15 Pro']], ['desktop', { viewport: { width: 1440, height: 900 } }]]) {
   const p = await (await b.newContext(d)).newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message));
   await p.goto(url); await p.waitForTimeout(1200);
-  const st = async () => p.evaluate(() => { const bar = document.querySelector('.bar'), t = document.querySelector('#motionToggle'); return { y: Math.round(scrollY), barTop: Math.round(bar.getBoundingClientRect().bottom), btnVisible: getComputedStyle(t).visibility }; });
+  const st = async () => p.evaluate(() => { const bar = document.querySelector('.bar'); return { y: Math.round(scrollY), barTop: Math.round(bar.getBoundingClientRect().bottom) }; });
   console.log(n, 'top     ', JSON.stringify(await st()));
   await p.mouse.wheel(0, 300); await p.waitForTimeout(600); console.log(n, 'down 300', JSON.stringify(await st()));
   await p.screenshot({ path: `${out}/${n}-down.png` });

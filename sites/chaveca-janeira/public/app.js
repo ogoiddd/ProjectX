@@ -47,7 +47,7 @@
     'foot.hours.v': 'Mon–Fri 9:00–19:00<br>Sat 9:00–13:00 · Sun closed',
     'foot.link': 'Page on euromaster.pt', 'foot.legal': 'Legal information and privacy', 'foot.complaints': 'Complaints book (Livro de Reclamações)',
     'foot.ral': 'In the event of a dispute, consumers may turn to CIMAAL, the Algarve consumer arbitration centre (<a href="https://www.consumoalgarve.pt" target="_blank" rel="noopener">www.consumoalgarve.pt</a>). More information on the Portal do Consumidor, <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">www.consumidor.gov.pt</a>.',
-    'dock': 'Call', 'menu': 'Menu', 'dock.dir': 'Directions', 'dock.label': 'Quick actions', 'jump.label': 'Shortcuts',
+    'dock': 'Call', 'menu': 'Menu', 'dock.dir': 'Directions', 'openbar.more': 'See hours', 'dock.label': 'Quick actions', 'jump.label': 'Shortcuts',
     'svc.book': 'Call to book', 'svc.n2.d': 'Nitrogen escapes more slowly than air, so tyre pressure stays stable for longer.',
     'svc.oil.d': 'Engine oil change following your car’s maintenance schedule.', 'svc.filters.d': 'Checking and replacing your car’s filters.',
     'svc.shocks.d': 'Checking and replacing shock absorbers.', 'svc.battery.d': 'Battery testing and replacement.',
@@ -71,7 +71,7 @@
     const b = $('#lang');
     b.textContent = lang === 'en' ? 'PT' : 'EN';
     b.setAttribute('aria-label', lang === 'en' ? 'Mudar para português' : 'Switch to English');
-    updateStatus(); updateMotionLabel();
+    updateStatus();
   }
   $('#lang').addEventListener('click', () => {
     lang = lang === 'en' ? 'pt' : 'en';
@@ -127,6 +127,7 @@
       } else head.textContent = msg.replace(/ · (\w)/, (_, c) => '. ' + c.toUpperCase()) + '.';
     }
     $('.dot')?.classList.toggle('closed', !open);
+    $('#openbar')?.classList.toggle('closed', !open);
     $$('.hours-table tr').forEach(tr => {
       const today = +tr.dataset.day === day;
       tr.classList.toggle('today', today);
@@ -137,9 +138,7 @@
 
   /* ---------- Hero video: right file for the screen, muted autoplay, seamless loop ---------- */
   const video = $('#heroVideo');
-  const toggle = $('#motionToggle');
   const saveData = navigator.connection && navigator.connection.saveData;
-  let userPaused = false;
   // VP9 WebM where it is natively supported (smaller), H.264 MP4 everywhere else (Safari, iOS).
   const ext = video.canPlayType('video/webm; codecs="vp9"') === 'probably' ? '.webm' : '.mp4';
   function pickSource() {
@@ -149,7 +148,7 @@
     return base + ext;
   }
   function startVideo() {
-    if (saveData || reduce.matches || userPaused) return;
+    if (saveData || reduce.matches) return;
     const src = pickSource();
     if (video.dataset.current !== src) {
       video.dataset.current = src;
@@ -160,25 +159,9 @@
     const p = video.play(); if (p) p.catch(() => {});
   }
   video.addEventListener('playing', () => video.classList.add('on'));
-  function updateMotionLabel() {
-    const paused = video.paused || !video.classList.contains('on');
-    toggle.firstElementChild.textContent = t(paused ? 'video.play' : 'video.pause');
-    toggle.setAttribute('aria-pressed', String(paused));
-  }
-  video.addEventListener('play', updateMotionLabel);
-  video.addEventListener('pause', updateMotionLabel);
-  toggle.addEventListener('click', () => {
-    if (video.paused || !video.src) { userPaused = false; reduceOverride = true; video.dataset.current = ''; forceStart(); }
-    else { userPaused = true; video.pause(); }
-  });
-  let reduceOverride = false;
-  function forceStart() {
-    const src = pickSource(); video.dataset.current = src; video.src = src; video.muted = true;
-    video.play().catch(() => {});
-  }
   // Pause when the hero is off-screen (saves battery), resume when back.
   new IntersectionObserver(([e]) => {
-    if (e.isIntersecting) { if (!userPaused && (!reduce.matches || reduceOverride)) (reduceOverride ? video.play().catch(() => {}) : startVideo()); }
+    if (e.isIntersecting) startVideo();
     else if (!video.paused) video.pause();
   }, { threshold: 0.05 }).observe($('.hero'));
   matchMedia('(orientation: portrait)').addEventListener('change', () => { if (!video.paused) startVideo(); });
@@ -199,7 +182,6 @@
     else if (dy > 4 && menu.hidden) bar.classList.add('hide');
     else if (dy < -4) bar.classList.remove('hide');
     lastY = y;
-    toggle.classList.toggle('hide', y > 10);
     dock.classList.toggle('show', y > vh * 0.6);
     if (reduce.matches) return;
     const heroH = hero.offsetHeight;

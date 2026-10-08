@@ -48,6 +48,8 @@ scene.fog = new THREE.FogExp2(0x15110d, 0.11);
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 scene.environmentIntensity = 0.32;
+// chrome gets its own, brighter reflection of the room (scene.environmentIntensity stays low for rubber and floor)
+const chromeEnv = pmrem.fromScene(new RoomEnvironment(), 0.02).texture;
 
 // ---------- deterministic noise ----------
 let seed = 1337;
@@ -65,10 +67,11 @@ function canvasTex(w, h, draw, srgb = true) {
 // ---------- materials ----------
 const rubber = new THREE.MeshStandardMaterial({ color: 0x141416, roughness: 0.82, metalness: 0 });
 const treadRubber = new THREE.MeshStandardMaterial({ color: 0x18181a, roughness: 0.7, metalness: 0 });
-const alloy = new THREE.MeshPhysicalMaterial({ color: 0xd3d6db, metalness: 1, roughness: 0.2, clearcoat: 0.6, clearcoatRoughness: 0.2, envMapIntensity: 3.2 });
+// polished chrome, like the reference wheel the client chose
+const alloy = new THREE.MeshPhysicalMaterial({ color: 0xeef0f3, metalness: 1, roughness: 0.07, clearcoat: 1, clearcoatRoughness: 0.05, envMap: chromeEnv, envMapIntensity: 1.25 });
 const alloyDark = new THREE.MeshStandardMaterial({ color: 0x3a3d42, metalness: 1, roughness: 0.45, envMapIntensity: 2 });
 const discMat = new THREE.MeshStandardMaterial({ color: 0x8a8d92, metalness: 1, roughness: 0.38 });
-const caliperMat = new THREE.MeshPhysicalMaterial({ color: 0xf2b705, metalness: 0.1, roughness: 0.35, clearcoat: 1, clearcoatRoughness: 0.15 });
+const caliperMat = new THREE.MeshPhysicalMaterial({ color: 0x2a2d33, metalness: 0.1, roughness: 0.35, clearcoat: 1, clearcoatRoughness: 0.15 });
 
 // ---------- tyre (lathe profile) ----------
 const R = 0.33, HALF = 0.112, BEAD = 0.232;
@@ -146,15 +149,16 @@ const sBlock = new RoundedBoxGeometry(0.012, 0.026, 0.022, 2, 0.003);
 ring(sBlock, PITCH, () => ({ r: R - 0.008, z: 0.098, yaw: 0 }));
 ring(sBlock, PITCH, () => ({ r: R - 0.008, z: -0.098, yaw: 0 }));
 
-// ---------- alloy rim, 5 spokes ----------
+// ---------- chrome rim, 8 slim spokes ----------
 const rimGroup = new THREE.Group();
 const face = new THREE.Shape(); face.absarc(0, 0, 0.222, 0, TAU, false);
-for (let k = 0; k < 5; k++) {
-  const t = k / 5 * TAU + Math.PI / 2;
+const SPOKES = 8;
+for (let k = 0; k < SPOKES; k++) {
+  const t = k / SPOKES * TAU + Math.PI / 2;
   const hole = new THREE.Path();
-  const o0 = t + 0.21, o1 = t + TAU / 5 - 0.21, i0 = t + 0.42, i1 = t + TAU / 5 - 0.42;
-  hole.absarc(0, 0, 0.198, o0, o1, false);
-  hole.absarc(0, 0, 0.082, i1, i0, true);
+  const o0 = t + 0.075, o1 = t + TAU / SPOKES - 0.075, i0 = t + 0.24, i1 = t + TAU / SPOKES - 0.24;
+  hole.absarc(0, 0, 0.204, o0, o1, false);
+  hole.absarc(0, 0, 0.078, i1, i0, true);
   hole.closePath();
   face.holes.push(hole);
 }
@@ -189,9 +193,20 @@ const spin = new THREE.Group();
 spin.add(tyre, treadGroup, rimGroup);
 const wheel = new THREE.Group();
 wheel.add(spin, brake);
-wheel.position.set(0.42, R + 0.004, 0);
+// standing wheel sits on a second tyre lying flat, as in the reference picture
+const STACK = 2 * (HALF + 0.008);
+wheel.position.set(0.42, STACK + R + 0.002, 0);
 wheel.rotation.y = -0.62;
 scene.add(wheel);
+const lying = new THREE.Group();
+lying.add(tyre.clone(), treadGroup.clone(true));
+const holeFill = new THREE.Mesh(new THREE.CylinderGeometry(BEAD + 0.004, BEAD + 0.004, 2 * HALF - 0.03, 96, 1, true), new THREE.MeshStandardMaterial({ color: 0x0c0c0e, roughness: 0.9, side: THREE.DoubleSide }));
+holeFill.rotation.x = Math.PI / 2; lying.add(holeFill);
+lying.rotation.x = -Math.PI / 2;
+lying.rotation.z = 0.3;
+lying.position.set(0.42, HALF + 0.008, 0.02);
+lying.traverse(o => { if (o.isMesh) { o.castShadow = o.receiveShadow = true; } });
+scene.add(lying);
 
 // ---------- floor ----------
 const concrete = canvasTex(2048, 2048, (g, w, h) => {
@@ -246,7 +261,7 @@ scene.add(sun, sun.target);
 const rim2 = new THREE.SpotLight(0xffc98a, 30, 10, 0.5, 0.8, 1.6);
 rim2.position.set(-1.6, 1.4, -2.6); rim2.target.position.copy(wheel.position); scene.add(rim2, rim2.target);
 const fill = new THREE.DirectionalLight(0x9fb6d9, 0.22); fill.position.set(-2, 1.5, 3); scene.add(fill);
-const kick = new THREE.PointLight(0xffe2bf, 0.9, 3, 2); kick.position.set(0.1, 0.55, 1.2); scene.add(kick);
+const kick = new THREE.PointLight(0xffe2bf, 0.45, 3, 2); kick.position.set(0.1, 0.55, 1.2); scene.add(kick);
 scene.add(new THREE.HemisphereLight(0x3a3026, 0x0a0908, 0.4));
 
 // ---------- light shafts ----------
@@ -296,14 +311,14 @@ function frame(t) {
   spin.rotation.z = -w;
   if (VIEW === 'hero') {
     const cx = -0.18 + 0.06 * Math.sin(w), cz = 1.62 + 0.05 * Math.cos(w);
-    camera.position.set(cx, 0.3 + 0.02 * Math.sin(2 * w), cz);
-    camera.lookAt(0.06 + 0.015 * Math.sin(w), 0.37, 0);
-    camera.fov = 29;
+    camera.position.set(cx, 0.42 + 0.02 * Math.sin(2 * w), cz + 0.35);
+    camera.lookAt(-0.1 + 0.015 * Math.sin(w), 0.5, 0);
+    camera.fov = 33;
   } else if (VIEW === 'portrait') {
     const cx = 0.08 + 0.04 * Math.sin(w), cz = 1.62 + 0.04 * Math.cos(w);
-    camera.position.set(cx, 0.36 + 0.02 * Math.sin(2 * w), cz);
-    camera.lookAt(0.43 + 0.01 * Math.sin(w), 0.7, 0);
-    camera.fov = 42;
+    camera.position.set(cx + 0.2, 0.42 + 0.02 * Math.sin(2 * w), cz + 0.3);
+    camera.lookAt(0.42 + 0.01 * Math.sin(w), 0.8, 0);
+    camera.fov = 44;
   } else if (VIEW === 'tread') {
     camera.position.set(0.9, 0.42, 0.75); camera.lookAt(0.52, 0.5, 0.05); camera.fov = 22;
   } else if (VIEW === 'rim') {
