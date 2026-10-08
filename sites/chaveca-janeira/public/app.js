@@ -13,7 +13,6 @@
     'hero.lede': 'We change, repair and align tyres and look after your car’s routine maintenance: oil, filters, brakes and battery. You’ll find us on Estrada da Senhora da Saúde, in Faro.',
     'cta.call': 'Call 289 887 200', 'cta.directions': 'Get directions',
     'hero.rating': 'Google: 4.5 from 407 reviews',
-    'video.pause': 'Pause video', 'video.play': 'Play video',
     'about.kicker': 'The workshop', 'about.title': 'Tyres in the Algarve since 1957.',
     'about.p0': 'Chaveca & Janeira was founded in 1957 in São Brás de Alportel by Sebastião de Sousa Chaveca and Joaquim Guerreiro Janeira to retread lorry tyres. It is still a family business.',
     'about.p1': 'At the Faro workshop, besides changing your tyres, you’ll find quick mechanical services for cars and light vehicles: oil changes, batteries, brakes and more.',
@@ -59,7 +58,6 @@
   $$('[data-i18n]').forEach(el => { PT[el.dataset.i18n] = el.innerHTML; });
   $$('[data-i18n-alt]').forEach(el => { PT[el.dataset.i18nAlt] = el.alt; });
   $$('[data-i18n-aria]').forEach(el => { PT[el.dataset.i18nAria] = el.getAttribute('aria-label'); });
-  PT['video.play'] = 'Reproduzir vídeo';
   let lang = 'pt';
   try { if (localStorage.getItem('lang') === 'en') lang = 'en'; } catch {}
   const t = (k) => (lang === 'en' ? EN : PT)[k];
@@ -136,36 +134,6 @@
   }
   setInterval(updateStatus, 60000);
 
-  /* ---------- Hero video: right file for the screen, muted autoplay, seamless loop ---------- */
-  const video = $('#heroVideo');
-  const saveData = navigator.connection && navigator.connection.saveData;
-  // VP9 WebM where it is natively supported (smaller), H.264 MP4 everywhere else (Safari, iOS).
-  const ext = video.canPlayType('video/webm; codecs="vp9"') === 'probably' ? '.webm' : '.mp4';
-  function pickSource() {
-    const portrait = matchMedia('(orientation: portrait)').matches;
-    const w = innerWidth * Math.min(devicePixelRatio || 1, 2);
-    const base = portrait ? video.dataset.portrait : w > 1400 ? video.dataset.landscape : video.dataset.landscapeSm;
-    return base + ext;
-  }
-  function startVideo() {
-    if (saveData || reduce.matches) return;
-    const src = pickSource();
-    if (video.dataset.current !== src) {
-      video.dataset.current = src;
-      video.poster = matchMedia('(orientation: portrait)').matches ? '/assets/hero-poster-portrait.webp' : '/assets/hero-poster-1920.webp';
-      video.src = src;
-    }
-    video.muted = true;
-    const p = video.play(); if (p) p.catch(() => {});
-  }
-  video.addEventListener('playing', () => video.classList.add('on'));
-  // Pause when the hero is off-screen (saves battery), resume when back.
-  new IntersectionObserver(([e]) => {
-    if (e.isIntersecting) startVideo();
-    else if (!video.paused) video.pause();
-  }, { threshold: 0.05 }).observe($('.hero'));
-  matchMedia('(orientation: portrait)').addEventListener('change', () => { if (!video.paused) startVideo(); });
-
   /* ---------- Parallax: transform-only, rAF-batched, 3 depths in the hero ---------- */
   const layers = $$('[data-depth]').map(el => ({ el, d: parseFloat(el.dataset.depth), fade: el.hasAttribute('data-fade') }));
   const inner = $$('[data-depth-inner]').map(el => ({ el, d: parseFloat(el.dataset.depthInner), box: el.parentElement }));
@@ -207,8 +175,8 @@
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', () => { vh = innerHeight; onScroll(); }, { passive: true });
   reduce.addEventListener('change', () => {
-    if (reduce.matches) { $$('[data-depth],[data-depth-inner],[data-roll]').forEach(el => { el.style.transform = ''; el.style.opacity = ''; }); video.pause(); }
-    else { startVideo(); onScroll(); }
+    if (reduce.matches) { $$('[data-depth],[data-depth-inner],[data-roll]').forEach(el => { el.style.transform = ''; el.style.opacity = ''; }); }
+    else onScroll();
   });
 
   /* ---------- Jump links: smooth scroll to the section, clear of the header ---------- */
@@ -256,7 +224,4 @@
   applyLang();
   frame();
   requestAnimationFrame(() => document.body.classList.add('loaded'));
-  // Start the film once the page has painted, so the poster (LCP) wins the bandwidth race.
-  if (document.readyState === 'complete') setTimeout(startVideo, 150);
-  else addEventListener('load', () => setTimeout(startVideo, 150), { once: true });
 })();

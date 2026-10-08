@@ -6,7 +6,7 @@ const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push
 await p.goto(url, { waitUntil: 'load' }); await p.waitForTimeout(3500);
 const v = await p.evaluate(() => { const v = document.querySelector('#heroVideo'); return { paused: v.paused, w: v.videoWidth, h: v.videoHeight, on: v.classList.contains('on') }; });
 console.log('video', JSON.stringify(v), 'errors', errs);
-const shots = [['01-inicio', null], ['02-oficina', '.about'], ['03-servicos', '#servicos'], ['04-fotos', '.band'], ['05-opinioes', '#opinioes'], ['06-horario', '#horario'], ['07-localizacao', '#local'], ['08-contacto', '#contacto']];
+const shots = [['01-inicio', null], ['02-oficina', '.about'], ['03-servicos', '#servicos'], ['05-opinioes', '#opinioes'], ['06-horario', '#horario'], ['07-localizacao', '#local'], ['08-contacto', '#contacto']];
 for (const [n, sel] of shots) {
   if (sel) await p.evaluate(s => { const e = document.querySelector(s); scrollTo(0, e.getBoundingClientRect().top + scrollY - 70); }, sel);
   await p.waitForTimeout(700); await p.screenshot({ path: `${out}/iphone-${n}.png` });

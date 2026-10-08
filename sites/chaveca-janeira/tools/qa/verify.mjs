@@ -18,11 +18,8 @@ for (const [name, opts] of [['desktop', { viewport: { width: 1440, height: 900 }
   const lcp = await p.evaluate(() => new Promise(res => { new PerformanceObserver(l => { const e = l.getEntries(); res(Math.round(e[e.length - 1].startTime)); }).observe({ type: 'largest-contentful-paint', buffered: true }); setTimeout(() => res(null), 3000); }));
   ok(`${name}: timings`, { ...nav, lcp, wall: Date.now() - t0 });
   await p.waitForTimeout(4000);
-  const v = await p.evaluate(async () => {
-    const v = document.querySelector('#heroVideo'); const a = v.currentTime; await new Promise(r => setTimeout(r, 1200));
-    return { src: v.currentSrc.split('/').pop(), paused: v.paused, muted: v.muted, loop: v.loop, w: v.videoWidth, h: v.videoHeight, advanced: +(v.currentTime - a).toFixed(2), dur: v.duration, visible: getComputedStyle(v).opacity };
-  });
-  ok(`${name}: hero video`, { ...v, pass: !v.paused && v.muted && v.loop && v.advanced > 0.5 && Math.min(v.w, v.h) >= 1080 * (name === 'desktop' ? 1 : 1) || (!v.paused && v.advanced > 0.5 && Math.min(v.w, v.h) >= 720) });
+  const v = await p.evaluate(() => { const i = document.querySelector('.hero-poster'); return { src: i.currentSrc.split('/').pop(), w: i.naturalWidth, h: i.naturalHeight, video: !!document.querySelector('video') }; });
+  ok(`${name}: static hero image`, { ...v, pass: v.w >= 700 && !v.video });
   await p.screenshot({ path: `${out}/${name}-live-hero.png` });
   const before = await p.evaluate(() => [...document.querySelectorAll('[data-depth]')].map(e => getComputedStyle(e).transform));
   await p.mouse.wheel(0, 500); await p.waitForTimeout(600);
@@ -46,8 +43,8 @@ const rctx = await b.newContext({ viewport: { width: 1440, height: 900 }, reduce
 const rp = await rctx.newPage();
 await rp.goto(url, { waitUntil: 'load' }); await rp.waitForTimeout(2500);
 await rp.mouse.wheel(0, 600); await rp.waitForTimeout(500);
-const r = await rp.evaluate(() => ({ transforms: [...document.querySelectorAll('[data-depth]')].map(e => getComputedStyle(e).transform), videoPaused: document.querySelector('#heroVideo').paused }));
-ok('reduced-motion', { ...r, pass: r.transforms.every(t => t === 'none') && r.videoPaused });
+const r = await rp.evaluate(() => ({ transforms: [...document.querySelectorAll('[data-depth]')].map(e => getComputedStyle(e).transform), video: !!document.querySelector('video') }));
+ok('reduced-motion', { ...r, pass: r.transforms.every(t => t === 'none') && !r.video });
 await rctx.close();
 
 // Maps link resolves (follow the directions URL)

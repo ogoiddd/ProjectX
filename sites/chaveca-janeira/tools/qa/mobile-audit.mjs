@@ -22,7 +22,7 @@ for (const [name, d] of Object.entries(DEV)) {
     return { vw: innerWidth, vh: innerHeight, docW: document.documentElement.scrollWidth, small, tiny, wide, mapLabelPx: mapPx, nav: !!document.querySelector('.nav a') && getComputedStyle(document.querySelector('.nav')).display !== 'none' };
   });
   console.log('==', name, JSON.stringify(r));
-  let i = 1; for (const sel of ['.about', '#servicos', '.band', '#opinioes', '#horario', '#local', '#contacto']) { await p.evaluate(s => { const e = document.querySelector(s); scrollTo(0, e.getBoundingClientRect().top + scrollY - 60); }, sel); await p.waitForTimeout(500); await p.screenshot({ path: `${out}/${name}-${i++}.png` }); }
+  let i = 1; for (const sel of ['.about', '#servicos', '#opinioes', '#horario', '#local', '#contacto']) { await p.evaluate(s => { const e = document.querySelector(s); scrollTo(0, e.getBoundingClientRect().top + scrollY - 60); }, sel); await p.waitForTimeout(500); await p.screenshot({ path: `${out}/${name}-${i++}.png` }); }
   await ctx.close();
 }
 await b.close();

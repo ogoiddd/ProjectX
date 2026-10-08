@@ -3,7 +3,7 @@
 One-page site for **Euromaster Chaveca & Janeira Faro** (Estr. da Sra. da Saúde 58, 8000-500 Faro · +351 289 887 200).
 
 - `public/` — the deployable static site (no build step): `index.html`, `styles.css`, `app.js`, `assets/`.
-- `tools/hero/` — the hero film. `scene.html` is a three.js scene (alloy wheel, sidewall lettering, sunlit roller door); `render.mjs` renders it frame-by-frame in headless Chromium at 2560×1440 / 1440×2560; `encode.sh` turns the frames into the web MP4s and poster frames. Every motion in the scene is periodic over 10 s, so the clip loops without a seam.
+- `tools/hero/` — the earlier 3D hero film (no longer used on the page: the hero is now a static photo of the workshop, the RS 6 photo on phones). `scene.html` is a three.js scene (alloy wheel, sidewall lettering, sunlit roller door); `render.mjs` renders it frame-by-frame in headless Chromium at 2560×1440 / 1440×2560; `encode.sh` turns the frames into the web MP4s and poster frames. Every motion in the scene is periodic over 10 s, so the clip loops without a seam.
 - `tools/og/` — OG image and icon renders.
 - `tools/qa/` — Playwright screenshot / check scripts.
 

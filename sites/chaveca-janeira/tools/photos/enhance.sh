@@ -21,3 +21,6 @@ out p4.img facade ";$(blur 1 1316 754 36 22);$(blur 2 1606 756 32 22)" 2 900 160
 out p3.img align-911 "" 0 700 1100
 out p5.img align-rs6 "" 0 700 1100
 ls -la "$O" | grep -E "workshop|facade|align"
+# hero backgrounds (static): workshop floor for wide screens, RS 6 on the aligner for phones
+out p6.img hero-workshop ";$(blur 1 92 936 56 24);$(blur 2 640 970 66 24)" 2 1280 1920
+out p5.img hero-rs6 "" 0 720 1080

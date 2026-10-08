@@ -35,8 +35,8 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin.woff2" crossorigin>
-<link rel="preload" as="image" imagesrcset="/assets/hero-poster-1280.webp 1280w, /assets/hero-poster-1920.webp 1920w" imagesizes="100vw" media="(orientation: landscape)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/hero-poster-portrait.webp" media="(orientation: portrait)" fetchpriority="high">
+<link rel="preload" as="image" imagesrcset="/assets/hero-workshop-1280.webp 1280w, /assets/hero-workshop-1920.webp 1920w" imagesizes="100vw" media="(orientation: landscape)" fetchpriority="high">
+<link rel="preload" as="image" imagesrcset="/assets/hero-rs6-720.webp 720w, /assets/hero-rs6-1080.webp 1080w" imagesizes="100vw" media="(orientation: portrait)" fetchpriority="high">
 <link rel="stylesheet" href="/styles.css">
 <script>document.documentElement.classList.add("js")</script>
 
@@ -127,12 +127,10 @@
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-media" data-depth="0.38" aria-hidden="true">
     <picture>
-      <source media="(orientation: portrait)" srcset="/assets/hero-poster-portrait.webp">
-      <source srcset="/assets/hero-poster-1280.webp 1280w, /assets/hero-poster-1920.webp 1920w" sizes="100vw">
-      <img class="hero-poster" src="/assets/hero-poster-1920.webp" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+      <source media="(orientation: portrait)" srcset="/assets/hero-rs6-720.webp 720w, /assets/hero-rs6-1080.webp 1080w" sizes="100vw">
+      <source srcset="/assets/hero-workshop-1280.webp 1280w, /assets/hero-workshop-1920.webp 1920w" sizes="100vw">
+      <img class="hero-poster" src="/assets/hero-workshop-1920.webp" alt="" width="1920" height="1280" fetchpriority="high" decoding="async">
     </picture>
-    <video class="hero-video" id="heroVideo" muted loop playsinline preload="none" disablepictureinpicture
-      data-landscape="/assets/hero-1080" data-landscape-sm="/assets/hero-720" data-portrait="/assets/hero-portrait"></video>
     <div class="hero-shade"></div>
   </div>
 
@@ -226,13 +224,6 @@
     </div>
   </div>
 </section>
-
-<!-- The workshop floor -->
-<figure class="band wrap" aria-labelledby="band-cap">
-  <div class="frame"><img data-depth-inner="0.1" src="/assets/workshop-1600.webp" srcset="/assets/workshop-900.webp 900w, /assets/workshop-1600.webp 1600w" sizes="100vw" width="1600" height="1066" loading="lazy" decoding="async" alt="Interior da oficina: nave com asnas de ferro, alinhadores e desmontadoras de pneus vermelhas e a linha amarela da zona de trabalho" data-i18n-alt="img.workshop"></div>
-  <div class="band-inset" data-depth="-0.06"><div class="frame"><img src="/assets/align-rs6-700.webp" srcset="/assets/align-rs6-700.webp 700w, /assets/align-rs6-1100.webp 1100w" sizes="(min-width: 900px) 26vw, 38vw" width="700" height="876" loading="lazy" decoding="async" alt="Audi RS 6 no elevador de alinhamento, com os faróis acesos" data-i18n-alt="img.rs6"></div></div>
-  <figcaption id="band-cap" class="mono cap" data-i18n="cap.workshop">A oficina por dentro</figcaption>
-</figure>
 
 <!-- OPINIÕES ─────────────────────────────────────────── -->
 <section class="reviews" id="opinioes" aria-labelledby="opinioes-title">
