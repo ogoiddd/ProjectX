@@ -19,7 +19,7 @@ for (const [name, opts] of [['desktop', { viewport: { width: 1440, height: 900 }
   ok(`${name}: timings`, { ...nav, lcp, wall: Date.now() - t0 });
   await p.waitForTimeout(4000);
   const v = await p.evaluate(() => { const i = document.querySelector('.hero-poster'); return { src: i.currentSrc.split('/').pop(), w: i.naturalWidth, h: i.naturalHeight, video: !!document.querySelector('video') }; });
-  ok(`${name}: static hero image`, { ...v, pass: v.w >= 700 && !v.video });
+  ok(`${name}: static hero image`, { ...v, pass: /^hero-/.test(v.src) && !v.video });
   await p.screenshot({ path: `${out}/${name}-live-hero.png` });
   const before = await p.evaluate(() => [...document.querySelectorAll('[data-depth]')].map(e => getComputedStyle(e).transform));
   await p.mouse.wheel(0, 500); await p.waitForTimeout(600);

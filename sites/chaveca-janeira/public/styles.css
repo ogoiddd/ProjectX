@@ -321,8 +321,8 @@ a[href^="tel:"], .hours-table td { white-space: nowrap; }
 .openbar .dot { width: 10px; height: 10px; background: var(--sinal); flex: none; }
 .openbar.closed { background: var(--placa); }
 .openbar.closed .dot { background: #8fa0c0; }
-.openbar-more { text-decoration: underline; text-underline-offset: 3px; font-weight: 600; opacity: .9; }
-.openbar:hover .openbar-more { opacity: 1; }
+.openbar-more { text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+.openbar:hover .openbar-more { text-decoration-thickness: 2px; }
 .bar.scrolled .openbar { margin-bottom: 0; }
 .bar.hide { transform: translateY(calc(-100% - 14px)); }
 /* hero content always clears the header + strip */
