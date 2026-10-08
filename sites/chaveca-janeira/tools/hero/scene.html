@@ -25,6 +25,7 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 const P = new URLSearchParams(location.search);
 const W = +P.get('w') || 2560, H = +P.get('h') || 1440;
@@ -301,6 +302,11 @@ const camera = new THREE.PerspectiveCamera(30, W / H, 0.05, 40);
 const rt = new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType, samples: 4 });
 const composer = new EffectComposer(renderer, rt);
 composer.addPass(new RenderPass(scene, camera));
+composer.addPass(new ShaderPass({
+  uniforms: { tDiffuse: { value: null } },
+  vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+  fragmentShader: 'uniform sampler2D tDiffuse; varying vec2 vUv; void main(){ vec4 c = texture2D(tDiffuse, vUv); bvec4 bad = bvec4(isnan(c.r) || isinf(c.r), isnan(c.g) || isinf(c.g), isnan(c.b) || isinf(c.b), false); c.rgb = mix(c.rgb, vec3(0.0), vec3(bad.rgb)); gl_FragColor = vec4(clamp(c.rgb, 0.0, 64.0), c.a); }'
+}));
 composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.4, 0.6, 0.9));
 composer.addPass(new OutputPass());
 
