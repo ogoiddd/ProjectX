@@ -6,6 +6,9 @@
 <title>Taberna Zé-Zé · Cataplanas e arrozes da Ria Formosa em Faro</title>
 <meta name="description" content="Taberna de família na Travessa do Alportel 15, junto ao Largo do Carmo, em Faro. Cataplanas e arrozes de marisco da Ria Formosa para dois, petiscos. Jantar de segunda a sábado. Peça mesa por WhatsApp ou ligue 938 735 167.">
 <link rel="canonical" href="https://taberna-ze-ze-faro.vercel.app/">
+<link rel="alternate" hreflang="pt-PT" href="https://taberna-ze-ze-faro.vercel.app/">
+<link rel="alternate" hreflang="en" href="https://taberna-ze-ze-faro.vercel.app/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://taberna-ze-ze-faro.vercel.app/">
 <meta name="theme-color" content="#f4eee2">
 <meta name="color-scheme" content="light">
 <meta name="geo.region" content="PT-08">
@@ -37,7 +40,7 @@
 <link rel="preload" as="font" type="font/woff2" href="/fonts/young-serif.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/fonts/hanken-grotesk.woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
-<script>(function(d){d.classList.add("js");try{var l=localStorage.getItem("lang");if(l==="en"||(!l&&!/^pt\b/i.test(navigator.language||"pt")))d.classList.add("i18n-wait")}catch(e){}})(document.documentElement)</script>
+<script>(function(d){d.classList.add("js");try{var q=/[?&]lang=(pt|en)\b/.exec(location.search),l=q?q[1]:localStorage.getItem("lang");if(l==="en"||(!l&&!/^pt\b/i.test(navigator.language||"pt")))d.classList.add("i18n-wait")}catch(e){}})(document.documentElement)</script>
 
 <script type="application/ld+json">
 {
@@ -175,6 +178,7 @@
       <p class="comanda-sub" data-i18n="book.sub">Escolha, e a mensagem fica escrita. Envia-a por WhatsApp ou SMS; a casa confirma.</p>
     </div>
     <form id="book" class="book" novalidate>
+      <noscript><p class="nojs">Para pedir mesa, ligue para o <a href="tel:+351938735167">938 735 167</a> ou envie uma mensagem com o dia, a hora, o número de pessoas e o seu nome. <span lang="en">To ask for a table, call or send a message with the day, time, number of people and your name.</span></p></noscript>
       <fieldset class="f-people">
         <legend data-i18n="book.people">Pessoas</legend>
         <div class="stepper">
@@ -209,7 +213,7 @@
         <a class="btn btn-ghost" id="sendSms" href="sms:+351938735167"><span data-i18n="book.sms">Por SMS</span></a>
         <a class="btn btn-ghost" href="tel:+351938735167"><span data-i18n="book.call">Ligar</span></a>
       </div>
-      <p class="fine" data-i18n="book.fine">Este pedido não fica guardado em lado nenhum: é só uma mensagem do seu telemóvel para o da taberna. A mesa só está reservada depois de a casa responder.</p>
+      <p class="fine" data-i18n="book.fine">O site não guarda nem envia nada: a mensagem só sai quando a enviar do seu telemóvel. A Taberna Zé-Zé usa o seu nome, contacto e o que escrever (incluindo alergias, se as indicar) só para tratar desta reserva. Pelo WhatsApp aplicam-se também as regras da Meta. <a href="/privacidade">Política de privacidade</a>. A mesa só está reservada depois de a casa responder.</p>
       <p class="todo"><span>[CONFIRMAR COM CLIENTE]</span> <span data-i18n="book.todo">o 938 735 167 tem WhatsApp? Horas de reserva aceites?</span></p>
     </form>
   </section>
@@ -229,6 +233,8 @@
       <a href="#m-petiscos" data-i18n="menu.c3">Petiscos</a>
       <a href="#m-carne" data-i18n="menu.c4">Carne</a>
     </nav>
+    <p class="fine menu-note" data-i18n="menu.allergens"><strong>Alergénios:</strong> as cataplanas e os arrozes levam crustáceos e moluscos. A lista de ingredientes não substitui a informação sobre os 14 alergénios (Reg. UE 1169/2011), que está disponível na casa: pergunte a quem o atende ou indique as alergias no pedido de mesa.</p>
+    <p class="fine menu-note" data-i18n="menu.prices">Preços na casa, com IVA incluído.</p>
     <p class="todo"><span>[CONFIRMAR COM CLIENTE]</span> <span data-i18n="menu.todo">preços e ementa atual. Pratos tirados da página da casa na DISH e das opiniões no Google.</span></p>
   </header>
 
@@ -237,25 +243,25 @@
       <h3 id="mc1" class="mg-title"><span class="mg-no">I</span> <span data-i18n="menu.c1.long">Cataplanas do mar e da Ria Formosa</span></h3>
       <ul class="dishes">
         <li class="dish dish-star">
-          <div class="d-top"><h4 class="d-name" data-i18n="d.c1">Cataplana Ria Formosa de marisco com lagosta</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div>
+          <div class="d-top"><h4 class="d-name" data-i18n="d.c1">Cataplana Ria Formosa de marisco com lagosta</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div>
           <p class="d-for" data-i18n="d.for2">para 2</p>
           <p class="d-ing" data-i18n="d.c1.i">lagosta, amêijoa, camarão, berbigão, boca de caranguejo, mexilhão em concha, lagostim, lingueirão, tomate, coentros, alho, cebola e pimento</p>
           <button type="button" class="add" data-dish="Cataplana Ria Formosa de marisco com lagosta"><span data-i18n="d.add">Juntar ao pedido de mesa</span></button>
         </li>
         <li class="dish">
-          <div class="d-top"><h4 class="d-name" data-i18n="d.c2">Cataplana Ria Formosa de marisco</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div>
+          <div class="d-top"><h4 class="d-name" data-i18n="d.c2">Cataplana Ria Formosa de marisco</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div>
           <p class="d-for" data-i18n="d.for2">para 2</p>
           <p class="d-ing" data-i18n="d.c2.i">amêijoa, camarão, berbigão, boca de caranguejo, mexilhão em concha, lagostim, lingueirão, tomate, coentros, alho, cebola e pimento</p>
           <button type="button" class="add" data-dish="Cataplana Ria Formosa de marisco"><span data-i18n="d.add">Juntar ao pedido de mesa</span></button>
         </li>
         <li class="dish">
-          <div class="d-top"><h4 class="d-name" data-i18n="d.c3">Cataplana de lingueirão</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div>
+          <div class="d-top"><h4 class="d-name" data-i18n="d.c3">Cataplana de lingueirão</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div>
           <p class="d-for" data-i18n="d.for2">para 2</p>
           <p class="d-ing" data-i18n="d.c3.i">lingueirão, batata, amêijoas, camarão, tomate, coentros, alho, cebola, pimento e berbigão</p>
           <button type="button" class="add" data-dish="Cataplana de lingueirão"><span data-i18n="d.add">Juntar ao pedido de mesa</span></button>
         </li>
         <li class="dish">
-          <div class="d-top"><h4 class="d-name" data-i18n="d.c4">Cataplana de ostras «a pérola da Ria Formosa»</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div>
+          <div class="d-top"><h4 class="d-name" data-i18n="d.c4">Cataplana de ostras «a pérola da Ria Formosa»</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div>
           <p class="d-for" data-i18n="d.for2">para 2</p>
           <p class="d-ing" data-i18n="d.c4.i">ostras, lingueirão, berbigão, amêijoas, camarão, tomate, coentros, alho, cebola, pimento e batata</p>
           <button type="button" class="add" data-dish="Cataplana de ostras"><span data-i18n="d.add">Juntar ao pedido de mesa</span></button>
@@ -267,19 +273,19 @@
       <h3 id="mc2" class="mg-title"><span class="mg-no">II</span> <span data-i18n="menu.c2.long">Arrozes do mar</span></h3>
       <ul class="dishes">
         <li class="dish">
-          <div class="d-top"><h4 class="d-name" data-i18n="d.a1">Arroz de marisco à Taberna</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div>
+          <div class="d-top"><h4 class="d-name" data-i18n="d.a1">Arroz de marisco à Taberna</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div>
           <p class="d-for" data-i18n="d.for2">para 2</p>
           <p class="d-ing" data-i18n="d.a1.i">amêijoas, camarão, lingueirão, bocas de caranguejo, berbigão, mexilhão em concha, arroz, tomate, coentros, alho, cebola e pimento</p>
           <button type="button" class="add" data-dish="Arroz de marisco à Taberna"><span data-i18n="d.add">Juntar ao pedido de mesa</span></button>
         </li>
         <li class="dish">
-          <div class="d-top"><h4 class="d-name" data-i18n="d.a2">Arroz de lagosta</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div>
+          <div class="d-top"><h4 class="d-name" data-i18n="d.a2">Arroz de lagosta</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div>
           <p class="d-for" data-i18n="d.for2">para 2</p>
           <p class="d-ing" data-i18n="d.a2.i">lagosta, amêijoa, camarão, berbigão, mexilhão, arroz, tomate, coentros, alho, cebola e pimento</p>
           <button type="button" class="add" data-dish="Arroz de lagosta"><span data-i18n="d.add">Juntar ao pedido de mesa</span></button>
         </li>
         <li class="dish">
-          <div class="d-top"><h4 class="d-name" data-i18n="d.a3">Arroz de lingueirão</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div>
+          <div class="d-top"><h4 class="d-name" data-i18n="d.a3">Arroz de lingueirão</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div>
           <p class="d-for" data-i18n="d.for2">para 2</p>
           <p class="d-ing" data-i18n="d.a3.i">lingueirão, arroz, tomate, coentros, alho, cebola e pimento</p>
           <button type="button" class="add" data-dish="Arroz de lingueirão"><span data-i18n="d.add">Juntar ao pedido de mesa</span></button>
@@ -290,17 +296,17 @@
     <section class="menu-group" id="m-petiscos" aria-labelledby="mc3">
       <h3 id="mc3" class="mg-title"><span class="mg-no">III</span> <span data-i18n="menu.c3.long">Petiscos que os clientes destacam</span></h3>
       <ul class="dishes dishes-short">
-        <li class="dish"><div class="d-top"><h4 class="d-name" data-i18n="d.p1">Lingueirão à Bulhão Pato</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div></li>
-        <li class="dish"><div class="d-top"><h4 class="d-name" data-i18n="d.p2">Amêijoas</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div></li>
-        <li class="dish"><div class="d-top"><h4 class="d-name" data-i18n="d.p3">Lulinhas fritas</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div></li>
-        <li class="dish"><div class="d-top"><h4 class="d-name" data-i18n="d.p4">Feijoada de lulas com gambas</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div></li>
+        <li class="dish"><div class="d-top"><h4 class="d-name" data-i18n="d.p1">Lingueirão à Bulhão Pato</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div></li>
+        <li class="dish"><div class="d-top"><h4 class="d-name" data-i18n="d.p2">Amêijoas</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div></li>
+        <li class="dish"><div class="d-top"><h4 class="d-name" data-i18n="d.p3">Lulinhas fritas</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div></li>
+        <li class="dish"><div class="d-top"><h4 class="d-name" data-i18n="d.p4">Feijoada de lulas com gambas</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div></li>
       </ul>
     </section>
 
     <section class="menu-group" id="m-carne" aria-labelledby="mc4">
       <h3 id="mc4" class="mg-title"><span class="mg-no">IV</span> <span data-i18n="menu.c4.long">Para quem prefere carne</span></h3>
       <ul class="dishes dishes-short">
-        <li class="dish"><div class="d-top"><h4 class="d-name" data-i18n="d.m1">Bife T-bone Black Angus, 500&nbsp;g</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price">€ —</span></div></li>
+        <li class="dish"><div class="d-top"><h4 class="d-name" data-i18n="d.m1">Bife T-bone Black Angus, 500&nbsp;g</h4><span class="d-dots" aria-hidden="true"></span><span class="d-price"><span aria-hidden="true">€ —</span><span class="sr" data-i18n="d.noprice">preço por confirmar</span></span></div></li>
       </ul>
     </section>
   </div>
@@ -406,9 +412,10 @@
     <div><p class="kicker" data-i18n="foot.addr">Morada</p><p>Travessa do Alportel 15<br>8000-448 Faro</p></div>
     <div><p class="kicker" data-i18n="foot.hours">Horário</p><p data-i18n="foot.hours.v">Seg–Sáb 18:00–23:00<br>Domingo fechado</p></div>
     <div><p class="kicker" data-i18n="foot.more">Também em</p><p><a href="https://www.facebook.com/tabernazezefaro/" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.tripadvisor.pt/Restaurant_Review-g189116-d12524292-Reviews-Taberna_ze_ze-Faro_Faro_District_Algarve.html" target="_blank" rel="noopener">Tripadvisor</a></p></div>
-    <div><p class="kicker" data-i18n="foot.legal">Legal</p><p><a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener" data-i18n="foot.complaints">Livro de Reclamações</a><br><span class="todo-inline">[CONFIRMAR COM CLIENTE: entidade/NIPC]</span></p></div>
+    <div><p class="kicker" data-i18n="foot.legal">Legal</p><p><span class="todo-inline">[CONFIRMAR COM CLIENTE: denominação social]</span><br>NIPC <span class="todo-inline">[CONFIRMAR COM CLIENTE]</span><br>Email <span class="todo-inline">[CONFIRMAR COM CLIENTE]</span></p><p class="foot-links"><a class="foot-lr" href="https://www.livroreclamacoes.pt/Inicio/" target="_blank" rel="noopener" data-i18n="foot.complaints">Livro de Reclamações Eletrónico</a><br><a href="/privacidade" data-i18n="foot.privlink" data-i18n-href="foot.privhref">Política de privacidade</a></p></div>
   </div>
-  <p class="foot-small"><span data-i18n="foot.privacy">Este site não usa cookies nem guarda dados. Mapa © OpenStreetMap.</span> <a href="#topo" data-i18n="foot.top">Voltar ao topo</a></p>
+  <p class="foot-small foot-ral" data-i18n="foot.ral">Em caso de litígio de consumo, o consumidor pode recorrer ao CIMAAL – Centro de Informação, Mediação e Arbitragem de Conflitos de Consumo do Algarve (<a href="https://www.consumoalgarve.pt" target="_blank" rel="noopener">consumoalgarve.pt</a>, 289 823 135). Mais informação em <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">consumidor.gov.pt</a>.</p>
+  <p class="foot-small"><span data-i18n="foot.privacy">Este site não usa cookies, não mede visitas e não guarda dados pessoais. Mapa © OpenStreetMap.</span> <a href="#topo" data-i18n="foot.top">Voltar ao topo</a></p>
 </footer>
 
 <nav class="dock" aria-label="Ações rápidas" data-i18n-aria="dock.label">

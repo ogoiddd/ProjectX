@@ -24,12 +24,15 @@
     'book.day': 'Day', 'book.time': 'Time', 'book.name': 'Name', 'book.name.ph': 'e.g. Anna Smith…',
     'book.note': 'Note', 'book.opt': '(optional)', 'book.note.ph': 'High chair, allergies, a quiet corner…',
     'book.preview': 'Your message', 'book.wa': 'Send by WhatsApp', 'book.sms': 'By SMS', 'book.call': 'Call',
-    'book.fine': 'This request isn’t stored anywhere: it’s just a message from your phone to the taberna’s. Your table is only booked once the house replies.',
+    'book.fine': 'This site stores and sends nothing: the message only leaves when you send it from your phone. Taberna Zé-Zé uses your name, contact and whatever you write (including allergies, if you mention them) only to handle this booking. On WhatsApp, Meta’s terms also apply. <a href="/privacy">Privacy policy</a>. Your table is only booked once the house replies.',
     'book.todo': 'does 938 735 167 use WhatsApp? Which booking times are accepted?',
     'menu.kicker': 'Menu', 'menu.title': 'From the Ria Formosa into the cataplana.',
     'menu.lede': 'Cataplanas and rice dishes are for two and come to the table in the pot. The seafood rice is served with fried bread on the side.',
     'menu.jump': 'Menu sections',
     'menu.c1': 'Cataplanas', 'menu.c2': 'Rice', 'menu.c3': 'Small plates', 'menu.c4': 'Meat',
+    'menu.allergens': '<strong>Allergens:</strong> the cataplanas and rice dishes contain crustaceans and molluscs. The ingredient lists are not the full information on the 14 allergens (EU Reg. 1169/2011), which is available at the restaurant: ask the staff or mention allergies in your table request.',
+    'menu.prices': 'Prices at the restaurant, VAT included.',
+    'd.noprice': 'price to be confirmed',
     'menu.todo': 'current prices and menu. Dishes taken from the house’s DISH page and from Google reviews.',
     'menu.c1.long': 'Sea and Ria Formosa cataplanas', 'menu.c2.long': 'Seafood rice', 'menu.c3.long': 'Small plates guests rave about', 'menu.c4.long': 'If you’d rather have meat',
     'd.for2': 'for 2', 'd.add': 'Add to my table request', 'd.added': 'Added to the request',
@@ -63,22 +66,27 @@
     'where.cap': 'On foot: right by Largo do Carmo, 2 minutes from Praça Silva Porto.',
     'map.title': 'Map of the streets around Taberna Zé-Zé on Travessa do Alportel, by Largo do Carmo and the Carmo church in Faro',
     'foot.addr': 'Address', 'foot.hours': 'Hours', 'foot.hours.v': 'Mon–Sat 18:00–23:00<br>Closed on Sundays', 'foot.more': 'Also on', 'foot.legal': 'Legal',
-    'foot.complaints': 'Complaints book (Livro de Reclamações)', 'foot.privacy': 'This site uses no cookies and stores no data. Map © OpenStreetMap.', 'foot.top': 'Back to top',
+    'foot.complaints': 'Electronic complaints book (Livro de Reclamações)', 'foot.privlink': 'Privacy policy', 'foot.privhref': '/privacy',
+    'foot.ral': 'For consumer disputes, consumers may turn to CIMAAL, the Algarve consumer dispute mediation and arbitration centre (<a href="https://www.consumoalgarve.pt" target="_blank" rel="noopener">consumoalgarve.pt</a>, +351 289 823 135). More information at <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">consumidor.gov.pt</a>.',
+    'foot.privacy': 'This site uses no cookies, no visitor tracking and stores no personal data. Map © OpenStreetMap.', 'foot.top': 'Back to top',
     'dock.label': 'Quick actions', 'dock.book': 'Ask for a table', 'dock.call': 'Call', 'dock.dir': 'Directions'
   };
   const PT = {};
   $$('[data-i18n]').forEach(el => { PT[el.dataset.i18n] = el.innerHTML; });
   $$('[data-i18n-aria]').forEach(el => { PT[el.dataset.i18nAria] = el.getAttribute('aria-label'); });
   $$('[data-i18n-ph]').forEach(el => { PT[el.dataset.i18nPh] = el.placeholder; });
+  $$('[data-i18n-href]').forEach(el => { PT[el.dataset.i18nHref] = el.getAttribute('href'); });
   PT['d.added'] = 'Junto ao pedido de mesa';
   PT['copied'] = 'Morada copiada';
 
   let lang = 'pt';
+  const q = /[?&]lang=(pt|en)\b/.exec(location.search);
   try {
-    const saved = localStorage.getItem('lang');
-    if (saved) lang = saved;
+    const saved = q ? q[1] : localStorage.getItem('lang');
+    if (saved === 'en' || saved === 'pt') lang = saved;
     else if (!/^pt\b/i.test(navigator.language || 'pt')) lang = 'en';
-  } catch {}
+  } catch { if (q) lang = q[1]; }
+  const canon = $('link[rel="canonical"]'), canonBase = canon && canon.href.split('?')[0];
   const t = (k) => (lang === 'en' ? EN : PT)[k] ?? PT[k];
 
   function applyLang() {
@@ -86,6 +94,8 @@
     $$('[data-i18n]').forEach(el => { const v = t(el.dataset.i18n); if (v != null) el.innerHTML = v; });
     $$('[data-i18n-aria]').forEach(el => { const v = t(el.dataset.i18nAria); if (v != null) el.setAttribute('aria-label', v); });
     $$('[data-i18n-ph]').forEach(el => { const v = t(el.dataset.i18nPh); if (v != null) el.placeholder = v; });
+    $$('[data-i18n-href]').forEach(el => { const v = t(el.dataset.i18nHref); if (v != null) el.setAttribute('href', v); });
+    if (canon) canon.href = canonBase + (lang === 'en' ? '?lang=en' : '');
     $$('.q-tr').forEach(el => { el.hidden = lang !== 'en'; });
     $$('.add').forEach(b => { b.firstElementChild.textContent = t(b.getAttribute('aria-pressed') === 'true' ? 'd.added' : 'd.add'); });
     const b = $('#lang');
@@ -95,6 +105,7 @@
   $('#lang').addEventListener('click', () => {
     lang = lang === 'en' ? 'pt' : 'en';
     try { localStorage.setItem('lang', lang); } catch {}
+    try { const u = new URL(location.href); u.searchParams.delete('lang'); if (lang === 'en') u.searchParams.set('lang', 'en'); history.replaceState(null, '', u); } catch {}
     if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.startViewTransition(applyLang);
     else applyLang();
   });
@@ -186,6 +197,7 @@
       : '';
     renderMessage();
   }
+  form.addEventListener('submit', e => e.preventDefault());
   daysBox.addEventListener('change', e => { selDay = e.target.value; renderTimes(); bumpTicket(); });
   timesBox.addEventListener('change', e => { selTime = e.target.value; renderMessage(); });
   $$('.step').forEach(b => b.addEventListener('click', () => {

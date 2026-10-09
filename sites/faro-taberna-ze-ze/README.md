@@ -2,7 +2,7 @@
 
 Site de uma página para a **Taberna Zé-Zé** (Travessa do Alportel 15, 8000-448 Faro, tel. +351 938 735 167). Lead `faro-taberna-ze-ze`. **Demo: não está publicada.**
 
-- `public/`: site estático, sem build: `index.html`, `styles.css`, `app.js`, `fonts/` (Young Serif + Hanken Grotesk, OFL, auto-alojadas), `assets/` (azulejo e logótipo em SVG desenhados à mão, OG e ícones), `vercel.json`, `robots.txt`, `sitemap.xml`, `site.webmanifest`.
+- `public/`: site estático, sem build: `index.html`, `privacidade.html` / `privacy.html` (política PT/EN), `404.html`, `styles.css`, `app.js`, `fonts/` (Young Serif + Hanken Grotesk, OFL, auto-alojadas), `assets/` (azulejo e logótipo em SVG desenhados à mão, OG e ícones), `vercel.json`, `robots.txt`, `sitemap.xml`, `site.webmanifest`.
 - `tools/map/osm2svg.py`: desenha o mapa a partir de um extrato do OpenStreetMap (© OpenStreetMap contributors, ODbL).
 - `tools/og/`: `og.html`/`icon.html` + `shoot.mjs` geram `og.jpg` e os PNG dos ícones.
 - `tools/qa/`: `shots.mjs` (screenshots desktop/mobile/EN), `interact.mjs` (preenche o pedido de mesa, testa o EN e o teclado), `mapshot.mjs`.
@@ -67,3 +67,5 @@ cd tools/qa && node shots.mjs ../../qa && node interact.mjs ../../qa   # precisa
 ## QA (2026-10-09)
 
 Lighthouse local: mobile 99 / 100 / 100 / 100 e desktop 100 / 100 / 100 / 100 (performance / acessibilidade / boas práticas / SEO), CLS 0. Os avisos de compressão e cache vêm do servidor local; no Vercel não se aplicam. Sem erros de consola. O botão do WhatsApp chega-se por teclado. O movimento (tampa da cataplana, vapor, revelações ao fazer scroll) desliga-se com `prefers-reduced-motion`.
+
+Revisão legal, segurança e funcionamento: ver `LEGAL.md`. O hash CSP do script inline do `<head>` está em `public/vercel.json`: se esse script mudar, recalcular o hash.

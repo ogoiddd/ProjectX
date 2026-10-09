@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://taberna-ze-ze-faro.vercel.app/</loc><lastmod>2026-10-09</lastmod></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://taberna-ze-ze-faro.vercel.app/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://taberna-ze-ze-faro.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taberna-ze-ze-faro.vercel.app/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taberna-ze-ze-faro.vercel.app/"/>
+  </url>
+  <url>
+    <loc>https://taberna-ze-ze-faro.vercel.app/?lang=en</loc>
+    <lastmod>2026-10-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://taberna-ze-ze-faro.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taberna-ze-ze-faro.vercel.app/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taberna-ze-ze-faro.vercel.app/"/>
+  </url>
+  <url>
+    <loc>https://taberna-ze-ze-faro.vercel.app/privacidade</loc>
+    <lastmod>2026-10-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://taberna-ze-ze-faro.vercel.app/privacidade"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taberna-ze-ze-faro.vercel.app/privacy"/>
+  </url>
+  <url>
+    <loc>https://taberna-ze-ze-faro.vercel.app/privacy</loc>
+    <lastmod>2026-10-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://taberna-ze-ze-faro.vercel.app/privacidade"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taberna-ze-ze-faro.vercel.app/privacy"/>
+  </url>
 </urlset>
