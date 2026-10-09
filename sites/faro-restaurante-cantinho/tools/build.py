@@ -11,6 +11,8 @@ import json, math, pathlib, random, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / 'tools' / 'src' / 'index.html'
+PRIV = ROOT / 'tools' / 'src' / 'privacidade.html'   # privacy policy: /privacidade/ and /en/privacy/
+NOTFOUND = ROOT / 'tools' / 'src' / '404.html'       # one bilingual 404 (Vercel serves /404.html)
 MAP = ROOT / 'tools' / 'map' / 'map.svg'
 SITE = 'https://cantinho-faro.vercel.app'
 
@@ -106,7 +108,7 @@ def hero_svg():
 </svg>'''
 
 
-def render(lang, tpl, mapsvg):
+def render(lang, tpl, mapsvg, path=None):
     i = 0 if lang == 'pt' else 1
 
     def bi(m):
@@ -116,7 +118,7 @@ def render(lang, tpl, mapsvg):
     V = {
         'lang': 'pt-PT' if lang == 'pt' else 'en',
         'root': '/' if lang == 'pt' else '/en/',
-        'url': SITE + ('/' if lang == 'pt' else '/en/'),
+        'url': SITE + (path or ('/' if lang == 'pt' else '/en/')),
         'site': SITE,
         'hero_svg': hero_svg(),
         'map_svg': mapsvg,
@@ -169,6 +171,19 @@ def main():
     (ROOT / 'public' / 'index.html').write_text(render('pt', tpl, mapsvg))
     (ROOT / 'public' / 'en').mkdir(exist_ok=True)
     (ROOT / 'public' / 'en' / 'index.html').write_text(render('en', tpl, mapsvg))
+    priv = PRIV.read_text()
+    for lang, path in (('pt', '/privacidade/'), ('en', '/en/privacy/')):
+        out = ROOT / 'public' / path.strip('/') / 'index.html'
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(render(lang, priv, '', path))
+    (ROOT / 'public' / '404.html').write_text(NOTFOUND.read_text())
+    # CSP has no 'unsafe-inline': every inline <script> must be allowed by hash in public/vercel.json
+    import base64, hashlib
+    csp = (ROOT / 'public' / 'vercel.json').read_text()
+    for page in (ROOT / 'public').rglob('*.html'):
+        for js in re.findall(r'<script>(.*?)</script>', page.read_text(), flags=re.S):
+            h = base64.b64encode(hashlib.sha256(js.encode()).digest()).decode()
+            assert f"'sha256-{h}'" in csp, f'{page}: add sha256-{h} to script-src in vercel.json'
     print('ok')
 
 

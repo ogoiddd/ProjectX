@@ -386,3 +386,28 @@ address{font:400 1.6rem/1.15 var(--display);font-style:normal;margin-bottom:1.1r
 @view-transition{navigation:auto}
 @media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
 .tower{fill-rule:evenodd}
+
+/* ---------- legal review: form states, no-JS fallback, legal pages */
+.nojs,.sent,.privacy-note{grid-column:1 / -1;margin:0}
+.nojs{background:#f1e9dc14;border-left:3px solid var(--brasa-hi);padding:.7rem .9rem;color:var(--on-dark)}
+.sent:empty{display:none}
+.sent{color:#bfe8c6;font-size:.95rem}
+.privacy-note{font-size:.85rem}
+.privacy-note a,.nojs a{color:var(--on-dark)}
+html:not(.js) .res-form .send,html:not(.js) .res-form .ticket,html:not(.js) .res-form .stepper button{display:none}
+.allergens{font-size:.95rem}
+.foot-legal p{font-size:.95rem}
+.legal-page{padding-bottom:0}
+.legal{max-width:46rem;margin:0 auto;padding:clamp(3rem,7vw,5rem) var(--pad) 4rem}
+.legal h1{font-size:clamp(2.2rem,6vw,3.4rem);line-height:1;margin-bottom:.8rem}
+.legal h2{font-size:1.45rem;margin:2.4rem 0 .7rem;padding-top:1.2rem;border-top:1px solid #23191433}
+.legal ul{padding-left:1.2rem}
+.legal li{margin-bottom:.4rem}
+.legal .updated{color:var(--fumo)}
+.legal a{color:var(--brasa)}
+.legal dl{margin:0}
+.legal dt{font-variant-caps:all-small-caps;letter-spacing:.1em;color:var(--taipa);font-weight:600;margin-top:.8rem}
+.legal dd{margin:0}
+.lost{min-height:70vh;display:grid;place-content:center;text-align:center;gap:1rem;padding:4rem var(--pad)}
+.lost h1{font-size:clamp(2.4rem,8vw,4.5rem);line-height:1}
+.lost .btn{justify-self:center}

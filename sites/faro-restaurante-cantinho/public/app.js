@@ -15,6 +15,7 @@
     opensOn: (d, h) => `Closed on Sundays · opens ${d} at ${h}`,
     today: 'today', sky: { day: 'Daylight in Faro, right now.', golden: 'Late afternoon light in Faro, right now.', dusk: 'Sunset over Faro, right now.', night: 'Night in Faro, right now.' },
     sundayErr: 'We’re closed on Sundays. Please pick another day.', pastErr: 'Please pick today or a later date.',
+    nameErr: 'Please tell us your name.', sent: { wa: 'Opening WhatsApp… If nothing happens, call +351 911 013 101.', sms: 'Opening your messages app… If nothing happens, call +351 911 013 101.' },
     msg: (n, d, h, p, o, x) => `Hello Cantinho! I'd like to book a table for ${p} ${p === 1 ? 'person' : 'people'} on ${d} at ${h}${o ? ` (${o})` : ''}.${x ? `\nNotes: ${x}` : ''}\nName: ${n || '…'}`,
     pick: 'Choose a date…'
   } : {
@@ -24,6 +25,7 @@
     opensOn: (d, h) => `Fechado ao domingo · abre ${d} às ${h}`,
     today: 'hoje', sky: { day: 'Dia claro em Faro, agora mesmo.', golden: 'Fim de tarde em Faro, agora mesmo.', dusk: 'Pôr do sol em Faro, agora mesmo.', night: 'Noite em Faro, agora mesmo.' },
     sundayErr: 'Ao domingo estamos fechados. Escolha outro dia.', pastErr: 'Escolha hoje ou um dia a seguir.',
+    nameErr: 'Diga-nos o seu nome.', sent: { wa: 'A abrir o WhatsApp… Se nada acontecer, ligue 911 013 101.', sms: 'A abrir as mensagens… Se nada acontecer, ligue 911 013 101.' },
     msg: (n, d, h, p, o, x) => `Olá Cantinho! Queria reservar mesa para ${p} ${p === 1 ? 'pessoa' : 'pessoas'} no dia ${d}, às ${h}${o ? ` (${o})` : ''}.${x ? `\nNotas: ${x}` : ''}\nNome: ${n || '…'}`,
     pick: 'Escolha o dia…'
   };
@@ -118,13 +120,14 @@
   const form = document.getElementById('res-form');
   if (!form) return;
   const $ = s => form.querySelector(s);
+  const sent = $('[data-sent]'), nameErr = $('#r-nome-err');
   const date = $('#r-data'), time = $('#r-hora'), paxOut = $('#r-pax'), ticket = $('[data-ticket]'), err = $('#r-data-err');
   let pax = 2;
 
   const today = faroNow().iso;
   date.min = today;
-  // half-hour slots inside opening hours (last booking an hour before closing)
-  for (let m = OPEN; m <= CLOSE - 60; m += 30) {
+  // half-hour slots inside opening hours (last booking an hour before closing); static in the HTML, rebuilt only if missing
+  if (!time.options.length) for (let m = OPEN; m <= CLOSE - 60; m += 30) {
     const o = document.createElement('option'); o.value = o.textContent = hm(m);
     if (m === 20 * 60) o.selected = true;
     time.append(o);
@@ -159,7 +162,11 @@
     return T.msg(n, fmtDate(date.value), time.value, pax, any ? '' : o, $('#r-notas').value.trim());
   }
   function render() { ticket.textContent = text(); }
-  form.addEventListener('input', () => { check(); render(); });
+  form.addEventListener('input', e => {
+    check(); render();
+    if (e.target.id === 'r-nome' && e.target.value.trim()) { e.target.setAttribute('aria-invalid', 'false'); nameErr.textContent = ''; }
+    sent.textContent = '';
+  });
   form.addEventListener('change', render);
   form.querySelectorAll('[data-pax]').forEach(b => b.addEventListener('click', () => {
     pax = Math.min(20, Math.max(1, pax + +b.dataset.pax)); paxOut.value = paxOut.textContent = pax; render();
@@ -167,10 +174,14 @@
   form.addEventListener('submit', e => {
     e.preventDefault();
     const name = $('#r-nome');
+    sent.textContent = '';
     name.setAttribute('aria-invalid', name.value.trim() ? 'false' : 'true');
+    nameErr.textContent = name.value.trim() ? '' : T.nameErr;
     if (!name.value.trim()) { name.focus(); return; }
-    if (!date.value || !check()) { date.focus(); return; }
+    if (!date.value) { err.textContent = T.pastErr; date.setAttribute('aria-invalid', 'true'); date.focus(); return; }
+    if (!check()) { date.focus(); return; }
     const via = (e.submitter && e.submitter.dataset.via) || 'wa';
+    sent.textContent = T.sent[via === 'sms' ? 'sms' : 'wa'];
     const body = encodeURIComponent(text());
     location.href = via === 'sms' ? `sms:+${PHONE}?&body=${body}` : `https://wa.me/${PHONE}?text=${body}`;
   });

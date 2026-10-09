@@ -4,12 +4,28 @@
     <loc>https://cantinho-faro.vercel.app/</loc>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://cantinho-faro.vercel.app/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cantinho-faro.vercel.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cantinho-faro.vercel.app/"/>
     <lastmod>2026-10-09</lastmod>
   </url>
   <url>
     <loc>https://cantinho-faro.vercel.app/en/</loc>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://cantinho-faro.vercel.app/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cantinho-faro.vercel.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cantinho-faro.vercel.app/"/>
+    <lastmod>2026-10-09</lastmod>
+  </url>
+  <url>
+    <loc>https://cantinho-faro.vercel.app/privacidade/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://cantinho-faro.vercel.app/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cantinho-faro.vercel.app/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cantinho-faro.vercel.app/privacidade/"/>
+    <lastmod>2026-10-09</lastmod>
+  </url>
+  <url>
+    <loc>https://cantinho-faro.vercel.app/en/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://cantinho-faro.vercel.app/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cantinho-faro.vercel.app/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cantinho-faro.vercel.app/privacidade/"/>
     <lastmod>2026-10-09</lastmod>
   </url>
 </urlset>
