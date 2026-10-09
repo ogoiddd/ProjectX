@@ -1,6 +1,18 @@
 {
   "version": 1,
   "skills": {
+    "article-highlights": {
+      "source": "liamrjohnston/remotion-motion-graphics-skill",
+      "sourceType": "github",
+      "skillPath": "skills/article-highlights/SKILL.md",
+      "computedHash": "2a85a5ff3483a92be885a8d1a71c01ab72cb25af25651a6750b5fc5af143ad66"
+    },
+    "cinematic-camera": {
+      "source": "liamrjohnston/remotion-motion-graphics-skill",
+      "sourceType": "github",
+      "skillPath": "skills/cinematic-camera/SKILL.md",
+      "computedHash": "ce45405d4e80348050ba71525fc7745da117f8984d9d028858098dbcec7e763e"
+    },
     "deploy-to-vercel": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
@@ -12,6 +24,18 @@
       "sourceType": "github",
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "4eabc66183767153e404b39d1b839b1c37f2d82d86f0a0d7e880a579d8d62336"
+    },
+    "motion-graphics": {
+      "source": "liamrjohnston/remotion-motion-graphics-skill",
+      "sourceType": "github",
+      "skillPath": "skills/motion-graphics/SKILL.md",
+      "computedHash": "b8f77902788ba7bd1dad16fc2ccf2362d173123e88b27143357a14be5e80f093"
+    },
+    "terminal-inserts": {
+      "source": "liamrjohnston/remotion-motion-graphics-skill",
+      "sourceType": "github",
+      "skillPath": "skills/terminal-inserts/SKILL.md",
+      "computedHash": "2634050c584d5e0318be972a0fe08eb5efc144ae433cc94ea4e51f4488436d3c"
     },
     "vercel-cli-with-tokens": {
       "source": "vercel-labs/agent-skills",
