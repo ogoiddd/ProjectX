@@ -1,0 +1,179 @@
+[
+  {
+    "lead_id": "faro-restaurante-cantinho",
+    "decisor": {"nome": null, "cargo": "proprietario(a) (nao identificado)", "confianca": "baixa", "provas": []},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Ligar para +351 911 013 101 e pedir para falar com o responsavel/proprietario do restaurante; perguntar o nome no fim da chamada. Nome nao encontrado em fontes publicas acessiveis.",
+    "melhor_horario": "Ter-Qui 15:00-17:30 (evitar almoco e jantar)",
+    "porteiro_provavel": "dono/empregado de sala (tasca pequena, provavelmente o proprio dono atende)",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Queria falar com o responsavel do restaurante, sobre a presenca online do Cantinho. Quando e que seria melhor ligar?",
+    "notas": "Sem nome nem entidade legal identificados (sem NIPC). Facebook cantinhodefaro exige login; nao foi possivel ler a seccao 'sobre'. Pesquisa so devolveu que e uma tasca pequena de beco. Nao ha site proprio confirmado."
+  },
+  {
+    "lead_id": "faro-restaurante-vo-bela",
+    "decisor": {"nome": null, "cargo": "proprietario(a) (nao identificado)", "confianca": "baixa", "provas": []},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Ligar para +351 913 250 653 e pedir pelo responsavel. Nome nao encontrado. Taberna familiar: provavelmente quem atende e dono/familia.",
+    "melhor_horario": "Ter-Sab 15:00-17:30 (fecha 2.a; abre almoco e jantar ter-sab, so almoco ao domingo)",
+    "porteiro_provavel": "familiar/empregado de sala",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Podia falar com o responsavel do restaurante? E sobre a presenca do Vo Bela na internet.",
+    "notas": "Listagem Algarve Atlas refere 159 reviews Google (lead dizia 187). Uma review truncada menciona um 'Mr. Diam...' possivelmente funcionario; nao usar como identificacao. Sem site proprio encontrado."
+  },
+  {
+    "lead_id": "faro-taberna-ze-ze",
+    "decisor": {"nome": null, "cargo": "proprietario (nome nao confirmado)", "confianca": "baixa", "provas": ["https://wanderlog.com/place/details/1323213/taberna-zé-zé"], "nota_confianca": "Uma unica review de cliente menciona um dono chamado 'Eldu' (possivel alcunha/nome proprio). Inferencia fraca, nao confirmar como facto."},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Ligar para +351 938 735 167 e perguntar pelo dono/responsavel; se atender um homem, perguntar com quem fala (possivelmente 'Eldu', por confirmar).",
+    "melhor_horario": "Ter-Qui 15:00-17:30 (evitar almoco e jantar; epoca alta e muito ocupado)",
+    "porteiro_provavel": "o proprio dono ou empregado de sala (negocio familiar)",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Queria falar com o responsavel da Taberna Ze-Ze sobre as reservas online. Quando posso ligar?",
+    "notas": "Descrito como negocio familiar. Sem site proprio encontrado (so agregadores). Sem NIPC."
+  },
+  {
+    "lead_id": "faro-restaurante-cantinho-da-ronha",
+    "decisor": {"nome": null, "cargo": "proprietario(a) (nao identificado)", "confianca": "baixa", "provas": []},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Ligar para +351 289 813 872 (fixo) e pedir pelo responsavel do restaurante.",
+    "melhor_horario": "Ter-Qui 15:00-17:30",
+    "porteiro_provavel": "empregado de sala / dono",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Podia passar-me ao responsavel do restaurante? E sobre a presenca online do Cantinho da Ronha.",
+    "notas": "Nenhuma fonte publica acessivel nomeia o dono. Sem site proprio confirmado (ficha liga a TripAdvisor)."
+  },
+  {
+    "lead_id": "faro-restaurante-cidade-velha",
+    "decisor": {"nome": null, "cargo": "proprietario/gerente (nao identificado)", "confianca": "baixa", "provas": []},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Ligar para +351 289 827 145 e pedir pelo responsavel. Nota: um diretorio (2007) lista outro numero, 289 815 851; usar o da ficha atual.",
+    "melhor_horario": "Ter-Qui 15:00-17:30 (almoco todo o ano, jantar sobretudo maio-setembro; fecha ao domingo segundo listagem recente)",
+    "porteiro_provavel": "empregado de sala / balcao da pastelaria",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Quem e o responsavel pelo restaurante? Queria falar sobre a presenca online do Cidade Velha.",
+    "notas": "Diretorio antigo (codigopostal.ciberforma.pt, atualizado 2007) aponta site http://www.sdias.pt/cvelha/index.shtml, que devolve 404: site antigo morto, portanto continua sem site funcional. Sem NIPC (diretorio mostra NIF '0')."
+  },
+  {
+    "lead_id": "faro-restaurante-local-by-gois",
+    "decisor": {"nome": null, "cargo": "chef/proprietario (nao identificado)", "confianca": "baixa", "provas": []},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Ligar para +351 289 055 019 e pedir pelo responsavel/chef. O nome 'Gois' no titulo pode ser apelido do chef/dono, mas e so inferencia.",
+    "melhor_horario": "Ter-Qui 15:00-17:00 (restaurante de gama mais alta: evitar preparacao de jantar apos 17:30)",
+    "porteiro_provavel": "empregado de sala",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Podia falar com o responsavel do Local by Gois? E sobre o site do restaurante.",
+    "notas": "Pesquisa nao devolveu nenhuma entrada sobre o restaurante; Instagram (@localbygois) nao verificado. Hipotese: apelido Gois = chef/dono (inferencia, nao facto). Sem NIPC."
+  },
+  {
+    "lead_id": "faro-restaurante-monte-dos-bentos",
+    "decisor": {"nome": null, "cargo": "proprietario (nao identificado)", "confianca": "baixa", "provas": []},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Ligar para +351 913 829 441 e pedir pelo responsavel. NAO usar o Facebook 'mbferreira1': parece perfil pessoal, fora do ambito de contacto profissional.",
+    "melhor_horario": "Ter-Sex 15:00-17:30 (almoco e jantar seg-sex, so jantar ao sabado, fecha domingo)",
+    "porteiro_provavel": "empregado de sala / dono",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Podia falar com o responsavel do Monte dos Bentos? E sobre a presenca online do restaurante.",
+    "notas": "Sem nome publico encontrado. O link da ficha e provavelmente perfil pessoal (iniciais 'mb', 'Ferreira'): nao tratar como identificacao do decisor. Sem site proprio encontrado."
+  },
+  {
+    "lead_id": "faro-arealauto-oficina",
+    "decisor": {"nome": null, "cargo": "gerencia (nomes nao acessiveis)", "confianca": "baixa", "provas": ["https://www.iberinform.pt/empresa/21171636/arealauto-oficina-de-reparacoes-lda"], "nota_confianca": "A empresa e confirmada (Lda., ativa) mas a Iberinform esconde os nomes dos gestores atras de 'Consultar' (pago). Racius devolve 403."},
+    "outros_gerentes": [],
+    "nipc": "503688894",
+    "como_chegar": "Ligar para +351 289 882 080 e pedir pelo gerente/responsavel da oficina. Para nome: certidao permanente (Portal da Justica / Registo Comercial) ou relatorio pago.",
+    "melhor_horario": "Ter-Qui 10:00-11:30 ou 14:30-16:30 (evitar abertura, hora de almoco e fim do dia)",
+    "porteiro_provavel": "rececionista / administrativo / mecanico que atende",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Podia falar com o gerente da Arealauto? E sobre a presenca da oficina no Google.",
+    "notas": "NIPC 503688894, sociedade por quotas, constituida 14-06-1996, CAE 95310 (nota: Iberinform), capital 5.001-25.000 EUR, 11-15 empregados, sede Sitio do Brejo/Areal Gordo 8005-409 Faro. Sem website listado. Empresa com 11-15 empregados: provavelmente ha administrativo a filtrar."
+  },
+  {
+    "lead_id": "faro-medform-clinic",
+    "decisor": {"nome": null, "cargo": "diretor clinico/titular (nao identificado)", "confianca": "baixa", "provas": [], "nota_confianca": "Nenhuma fonte acessivel nomeia medico ou gerente. Facebook exige login."},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Sem telefone no lead. Obter contacto profissional via Messenger da pagina Facebook da clinica ou ficha WhatClinic (canal da empresa). Pedir para falar com a direcao/administracao.",
+    "melhor_horario": "Ter-Qui 14:30-17:00 (clinicas: evitar manha de consultas/cirurgias)",
+    "porteiro_provavel": "rececionista / secretariado clinico",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Gostava de falar com a direcao da Medform Clinic sobre o site da clinica. A quem devo dirigir-me?",
+    "notas": "Sem NIPC (entidade legal por trás da marca nao identificada). WhatClinic lista varias especialidades (dentaria, estetica, psicologia, ortopedia), o que sugere varios medicos: o decisor pode nao ser um clinico. Review de 2020 refere um medico sem nome. Sem site oficial encontrado."
+  },
+  {
+    "lead_id": "faro-restaurante-ponto-smokehouse",
+    "decisor": {"nome": null, "cargo": "proprietario (nao identificado)", "confianca": "baixa", "provas": []},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Ligar para +351 963 157 592 e pedir pelo dono/responsavel (reviews falam em 'great owners' sem nomes).",
+    "melhor_horario": "Ter-Qui 15:30-17:30 (horario so de dia: confirmar hora de fecho antes; tentar apos o fecho do almoco)",
+    "porteiro_provavel": "o proprio dono / empregado",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Podia falar com o responsavel do Ponto Smokehouse? E sobre o site do restaurante.",
+    "notas": "Nome nao encontrado. Espaco pequeno; sem site proprio encontrado."
+  },
+  {
+    "lead_id": "faro-restaurante-a-fonte",
+    "decisor": {"nome": null, "cargo": "proprietario (nao identificado)", "confianca": "baixa", "provas": []},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Ligar para +351 289 826 165 e pedir pelo responsavel.",
+    "melhor_horario": "Ter-Qui 15:00-17:30 (almoco seg-sex, jantar ter-sab, fecha domingo)",
+    "porteiro_provavel": "empregado de sala",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Quem e o responsavel pelo restaurante A Fonte? Queria falar sobre a presenca online.",
+    "notas": "Nome nao encontrado. Pesquisas devolvem a Fonte Luminosa do Pe da Cruz (monumento) e outro restaurante homonimo: cuidado com falsos positivos. Sem site proprio encontrado."
+  },
+  {
+    "lead_id": "faro-clinica-do-alportel",
+    "decisor": {"nome": null, "cargo": "administracao/gerencia (nomes nao acessiveis)", "confianca": "baixa", "provas": ["https://infotrustgo.pt/en/companies/clinica-do-alportel-centro-de-medicina-fisica-e-reabilitacao-de-faro-lda"], "nota_confianca": "Empresa confirmada (NIPC, ativa) mas a pagina nao nomeia ninguem. Houve nomeacao e demissao de orgaos sociais em 20-08-2025: a gerencia mudou recentemente, por isso qualquer nome antigo estaria desatualizado."
+    },
+    "outros_gerentes": [],
+    "nipc": "501575219",
+    "como_chegar": "Telefone nao fiavel no lead (289 828 828 e 289 828 649 contraditorios; a pagina InfoTrustGo mostra 289 462...). Confirmar numero na pagina Facebook/ficha Google e pedir pela direcao/administracao.",
+    "melhor_horario": "Ter-Qui 14:30-16:30 (clinica: evitar manha, horas de maior afluencia)",
+    "porteiro_provavel": "rececionista / secretariado",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Gostava de falar com a administracao da Clinica do Alportel sobre o site da clinica. Com quem devo falar?",
+    "notas": "NIPC 501575219, constituida 11-09-1984, capital 7.501,96 EUR, ativa; sede Rua do Alportel 143-A R/C. Empresa antiga e com mudanca de orgaos em agosto 2025: possivel mudanca de gestao/propriedade, validar. Sem website proprio listado."
+  },
+  {
+    "lead_id": "faro-restaurante-tasquinha-cruzeiro",
+    "decisor": {"nome": null, "cargo": "proprietario atual (nao identificado)", "confianca": "baixa", "provas": ["https://postal.pt/nacional/faleceu-antonio-rodrigues-proprietario-da-tasquinha-cruzeiro/"], "nota_confianca": "O proprietario historico, Antonio Rodrigues ('Senhor To'), faleceu a 15-08-2021 (noticia do Postal de 17-08-2021). Nao ha informacao publica sobre quem gere agora."},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Antes de ligar, confirmar o telefone (leads divergem: 967 958 002 vs 918 306 207). Perguntar quem e o responsavel atual; nao mencionar o falecimento nem pedir pelo Sr. Antonio Rodrigues.",
+    "melhor_horario": "Ter-Qui 15:00-17:30 (zona de vida noturna: pode abrir tarde; confirmar horario)",
+    "porteiro_provavel": "empregado de sala / bar",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Quem e o responsavel atual pela Tasquinha Cruzeiro? Queria falar sobre a presenca online.",
+    "notas": "ATENCAO: dono historico falecido em 2021; gestao atual desconhecida, possivel transmissao a familia ou trespasse. Reduzir prioridade ate confirmar."
+  },
+  {
+    "lead_id": "faro-restaurante-velha-casa",
+    "decisor": {"nome": null, "cargo": "proprietario (nao identificado)", "confianca": "baixa", "provas": []},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Ligar para +351 289 824 719 e pedir pelo responsavel.",
+    "melhor_horario": "Ter-Qui 15:00-17:30",
+    "porteiro_provavel": "empregado de sala",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Podia falar com o responsavel da Velha Casa? E sobre a presenca online do restaurante.",
+    "notas": "Pesquisa nao localizou este restaurante com este nome na Rua do Pe da Cruz 33, so 'Casa Velha' noutras localidades. Existencia/nome atual por confirmar (possivel mudanca de nome ou encerramento). Nao confirmado como fechado."
+  },
+  {
+    "lead_id": "faro-escola-conducao-penha-asa",
+    "decisor": {"nome": null, "cargo": "gerencia (nomes nao acessiveis)", "confianca": "baixa", "provas": ["https://infotrustgo.pt/en/companies/escola-de-conducao-do-alto-de-santo-antonio-lda"], "nota_confianca": "Entidade provavel: Escola de Conducao do Alto de Santo Antonio, Lda. (liga a ecpenha.com e a mesma morada, Rua Dr. Arnaldo Vilhena 27). Nomes dos gerentes nao listados."},
+    "outros_gerentes": [],
+    "nipc": "501685111",
+    "como_chegar": "Ligar para +351 289 804 863 e pedir pelo gerente/diretor da escola.",
+    "melhor_horario": "Ter-Qui 10:30-12:00 ou 15:00-17:00 (evitar horas de aulas teoricas ao fim da tarde/noite)",
+    "porteiro_provavel": "secretaria / administrativa da escola",
+    "frase_para_passar_o_porteiro": "Boa tarde, e o Diogo. Podia falar com o gerente da Escola da Penha? E sobre a pagina da escola na internet.",
+    "notas": "ATENCAO: a escola JA TEM site proprio, http://www.ecpenha.com (menu Home/Escola/Ensino/Frota/Contactos, copyright 2012, links para testes online). Esta desatualizado, mas existe, pelo que o pitch passa a ser redesenho/atualizacao, nao 'sem site'. NIPC 501685111 (match por morada e site, confianca media na associacao), constituida 26-03-1986, capital 5.000 EUR, ativa, contas entregues ate 2026."
+  },
+  {
+    "lead_id": "faro-aura-studio",
+    "decisor": {"nome": null, "cargo": "fundador(a)/proprietario(a) (nao identificado)", "confianca": "baixa", "provas": [], "nota_confianca": "Nenhuma fonte nomeia a fundadora/dono."},
+    "outros_gerentes": [],
+    "nipc": null,
+    "como_chegar": "Sem telefone. Canal profissional: Instagram/contacto do estudio ou pagina Urban Sports Club (https://urbansportsclub.com/pt/venues/aura-studio-faro). Pedir para falar com a pessoa responsavel pelo estudio.",
+    "melhor_horario": "Seg-Sex 13:00-16:00 (estudio abre 08:00-20:00 seg-sab; evitar aulas de manha e fim da tarde)",
+    "porteiro_provavel": "instrutora/dona (estudio pequeno)",
+    "frase_para_passar_o_porteiro": "Ola, e o Diogo. Gostava de falar com a responsavel do Aura Studio sobre o site do estudio. Quando e melhor?",
+    "notas": "Rating USC 5.0 com 23 reviews na listagem consultada (lead dizia 29): numeros variam. Sem NIPC nem website. Orcamento incerto (estudio pequeno)."
+  }
+]
