@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cidade-velha-faro.vercel.app/sitemap.xml
