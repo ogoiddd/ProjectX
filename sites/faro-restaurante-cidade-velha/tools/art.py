@@ -8,14 +8,14 @@ STONE_D = "#c6a978"
 WINE = "#6a1d29"
 SUN = "#d49a3f"
 
-ARCH = "M0 640V300A300 300 0 0 1 240 6A300 300 0 0 1 480 300V640Z"
+PLATE = "M0 0H480V640H0Z"   # the composition is printed like an engraved plate, not framed in an arch
 
 
 def hero_svg(title, uid="h"):
-    """The Sé bell-tower seen from the Largo, inside a pointed arch. Engraving-like hatching, flat tones."""
+    """The Sé bell-tower seen from the Largo, as an engraved plate (double plate-mark). Hatching, flat tones."""
     return f'''<svg viewBox="0 0 480 640" role="img" aria-labelledby="{uid}-t"><title id="{uid}-t">{title}</title>
 <defs>
-<clipPath id="{uid}-arch"><path d="{ARCH}"/></clipPath>
+<clipPath id="{uid}-arch"><path d="{PLATE}"/></clipPath>
 <pattern id="{uid}-hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="5" stroke="{INK}" stroke-width="1" opacity=".38"/></pattern>
 <pattern id="{uid}-hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><line x1="0" y1="0" x2="0" y2="7" stroke="{WINE}" stroke-width=".8" opacity=".28"/></pattern>
 <pattern id="{uid}-cobble" width="26" height="13" patternUnits="userSpaceOnUse"><path d="M0 .5h26M0 6.5h26M6 .5v6M19 6.5v6.5" fill="none" stroke="{INK}" stroke-width=".7" opacity=".35"/></pattern>
@@ -52,12 +52,15 @@ def hero_svg(title, uid="h"):
 <path d="M172 128h8v8h-8zM300 128h8v8h-8z" fill="{INK}"/>
 <!-- stork on its nest -->
 <g class="stork">
-<path d="M222 94q18 6 36 0l-4 6h-28z" fill="#6b5340" stroke="{INK}" stroke-width="1"/>
-<path d="M236 88q-2-10 8-12q10-1 13 6l-6 8z" fill="{CAL}" stroke="{INK}" stroke-width="1.1"/>
-<path d="M249 82q1-14-3-22" fill="none" stroke="{INK}" stroke-width="2.6" stroke-linecap="round"/>
-<path d="M249 82q1-14-3-22" fill="none" stroke="{CAL}" stroke-width="1.2" stroke-linecap="round"/>
-<path d="M246 60l12-4" stroke="#b9572e" stroke-width="2.4" stroke-linecap="round"/>
-<path d="M238 84q8 6 16 2" fill="none" stroke="{INK}" stroke-width="2.2"/>
+<path d="M220 95q20 7 40 0l-3 6h-34z" fill="#6b5340" stroke="{INK}" stroke-width="1"/>
+<path d="M221 95l5-4M232 93l4-5M246 93l-3-5M256 94l-4-4" stroke="#6b5340" stroke-width="1.4"/>
+<path d="M238 92v-11M244 92v-11" stroke="#b9572e" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M226 74q8-9 22-6q6 2 6 8q-4 6-16 6q-8 0-12-8z" fill="{CAL}" stroke="{INK}" stroke-width="1.1"/>
+<path d="M226 74q6 6 15 7l-3-8q-6-2-12 1z" fill="{INK}"/>
+<path d="M251 71q4-8 3-17" fill="none" stroke="{INK}" stroke-width="3.6" stroke-linecap="round"/>
+<path d="M251 71q4-8 3-17" fill="none" stroke="{CAL}" stroke-width="1.8" stroke-linecap="round"/>
+<circle cx="254.5" cy="53" r="3.2" fill="{CAL}" stroke="{INK}" stroke-width="1"/>
+<path d="M257 53.5l13 4" stroke="#b9572e" stroke-width="2.2" stroke-linecap="round"/>
 </g>
 <!-- gothic portal: three archivolts -->
 <path d="M176 640V470A128 128 0 0 1 240 359A128 128 0 0 1 304 470V640" fill="{STONE_D}" stroke="{INK}" stroke-width="1.4"/>
@@ -82,22 +85,21 @@ def hero_svg(title, uid="h"):
 <path d="M112 578q-1 8 5 9q6-1 5-9z" fill="{WINE}" stroke="{INK}" stroke-width="1"/>
 <path d="M117 587v6M113 593h8" stroke="{INK}" stroke-width="1.2"/>
 </g>
-<path d="{ARCH}" fill="none" stroke="{INK}" stroke-width="2.5"/>
-<path d="M14 640V302A286 286 0 0 1 240 22A286 286 0 0 1 466 302V640" fill="none" stroke="{INK}" stroke-width="1" opacity=".55"/>
+<rect x="1.25" y="1.25" width="477.5" height="637.5" fill="none" stroke="{INK}" stroke-width="2.5"/>
+<rect x="9" y="9" width="462" height="622" fill="none" stroke="{INK}" stroke-width=".8" opacity=".6"/>
 </svg>'''
 
 
 def dom_rodrigo_svg(title):
     """Dom Rodrigo in its twisted foil wrap, with a small glass of Port."""
     return f'''<svg viewBox="0 0 220 180" role="img" aria-labelledby="dr-t"><title id="dr-t">{title}</title>
-<ellipse cx="104" cy="164" rx="86" ry="9" fill="#000" opacity=".18"/>
-<path d="M46 160l10-58h96l10 58z" fill="#c9a24a" stroke="{CAL}" stroke-width="1.5" stroke-linejoin="round"/>
-<path d="M60 108l-8 50M78 104l-4 56M98 104v56M118 104l2 56M138 106l6 54M152 110l8 46" stroke="{CAL}" stroke-width=".9" opacity=".55"/>
-<path d="M56 102q48-22 96 0q-10-24-30-34q-18-6-36 0q-20 10-30 34z" fill="#f2c94c" stroke="{CAL}" stroke-width="1.2"/>
-<g fill="none" stroke="#b47d12" stroke-width=".9" opacity=".8"><path d="M70 94q10-8 20 0t20 0t20 0t14-2"/><path d="M76 86q8-6 16 0t16 0t16 0t12 0"/><path d="M86 78q6-5 12 0t12 0t12 0"/></g>
-<path d="M88 66q16-30 32 0" fill="#c9a24a" stroke="{CAL}" stroke-width="1.4"/>
-<path d="M104 40q-22-14-30-4q12 6 30 22q18-16 30-22q-8-10-30 4z" fill="#d9b24f" stroke="{CAL}" stroke-width="1.4" stroke-linejoin="round"/>
-<path d="M96 60l8 6l8-6" fill="none" stroke="{CAL}" stroke-width="1.4"/>
+<ellipse cx="104" cy="165" rx="72" ry="8" fill="#000" opacity=".2"/>
+<path d="M40 150C40 116 66 96 94 88h20c28 8 54 28 54 62c0 10-28 15-64 15s-64-5-64-15z" fill="#d9b24f" stroke="{CAL}" stroke-width="1.5" stroke-linejoin="round"/>
+<g fill="none" stroke="{CAL}" stroke-width="1" opacity=".6" stroke-linecap="round"><path d="M96 90Q70 118 60 160M100 90Q90 124 86 164M104 90v74M108 90q10 34 14 74M112 90q26 28 36 70"/></g>
+<path d="M58 132q10-30 34-40q-18 22-22 52z" fill="#f4d98a" opacity=".55"/>
+<path d="M94 88q10 5 20 0l-2-10q-8 4-16 0z" fill="#b8902f" stroke="{CAL}" stroke-width="1.3" stroke-linejoin="round"/>
+<path d="M96 78L70 46l14 2l-4-14l14 10l6-16l4 18q2-20 6-18l6 16l14-10l-4 14l14-2l-26 32q-10 5-20 0z" fill="#e3c060" stroke="{CAL}" stroke-width="1.4" stroke-linejoin="round"/>
+<g fill="none" stroke="{CAL}" stroke-width=".9" opacity=".6" stroke-linecap="round"><path d="M98 76L82 50M102 76L96 40M106 76l6-36M110 76l16-26"/></g>
 <g transform="translate(176 92)">
 <path d="M-14 0q0 30 14 32q14-2 14-32z" fill="none" stroke="{CAL}" stroke-width="1.6"/>
 <path d="M-12.6 12q1 18 12.6 19q11.6-1 12.6-19z" fill="#3a0d14"/>
@@ -106,9 +108,10 @@ def dom_rodrigo_svg(title):
 </svg>'''
 
 
-LOGO = f'''<svg viewBox="0 0 64 80" aria-hidden="true"><path d="M4 78V38A30 30 0 0 1 32 3A30 30 0 0 1 60 38V78" fill="none" stroke="currentColor" stroke-width="3"/><path d="M14 78V44A20 20 0 0 1 32 20A20 20 0 0 1 50 44V78Z" fill="currentColor"/><path d="M32 20V78" stroke="{CAL}" stroke-width="1.6"/></svg>'''
+TOWER = '<path fill-rule="evenodd" d="M10 22L24 7L38 22Z M10 23h28v13H10z M15 36v-7a3 3 0 0 1 6 0v7z M27 36v-7a3 3 0 0 1 6 0v7z M7 37h34v3H7z M10 41h28v37H10z M18 78V63a6 8 0 0 1 6-8a6 8 0 0 1 6 8v15z M22 47a2 2 0 0 1 4 0v4h-4z"/>'
+LOGO = f'''<svg viewBox="0 0 48 80" aria-hidden="true" fill="currentColor">{TOWER}</svg>'''
 
-FAVICON = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="{CAL}"/><path d="M12 60V32A22 22 0 0 1 32 7A22 22 0 0 1 52 32V60" fill="none" stroke="{WINE}" stroke-width="4"/><path d="M20 60V36A14 14 0 0 1 32 19A14 14 0 0 1 44 36V60Z" fill="{WINE}"/></svg>'''
+FAVICON = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="6" fill="{CAL}"/><rect x="4.5" y="4.5" width="55" height="55" fill="none" stroke="{WINE}" stroke-width="1.5"/><g transform="translate(18.5 9) scale(.56)" fill="{WINE}">{TOWER}</g></svg>'''
 
 ICONS = {
     "phone": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg>',

@@ -118,8 +118,18 @@ def longest(name):
     if best and best[0][0] > best[-1][0]: best = best[::-1]
     return best, bl
 defs, texts = [], []
+def leg_to_rest(name):
+    """The way of `name` that ends at the restaurant, as a straight, left-to-right baseline (reads on the route)."""
+    rx_, ry_ = xy(*REST)
+    cands = [e for e in ways.values() if e.get('tags', {}).get('name') == name and 'highway' in e.get('tags', {})
+             and sum(math.dist(xy(*nodes[a]), xy(*nodes[b])) for a, b in zip(e['nodes'], e['nodes'][1:]) if a in nodes and b in nodes) > 60]
+    near = [e for e in cands if min(math.dist(xy(*nodes[i]), (rx_, ry_)) for i in e['nodes'] if i in nodes) < 40]
+    best = max(near, key=lambda e: math.dist(xy(*nodes[e['nodes'][0]]), xy(*nodes[e['nodes'][-1]])))
+    pts = [xy(*nodes[i]) for i in best['nodes'] if i in nodes]
+    pts = [pts[0], pts[-1]] if pts[0][0] < pts[-1][0] else [pts[-1], pts[0]]
+    return pts, math.dist(*pts)
 for i, (name, label) in enumerate([('Rua do Município', 'R. do Município'), ('Rua Domingos Guieiro', 'R. Domingos Guieiro'), ('Rua do Repouso', 'R. do Repouso')]):
-    pts, L = longest(name)
+    pts, L = leg_to_rest(name) if name == 'Rua Domingos Guieiro' else longest(name)
     if pts and L > len(label) * 7.5:
         defs.append(f'<path id="st{i}" d="M' + 'L'.join(f'{x:.1f} {y:.1f}' for x, y in pts) + '"/>')
         texts.append(f'<text class="m-st" dy="-7"><textPath href="#st{i}" startOffset="50%" text-anchor="middle">{label}</textPath></text>')

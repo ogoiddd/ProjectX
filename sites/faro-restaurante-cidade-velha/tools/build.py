@@ -6,7 +6,7 @@ import html, json, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from i18n import T, DISHES          # noqa: E402
+from i18n import T, DISHES, Q_LANG          # noqa: E402
 from art import hero_svg, dom_rodrigo_svg, LOGO, FAVICON, ICONS  # noqa: E402
 
 PUB = os.path.join(HERE, "..", "public")
@@ -21,6 +21,7 @@ GMAPS_DIR = f"https://www.google.com/maps/dir/?api=1&destination={LAT},{LON}&tra
 GMAPS_PLACE = "https://www.google.com/maps/search/?api=1&query=Restaurante+Cidade+Velha+R.+Domingos+Guieiro+19+Faro"
 AMAPS = f"https://maps.apple.com/?daddr={LAT},{LON}&dirflg=w&q=Restaurante%20Cidade%20Velha"
 FB = "https://www.facebook.com/restaurantecidadevelha/"
+IG = "https://www.instagram.com/restaurantecidadevelha/"
 MAP_SVG = open(os.path.join(HERE, "map", "map.svg"), encoding="utf-8").read()
 
 
@@ -54,7 +55,7 @@ def jsonld(L):
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
                                        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
                                        "opens": "11:00", "closes": "22:00"}],
-        "sameAs": [FB],
+        "sameAs": [FB, IG],
         "containedInPlace": {"@type": "TouristAttraction", "name": "Vila Adentro (Cidade Velha de Faro)"},
         "inLanguage": t["html_lang"],
     }
@@ -121,16 +122,19 @@ def page(L):
         f'<li{" class=here" if i == len(t["tl"]) - 1 else ""}><b>{y}</b><span>{x}</span>' + (f"<small>{tbc(s)}</small>" if s else "") + "</li>"
         for i, (y, x, s) in enumerate(t["tl"]))
     niches = "".join(
-        f'<figure class="niche"><div class="frame" tabindex="0" role="img" aria-label="{t["photo"]} {n}"><span>{t["photo"]}</span></div><figcaption>{n}</figcaption></figure>'
-        for n in t["niches"])
-    quotes = "".join(
-        f'<blockquote class="quote" lang="en"><p>“{q}”</p><footer lang="{t["html_lang"]}">{who}'
-        + (f'<span class="orig">{t["q_orig"]}</span>' if t["q_orig"] else "") + "</footer></blockquote>"
-        for q, who in t["q"])
+        f'<figure class="niche"><div class="frame" tabindex="0" role="img" aria-label="{t["photo"]} {n}"><span>{t["photo"]}</span></div>'
+        f'<figcaption><b>{i}</b>{n}</figcaption></figure>'
+        for i, n in enumerate(t["niches"], 1))
+    def quote(q, who):
+        ql = Q_LANG[q]
+        orig = t["q_orig"].get(ql, "") if ql != t["html_lang"] else ""
+        return (f'<blockquote class="quote" lang="{ql}"><p>“{html.escape(q, quote=False)}”</p><footer lang="{t["html_lang"]}">{who}'
+                + (f'<span class="orig">{orig}</span>' if orig else "") + "</footer></blockquote>")
+    quotes = "".join(quote(q, who) for q, who in t["q"])
     quotes += f'<p class="quote-tbc">{tbc(t["q_tbc"])}</p>'
     tables = "".join(
         f'<label><input type="radio" name="mesa" value="{v}"{" checked" if i == 2 else ""}><span>{lbl}</span></label>'
-        for i, (v, lbl) in enumerate(zip(["Esplanada, no Largo", "Na sala", "Tanto faz"], t["f_t"])))
+        for i, (v, lbl) in enumerate(zip(["Mesa cá fora (esplanada)", "Na sala", "Tanto faz"], t["f_t"])))
     s1 = "".join(f"<li>{s}</li>" for s in t["s1"])
     s2 = "".join(f"<li>{s}</li>" for s in t["s2"])
     js_strings = dict(t["js"], days=t["days_short"], lang=L)
@@ -165,6 +169,7 @@ def page(L):
 <link rel="preload" as="font" type="font/woff2" href="/fonts/bodoni-roman.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/fonts/bodoni-italic.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/fonts/jost.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/marcellus-sc.woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <script>document.documentElement.classList.add("js")</script>
 <script type="application/ld+json">{jsonld(L)}</script>
@@ -173,7 +178,7 @@ def page(L):
 <a class="skip" href="#main">{t["skip"]}</a>
 <header class="top">
  <div class="wrap">
-  <a class="brand" href="{PATH[L]}" aria-label="Restaurante Cidade Velha">{LOGO}<span><b>Cidade Velha</b><small>{t["brand_sub"]}</small></span></a>
+  <a class="brand" href="{PATH[L]}">{LOGO}<span><b>Cidade Velha</b><small>{t["brand_sub"]}</small></span></a>
   <nav class="nav" aria-label="{t["nav_carta"]}, {t["nav_casa"]}…">
    <a href="#carta">{t["nav_carta"]}</a><a href="#casa">{t["nav_casa"]}</a><a href="#reservar">{t["nav_reservar"]}</a><a href="#chegar">{t["nav_chegar"]}</a>
   </nav>
@@ -192,14 +197,14 @@ def page(L):
    <div class="hero-actions">
     <a class="btn" href="#reservar">{I["table"]}{t["btn_reservar"]}{I["arrow"]}</a>
     <a class="btn btn-ghost" href="tel:{TEL}">{I["phone"]}{t["btn_call"]}</a>
-    <a class="btn btn-ghost" href="#chegar">{I["pin"]}{t["btn_dir"]}</a>
+    <a class="btn btn-ghost btn-dir" href="#chegar">{I["pin"]}{t["btn_dir"]}</a>
    </div>
    <div class="hero-meta">
     <p class="status" data-status role="status" style="margin:0"><span class="dot" aria-hidden="true"></span><span data-status-text>{t["status_default"]}</span></p>
     <a href="{GMAPS_PLACE}" rel="noopener">★ {t["rating_line"]}</a>
    </div>
   </div>
-  <figure class="arch" style="margin:0">
+  <figure class="estampa" style="margin:0">
    {hero_svg(t["hero_art"])}
    <span class="photo-tag">{t["photo_hero"]}</span>
    <figcaption><span>{t["hero_cap_l"]}</span><span>{t["hero_cap_r"]}</span></figcaption>
@@ -340,7 +345,7 @@ def page(L):
     <h3>{t["h_phone"]}</h3>
     <a class="big-tel" href="tel:{TEL}">289 827 145</a>
     <p style="margin:0 0 1.2rem;font-size:.9rem">{t["mobile"]} {tbc(t["mobile_tbc"])}</p>
-    <p style="margin:0"><a href="{FB}" rel="noopener">{t["fb"]}</a></p>
+    <p style="margin:0"><a href="{FB}" rel="noopener">{t["fb"]}</a> · <a href="{IG}" rel="noopener">{t["ig"]}</a></p>
    </div>
   </div>
   <div class="colophon">
