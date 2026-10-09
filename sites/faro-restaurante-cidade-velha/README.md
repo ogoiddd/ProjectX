@@ -3,7 +3,8 @@
 Site de uma página, em 4 línguas, para o **Restaurante Cidade Velha** (R. Domingos Guieiro 19, 8000-311 Faro, na esquina do Largo da Sé · 289 827 145).
 
 - `public/`: o site estático, pronto a publicar (sem build): `/` (PT), `/en/`, `/fr/`, `/de/`, `styles.css`, `app.js`, `fonts/`, `assets/`, `sitemap.xml`, `robots.txt`, `vercel.json`.
-- `tools/build.py`: gera as 4 páginas e o `sitemap.xml` a partir de `tools/i18n.py` (todo o texto, por língua) e `tools/art.py` (desenhos SVG). Depois de editar texto: `python3 tools/build.py`.
+- `tools/build.py`: gera as 4 páginas, a política de privacidade (`/privacidade/` e `/en/privacy/`, texto em `tools/legal.py`), a `404.html` em 4 línguas e o `sitemap.xml` a partir de `tools/i18n.py` (todo o texto, por língua) e `tools/art.py` (desenhos SVG). Depois de editar texto: `python3 tools/build.py`. O build falha se houver um `<script>` inline sem hash na CSP de `public/vercel.json`, ou atributos `style=`/`on*=` inline (a CSP não tem `unsafe-inline`).
+- `LEGAL.md`: estado legal (RGPD, cookies, Livro de Reclamações, RAL, alergénios), segurança e funcionamento.
 - `tools/map/osm2svg.py`: desenha o mapa da Vila Adentro e calcula os percursos a pé a partir de um extrato OpenStreetMap (ver abaixo).
 - `tools/og/`: imagem de partilha (`og.jpg`) e ícones. `python3 tools/og/og.py && node tools/og/render.mjs http://localhost:PORT`.
 - `tools/qa/shots.mjs`: screenshots desktop e mobile por língua para `qa/` (`LANGS=pt,en,fr,de node shots.mjs http://localhost:PORT ../../qa`).
@@ -30,10 +31,10 @@ Verificados de novo a 9-10/10/2026. Tudo o que não se conseguiu comprovar apare
 | Opções vegetarianas e sem glúten; esplanada ("outdoor seating"); aceita reservas | Trip.com, secção "Good to know" e "Amenities". Ficam com `[CONFIRMAR COM CLIENTE]` |
 | "Cozinha regional com alguns toques de fora" | portugaldenorteasul.pt ("comida regional com apontamentos de cozinha internacionais") e allaboutportugal.pt ("Portuguese dishes and some innovations") |
 | Citação "O espaço funcionou como pastelaria, mas há algum tempo que tem um menu baseado em comida regional." e Orlando Rosa, "responsável pelo restaurante Cidade Velha, perto do Largo da Sé, há quase 30 anos" | [NiT, Adriano Guerreiro, 11/08/2020](https://www.nit.pt/comida/cafes-e-bares/cidade-velha-rooftop-o-novo-terraco-do-algarve-com-cocktails-de-autor) (artigo sobre o Cidade Velha Rooftop, da mesma família) |
-| Avaliação "Everything here is exceptional. Great food, great service, great location. We've been here twice and will be back for more." (12/03/2025) | TheFork, reproduzida no Trip.com como "TheForkUser" |
+| Avaliação "Everything here is exceptional. Great food, great service, great location. We've been here twice and will be back for more." (12/03/2025) | TheFork, reproduzida no Trip.com como "TheForkUser". No site: "Cliente TheFork (via Trip.com)", sem nome |
 | Avaliação "…it’s in a beautiful location at the foot of the cathedral, in the old town." e dica "Don’t forget to request a table outside if you’re booking this restaurant" (29/09/2024) | TheFork, reproduzida no Trip.com |
-| Avaliação "Atendimento ágil e atencioso." | Avaliação Google (Julia Braga) citada no Algarve Atlas |
-| Avaliação "Restaurant sympa près de la cathédrale et du musée de faro, service rapide et serveurs efficaces." | Avaliação Google (Patricia Cossao) citada no Algarve Atlas |
+| Avaliação "Atendimento ágil e atencioso." | Avaliação Google (Julia Braga) citada no Algarve Atlas. Texto em português do Brasil (`lang="pt"`). No site aparece sem o nome |
+| Avaliação "Restaurant sympa près de la cathédrale et du musée de faro, service rapide et serveurs efficaces." | Avaliação Google (Patricia Cossao) citada no Algarve Atlas. No site aparece sem o nome |
 | Facebook `facebook.com/restaurantecidadevelha` e Instagram `@restaurantecidadevelha` | Links publicados em allaboutportugal.pt |
 | Telemóvel 916 008 548 (e destino do botão WhatsApp) | Trip.com e allaboutportugal.pt. É **também** o número do Cidade Velha Rooftop (Wanderlog). Tem `[CONFIRMAR]` no site |
 | Linha do tempo do Largo: Sé começada em 1251, dois anos depois da conquista cristã; sede da Diocese do Algarve vinda de Silves (1577); saque e incêndio pelas tropas do Conde de Essex (1596); sismo de 1755 destrói grande parte da catedral e a torre sineira sobrevive | [Wikipédia, Sé de Faro](https://pt.wikipedia.org/wiki/S%C3%A9_de_Faro) |

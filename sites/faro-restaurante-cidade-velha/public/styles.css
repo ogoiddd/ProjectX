@@ -376,3 +376,37 @@ fieldset { border: 0; padding: 0; margin: 0; grid-column: span 2; }
 @media print { .top, .bar, .reserve form, .map-actions { display: none; } .dark { background: none; color: #000; } }
 .quote-tbc { margin: 0; font-size: .9rem; }
 .m-st { font: italic 500 13px/1 var(--serif); fill: var(--tinta-2); paint-order: stroke; stroke: #fbf7ef; stroke-width: 4px; letter-spacing: .02em; }
+
+/* ---------- compliance review (2026-10-09): ex-inline styles (CSP without 'unsafe-inline'), form states, legal pages ---------- */
+.m0 { margin: 0; }
+.estampa.m0 { margin: 0; }
+.tl-h { color: var(--pedra); margin: 0 0 1.4rem; }
+.reviews .rev-h { margin: .8rem 0 2rem; }
+.score p.more { margin-top: 1rem; }
+.car { font-size: .95rem; color: var(--tinta-2); }
+.hours-note { font-size: .85rem; margin-top: 1rem; }
+.mt-dir { margin-top: 1.2rem; }
+.mobile-note { margin: 0 0 1.2rem; font-size: .9rem; }
+.diet.allergens { font-size: .82rem; max-width: 46rem; margin-inline: auto; }
+select[aria-invalid="true"] { border-color: #a3121f; }
+.form-status { grid-column: span 2; margin: 0; padding: .8rem 1rem; border-left: 3px solid #2f7a3d; background: #eef3e8; font-size: .92rem; }
+.form-status[hidden] { display: none; }
+.form-status a { font-weight: 500; }
+.nojs { color: var(--tinta); font-size: .95rem; }
+html:not(.js) #booking .field, html:not(.js) #booking fieldset, html:not(.js) #booking .form-actions,
+html:not(.js) .ticket, html:not(.js) .routes { display: none; }
+.legal { max-width: 46rem; }
+.legal h1 { font: 400 clamp(2rem, 5vw, 3rem)/1.1 var(--serif); margin: 0 0 .6rem; }
+.legal h2 { font: 400 1.35rem/1.25 var(--serif); margin: 2.4rem 0 .6rem; color: var(--tinto); }
+.legal .updated { font-size: .85rem; color: var(--tinta-2); margin: 0 0 1.6rem; }
+.legal dl { display: grid; grid-template-columns: minmax(8rem, max-content) 1fr; gap: .4rem 1.2rem; margin: 1rem 0; }
+.legal dt { font-weight: 500; }
+.legal dd { margin: 0; }
+.legal li + li { margin-top: .6rem; }
+.legal .btn { margin-top: 1.5rem; }
+@media (max-width: 30rem) { .legal dl { grid-template-columns: 1fr; } .legal dd { margin-bottom: .6rem; } }
+.lost .lost-lang + .lost-lang { margin-top: 2rem; padding-top: 1.6rem; border-top: 1px solid color-mix(in srgb, var(--tinta) 15%, transparent); }
+.lost h2 { color: var(--tinta); margin-top: 0; }
+.legal-foot { padding-block: 2.5rem; font-size: .9rem; }
+.legal-foot p + p { margin-top: .5rem; }
+.legal-foot a { color: inherit; }

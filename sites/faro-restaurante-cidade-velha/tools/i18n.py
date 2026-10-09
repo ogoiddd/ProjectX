@@ -26,7 +26,7 @@ Q_EN1 = "Everything here is exceptional. Great food, great service, great locati
 Q_EN2 = "…it’s in a beautiful location at the foot of the cathedral, in the old town."
 Q_PT = "Atendimento ágil e atencioso."
 Q_FR = "Restaurant sympa près de la cathédrale et du musée de faro, service rapide et serveurs efficaces."
-Q_LANG = {Q_EN1: "en", Q_EN2: "en", Q_PT: "pt-PT", Q_FR: "fr"}
+Q_LANG = {Q_EN1: "en", Q_EN2: "en", Q_PT: "pt", Q_FR: "fr"}
 
 T = {}
 
@@ -76,7 +76,7 @@ T["pt"] = dict(
     rev_h="O que dizem <em>à saída</em>",
     rev_score="Média no Google, em 1458 avaliações.",
     rev_more="Ver avaliações no Google",
-    q=[(Q_EN1, "Cliente TheFork · março de 2025"), (Q_PT, "Avaliação Google"), (Q_EN2, "Cliente TheFork · setembro de 2024"), (Q_FR, "Avaliação Google")],
+    q=[(Q_EN1, "Cliente TheFork (via Trip.com) · março de 2025"), (Q_PT, "Avaliação Google"), (Q_EN2, "Cliente TheFork (via Trip.com) · setembro de 2024"), (Q_FR, "Avaliação Google")],
     q_orig={"en": "(original em inglês)", "fr": "(original em francês)"},
     q_tbc="[[CONFIRMAR COM CLIENTE: autorização para citar estas avaliações e escolha final]]",
     res_h="Pedir <em>mesa</em>",
@@ -89,7 +89,7 @@ T["pt"] = dict(
     f_tbc="[[CONFIRMAR COM CLIENTE: número de WhatsApp e email de reservas]]",
     ticket_h="Livro de reservas", ticket_tag="pré-visualização",
     ticket_hint="É esta a mensagem que a sala recebe, sempre em português, com a indicação da sua língua.",
-    tip_q="Don’t forget to request a table outside if you’re booking this restaurant.", tip_src="Cliente TheFork, setembro de 2024 (original em inglês)",
+    tip_q="Don’t forget to request a table outside if you’re booking this restaurant.", tip_src="Cliente TheFork (via Trip.com), setembro de 2024 (original em inglês)",
     chegar_h="Do Arco da Vila <em>até à mesa</em>",
     walk="160 m", walk_small="cerca de 2 minutos a pé desde o Arco da Vila",
     walk2="200 m", walk2_small="cerca de 3 minutos a pé desde o Arco do Repouso",
@@ -166,8 +166,8 @@ T["en"] = dict(
     rev_h="What guests say <em>on the way out</em>",
     rev_score="Average rating on Google, across 1,458 reviews.",
     rev_more="Read the reviews on Google",
-    q=[(Q_EN1, "TheFork guest · March 2025"), (Q_EN2, "TheFork guest · September 2024"), (Q_PT, "Google review"), (Q_FR, "Google review")],
-    q_orig={"pt-PT": "(original in Portuguese)", "fr": "(original in French)"},
+    q=[(Q_EN1, "TheFork guest (via Trip.com) · March 2025"), (Q_EN2, "TheFork guest (via Trip.com) · September 2024"), (Q_PT, "Google review"), (Q_FR, "Google review")],
+    q_orig={"pt": "(original in Portuguese)", "fr": "(original in French)"},
     q_tbc="[[CONFIRM WITH CLIENT: permission to quote these reviews, final selection]]",
     res_h="Ask for <em>a table</em>",
     res_intro="Choose the day, the time and where you'd like to sit. Your request goes by WhatsApp or email, already written in Portuguese for the staff, and the restaurant confirms.",
@@ -179,7 +179,7 @@ T["en"] = dict(
     f_tbc="[[CONFIRM WITH CLIENT: WhatsApp number and booking email]]",
     ticket_h="Booking book", ticket_tag="preview",
     ticket_hint="This is the message the staff receive: always in Portuguese, noting that you speak English.",
-    tip_q="Don’t forget to request a table outside if you’re booking this restaurant.", tip_src="TheFork guest, September 2024",
+    tip_q="Don’t forget to request a table outside if you’re booking this restaurant.", tip_src="TheFork guest (via Trip.com), September 2024",
     chegar_h="From the Arco da Vila <em>to your table</em>",
     walk="160 m", walk_small="about 2 minutes on foot from the Arco da Vila gate",
     walk2="200 m", walk2_small="about 3 minutes on foot from the Arco do Repouso gate",
@@ -256,8 +256,8 @@ T["fr"] = dict(
     rev_h="Ce qu'on en dit <em>en sortant</em>",
     rev_score="Note moyenne sur Google, sur 1 458 avis.",
     rev_more="Voir les avis sur Google",
-    q=[(Q_FR, "Avis Google"), (Q_EN1, "Client TheFork · mars 2025"), (Q_EN2, "Client TheFork · septembre 2024"), (Q_PT, "Avis Google")],
-    q_orig={"en": "(original en anglais)", "pt-PT": "(original en portugais)"},
+    q=[(Q_FR, "Avis Google"), (Q_EN1, "Client TheFork (via Trip.com) · mars 2025"), (Q_EN2, "Client TheFork (via Trip.com) · septembre 2024"), (Q_PT, "Avis Google")],
+    q_orig={"en": "(original en anglais)", "pt": "(original en portugais)"},
     q_tbc="[[À CONFIRMER AVEC LE CLIENT : autorisation de citer ces avis, sélection finale]]",
     res_h="Demander <em>une table</em>",
     res_intro="Choisissez le jour, l'heure et votre place. La demande part par WhatsApp ou e-mail, déjà rédigée en portugais pour l'équipe, et le restaurant confirme.",
@@ -269,7 +269,7 @@ T["fr"] = dict(
     f_tbc="[[À CONFIRMER AVEC LE CLIENT : numéro WhatsApp et e-mail de réservation]]",
     ticket_h="Cahier de réservations", ticket_tag="aperçu",
     ticket_hint="Voici le message reçu par l'équipe : toujours en portugais, avec la mention de votre langue.",
-    tip_q="Don’t forget to request a table outside if you’re booking this restaurant.", tip_src="Client TheFork, septembre 2024 (original en anglais)",
+    tip_q="Don’t forget to request a table outside if you’re booking this restaurant.", tip_src="Client TheFork (via Trip.com), septembre 2024 (original en anglais)",
     chegar_h="De l'Arco da Vila <em>jusqu'à table</em>",
     walk="160 m", walk_small="environ 2 minutes à pied depuis l'Arco da Vila",
     walk2="200 m", walk2_small="environ 3 minutes à pied depuis l'Arco do Repouso",
@@ -346,8 +346,8 @@ T["de"] = dict(
     rev_h="Was Gäste <em>beim Gehen</em> sagen",
     rev_score="Durchschnitt bei Google, aus 1.458 Bewertungen.",
     rev_more="Bewertungen bei Google lesen",
-    q=[(Q_EN1, "TheFork-Gast · März 2025"), (Q_EN2, "TheFork-Gast · September 2024"), (Q_FR, "Google-Bewertung"), (Q_PT, "Google-Bewertung")],
-    q_orig={"en": "(Original auf Englisch)", "fr": "(Original auf Französisch)", "pt-PT": "(Original auf Portugiesisch)"},
+    q=[(Q_EN1, "TheFork-Gast (via Trip.com) · März 2025"), (Q_EN2, "TheFork-Gast (via Trip.com) · September 2024"), (Q_FR, "Google-Bewertung"), (Q_PT, "Google-Bewertung")],
+    q_orig={"en": "(Original auf Englisch)", "fr": "(Original auf Französisch)", "pt": "(Original auf Portugiesisch)"},
     q_tbc="[[MIT KUNDE BESTÄTIGEN: Zitiererlaubnis, möglichst eine Bewertung auf Deutsch]]",
     res_h="Einen <em>Tisch</em> anfragen",
     res_intro="Wählen Sie Tag, Uhrzeit und Platz. Die Anfrage geht per WhatsApp oder E-Mail, bereits auf Portugiesisch für das Team formuliert, und das Restaurant bestätigt.",
@@ -359,7 +359,7 @@ T["de"] = dict(
     f_tbc="[[MIT KUNDE BESTÄTIGEN: WhatsApp-Nummer und Reservierungs-E-Mail]]",
     ticket_h="Reservierungsbuch", ticket_tag="Vorschau",
     ticket_hint="Diese Nachricht erhält das Team: immer auf Portugiesisch, mit dem Hinweis auf Ihre Sprache.",
-    tip_q="Don’t forget to request a table outside if you’re booking this restaurant.", tip_src="TheFork-Gast, September 2024 (Original auf Englisch)",
+    tip_q="Don’t forget to request a table outside if you’re booking this restaurant.", tip_src="TheFork-Gast (via Trip.com), September 2024 (Original auf Englisch)",
     chegar_h="Vom Arco da Vila <em>bis zum Tisch</em>",
     walk="160 m", walk_small="etwa 2 Minuten zu Fuß vom Arco da Vila",
     walk2="200 m", walk2_small="etwa 3 Minuten zu Fuß vom Arco do Repouso",
@@ -393,3 +393,70 @@ for k, v in T.items():
     v["days_short"] = {"pt": ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"], "en": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
                        "fr": ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"],
                        "de": ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]}[k]
+
+# Legal / form-state copy added in the compliance review (2026-10-09)
+NEW = {'pt': {'allergens': 'Alergénios: há pratos com peixe, crustáceos, moluscos, ovos, leite, frutos de casca rija e glúten. A informação escrita sobre os 14 alergénios de cada prato '
+                     'está disponível na sala: peça-a antes de encomendar. [[CONFIRMAR COM CLIENTE: tabela de alergénios por prato]]',
+        'vat': 'Preços: os da carta da casa, com IVA incluído.',
+        'f_privacy': 'Este site não recebe nem guarda os seus dados: o formulário só escreve a mensagem no seu aparelho e é você que a envia, por WhatsApp ou email. O restaurante '
+                     'usa o que enviar (nome, contacto, pedido e notas) só para tratar a reserva, e as alergias só para preparar a refeição. No WhatsApp aplicam-se também as '
+                     'regras da Meta. <a href="{priv}">Política de privacidade</a>.',
+        'nojs': 'Sem JavaScript o formulário não consegue escrever a mensagem. Ligue para o <a href="tel:+351289827145">289 827 145</a> ou escreva por <a '
+                'href="https://wa.me/351916008548" rel="noopener">WhatsApp</a>.',
+        'privacy_link': 'Privacidade e informação legal',
+        'entity': 'Exploração: [[CONFIRMAR COM CLIENTE: denominação social e NIF]]',
+        'ral': 'Litígios de consumo: CIMAAL',
+        'js_extra': {'sent_wa': 'A abrir o WhatsApp com a mensagem pronta: só falta carregar em enviar. A mesa fica reservada quando a casa responder.',
+                     'sent_mail': 'A abrir o seu email com a mensagem pronta: só falta enviar. A mesa fica reservada quando a casa responder.',
+                     'fallback': 'Não abriu? Carregue aqui.',
+                     'err_late': 'Para hoje já não há horas: escolha outro dia ou ligue-nos.'}},
+ 'en': {'allergens': 'Allergens: some dishes contain fish, crustaceans, molluscs, eggs, milk, nuts and gluten. Written information on the 14 allergens in each dish is available '
+                     'in the restaurant: please ask before ordering. [[CONFIRM WITH CLIENT: allergen table per dish]]',
+        'vat': "Prices: as on the restaurant's menu, VAT included.",
+        'f_privacy': 'This site does not receive or store your data: the form only writes the message on your device, and you send it yourself, by WhatsApp or email. The '
+                     "restaurant uses what you send (name, contact, request and notes) only to handle your booking, and allergies only to prepare your meal. On WhatsApp, Meta's "
+                     'terms also apply. <a href="{priv}">Privacy policy</a>.',
+        'nojs': 'Without JavaScript the form cannot write the message. Call <a href="tel:+351289827145">+351 289 827 145</a> or message us on <a href="https://wa.me/351916008548" '
+                'rel="noopener">WhatsApp</a>.',
+        'privacy_link': 'Privacy and legal information',
+        'entity': 'Operated by: [[CONFIRM WITH CLIENT: company name and tax number]]',
+        'ral': 'Consumer disputes: CIMAAL',
+        'js_extra': {'sent_wa': 'Opening WhatsApp with your message ready: just press send. Your table is booked once the restaurant replies.',
+                     'sent_mail': 'Opening your email with the message ready: just press send. Your table is booked once the restaurant replies.',
+                     'fallback': "Didn't open? Tap here.",
+                     'err_late': 'There are no times left today: please choose another day or call us.'}},
+ 'fr': {'allergens': "Allergènes : certains plats contiennent poisson, crustacés, mollusques, œufs, lait, fruits à coque et gluten. L'information écrite sur les 14 allergènes de "
+                     'chaque plat est disponible au restaurant : demandez-la avant de commander. [[À CONFIRMER AVEC LE CLIENT : tableau des allergènes]]',
+        'vat': 'Prix : ceux de la carte du restaurant, TVA comprise.',
+        'f_privacy': "Ce site ne reçoit ni ne conserve vos données : le formulaire rédige seulement le message sur votre appareil, et c'est vous qui l'envoyez, par WhatsApp ou "
+                     'e-mail. Le restaurant utilise ce que vous envoyez (nom, contact, demande et remarques) uniquement pour la réservation, et les allergies uniquement pour '
+                     'préparer votre repas. Sur WhatsApp, les conditions de Meta s\'appliquent aussi. <a href="{priv}" hreflang="en">Politique de confidentialité (en '
+                     'anglais)</a>.',
+        'nojs': 'Sans JavaScript, le formulaire ne peut pas rédiger le message. Appelez le <a href="tel:+351289827145">+351 289 827 145</a> ou écrivez sur <a '
+                'href="https://wa.me/351916008548" rel="noopener">WhatsApp</a>.',
+        'privacy_link': 'Confidentialité et mentions légales (en anglais)',
+        'entity': 'Exploitant : [[À CONFIRMER AVEC LE CLIENT : raison sociale et NIF]]',
+        'ral': 'Litiges de consommation : CIMAAL',
+        'js_extra': {'sent_wa': "Ouverture de WhatsApp avec votre message prêt : il ne reste qu'à l'envoyer. La table est réservée quand le restaurant répond.",
+                     'sent_mail': "Ouverture de votre messagerie avec le message prêt : il ne reste qu'à l'envoyer. La table est réservée quand le restaurant répond.",
+                     'fallback': "Rien ne s'ouvre ? Cliquez ici.",
+                     'err_late': "Il n'y a plus d'horaires aujourd'hui : choisissez un autre jour ou appelez-nous."}},
+ 'de': {'allergens': 'Allergene: Einige Gerichte enthalten Fisch, Krebstiere, Weichtiere, Eier, Milch, Schalenfrüchte und Gluten. Schriftliche Informationen zu den 14 Allergenen '
+                     'jedes Gerichts gibt es im Restaurant: bitte vor der Bestellung fragen. [[MIT KUNDE BESTÄTIGEN: Allergentabelle pro Gericht]]',
+        'vat': 'Preise: laut Speisekarte im Restaurant, inkl. MwSt.',
+        'f_privacy': 'Diese Website empfängt und speichert keine Daten: Das Formular schreibt die Nachricht nur auf Ihrem Gerät, und Sie senden sie selbst per WhatsApp oder '
+                     'E-Mail. Das Restaurant nutzt Ihre Angaben (Name, Kontakt, Anfrage und Hinweise) nur für die Reservierung, Allergien nur für die Zubereitung Ihres Essens. '
+                     'Bei WhatsApp gelten zusätzlich die Bedingungen von Meta. <a href="{priv}" hreflang="en">Datenschutzerklärung (auf Englisch)</a>.',
+        'nojs': 'Ohne JavaScript kann das Formular die Nachricht nicht erstellen. Rufen Sie <a href="tel:+351289827145">+351 289 827 145</a> an oder schreiben Sie per <a '
+                'href="https://wa.me/351916008548" rel="noopener">WhatsApp</a>.',
+        'privacy_link': 'Datenschutz und rechtliche Hinweise (auf Englisch)',
+        'entity': 'Betreiber: [[MIT KUNDE BESTÄTIGEN: Firmenname und Steuernummer]]',
+        'ral': 'Verbraucherstreitigkeiten: CIMAAL',
+        'js_extra': {'sent_wa': 'WhatsApp wird mit Ihrer fertigen Nachricht geöffnet: nur noch auf Senden tippen. Der Tisch ist reserviert, sobald das Restaurant antwortet.',
+                     'sent_mail': 'Ihr E-Mail-Programm wird mit der fertigen Nachricht geöffnet: nur noch senden. Der Tisch ist reserviert, sobald das Restaurant antwortet.',
+                     'fallback': 'Nichts passiert? Hier tippen.',
+                     'err_late': 'Für heute sind keine Uhrzeiten mehr frei: bitte einen anderen Tag wählen oder anrufen.'}}}
+for _k, _v in NEW.items():
+    _js = _v.pop("js_extra")
+    T[_k].update(_v)
+    T[_k]["js"].update(_js)

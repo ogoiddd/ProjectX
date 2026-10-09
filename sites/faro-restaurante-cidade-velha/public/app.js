@@ -111,21 +111,42 @@
       else if (date.value < lisbonNow().iso) dm = S.err_past;
       else if (!HOURS[dow(date.value)]) dm = S.err_sun;
       ok = setErr(date, "e-date", dm) && ok;
+      let tm = "";
+      if (!dm) {
+        syncTimes();
+        if (!time.value || time.selectedOptions[0]?.disabled) tm = [...time.options].some((o) => !o.disabled) ? S.err_time : S.err_late;
+      }
+      ok = setErr(time, "e-time", tm) && ok;
       return ok;
     }
 
     form.addEventListener("input", (e) => { if (e.target === date) { syncTimes(); if (date.getAttribute("aria-invalid") === "true") validate(); } render(); });
+    time.addEventListener("change", () => { if (time.getAttribute("aria-invalid") === "true") validate(); });
     form.addEventListener("change", render);
+    const statusBox = form.querySelector("[data-form-status]");
+    const statusText = form.querySelector("[data-form-status-text]");
+    const fallback = form.querySelector("[data-form-fallback]");
+    function showStatus(text, href, newTab) {
+      statusText.textContent = text;           // fixed strings only; user input never reaches innerHTML
+      fallback.hidden = !href;
+      if (href) fallback.href = href;
+      if (newTab) fallback.target = "_blank"; else fallback.removeAttribute("target");
+      statusBox.hidden = false;
+    }
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      if (!validate()) { form.querySelector("[aria-invalid=true]")?.focus(); return; }
+      if (!validate()) { statusBox.hidden = true; form.querySelector("[aria-invalid=true]")?.focus(); return; }
       const msg = message();
       const via = e.submitter?.value || "wa";
       if (via === "mail") {
         const subj = `Pedido de reserva · ${fmtDate(date.value)} ${time.value} · ${people.value} pax`;
-        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(msg)}`;
+        const url = `mailto:${form.dataset.email || ""}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(msg)}`;
+        showStatus(S.sent_mail, url);
+        location.href = url;
       } else {
-        window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+        const url = `https://wa.me/${encodeURIComponent(form.dataset.wa)}?text=${encodeURIComponent(msg)}`;
+        showStatus(S.sent_wa, url, true);
+        window.open(url, "_blank", "noopener");
       }
     });
     render();
