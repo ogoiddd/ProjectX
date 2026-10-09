@@ -2,7 +2,7 @@
 
 Site de uma página para a **Arealauto - Oficina de Reparações, Lda.** (Sítio do Brejo, Areal Gordo, 8005-409 Faro, +351 289 882 080). Ainda não está publicado.
 
-- `public/`: o site estático, sem build (`index.html`, `styles.css`, `app.js`, `fonts/`, `assets/`, `vercel.json`, `robots.txt`, `sitemap.xml`, `site.webmanifest`).
+- `public/`: o site estático, sem build (`index.html`, `privacidade.html`, `404.html`, `styles.css`, `app.js`, `fonts/`, `assets/`, `vercel.json`, `robots.txt`, `sitemap.xml`, `site.webmanifest`).
 - `tools/map/osm2svg.py`: desenha o mapa a partir do OpenStreetMap e injeta-o no `index.html`.
 - `tools/og/`: imagem OG (`og.html` mais `render.mjs`) e ícones PNG gerados a partir de `assets/favicon.svg`.
 - `tools/qa/shots.mjs`: screenshots para desktop e mobile, guardados em `qa/`.
@@ -27,7 +27,19 @@ Diferenças em relação a `sites/chaveca-janeira` (também é uma oficina de Fa
 | "Multimarca" e presença na Rede de Oficinas Recomendadas da Ocidental (Ageas Portugal), como "Areal Auto, Lda., Sitio Areal Gordo, 8005-409 Faro, 289882080" | PDF público https://www.ocidental.pt/Umbraco/Surface/Services/GetWorkshopsReport/?type=A, gerado a 9 out. 2026 |
 | Email arealauto@iol.pt (**a confirmar**) | autonews.pt, https://www.autonews.pt/oficinas-auto/dir/d/faro/c/faro/p-12856/arealauto-oficina-de-reparacoes/ |
 | Mapa (estradas, EN 125, EN 2, nomes de lugares) | © contribuidores OpenStreetMap (ODbL), API 0.6, bbox -7.950..-7.880 / 37.005..37.052 |
-| RAL CIMAAL e Livro de Reclamações | Obrigações legais genéricas para o consumo no Algarve, iguais às da demo Chaveca & Janeira |
+| RAL: CIMAAL, Centro de Arbitragem de Conflitos de Consumo do Algarve, Av. 5 de Outubro 55 R/C Dt.º, 8000-075 Faro, 289 823 135. Livro de Reclamações Eletrónico | consumoalgarve.pt e livroreclamacoes.pt, consultados a 9 out. 2026. O CASA (Centro de Arbitragem do Sector Automóvel) não é indicado: o site arbitragemauto.pt anuncia a extinção decidida em AG de 10-01-2024 (ver `LEGAL.md`) |
+
+## Licenças de fontes e imagens
+
+| Recurso | Licença |
+|---|---|
+| Big Shoulders e Big Shoulders Stencil (Patric King / Chicago Design System) | SIL Open Font License 1.1 |
+| Literata (TypeTogether, para a Google) | SIL Open Font License 1.1 |
+| IBM Plex Mono | SIL Open Font License 1.1 |
+| Mapa | dados © contribuidores OpenStreetMap, ODbL; atribuição no próprio mapa e no rodapé |
+| Ícones, ilustrações SVG, imagem OG, favicons | desenho próprio para este site |
+
+As fontes estão alojadas em `public/fonts/` (sem Google Fonts nem CDN).
 
 Não há preços, prémios, história, avaliações nem fotos de terceiros. Os ícones das ferramentas, o mapa, o conta-quilómetros e a imagem OG são composições próprias em SVG/CSS.
 

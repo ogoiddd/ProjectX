@@ -510,7 +510,7 @@ address { font-style: normal; font-size: 1.25rem; line-height: 1.45; margin-bott
 .doc { max-width: 46rem; margin: 0 auto; padding: 3rem var(--pad) 4rem; }
 .doc h1 { font-size: clamp(2.8rem, 9vw, 4.6rem); color: var(--tinta); margin-bottom: 1.2rem; }
 .doc h2 { font-size: 1.7rem; color: var(--tinta); margin: 2.2rem 0 .7rem; }
-.doc a { color: var(--tinta); }
+.doc a:not(.btn) { color: var(--tinta); }
 .doc ul { padding-left: 1.2rem; }
 .doc li { margin-bottom: .4rem; }
 .doc .doc-meta { font: 500 .8rem var(--mono); color: #5a5248; }
@@ -534,3 +534,7 @@ body.page-doc { padding-bottom: 0; }
 @media print {
   .dock, .top nav, .hero-wall, .board-wrap, .map { display: none; }
 }
+
+/* ---------- páginas de texto: complementos (privacidade, 404) ---------- */
+.doc .fine { margin-top: 2.5rem; }
+.doc-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
