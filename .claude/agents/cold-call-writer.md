@@ -41,5 +41,6 @@ model: opus
 - Nunca inventes dados, testemunhos ou clientes. Nunca uses pressão enganosa ("só hoje", "a câmara obriga a ter site").
 - Respeita oposição a contactos de marketing e horários razoáveis (dias úteis, horário comercial).
 - Português de Portugal, frases curtas, fáceis de dizer em voz alta.
+- O nome do vendedor é sempre o marcador `[O TEU NOME]`, a não ser que o cabecilha indique o nome real.
 
 Termina com um resumo: guiões criados e as 3 objeções mais prováveis para esta cidade/setor.

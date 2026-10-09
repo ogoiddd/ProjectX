@@ -26,7 +26,7 @@ model: sonnet
   "como_chegar": "Ligar para o número da oficina e pedir pelo Sr. João Silva pelo nome.",
   "melhor_horario": "Ter–Qui 14:30–16:00 (evitar abertura e hora de almoço)",
   "porteiro_provavel": "rececionista / mecânico que atende",
-  "frase_para_passar_o_porteiro": "Boa tarde, é o Diogo — o Sr. João Silva está? É sobre a página da oficina no Google.",
+  "frase_para_passar_o_porteiro": "Boa tarde, é o [O TEU NOME] — o Sr. João Silva está? É sobre a página da oficina no Google.",
   "notas": "Responde pessoalmente às reviews do Google; tom informal."
 }
 ```
