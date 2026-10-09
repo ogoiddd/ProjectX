@@ -48,7 +48,7 @@ Comum a todos: **denominação social + NIF** (DL 7/2004 e RGPD), **horário rea
 | Negócio | Específico |
 |---|---|
 | Arealauto | lista real de serviços (só "multimarca" confirmado), equipa, autorização para usar o selo Ocidental, se ainda é TOPCAR (pergunta com tato) |
-| Cidade Velha | ano de abertura (1982 vs ~1990), relação com o Cidade Velha Rooftop / 916 008 548, carta e preços |
+| Cidade Velha | ano de abertura (1982 vs ~1990), relação com o Cidade Velha Rooftop / 916 008 548, email de reservas (o botão "email" da demo ainda não tem destinatário), autorização para citar a NiT com o nome do Orlando Rosa, carta e preços |
 | Cantinho | horário (Google 10:30–23:30 vs MAGG 12–22), email ainda ativo, autorização para citar a MAGG |
 | Zé-Zé | horário (Google só jantar vs Makro almoço+jantar até 01:00), qual telefone é o oficial, preços |
 
