@@ -1,0 +1,12 @@
+{
+  "name": "Mar Martins · Piscinas, Vila Real de Santo António",
+  "short_name": "Mar Martins",
+  "lang": "pt-PT",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f6f4ef",
+  "theme_color": "#0e2a33",
+  "icons": [
+    { "src": "/assets/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
