@@ -6,7 +6,7 @@
 <title>Mar Martins · Construção de piscinas em Vila Real de Santo António</title>
 <meta name="description" content="Mar Martins, construção de piscinas em Vila Real de Santo António, no Algarve. Meça a sua piscina no simulador e peça orçamento com as medidas já preenchidas.">
 <link rel="canonical" href="https://marmartins.pt/">
-<meta name="theme-color" content="#0e2a33">
+<meta name="theme-color" content="#181e25">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_PT">
 <meta property="og:title" content="Mar Martins · Piscinas em Vila Real de Santo António">
@@ -15,8 +15,8 @@
 <meta property="og:image" content="https://marmartins.pt/assets/og.png">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preload" href="/fonts/newsreader-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/hanken-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/raveo-display-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/raveo-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <script type="application/ld+json">
 {
@@ -62,21 +62,6 @@
 
 <!-- HERO -->
 <section class="hero" aria-labelledby="hero-t">
-  <div class="hero-copy">
-    <p class="label"><span class="dot"></span>Piscinas · Vila Real de Santo António</p>
-    <h1 id="hero-t">Uma piscina no seu quintal, feita aqui <em>ao pé do Guadiana.</em></h1>
-    <p class="lede">A Mar Martins constrói piscinas no Sotavento algarvio. Diga-nos as medidas que tem em mente: o simulador faz as contas e o pedido de orçamento já segue com elas.</p>
-    <div class="hero-cta">
-      <a class="btn btn--ink" href="#medir">Medir a minha piscina</a>
-      <a class="btn btn--line" href="#orcamento">Pedir orçamento</a>
-    </div>
-    <dl class="hero-facts">
-      <div><dt>Desde</dt><dd>2015</dd></div>
-      <div><dt>Sede</dt><dd>V. R. S. António</dd></div>
-      <div><dt>Obras</dt><dd class="todo">[CONFIRMAR]</dd></div>
-    </dl>
-  </div>
-
   <figure class="hero-pool" id="corte">
     <svg viewBox="0 88 640 424" role="img" aria-labelledby="corte-t corte-d">
       <title id="corte-t">Corte de uma piscina enterrada</title>
@@ -94,8 +79,8 @@
         <clipPath id="pool-clip"><path d="M120 196h400v150l-60 70H120z"/></clipPath>
       </defs>
       <!-- céu / terreno -->
-      <rect x="0" y="178" width="640" height="342" fill="url(#soil)" class="soil"/>
-      <path d="M0 178h640" class="ground-line"/>
+      <path d="M44 178h552v318q0 16-16 16H60q-16 0-16-16z" fill="url(#soil)" class="soil"/>
+      <path d="M44 178h552" class="ground-line"/>
       <!-- estrutura -->
       <path d="M96 178h448v178l-76 88H96z" class="shell"/>
       <path d="M96 178h448v178l-76 88H96z" fill="url(#rebar)" class="shell-rebar"/>
@@ -133,8 +118,21 @@
         <path d="M300 444v-20"/><text x="250" y="458" class="call">REVESTIMENTO</text>
       </g>
     </svg>
-    <figcaption class="fine">Corte ilustrativo. A cota do desenho acompanha o simulador mais abaixo.</figcaption>
   </figure>
+  <div class="hero-copy">
+    <p class="label label--hero">Piscinas · Vila Real de Santo António</p>
+    <h1 id="hero-t">A sua piscina, <em>feita à medida do quintal.</em></h1>
+    <p class="lede">A Mar Martins constrói piscinas no Sotavento algarvio. Diga-nos as medidas que tem em mente: o simulador faz as contas e o pedido de orçamento já segue com elas.</p>
+    <div class="hero-cta">
+      <a class="btn btn--lime" href="#orcamento">Pedir orçamento <span aria-hidden="true">→</span></a>
+      <a class="link-lime" href="#medir">Medir a minha piscina <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <a class="hero-card" href="#medir">
+    <span class="hero-card-k">Simulador</span>
+    <span class="hero-card-v"><span data-hero-vol>48</span> m³</span>
+    <span class="hero-card-d">Piscina de <span data-hero-dim>8 × 4 m</span>, com 1,2 a 1,8 m de fundo. Experimente com as suas medidas.</span>
+  </a>
 </section>
 
 <!-- ANTES / DEPOIS -->
@@ -346,7 +344,7 @@
     </div>
     <p class="form-err" role="alert" data-err hidden>Falta o nome e um telemóvel para lhe podermos responder.</p>
     <div class="orc-actions">
-      <button class="btn btn--sea" type="submit" data-send="wa">Enviar por WhatsApp</button>
+      <button class="btn btn--lime" type="submit" data-send="wa">Enviar por WhatsApp</button>
       <button class="btn btn--line-light" type="submit" data-send="email">Enviar por email</button>
     </div>
     <div class="orc-preview" data-preview hidden>

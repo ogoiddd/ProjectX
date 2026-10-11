@@ -79,6 +79,9 @@
       // o corte do topo acompanha as medidas
       const dims = { len: fmt(len) + ' m', min: fmt(min) + ' m', max: fmt(max) + ' m' };
       $$('[data-dim]').forEach((t) => { t.textContent = dims[t.dataset.dim]; });
+      const hv = $('[data-hero-vol]'), hd = $('[data-hero-dim]');
+      if (hv) hv.textContent = fmt(vol, vol % 1 ? 1 : 0);
+      if (hd) hd.textContent = `${fmt(len, len % 1 ? 1 : 0)} × ${fmt(wid, wid % 1 ? 1 : 0)} m`;
     };
     for (const k in inputs) inputs[k].addEventListener('input', () => update(k));
     update();

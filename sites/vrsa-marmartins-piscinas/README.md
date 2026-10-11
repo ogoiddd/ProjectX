@@ -7,8 +7,8 @@ Site de uma página para a **Marmartins, Lda** (marca "Mar Martins"), construç�
 
 ## Conceito
 
-1. Água do Guadiana sobre pedra calcária: a piscina é o produto, por isso o herói é um corte técnico desenhado (betão armado, revestimento, bordadura) com a água a ondular, e as cotas acompanham o simulador.
-2. Estrutura editorial e calma (ref. BYQ "Reforma": serif leve com itálico no título, labels em mono, nav em pílula, profundidade por cor e não por sombra), com a paleta tirada da obra: cal, pedra, areia e água.
+1. A piscina é o produto: o herói é um corte técnico desenhado (betão armado, revestimento, bordadura) pousado num bloco de terreno contra o céu, com a água a ondular, e as cotas acompanham o simulador.
+2. Linguagem visual pedida pelo cliente a partir do template BYQ "Forerunner": Raveo como letra única (títulos em Raveo Display Medium com tracking negativo e segunda metade do título mais clara), tinta #181e25 sobre osso #f8f7f5, um só acento chartreuse #d6fd70 nos CTAs, nav e botões em pílula, cartão flutuante em vidro no canto do hero.
 3. O site faz a primeira conversa: o simulador calcula volume, litros, espelho de água, bordadura e revestimento, e passa as medidas para o pedido de orçamento, que vira mensagem de WhatsApp ou email.
 
 ## Elementos para mostrar na chamada
@@ -41,7 +41,5 @@ As contas são geometria simples: volume = comprimento × largura × (rasa + fun
 
 | Recurso | Licença |
 |---|---|
-| Newsreader (Production Type) | SIL Open Font License 1.1, via @fontsource |
-| Hanken Grotesk (Alfredo Marco Pradil) | SIL Open Font License 1.1, via @fontsource |
-| JetBrains Mono | SIL Open Font License 1.1, via @fontsource |
+| Raveo e Raveo Display (Jakub Foglar, derivada da Inter) | SIL Open Font License 1.1, https://github.com/jakubfoglar/raveo (licença em `public/fonts/OFL-Raveo.txt`) |
 | Desenhos SVG, favicon | desenho próprio para este site |
