@@ -1,3 +1,7 @@
+// IA 2026/27 - Problem 1: Ball Sort Puzzle - a88432
+// AI use declaration (FUC / UAlg AI policy): code written with the assistance
+// of Claude (Anthropic), following the design of Lab Tutorial 1.
+
 import java.util.Iterator;
 import java.util.Scanner;
 
