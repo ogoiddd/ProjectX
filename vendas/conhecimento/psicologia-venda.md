@@ -21,7 +21,7 @@ Os documentos internos (relatórios, planos, `leads.json`) podem continuar a usa
 | **Comparar com o que já pagam** | "menos do que 3 meses de comissões na plataforma" | — | Usar só números do próprio cliente ou públicos. |
 
 ### Onde a moeda tem de aparecer (obrigatório)
-A proposta formal, o acordo e a fatura têm de dizer claramente a moeda e o IVA. Escreve-se **uma vez**, numa linha discreta de condições no fim da proposta: *"Valores em euros, com IVA incluído à taxa legal em vigor. Pagamento integral na entrega, após aprovação do site."* Nas tabelas de pacotes e no texto ficam os números sem símbolo. Esconder a moeda ou o IVA no acordo seria enganoso, e um cliente enganado não paga a segunda metade.
+A proposta formal, o acordo e a fatura têm de dizer claramente a moeda e o IVA. Escreve-se **uma vez**, numa linha discreta de condições no fim da proposta: *"Valores em euros, com IVA incluído à taxa legal em vigor. Pagamento integral na entrega, após aprovação do site."* Nas tabelas de pacotes e no texto ficam os números sem símbolo. Esconder a moeda ou o IVA no acordo seria enganoso, e um cliente enganado não paga no fim.
 
 ### Ordem e estrutura dos pacotes
 1. **Apresentar do mais caro para o mais barato.** O primeiro número serve de âncora (Tversky & Kahneman, 1974).
@@ -29,7 +29,7 @@ A proposta formal, o acordo e a fatura têm de dizer claramente a moeda e o IVA.
 3. **O preço só aparece depois de mostrar valor**: nunca no primeiro email, só depois de verem a demo e de falarmos do problema deles.
 4. **Depois de dizer o preço, ficar em silêncio.** Quem fala primeiro cede.
 
-Pacotes propostos (por aprovar): **Completo 2890 · Profissional 1890 ⭐ · Essencial 1190**, mais manutenção de 39 · 59 · 79 por mês.
+Pacotes (clínicas, a partir de 910, IVA incluído): **Completo 2490 · Profissional 1490 ⭐ · Essencial 910**, mais manutenção de 39 · 59 · 79 por mês.
 
 ---
 
