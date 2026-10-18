@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zarpa · Sites para clínicas, no ar em 14 dias</title>
+<meta name="description" content="Sites para clínicas dentárias, de fisioterapia, de estética e veterinárias. Primeiro vê a maquete da sua clínica, sem compromisso. O site fica no ar em cerca de 14 dias e só paga quando o aprovar.">
+<link rel="canonical" href="https://zarpa.pt/">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:site_name" content="zarpa">
+<meta property="og:url" content="https://zarpa.pt/">
+<meta property="og:title" content="O site da sua clínica no ar em 14 dias">
+<meta property="og:description" content="Primeiro vê a maquete da sua clínica. Só paga quando aprovar o site.">
+<meta property="og:image" content="https://zarpa.pt/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "zarpa",
+  "url": "https://zarpa.pt/",
+  "logo": "https://zarpa.pt/assets/icon-512.png",
+  "image": "https://zarpa.pt/assets/og.png",
+  "description": "Sites para clínicas dentárias, de fisioterapia, de estética e veterinárias em Portugal. Maquete sem compromisso, site no ar em cerca de 14 dias, pagamento só na entrega aprovada.",
+  "areaServed": { "@type": "Country", "name": "Portugal" },
+  "founder": { "@type": "Person", "name": "Diogo Martins" },
+  "knowsLanguage": ["pt-PT", "en"]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#conteudo">Saltar para o conteúdo</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/" aria-label="zarpa, página inicial">
+      <svg class="sail" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2 18 18H2z"/></svg>
+      <span>zarpa</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#como">Como funciona</a>
+      <a href="#trabalhos">Trabalhos</a>
+      <a href="#inclui">O que inclui</a>
+      <a href="#perguntas">Perguntas</a>
+    </nav>
+    <a class="btn btn-sm" href="#pedir">Pedir maquete</a>
+  </div>
+</header>
+
+<main id="conteudo">
+
+<section class="hero" aria-labelledby="hero-t">
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <h1 id="hero-t">O site da sua clínica no ar em 14&nbsp;dias. Só paga quando o&nbsp;aprovar.</h1>
+      <p class="lede">Faço sites para clínicas dentárias, de fisioterapia, de estética e veterinárias. Antes de decidir alguma coisa, vê uma maquete feita para a sua clínica, sem compromisso.</p>
+
+      <form class="try" id="try" action="#pedir">
+        <p class="try-t" id="try-t">Escreva o nome da sua clínica e veja como pode ficar.</p>
+        <div class="try-row">
+          <label class="fld">
+            <span>Nome da clínica</span>
+            <input id="t-nome" name="clinica" autocomplete="organization" placeholder="Clínica Dentária do Mar" maxlength="48">
+          </label>
+          <label class="fld">
+            <span>Cidade</span>
+            <input id="t-cidade" name="cidade" autocomplete="address-level2" placeholder="Loulé" maxlength="28">
+          </label>
+        </div>
+        <fieldset class="esp" aria-describedby="try-t">
+          <legend>Especialidade</legend>
+          <label><input type="radio" name="esp" value="dentaria" checked><span>Dentária</span></label>
+          <label><input type="radio" name="esp" value="fisioterapia"><span>Fisioterapia</span></label>
+          <label><input type="radio" name="esp" value="estetica"><span>Estética</span></label>
+          <label><input type="radio" name="esp" value="veterinaria"><span>Veterinária</span></label>
+        </fieldset>
+        <button class="btn" type="submit">Pedir esta maquete</button>
+      </form>
+    </div>
+
+    <figure class="phone-fig">
+      <div class="phone" data-esp="dentaria" id="phone" aria-live="polite">
+        <div class="ph-screen">
+          <div class="ph-bar">
+            <span class="ph-mark" id="m-ini" aria-hidden="true">CD</span>
+            <span class="ph-brand" id="m-nome-top">A sua clínica</span>
+            <span class="ph-burger" aria-hidden="true"></span>
+          </div>
+          <div class="ph-hero">
+            <p class="ph-kicker" id="m-sub">Medicina dentária em Faro</p>
+            <p class="ph-title" id="m-nome">A sua clínica</p>
+            <p class="ph-open"><span class="dot" aria-hidden="true"></span><span id="m-aberto">Aberto hoje até às 19:00</span></p>
+            <span class="ph-btn">Pedir marcação</span>
+            <span class="ph-btn ph-btn-ghost">Ligar</span>
+          </div>
+          <ul class="ph-list" id="m-servicos">
+            <li>Implantes</li><li>Ortodontia</li><li>Higiene oral</li><li>Branqueamento</li>
+          </ul>
+          <div class="ph-map" aria-hidden="true"><span></span></div>
+        </div>
+      </div>
+      <figcaption>Exemplo ilustrativo. A maquete a sério usa o que a sua clínica já tem público: ficha do Google, serviços, horário e fotografias.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec why" aria-labelledby="why-t">
+  <div class="wrap two">
+    <div>
+      <h2 id="why-t">Um paciente novo decide em poucos segundos, no telemóvel.</h2>
+      <p>Pesquisa “dentista em Loulé”, vê duas ou três clínicas no Google e liga para a que lhe passa mais confiança. Se o botão “website” leva ao Facebook, ou se o site não se lê no telemóvel, a chamada vai para a clínica ao lado.</p>
+    </div>
+    <div class="check">
+      <p class="check-t">Antes de falar consigo, vejo o que um paciente vê:</p>
+      <ul>
+        <li>A ficha do Google leva a um site da clínica?</li>
+        <li>O site abre bem e depressa no telemóvel?</li>
+        <li>Dá para pedir marcação sem telefonar?</li>
+        <li>Liga-se ou manda-se WhatsApp com um toque?</li>
+        <li>O horário e a morada estão certos?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec route-sec" id="como" aria-labelledby="como-t">
+  <div class="wrap">
+    <h2 id="como-t">Da maquete ao site no ar, em cerca de 14&nbsp;dias.</h2>
+    <p class="sec-lede">Sem reuniões a mais e sem pagamentos adiantados. O seu tempo: uma chamada de 20&nbsp;minutos e a revisão do site.</p>
+
+    <div class="route" id="route" aria-hidden="true">
+      <div class="route-line"><span class="route-done"></span></div>
+      <svg class="route-sail" viewBox="0 0 20 20"><path d="M10 2 18 18H2z"/></svg>
+      <ol class="route-ticks">
+        <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li>
+      </ol>
+    </div>
+
+    <ol class="steps">
+      <li class="step" data-day="0">
+        <p class="step-day">Dia 0</p>
+        <h3>Vê a maquete</h3>
+        <p>Preparo uma maquete com o que a clínica já tem público: nome, especialidades, horário, avaliações. Envio-lhe o link e um vídeo curto a explicá-la.</p>
+      </li>
+      <li class="step" data-day="2">
+        <p class="step-day">Dias 1 e 2</p>
+        <h3>Falamos 20 minutos</h3>
+        <p>Para perceber o que importa à clínica: que tratamentos quer mais, como marcam consultas, que acordos e seguros aceitam. A seguir envio a proposta.</p>
+      </li>
+      <li class="step" data-day="13">
+        <p class="step-day">Dias 3 a 13</p>
+        <h3>Construo o site</h3>
+        <p>Peço-lhe as fotografias e os textos que só a clínica tem. Acompanha tudo numa pré-visualização, com duas rondas de alterações incluídas.</p>
+      </li>
+      <li class="step" data-day="14">
+        <p class="step-day">Dia 14</p>
+        <h3>O site vai para o ar</h3>
+        <p>Ligo o domínio e a ficha do Google. Só nesta altura, depois de aprovar o site, é que paga. Tem 8 dias para o fazer.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec work" id="trabalhos" aria-labelledby="trab-t">
+  <div class="wrap">
+    <div class="work-head">
+      <h2 id="trab-t">Nenhum site sai de um molde.</h2>
+      <p>Cada negócio tem a sua cara. Estas são maquetes que fiz para negócios do Algarve: as cores, as letras e os desenhos vêm da fachada, da ementa ou da oficina, não de um template.</p>
+    </div>
+    <ul class="work-grid">
+      <li class="w w-big">
+        <img src="/assets/trab-oficina-1200.webp" srcset="/assets/trab-oficina-720.webp 720w, /assets/trab-oficina-1200.webp 1200w" sizes="(min-width: 960px) 60vw, 100vw" width="1200" height="750" alt="Maquete do site de uma oficina em Faro: título grande em letra condensada azul e um cartão com o horário do dia." loading="lazy" decoding="async">
+        <p class="w-t">Oficina de reparações, Faro</p>
+        <p class="w-d">O cartão do horário diz se a oficina está aberta agora, e o pedido de orçamento é uma folha de obra para preencher.</p>
+      </li>
+      <li class="w">
+        <img src="/assets/trab-taberna-720.webp" srcset="/assets/trab-taberna-720.webp 720w, /assets/trab-taberna-1200.webp 1200w" sizes="(min-width: 960px) 38vw, 100vw" width="720" height="450" alt="Maquete do site de uma taberna em Faro, com uma cataplana desenhada e um formulário de pedido de mesa." loading="lazy" decoding="async">
+        <p class="w-t">Taberna, Largo do Carmo, Faro</p>
+        <p class="w-d">O pedido de mesa transforma-se numa mensagem de WhatsApp já escrita.</p>
+      </li>
+      <li class="w">
+        <img src="/assets/trab-cantinho-720.webp" srcset="/assets/trab-cantinho-720.webp 720w, /assets/trab-cantinho-1200.webp 1200w" sizes="(min-width: 960px) 32vw, 100vw" width="720" height="450" alt="Maquete do site de um restaurante dentro da muralha de Faro, com o Arco do Repouso desenhado à noite." loading="lazy" decoding="async">
+        <p class="w-t">Restaurante, Vila Adentro, Faro</p>
+        <p class="w-d">O desenho do arco muda do dia para a noite com a hora em Faro.</p>
+      </li>
+      <li class="w">
+        <img src="/assets/trab-cidade-velha-720.webp" srcset="/assets/trab-cidade-velha-720.webp 720w, /assets/trab-cidade-velha-1200.webp 1200w" sizes="(min-width: 960px) 32vw, 100vw" width="720" height="450" alt="Maquete do site de um restaurante junto à Sé de Faro, com a torre da Sé desenhada num postal." loading="lazy" decoding="async">
+        <p class="w-t">Restaurante, Largo da Sé, Faro</p>
+        <p class="w-d">Em português, inglês, francês e alemão, para quem visita a cidade velha.</p>
+      </li>
+      <li class="w">
+        <img src="/assets/trab-piscinas-720.webp" srcset="/assets/trab-piscinas-720.webp 720w, /assets/trab-piscinas-1200.webp 1200w" sizes="(min-width: 960px) 32vw, 100vw" width="720" height="450" alt="Maquete do site de uma empresa de piscinas em Vila Real de Santo António, com o corte de uma piscina e o volume de água calculado." loading="lazy" decoding="async">
+        <p class="w-t">Piscinas, Vila Real de Santo António</p>
+        <p class="w-d">Um simulador calcula a água da piscina com as medidas do cliente e junta-as ao pedido de orçamento.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec inc" id="inclui" aria-labelledby="inc-t">
+  <div class="wrap">
+    <div class="two">
+      <h2 id="inc-t">O que todos os sites levam.</h2>
+      <dl class="base">
+        <div><dt>Ligar ou WhatsApp com um toque</dt><dd>Os botões ficam sempre à mão no telemóvel.</dd></div>
+        <div><dt>Ficha do Google ligada ao site</dt><dd>O botão “website” passa a levar à clínica, com horário, mapa e direções certos.</dd></div>
+        <div><dt>A parte legal tratada</dt><dd>Política de privacidade, cookies, Livro de Reclamações e entidade de resolução de litígios.</dd></div>
+        <div><dt>Alojamento no primeiro ano</dt><dd>Domínio ligado e site seguro (HTTPS), sem nada para configurar do seu lado.</dd></div>
+      </dl>
+    </div>
+
+    <h3 class="pk-t">Três formas de o fazer</h3>
+    <div class="packs">
+      <article class="pk">
+        <h4>Completo</h4>
+        <p class="pk-for">Para clínicas com várias especialidades ou vários médicos.</p>
+        <ul>
+          <li>Tudo o que o Profissional tem</li>
+          <li>Marcação online em tempo real, ligada à agenda que já usam ou a um sistema próprio</li>
+          <li>Site em português e inglês</li>
+          <li>3 meses de manutenção</li>
+        </ul>
+      </article>
+      <article class="pk pk-main">
+        <h4>Profissional</h4>
+        <p class="pk-for">O que a maioria das clínicas escolhe.</p>
+        <ul>
+          <li>Até 6 páginas: especialidades, equipa, acordos e seguros, contactos</li>
+          <li>Pedido de marcação online</li>
+          <li>Aparecer nas pesquisas da sua cidade</li>
+          <li>Ficha do Google revista e avaliações à vista</li>
+        </ul>
+      </article>
+      <article class="pk">
+        <h4>Essencial</h4>
+        <p class="pk-for">Para consultórios pequenos.</p>
+        <ul>
+          <li>Uma página com serviços, horário e mapa</li>
+          <li>Ligar e WhatsApp num toque</li>
+          <li>Ficha do Google ligada ao site</li>
+        </ul>
+      </article>
+    </div>
+    <p class="pk-note">O valor vai na proposta, depois de ver a maquete e de falarmos, porque depende do que a clínica precisa. Seja qual for, não paga nada adiantado. A manutenção mensal é opcional.</p>
+  </div>
+</section>
+
+<section class="sec faq" id="perguntas" aria-labelledby="faq-t">
+  <div class="wrap two">
+    <h2 id="faq-t">Perguntas que costumam fazer.</h2>
+    <div class="qa">
+      <details>
+        <summary>E se não gostar do site?</summary>
+        <p>Não paga. O pagamento é feito na entrega, depois de aprovar o site. Até lá, o site fica numa pré-visualização nossa e não fica com compromisso nenhum.</p>
+      </details>
+      <details>
+        <summary>Já temos site. Faz sentido falarmos?</summary>
+        <p>Se não abre bem no telemóvel, não tem forma de pedir marcação ou ninguém lhe mexe há anos, sim. Se já funciona bem, digo-lho com franqueza.</p>
+      </details>
+      <details>
+        <summary>Quanto tempo me vai ocupar?</summary>
+        <p>A chamada de 20 minutos, o envio de fotografias e textos, e a revisão da pré-visualização. O resto fica comigo.</p>
+      </details>
+      <details>
+        <summary>Liga-se ao programa de marcações que usamos?</summary>
+        <p>No pacote Completo, sim, quando o programa o permite; senão, o site leva um sistema de marcação próprio. Nos outros pacotes, o pedido de marcação chega-lhe por email ou WhatsApp e confirma como já faz hoje.</p>
+      </details>
+      <details>
+        <summary>E as regras da publicidade em saúde?</summary>
+        <p>Os textos e as imagens do site respeitam-nas: sem promessas de resultados e sem “antes e depois” enganosos.</p>
+      </details>
+      <details>
+        <summary>Quem trata do domínio e do alojamento?</summary>
+        <p>Eu. Se a clínica já tem domínio, uso esse; se não tem, registo um em nome da clínica. O alojamento do primeiro ano está incluído.</p>
+      </details>
+      <details>
+        <summary>Só faz sites para clínicas?</summary>
+        <p>Comecei pelas clínicas, mas também faço sites para restaurantes, oficinas e outros negócios locais, como os que vê acima.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="sec ask" id="pedir" aria-labelledby="pedir-t">
+  <div class="wrap two">
+    <div>
+      <h2 id="pedir-t">Peça a maquete da sua clínica.</h2>
+      <p>Diga-me o nome e a cidade. Preparo a maquete e envio-lha em 48 horas, com um vídeo curto a explicá-la. Se não fizer sentido para a clínica, é só dizer.</p>
+      <p class="sig">Diogo Martins<br><a href="mailto:diogo@zarpa.pt">diogo@zarpa.pt</a></p>
+    </div>
+    <form class="form" id="form" novalidate>
+      <label class="fld">
+        <span>Nome da clínica</span>
+        <input id="f-nome" name="clinica" autocomplete="organization" required>
+      </label>
+      <label class="fld">
+        <span>Cidade</span>
+        <input id="f-cidade" name="cidade" autocomplete="address-level2" required>
+      </label>
+      <label class="fld">
+        <span>Especialidade</span>
+        <select id="f-esp" name="especialidade">
+          <option value="dentaria">Dentária</option>
+          <option value="fisioterapia">Fisioterapia</option>
+          <option value="estetica">Estética</option>
+          <option value="veterinaria">Veterinária</option>
+          <option value="outra">Outra</option>
+        </select>
+      </label>
+      <label class="fld">
+        <span>Site atual ou ficha do Google <em>(se tiver)</em></span>
+        <input id="f-link" name="link" inputmode="url" placeholder="Pode colar o link">
+      </label>
+      <label class="fld">
+        <span>O seu nome</span>
+        <input id="f-pessoa" name="nome" autocomplete="name">
+      </label>
+      <label class="fld">
+        <span>Email ou telefone para lhe enviar a maquete</span>
+        <input id="f-contacto" name="contacto" autocomplete="email" required>
+      </label>
+      <p class="err" id="f-err" role="alert" hidden></p>
+      <div class="form-go">
+        <button class="btn" type="submit">Enviar pedido por email</button>
+        <a class="btn btn-ghost" id="f-wa" href="#" hidden>Enviar por WhatsApp</a>
+      </div>
+      <p class="fine">O pedido abre no seu email, já escrito, para o enviar. Uso estes dados só para preparar a maquete e responder-lhe. <a href="/privacidade">Como trato os dados</a>.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p class="logo logo-foot"><svg class="sail" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2 18 18H2z"/></svg><span>zarpa</span></p>
+    <p>Sites para clínicas. Feitos no Algarve, para todo o país.</p>
+    <p class="legal">[DENOMINAÇÃO SOCIAL], NIF [NIF], [MORADA]</p>
+    <ul class="foot-links">
+      <li><a href="/privacidade">Privacidade</a></li>
+      <li><a href="https://www.livroreclamacoes.pt/" rel="noopener">Livro de Reclamações</a></li>
+      <li><a href="/privacidade#litigios">Resolução de litígios</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="/app.js" defer></script>
+</body>
+</html>
