@@ -2,14 +2,14 @@
 
 Data: 2026-10-18 · Estado: **rascunho para aprovação**. Nada é enviado antes de o aprovares.
 
-O plano junta o canal de email à operação que já temos (`cabecilha` + 5 agentes, demos personalizadas, guiões de chamada, pagamento 50/50). O email **não substitui** a chamada. Serve para gerar respostas "sim, mostre-me", e a venda fecha-se numa conversa.
+O plano junta o canal de email à operação que já temos (`cabecilha` + 5 agentes, demos personalizadas, guiões de chamada, pagamento só na entrega). O email **não substitui** a chamada. Serve para gerar respostas "sim, mostre-me", e a venda fecha-se numa conversa.
 
 ---
 
 ## 0. Resumo em 6 linhas
 
 1. **Quem:** só **sociedades** (Lda, Unipessoal Lda, SA) sem site ou com site fraco, num **setor de cada vez**. Os empresários em nome individual ficam fora do email por razões legais (§1) e são trabalhados por telefone.
-2. **Método:** *demo-first*. Primeiro um email curto e sem links: "fiz uma maquete do vosso site, posso enviar?". Depois a demo com um vídeo de 90 s, uma chamada de 20 min e uma proposta com 3 pacotes. O pagamento é 50/50.
+2. **Método:** *demo-first*. Primeiro um email curto e sem links: "fiz uma maquete do vosso site, posso enviar?". Depois a demo com um vídeo de 90 s, uma chamada de 20 min e uma proposta com 3 pacotes. O cliente não paga nada adiantado: paga 100% no fim, quando aprovar o site. Os preços incluem IVA.
 3. **Envio automático:** domínios secundários aquecidos, 6 caixas e um sequenciador. Os agentes preparam a lista e a personalização, e tu aprovas cada campanha.
 4. **Medição:** a métrica principal é **receita por 100 emails entregues**, com o funil completo registado por campanha e por variante.
 5. **Otimização:** ciclos de 2 semanas, **uma variável de cada vez** e um registo de experiências. Um agente `analista-conversao` lê os resultados e propõe o próximo teste.
@@ -38,7 +38,7 @@ O plano junta o canal de email à operação que já temos (`cabecilha` + 5 agen
 Vender 1.000–3.000€ a um dono de negócio por email frio não acontece num só email. O que funciona neste ticket é **reduzir o risco percebido em cada passo** e **mostrar antes de pedir**:
 
 ```
-Email curto (sem links)  →  "Sim"  →  Demo + vídeo 90s + 2 horários  →  Chamada 20 min  →  Proposta 3 pacotes  →  50% / 50%
+Email curto (sem links)  →  "Sim"  →  Demo + vídeo 90s + 2 horários  →  Chamada 20 min  →  Proposta 3 pacotes  →  100% na entrega
    pedir licença             resposta     prova no ativo real                 diagnóstico       ancoragem               inversão de risco
 ```
 
@@ -48,8 +48,9 @@ Peças do método (vêm do `vendas/conhecimento/cold-outreach-blueprint.md`, ada
 2. **Oferta de entrada = maquete com o nome, fotos e serviços deles** (já a fazemos). É uma amostra de trabalho sobre o ativo real, o que mais converte com tráfego frio.
 3. **Primeiro email sem links nem imagens**, para proteger a entregabilidade. O primeiro "sim" é o micro-compromisso que importa.
 4. **Contas de retorno na chamada.** Por exemplo: "uma obra de remodelação dá ~3.000€ de margem, o site paga-se com um cliente".
-5. **Proposta com 3 pacotes (ancoragem).** Apresentada do mais caro para o mais barato, e o do meio é o que queremos vender. Os preços são precisos e aparecem sem "€" nem ponto ("1890", não "1.890€"). A moeda e o IVA aparecem uma única vez, numa linha de condições no fim. Ver §9.
-6. **Inversão de risco:** 50% no início e 50% só na entrega aprovada (regra oficial, commit `a7d5696`). No email aparece como "só paga o resto quando estiver satisfeito". Na proposta, o preço aparece já dividido: "945 para arrancar, 945 quando aprovar".
+5. **Proposta com 3 pacotes (ancoragem).** Apresentada do mais caro para o mais barato, e o do meio é o que queremos vender. Os preços são precisos e aparecem sem "€" nem ponto ("1890", não "1.890€"). Os preços **incluem IVA** ("1890, já com IVA"). A moeda aparece uma única vez, numa linha de condições no fim. Ver §9.
+6. **Inversão de risco total:** nada adiantado, **100% na entrega**, quando o cliente aprovar o site. No email aparece como "não paga nada até o site estar pronto e aprovado por si". É o argumento mais forte contra o "não" de risco e de preço.
+   - **Proteções (recomendadas):** acordo de 1 página aceite por escrito (email serve) antes de começar; o site fica numa pré-visualização nossa e só passa para o domínio do cliente depois do pagamento; pagamento no dia da entrega, ou até 8 dias depois; no máximo 2 rondas de alterações incluídas.
 7. **Contornar o "não":** perguntas feitas para que o "não" signifique avançar ("Seria descabido enviar-lhe a maquete?"), "mas é livre de recusar" e uma resposta preparada para cada um dos 5 tipos de "não" (valor, preço, risco, tempo, pessoa). Nunca com urgência falsa nem factos inventados.
 8. **Rapidez:** responder a um "sim" em **menos de 15 min** em horário de trabalho, e ligar se houver número.
 9. **Um setor de cada vez**, para acumular casos de estudo do mesmo nicho. Cada venda torna-se prova social no email seguinte do mesmo setor.
@@ -223,7 +224,7 @@ Todos são texto simples, com **< 90 palavras**, sem links nem imagens no primei
 **Sequência B, "Demo a pedido"** (restantes leads elegíveis)
 5. **B1 Abertura:** pergunta sobre a dor e "posso preparar-lhe uma maquete sem compromisso?" (dia 0)
 6. **B2 Concorrência:** "os 3 primeiros no Google em [cidade] para [serviço] têm site" (dia 3)
-7. **B3 Inversão de risco:** 50/50, só paga o resto quando estiver satisfeito (dia 7)
+7. **B3 Inversão de risco:** não paga nada até o site estar pronto e aprovado por si (dia 7)
 8. **B4 Despedida** (dia 14)
 
 **Aberturas por setor** (substituem A1/B1 no setor certo)
@@ -244,7 +245,7 @@ Cada email traz no topo: **objetivo**, **variável que testa**, **assunto A/B** 
 ## 9. Decisões que preciso de ti
 
 1. **Nome:** Montra ou outro da lista (ou uma sugestão tua)?
-2. **Pacotes e preços** (proposta, apresentada ao cliente do mais caro para o mais barato: *Completo* 2890 · *Profissional* 1890 ⭐ · *Essencial* 1190, mais manutenção de 39 · 59 · 79 por mês). A base atual da operação é 1000. **E o IVA:** os preços são "+ IVA" ou já o incluem?
+2. **Pacotes e preços** (proposta, apresentada ao cliente do mais caro para o mais barato: *Completo* 2890 · *Profissional* 1890 ⭐ · *Essencial* 1190, mais manutenção de 39 · 59 · 79 por mês). A base atual da operação é 1000. **IVA incluído** (decidido).
 3. **Setor-piloto:** remodelações no Algarve (já temos leads) ou clínicas?
 4. **Ferramenta:** lemlist (UE) ou Instantly (mais barato)?
 5. **Remetente:** "Diogo" (como nos guiões) ou outro nome?

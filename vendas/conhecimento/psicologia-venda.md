@@ -15,12 +15,13 @@ Os documentos internos (relatórios, planos, `leads.json`) podem continuar a usa
 | **Dito em voz alta, sem "euros"** | "fica em mil e quinhentos" | "custa mil e quinhentos euros" | Menos sílabas → percebe-se como menos (mesmo estudo). |
 | **Preço preciso** | 1490 · 1890 | 1500 · 1900 | Efeito do dígito da esquerda (Thomas & Morwitz, 2005). Um número preciso parece calculado e não arredondado, o que leva a menos regateio (Janiszewski & Uy, 2008). |
 | **"Investimento" ou "fica em"** | "o investimento é 1490" | "custa 1490" / "tem de pagar" | "Custar" e "pagar" são palavras de perda. |
-| **Dividir o pagamento** | "745 para arrancar, 745 só quando aprovar" | "1490 à cabeça" | O 50/50 já existe. Dito assim, o primeiro número que ouvem é metade. |
+| **Pagar só no fim** | "não paga nada adiantado, só quando aprovar o site" | "pagamento na adjudicação" | Tira o risco todo ao cliente. Um pagamento que fica para depois dói menos do que um feito já (Prelec & Loewenstein, 1998). |
+| **IVA incluído** | "1890, já com IVA" | "1890 + IVA" | O número que veem é o que pagam, sem uma surpresa de 23% na fatura. |
 | **Diluir no tempo (com honestidade)** | "a 3 anos, dá menos de 2 por dia" | "é baratíssimo" | Só se a conta for verdadeira. Dizer o que está incluído e o que é à parte (manutenção). |
 | **Comparar com o que já pagam** | "menos do que 3 meses de comissões na plataforma" | — | Usar só números do próprio cliente ou públicos. |
 
 ### Onde a moeda tem de aparecer (obrigatório)
-A proposta formal, o acordo e a fatura têm de dizer claramente a moeda e o IVA. Escreve-se **uma vez**, numa linha discreta de condições no fim da proposta: *"Valores em euros, a que acresce IVA à taxa legal em vigor."* Nas tabelas de pacotes e no texto ficam os números sem símbolo. Esconder a moeda ou o IVA no acordo seria enganoso, e um cliente enganado não paga a segunda metade.
+A proposta formal, o acordo e a fatura têm de dizer claramente a moeda e o IVA. Escreve-se **uma vez**, numa linha discreta de condições no fim da proposta: *"Valores em euros, com IVA incluído à taxa legal em vigor. Pagamento integral na entrega, após aprovação do site."* Nas tabelas de pacotes e no texto ficam os números sem símbolo. Esconder a moeda ou o IVA no acordo seria enganoso, e um cliente enganado não paga a segunda metade.
 
 ### Ordem e estrutura dos pacotes
 1. **Apresentar do mais caro para o mais barato.** O primeiro número serve de âncora (Tversky & Kahneman, 1974).
@@ -65,8 +66,8 @@ Cada resposta segue o ACA (reconhecer → contexto → pergunta). O tipo de "nã
 | O que dizem | O que quer dizer | Contexto a usar | Pergunta final |
 |---|---|---|---|
 | "Não preciso, tenho Facebook" | **Valor:** não vê o problema | Pesquisa "[serviço] [cidade]": quem aparece são os concorrentes | "Seria má ideia ver quem aparece quando procuram por si?" |
-| "É caro / não tenho dinheiro" | **Preço ou prioridade** | Dividir (745 + 745), comparar com as comissões, quantos clientes pagam o site | "Quantos clientes novos precisava para compensar?" |
-| "Já tive um site e não serviu" | **Risco ou confiança** | O 50/50 e a demo: "vê antes de pagar a 2.ª metade" | "O que é que esse site não fazia?" |
+| "É caro / não tenho dinheiro" | **Preço ou prioridade** | Nada adiantado, só paga no fim; comparar com as comissões; quantos clientes pagam o site | "Quantos clientes novos precisava para compensar?" |
+| "Já tive um site e não serviu" | **Risco ou confiança** | A demo e o pagamento só no fim: "não paga nada até aprovar o site" | "O que é que esse site não fazia?" |
 | "Agora não / mais tarde" | **Tempo** | Leva 20 min da parte deles e o resto fazemos nós | "Opõe-se a que lhe escreva em [mês]?" |
 | "Não sou eu que decido" | **Pessoa** | — | "Seria descabido mostrar-lhe a si primeiro, para levar à pessoa certa?" |
 
@@ -93,7 +94,7 @@ Estas técnicas mudam **como** se diz a verdade, nunca **o que** é verdade.
 | P3 | CTA do 1.º email | "Posso enviar?" | "Seria descabido enviar?" | resposta positiva |
 | P4 | Frase de liberdade | sem | "mas é livre de recusar" | resposta positiva |
 | P5 | Ordem dos pacotes | barato → caro | caro → barato | ticket médio |
-| P6 | Divisão do preço | "1890, 50/50" | "945 para arrancar, 945 na aprovação" | proposta → venda |
+| P6 | Como se diz o pagamento | "paga na entrega" | "não paga nada até aprovar o site" | proposta → venda |
 
 ## Referências
 - Yang, Kimes & Sessarego (2009). *$ or Not $: Effect of Menu Price Formats on Restaurant Checks.* Cornell Hospitality Report.
@@ -102,6 +103,7 @@ Estas técnicas mudam **como** se diz a verdade, nunca **o que** é verdade.
 - Janiszewski & Uy (2008). *Precision of the Anchor Influences the Amount of Adjustment.* Psychological Science.
 - Tversky & Kahneman (1974). *Judgment under Uncertainty: Heuristics and Biases.* Science.
 - Kahneman & Tversky (1979). *Prospect Theory.* Econometrica.
+- Prelec & Loewenstein (1998). *The Red and the Black: Mental Accounting of Savings and Debt.* Marketing Science.
 - Huber, Payne & Puto (1982). *Adding Asymmetrically Dominated Alternatives.* Journal of Consumer Research.
 - Carpenter (2013). *A Meta-Analysis of the "But You Are Free" Compliance-Gaining Technique.* Communication Studies.
 - Langer, Blank & Chanowitz (1978). *The Mindlessness of Ostensibly Thoughtful Action.* JPSP.

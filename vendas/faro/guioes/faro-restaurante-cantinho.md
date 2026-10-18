@@ -5,7 +5,7 @@
 - **Morada:** R. do Repouso 6, 8000-169 Faro, junto ao Arco do Repouso (entrada da Vila Adentro).
 - **Decisor:** não confirmado. **Pista:** um artigo da MAGG de 20-09-2021 apresenta o **Diogo Ferreira** como "um dos responsáveis" do Cantinho. O artigo tem cinco anos, por isso o nome é uma pista a confirmar e não um facto atual. Perguntar por ele assim: "ainda é ele o responsável?". Nunca dizer que o conheces.
 - **Quando ligar:** terça a quinta, das **15:30 às 17:30**, entre o almoço e o jantar. Pela ficha Google o horário é seg–sáb das 10:30 às 23:30, mas não ligar durante o serviço (12:00–15:00 e a partir das 19:00), nem à sexta, nem ao sábado, nem ao domingo (está fechado). Se atenderem com barulho de sala: "Liguei em má hora. A que horas é mais calmo?" e desligar.
-- **Objetivo:** enviar o link da demo por WhatsApp **durante a chamada** e marcar 15 min (ao telefone ou no restaurante, às 16:00) com data e hora. O melhor resultado é um "sim" com sinal de 50%.
+- **Objetivo:** enviar o link da demo por WhatsApp **durante a chamada** e marcar 15 min (ao telefone ou no restaurante, às 16:00) com data e hora. O melhor resultado é um "sim" à proposta (paga só no fim, quando aprovar o site).
 - **Demo:** `sites/faro-restaurante-cantinho/public/` (PT em `/`, EN em `/en/`). Ainda não está publicada. Antes de ligar, pôr um link de pré-visualização no ar: **[LINK DA DEMO]**. Ter à mão os screenshots `qa/mob-hero.png`, `qa/desk-night-hero.png`, `qa/mob-sec-reservar.png`, `qa/mob-sec-ementa.png` e `qa/mob-en-hero.png`.
 - **Nota:** o vendedor também se chama Diogo. Se o decisor for mesmo o Diogo Ferreira, a coincidência ajuda a quebrar o gelo ("Somos dois Diogos"), mas não forçar a piada.
 
@@ -105,7 +105,7 @@ Repetir o que ele disse com as palavras dele antes de passar à proposta: "Entã
 
 > "O que proponho é isto: o site do Cantinho como o que viu, com as vossas fotografias, a ementa certa e os preços que quiserem pôr. Em português e inglês. Inclui pôr o Cantinho bem no Google em Faro (o SEO local), pôr o botão 'website' da ficha a apontar para o site em vez do Facebook, a parte legal (RGPD, Livro de Reclamações) e o alojamento do primeiro ano. Fica pronto em cerca de duas semanas."
 >
-> "O investimento é 1000: 500 para arrancar e 500 só quando o site estiver pronto e aprovado por si. Se depois quiser que eu mude a ementa ou os preços sempre que precisar, a manutenção fica entre 30 e 50 por mês, mas é opcional."
+> "O investimento é 1000, já com IVA, e não paga nada adiantado: só paga no fim, quando o site estiver pronto e aprovado por si. Se depois quiser que eu mude a ementa ou os preços sempre que precisar, a manutenção fica entre 30 e 50 por mês, mas é opcional."
 
 **Âncora no valor** (sem prometer resultados; deixar que seja ele a fazer a conta):
 > "Para pôr isto em perspetiva: quanto deixa uma mesa de quatro ao jantar, com vinho? ... Então são umas quantas mesas a mais, ao longo de um ano, e o site está pago. Não lhe garanto quantas reservas vai trazer, ninguém honesto garante. Mas hoje, quem vos encontra no Google e quer ver a ementa ou reservar acaba no Facebook."
@@ -118,7 +118,7 @@ Depois de dizer o preço, **calar** e esperar pela resposta.
 
 Escolher conforme a temperatura da conversa:
 
-- **Quente:** "Se gostou, posso começar já. Mando-lhe hoje a proposta com os dados para o sinal. Começo quando receber, e daqui a duas semanas tem o site no ar, a tempo do inverno. Pode ser?"
+- **Quente:** "Se gostou, posso começar já. Mando-lhe hoje a proposta. Começo assim que me disser que sim, não paga nada adiantado, e daqui a duas semanas tem o site no ar, a tempo do inverno. Pode ser?"
 - **Morno:** "Que tal 15 minutos [terça / quarta] às 16:00? Passo pelo Cantinho, entre o almoço e o jantar, e vemos o exemplo juntos no telemóvel. Que dia lhe dá mais jeito?"
 - **Frio mas aberto:** "Veja o link com calma. Ligo-lhe [dia concreto, ter–qui] às [16:00] só para saber o que achou. Combinado?"
 
@@ -150,7 +150,7 @@ Para cada objeção: **reconhecer → reenquadrar → perguntar.** Contar os "n�
 > "Percebo, é um investimento, sobretudo num restaurante. Paga-se uma vez, com o alojamento do primeiro ano incluído, e não há mensalidade obrigatória nem comissão por reserva, como nas plataformas. Quantas mesas de quatro é que precisava para compensar?"
 
 Se for mesmo uma questão de tesouraria:
-> "Os 50% servem para arrancar e o resto só se paga na entrega. Se for melhor depois do verão ou antes da Páscoa, marco e ligo nessa altura. Que mês lhe dá mais jeito?"
+> "Não paga nada para começar: só paga quando o site estiver pronto e aprovado por si. Se for melhor depois do verão ou antes da Páscoa, marco e ligo nessa altura. Que mês lhe dá mais jeito?"
 
 Não baixar o preço logo à primeira. Não inventar descontos que acabam.
 
@@ -216,7 +216,7 @@ Se ele disser **não duas vezes** depois de uma tentativa de reenquadrar, ou ped
 > - reservas que chegam por WhatsApp como mensagem já escrita (dia, hora, pessoas), sem sistema nem comissões; recusa domingos; no telemóvel, botões para Ligar, Ir e Reservar;
 > - a ementa da casa com as frases dos clientes tal como as escreveram, um mapa desenhado da Vila Adentro e tudo em português e inglês.
 >
-> Proposta: site à medida por 1000 (500 para arrancar e 500 na entrega aprovada), pronto em cerca de 2 semanas. Inclui SEO local, ficha Google com o botão "website" a apontar para o site, versão em inglês, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 por mês.
+> Proposta: site à medida por 1000, IVA incluído, pago só no fim, quando aprovar o site, pronto em cerca de 2 semanas. Inclui SEO local, ficha Google com o botão "website" a apontar para o site, versão em inglês, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 por mês.
 >
 > A ementa, o horário, as fotografias e os textos do exemplo são provisórios e acertam-se consigo.
 >
@@ -241,4 +241,4 @@ Se ele disser **não duas vezes** depois de uma tentativa de reenquadrar, ou ped
 - Fotografias disponíveis (porta e arco, sala com lareira, arroz de marisco, polvo, esplanada, banoffee):
 - Entidade legal e NIF (para o rodapé e a fatura):
 - Próximo passo e data:
-- Estado: `reuniao` / `proposta_enviada` / `sinal` / `recusou` / `nao_contactar` / `sem_resposta`
+- Estado: `reuniao` / `proposta_enviada` / `aceitou` / `pago` / `recusou` / `nao_contactar` / `sem_resposta`

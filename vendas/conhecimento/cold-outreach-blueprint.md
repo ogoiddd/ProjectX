@@ -218,7 +218,7 @@ Atenção: o vídeo é sobre **B2B nos EUA em volume muito alto**. O nosso caso 
 1. **Oferta (a parte mais valiosa para nós):**
    - Resultado em vez de entrega. Não "fazemos websites", mas algo como "clientes novos que o encontram no Google e reservam online, sem depender só do Instagram".
    - **A oferta de entrada já é a nossa demo personalizada** (agente frontend-designer). É exatamente uma "amostra de trabalho sobre o ativo real do cliente", que o vídeo aponta como o que funciona com tráfego frio.
-   - **Inversão de risco definida:** pagamento por fases, com **50% no início e 50% na entrega aprovada**. Junto com a demo, o cliente vê o resultado antes de pagar a segunda metade.
+   - **Inversão de risco definida:** **nada adiantado, 100% na entrega aprovada** (preços com IVA incluído). Junto com a demo, o cliente vê o resultado antes de pagar o que quer que seja.
    - **Um avatar de cada vez** (ex.: restaurantes em Faro) para acumular case studies do mesmo setor.
 2. **Guiões (agente cold-call-writer):** aplicar o ACA a cada objeção, propor duas horas concretas para a reunião, ligar depressa a quem responde e usar um pedido de baixa fricção ("posso mostrar-lhe?").
 3. **Vídeo único:** gravar um vídeo de 1–2 min (desarmar → prova → convite) para enviar a quem mostra interesse, em vez de explicar tudo por mensagem.
