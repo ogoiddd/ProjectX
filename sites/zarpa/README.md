@@ -25,7 +25,6 @@ node sites/zarpa/tools/qa/shots.mjs
 | Pacotes Completo / Profissional / Essencial e o que incluem, do mais caro para o mais barato | `plano.md` §2 ("conteúdo a confirmar") |
 | Lista do que é verificado em cada clínica | evidências do `icebreaker-writer` (`plano.md` §3, passo 5) |
 | Maquete em 48 h | `plano.md` §3, passo 7 |
-| Trabalhos | capturas em `sites/*/qa/` das maquetes de Faro e VRSA |
 | Privacidade: fontes e subcontratantes dos contactos frios | `plano.md` §1 e §3 |
 
 **Preços não aparecem no site**, de propósito: `vendas/conhecimento/psicologia-venda.md` diz que o preço só aparece depois de verem a maquete. O texto diz que o valor vai na proposta e que não se paga nada adiantado. Se quiserem mostrar "a partir de 910", é uma linha em `.pk-note`.
@@ -35,7 +34,6 @@ node sites/zarpa/tools/qa/shots.mjs
 - `[DENOMINAÇÃO SOCIAL]`, `[NIF]`, `[MORADA]` no rodapé de `index.html` e `privacidade.html`, e a entidade RAL competente em `privacidade.html#litigios`.
 - WhatsApp/telefone do Diogo: preencher `CONTACTO.whatsapp` em `app.js` (formato `3519XXXXXXXX`) para aparecer o botão "Enviar por WhatsApp".
 - "Feitos no Algarve" no rodapé — confirmar.
-- **Trabalhos:** as cinco capturas são maquetes de negócios reais (Areal Auto, Cantinho, Cidade Velha, Taberna Zé-Zé, Mar Martins) que ainda não são clientes. O site não diz os nomes, mas eles aparecem nas imagens. Pedir autorização a cada um antes de publicar, ou trocar por trabalhos de clientes.
 - Domínio `zarpa.pt` e registo da marca (INPI/RNPC), como em `marca.md`.
 
 ## Notas técnicas

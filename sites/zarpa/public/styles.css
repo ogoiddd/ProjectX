@@ -191,17 +191,6 @@ h3 { font-size: 1.25rem; line-height: 1.25; letter-spacing: -.02em; font-weight:
 .step h3 { margin-top: 6px; }
 .step h3 + p { margin-top: 10px; color: #1d2a30; font-size: 1rem; }
 
-/* trabalhos */
-.work-head { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(32px, 6vw, 96px); align-items: end; }
-.work-head p { color: #1d2a30; }
-.work-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px 24px; margin-top: 56px; }
-.w { grid-column: span 4; }
-.w-big { grid-column: span 7; }
-.w-big + .w { grid-column: span 5; align-self: end; }
-.w img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border: 1px solid var(--rule); border-radius: var(--r); background: var(--shoal); }
-.w-t { margin-top: 14px; font-weight: 600; }
-.w-d { margin-top: 4px; font-size: .9375rem; color: var(--muted); }
-
 /* o que inclui */
 .base { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 32px; }
 .base dt { font-weight: 600; }
@@ -261,10 +250,8 @@ h3 { font-size: 1.25rem; line-height: 1.25; letter-spacing: -.02em; font-weight:
   .phone-fig { position: static; display: grid; justify-items: center; }
   .phone-fig figcaption { text-align: center; }
   .phone { max-width: 300px; }
-  .two, .work-head { grid-template-columns: 1fr; }
+  .two { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr 1fr; }
-  .w, .w-big, .w-big + .w { grid-column: 1 / -1; }
-  .work-grid { grid-template-columns: 1fr; gap: 40px; }
   .packs { grid-template-columns: 1fr; }
   .pk, .pk + .pk { padding: 24px 0; border-left: 0; }
   .pk + .pk { border-top: 1px solid var(--rule); }
