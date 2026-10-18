@@ -11,18 +11,18 @@
 
 {{icebreaker}}
 
-Por isso fiz uma maquete do que poderia ser o site da {{clinica}}: marcação pelo telemóvel em poucos toques, as vossas avaliações à vista e pensado para quem pesquisa "{{especialidade}} {{cidade}}".
+Por isso fizemos uma maquete do que poderia ser o site da {{clinica}}: marcação pelo telemóvel em poucos toques, as vossas avaliações à vista e pensado para quem pesquisa "{{especialidade}} {{cidade}}".
 
 Já está feita. Seria descabido enviar-lhe o link?
 
 Se não fizer sentido, é só dizer.
 
-Diogo Martins
-zarpa · sites para clínicas
-{{telefone_diogo}}
+Equipa Zarpa
+sites para clínicas · zarpa.pt
+{{telefone_zarpa}}
 
 —
-Encontrei o contacto da {{clinica}} em {{fonte_contacto}}.
+Encontrámos o contacto da {{clinica}} em {{fonte_contacto}}.
 Zarpa · [DENOMINAÇÃO SOCIAL] · NIF [NIF] · [MORADA]
 Para não receber mais emails, responda SAIR.
 ```

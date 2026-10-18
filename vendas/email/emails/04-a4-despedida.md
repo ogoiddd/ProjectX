@@ -9,18 +9,18 @@
 ```
 {{saudacao}},
 
-Não quero ocupar mais espaço na sua caixa de correio, por isso este é o último email.
+Não queremos ocupar mais espaço na sua caixa de correio, por isso este é o último email.
 
-A maquete da {{clinica}} fica guardada até {{data_limite}}. Se um dia quiser vê-la, basta responder "ver" e envio-lha no próprio dia.
+A maquete da {{clinica}} fica guardada até {{data_limite}}. Se um dia quiser vê-la, basta responder "ver" e enviamos-lha no próprio dia.
 
 Bom trabalho para toda a equipa,
 
-Diogo Martins
-zarpa · sites para clínicas
-{{telefone_diogo}}
+Equipa Zarpa
+sites para clínicas · zarpa.pt
+{{telefone_zarpa}}
 
 —
-Encontrei o contacto da {{clinica}} em {{fonte_contacto}}.
+Encontrámos o contacto da {{clinica}} em {{fonte_contacto}}.
 Zarpa · [DENOMINAÇÃO SOCIAL] · NIF [NIF] · [MORADA]
 Para não receber mais emails, responda SAIR.
 ```

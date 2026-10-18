@@ -9,18 +9,18 @@
 ```
 {{saudacao}},
 
-Este é o meu último email, não quero insistir.
+Este é o nosso último email, não queremos insistir.
 
-Se um dia fizer sentido ver como ficaria o site da {{clinica}}, basta responder "maquete" e preparo-a em 48 horas.
+Se um dia fizer sentido ver como ficaria o site da {{clinica}}, basta responder "maquete" e preparamo-la em 48 horas.
 
 Bom trabalho,
 
-Diogo Martins
-zarpa · sites para clínicas
-{{telefone_diogo}}
+Equipa Zarpa
+sites para clínicas · zarpa.pt
+{{telefone_zarpa}}
 
 —
-Encontrei o contacto da {{clinica}} em {{fonte_contacto}}.
+Encontrámos o contacto da {{clinica}} em {{fonte_contacto}}.
 Zarpa · [DENOMINAÇÃO SOCIAL] · NIF [NIF] · [MORADA]
 Para não receber mais emails, responda SAIR.
 ```

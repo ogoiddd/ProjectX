@@ -9,7 +9,7 @@
 ```
 {{saudacao}},
 
-Explico em três linhas como trabalhamos, para decidir com tudo à frente:
+Explicamos em três linhas como trabalhamos, para decidir com tudo à frente:
 
 1. Vê a maquete da {{clinica}}, sem compromisso.
 2. Falamos 20 minutos para a afinar à vossa medida.
@@ -17,12 +17,12 @@ Explico em três linhas como trabalhamos, para decidir com tudo à frente:
 
 Está completamente fora de questão dar uma vista de olhos à maquete?
 
-Diogo Martins
-zarpa · sites para clínicas
-{{telefone_diogo}}
+Equipa Zarpa
+sites para clínicas · zarpa.pt
+{{telefone_zarpa}}
 
 —
-Encontrei o contacto da {{clinica}} em {{fonte_contacto}}.
+Encontrámos o contacto da {{clinica}} em {{fonte_contacto}}.
 Zarpa · [DENOMINAÇÃO SOCIAL] · NIF [NIF] · [MORADA]
 Para não receber mais emails, responda SAIR.
 ```

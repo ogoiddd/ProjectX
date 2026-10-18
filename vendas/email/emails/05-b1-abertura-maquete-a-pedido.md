@@ -11,18 +11,18 @@
 
 {{icebreaker}}
 
-Faço sites para clínicas: marcação online, avaliações à vista e pensados para aparecer a quem pesquisa "{{especialidade}} {{cidade}}".
+Fazemos sites para clínicas: marcação online, avaliações à vista e pensados para aparecer a quem pesquisa "{{especialidade}} {{cidade}}".
 
-Antes de falar de preços, prefiro mostrar. Preparo-lhe uma maquete com o nome e os serviços da {{clinica}}, em 48 horas e sem compromisso.
+Antes de falar de preços, preferimos mostrar. Preparamos-lhe uma maquete com o nome e os serviços da {{clinica}}, em 48 horas e sem compromisso.
 
 Seria descabido prepará-la? Se não fizer sentido, é só dizer.
 
-Diogo Martins
-zarpa · sites para clínicas
-{{telefone_diogo}}
+Equipa Zarpa
+sites para clínicas · zarpa.pt
+{{telefone_zarpa}}
 
 —
-Encontrei o contacto da {{clinica}} em {{fonte_contacto}}.
+Encontrámos o contacto da {{clinica}} em {{fonte_contacto}}.
 Zarpa · [DENOMINAÇÃO SOCIAL] · NIF [NIF] · [MORADA]
 Para não receber mais emails, responda SAIR.
 ```
