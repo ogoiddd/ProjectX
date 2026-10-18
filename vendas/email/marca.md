@@ -32,7 +32,7 @@ Para não receber mais emails, responda SAIR.
 ## Campos (colunas do `envio.csv`)
 | Campo | Exemplo | Regra |
 |---|---|---|
-| `saudacao` | "Bom dia, Dra. Marta" / "Bom dia" | Com nome só se o decisor estiver confirmado. Senão, "Bom dia" |
+| `saudacao` | "Bom dia, Marta" / "Bom dia" | Com o primeiro nome só se o decisor estiver confirmado. Senão, "Bom dia". "Dr./Dra." só se a clínica usar esse título publicamente para essa pessoa, **nunca deduzido do nome** |
 | `clinica` | "Clínica Sorriso Algarve" | Nome comercial, sem "Lda" |
 | `cidade` | "Loulé" | |
 | `especialidade` | "dentista" | O termo que as pessoas pesquisam no Google, não o técnico |

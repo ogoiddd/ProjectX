@@ -10,3 +10,7 @@ venv/
 # Outputs
 *.csv
 !examples/*.csv
+
+# Zarpa: dados de leads e campanhas (dados pessoais, ficam fora do git)
+vendas/email/campanhas/
+vendas/email/cache-millionverifier.json

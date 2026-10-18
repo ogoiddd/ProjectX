@@ -15,8 +15,8 @@ O email junta-se à operação que já temos (`cabecilha` + agentes, demos perso
 | **Setor-piloto** | **Clínicas** (dentária, fisioterapia, estética, veterinária) |
 | **Preços** | **a partir de 910**, IVA incluído: Completo 2490 · Profissional 1490 ⭐ · Essencial 910 |
 | **Pagamento** | Nada adiantado. 100% na entrega, quando o cliente aprovar o site |
-| **Leads** | AI Ark + "quick and rich"(?) + Get Leads → **MillionVerifier** → visita a cada site → **icebreaker** personalizado |
-| **Envio** | Sequenciador: **Smartlead** (recomendado), Plus Vibe, Instantly ou EmailBison |
+| **Leads** | **Google Maps (Outscraper)** + AI Ark + Get Leads (+ "quick and rich"?) → **MillionVerifier** → visita a cada site → **icebreaker** personalizado |
+| **Envio** | **Smartlead** |
 | **Métrica principal** | Receita por 100 emails entregues |
 
 ---
@@ -83,8 +83,8 @@ Sub-nichos por ordem: **dentária** (ticket alto, tratamentos caros) → **fisio
 ### Passo a passo
 1. **Scrape** (sem Apollo). Pedimos **3× o objetivo** (ex.: 450 para ficarem ~150), porque muitos caem na verificação e no filtro legal.
    - **AI Ark:** empresas em Portugal com palavras-chave na descrição (clínica dentária, medicina dentária, fisioterapia, clínica de estética, clínica veterinária…), 1–50 pessoas. Cargos: sócio-gerente, diretor clínico, proprietário, fundador.
-   - **Get Leads** e **"quick and rich"**: a mesma pesquisa, para cobrir os buracos. ⚠️ Não sei qual é a ferramenta "quick and rich". Diz-me o nome exato ou o site.
-   - ⚠️ **Limite destas bases:** as bases B2B encontram empresas a partir do domínio, por isso **as clínicas sem site aparecem pouco**. Para esse segmento proponho juntar um scraper do Google Maps (Outscraper ou Apify), que apanha a ficha Google, as avaliações e o "website" (vazio ou Facebook).
+   - **Google Maps (Outscraper)**: a fonte principal para as clínicas **sem site**, que as bases B2B quase não têm. Traz a ficha Google, as avaliações, o telefone, o link de marcação e o "website" (vazio ou Facebook). Com o enriquecimento `domains_service` também traz os emails publicados no site.
+   - **Get Leads** e **"quick and rich"**: a mesma pesquisa, importada por CSV (`importar-csv`), para cobrir os buracos. ⚠️ Ainda não sei qual é a ferramenta "quick and rich".
 2. **Enriquecer (toda a informação de contacto):** email geral, email do decisor, telefone fixo e móvel publicados, nome e cargo do decisor, site, ficha Google (nota e nº de avaliações), Instagram/Facebook, denominação social e NIF (→ `tipo_entidade`).
 3. **Verificar:**
    - **MillionVerifier** (API) em todos os emails. Só passa `ok`. Os `catch_all` vão para um lote separado e pequeno. `invalid`, `disposable` e `unknown` saem.
@@ -99,14 +99,31 @@ Sub-nichos por ordem: **dentária** (ticket alto, tratamentos caros) → **fisio
 7. **Respostas:** o webhook do sequenciador → classificação automática (positiva / neutra / negativa / SAIR) → o Diogo responde a um "sim" em **< 15 min** e liga se houver número. Cada "sim" dispara a maquete do `frontend-designer` em ≤ 48h.
 8. **Resultados** → `resultados.csv` → `analista-conversao` (§5).
 
-### Agentes e scripts a criar (próximo passo)
+### Agentes e código (criados)
 | Peça | Faz |
 |---|---|
-| `.claude/agents/lead-scraper.md` | Corre os passos 1–4 por API e grava `vendas/email/campanhas/<id>/leads-verificados.json` |
-| `.claude/agents/icebreaker-writer.md` | Passo 5: visita cada site e escreve o icebreaker com a evidência |
-| `.claude/agents/analista-conversao.md` | Lê os resultados, calcula o funil e propõe o próximo teste |
-| `vendas/email/pipeline/*.py` | Chamadas às APIs (AI Ark, Get Leads, MillionVerifier, PageSpeed, sequenciador) |
-| Chaves | Em variáveis de ambiente (`AIARK_API_KEY`, `MILLIONVERIFIER_API_KEY`, `SMARTLEAD_API_KEY`…). **Nunca no repositório** |
+| `zarpa/` (Python) | O pipeline: `python -m zarpa <comando> --campanha <id>`. Testado em `tests/test_zarpa.py` com as APIs simuladas |
+| `.claude/agents/lead-scraper.md` | Corre os passos 1–5 e confirma à mão o tipo de entidade dos leads duvidosos |
+| `.claude/agents/icebreaker-writer.md` | Confirma as evidências de cada site e escreve o icebreaker |
+| `.claude/agents/analista-conversao.md` | Sincroniza o Smartlead, lê o funil e propõe a próxima experiência |
+| Chaves | Variáveis de ambiente `OUTSCRAPER_API_KEY`, `AIARK_API_KEY`, `MILLIONVERIFIER_API_KEY`, `SMARTLEAD_API_KEY` (e, opcional, `PAGESPEED_API_KEY`). **Nunca no repositório** |
+| Dados | `vendas/email/campanhas/<id>/` (leads, envio, resultados), **fora do git** por terem dados pessoais |
+
+```bash
+C=--campanha 2026-11-dentarias-algarve
+python -m zarpa recolher-gmaps $C --subnicho dentaria --cidades "Faro,Loulé,Portimão,Lagos,Tavira"
+python -m zarpa recolher-aiark $C --subnicho dentaria --maximo 300
+python -m zarpa importar-csv   $C --ficheiro getleads.csv --fonte getleads --subnicho dentaria
+python -m zarpa juntar $C --excluir-contactados && python -m zarpa verificar $C
+python -m zarpa filtrar $C && python -m zarpa auditar $C --pagespeed
+#   → agente icebreaker-writer
+python -m zarpa exportar $C                                   # → envio.csv para aprovares
+python -m zarpa enviar $C --id-smartlead 123 --variante A      # ensaio; só envia com --a-serio
+python -m zarpa sincronizar $C --id-smartlead 123 && python -m zarpa funil $C
+python -m zarpa evento $C --lead <id> --tipo venda --valor 1490
+```
+
+As variantes A e B vão para **duas campanhas do Smartlead** (uma com a sequência A, outra com a B). Cada lead recebe a variante por sorteio estável.
 
 ---
 
@@ -119,7 +136,7 @@ Sub-nichos por ordem: **dentária** (ticket alto, tratamentos caros) → **fisio
 | Caixas | 2 por domínio = **6 caixas** Google Workspace, todas "Diogo Martins" (diogo@, d.martins@) |
 | DNS | SPF, DKIM, DMARC (`p=none` → `quarantine`), domínio de tracking próprio |
 | Aquecimento | **2–3 semanas** antes do 1.º envio, sempre ligado. Subida até ~20/dia por caixa |
-| **Sequenciador** | **Smartlead** (recomendado: API completa para ligar ao pipeline, caixas ilimitadas, aquecimento incluído). Alternativas: Instantly (o mais simples), Plus Vibe (o mais barato), EmailBison (pensado para agências com muito volume, demais para começar). Confirmar que o plano escolhido inclui API |
+| **Sequenciador** | **Smartlead** (decidido). Confirmar que o plano escolhido inclui acesso à API |
 | Tracking | Aberturas **desligadas**. Mede-se pela resposta |
 | Inbox | Teste a cada 2 semanas. Abaixo de 80% em inbox, o domínio descansa |
 
@@ -171,7 +188,7 @@ Um evento por linha em `resultados.csv`: `lead_id, campanha, variante, subnicho,
 | 2 | Sub-nicho | Dentária | Fisioterapia |
 | 3 | Tipo de icebreaker | Avaliações Google | Falha no site |
 | 4 | CTA | "Posso enviar?" | "Seria descabido enviar?" |
-| 5 | Saudação | "Bom dia," | "Bom dia, Dra. {{nome}}," |
+| 5 | Saudação | "Bom dia," | "Bom dia, {{primeiro_nome}}," |
 | 6 | Assunto | `{{clinica}}` | `site da {{clinica}}` |
 | 7 | Frase de liberdade | sem | com |
 | 8 | Nº de follow-ups | 3 | 4 |
@@ -208,18 +225,17 @@ Estão em `vendas/email/emails/`. Usam os campos e o rodapé de `marca.md`.
 ## 8. O que falta de ti
 
 1. **"quick and rich":** qual é a ferramenta (nome exato ou site)?
-2. **Sequenciador:** Smartlead (recomendado) ou outro?
-3. **Google Maps scraper** para as clínicas sem site: junto ao pipeline?
-4. **Contas e chaves de API** (AI Ark, Get Leads, MillionVerifier, sequenciador): quando as tiveres, vão para variáveis de ambiente e eu ligo o pipeline.
-5. **Dados legais da Zarpa** para o rodapé: denominação, NIF e morada. Sem isto não se pode enviar.
-6. **Pacotes:** confirmar o conteúdo de cada um (§2).
+2. **Contas e chaves de API:** Outscraper, AI Ark, MillionVerifier e Smartlead (plano com API), postas em variáveis de ambiente. O Get Leads entra por CSV.
+3. **Dados legais da Zarpa** para o rodapé: denominação, NIF e morada. Sem isto não se pode enviar.
+4. **Pacotes:** confirmar o conteúdo de cada um (§2).
+5. **Onde corre o pipeline:** no teu computador ou num servidor com disco persistente. Este ambiente na nuvem é temporário, e os dados das campanhas (fora do git) perdem-se quando é reciclado.
 
 ## 9. Calendário
 
 | Semana | O quê |
 |---|---|
 | 0 | Respostas de §8 · compra de domínios e caixas · DNS · verificação legal · INPI/RNPC "Zarpa" |
-| 1–2 | Aquecimento · agentes e scripts do pipeline · 1.º scrape (450 → ~150 dentárias) · vídeo de 90 s |
+| 1–2 | Aquecimento · 1.º scrape com o `lead-scraper` (450 → ~150 dentárias) · icebreakers · vídeo de 90 s |
 | 3 | **Piloto:** dentárias, Sequência A vs. B, 20–40/dia |
 | 4 | 1.ª análise · primeiras reuniões |
 | 5 | Decisão 1 → piloto 2 (fisioterapia ou teste #3) |
