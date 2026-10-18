@@ -4,7 +4,7 @@
 
   // Contactos para onde vão os pedidos. WhatsApp vazio = botão escondido.
   const CONTACTO = {
-    email: 'diogo@zarpa.pt',   // [CONFIRMAR] caixa do Diogo em zarpa.pt
+    email: 'zarpa@zarpa.pt',
     whatsapp: '',              // [CONFIRMAR] ex.: '3519XXXXXXXX'
   };
 

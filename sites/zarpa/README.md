@@ -33,7 +33,6 @@ node sites/zarpa/tools/qa/shots.mjs
 ## Por preencher antes de publicar
 
 - `[DENOMINAÇÃO SOCIAL]`, `[NIF]`, `[MORADA]` no rodapé de `index.html` e `privacidade.html`, e a entidade RAL competente em `privacidade.html#litigios`.
-- `diogo@zarpa.pt` — confirmar a caixa (`index.html`, `privacidade.html`, `CONTACTO.email` em `app.js`).
 - WhatsApp/telefone do Diogo: preencher `CONTACTO.whatsapp` em `app.js` (formato `3519XXXXXXXX`) para aparecer o botão "Enviar por WhatsApp".
 - "Feitos no Algarve" no rodapé — confirmar.
 - **Trabalhos:** as cinco capturas são maquetes de negócios reais (Areal Auto, Cantinho, Cidade Velha, Taberna Zé-Zé, Mar Martins) que ainda não são clientes. O site não diz os nomes, mas eles aparecem nas imagens. Pedir autorização a cada um antes de publicar, ou trocar por trabalhos de clientes.
