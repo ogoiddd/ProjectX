@@ -121,7 +121,7 @@ Repetir o que ele disse com as palavras dele antes de passar à proposta: "Entã
 
 > "O que proponho é isto: um site à medida do Cidade Velha, como o que viu, com as vossas fotos, a carta verdadeira e a história da casa, em português, inglês, francês e alemão. Fica com o pedido de mesa por WhatsApp, que chega sempre em português. Ponho o site na ficha do Google em vez do TripAdvisor e corrijo o horário, para haver uma versão certa. Inclui o trabalho para aparecerem bem no Google nas quatro línguas, quando alguém pesquisa 'restaurant Faro old town' ou 'Restaurant Faro Altstadt'. Inclui a parte legal, RGPD e Livro de Reclamações, e o alojamento do primeiro ano. Fica pronto em duas a três semanas."
 >
-> "Custa 1500 euros. Metade para arrancar e metade na entrega. É mais do que um site simples porque são quatro línguas, e cada uma tem de aparecer no Google. Se depois quiser que eu trate das atualizações, como mudar a carta, os preços ou o horário de inverno, a manutenção fica entre 30 e 50 euros por mês, mas é opcional."
+> "O investimento é 1500: 750 para arrancar e 750 só quando o site estiver pronto e aprovado por si. É mais do que um site simples porque são quatro línguas, e cada uma tem de aparecer no Google. Se depois quiser que eu trate das atualizações, como mudar a carta, os preços ou o horário de inverno, a manutenção fica entre 30 e 50 por mês, mas é opcional."
 
 **Âncora no valor** (sem prometer resultados):
 > "Para pôr isto em perspetiva: uma mesa de quatro turistas a jantar, com entrada, prato, vinho e sobremesa, já é uma parte boa do site. Quantas mesas dessas precisava por mês para o pagar na época? Não lhe garanto quantas vai trazer, ninguém honesto garante. Mas hoje há quatro horários na internet e o Google não tem um site vosso para mostrar. Isso só pode fazer perder clientes, nunca ganhar. E o site é vosso: não há comissão por reserva."
@@ -162,12 +162,12 @@ Se ele disser que paga pouco ou nada ao TheFork:
 > "Acredito, com perto de mil e quinhentas avaliações e ao lado da Sé. Mas o site não é só para trazer gente. É para quem vem saber a hora certa, para o pedido chegar escrito em português mesmo quando o cliente é francês, e para não dependerem do TripAdvisor e do TheFork. E no inverno, também enche todos os dias?"
 
 ### "É caro." / "Não tenho dinheiro agora."
-> "Percebo. 1500 euros é dinheiro. São quatro línguas, cada uma a aparecer no Google, e paga-se uma vez, com o alojamento do primeiro ano incluído. Não há mensalidade obrigatória nem comissão por reserva. Quantas mesas a mais por mês é que precisava para compensar?"
+> "Percebo, é um investimento. São quatro línguas, cada uma a aparecer no Google, e paga-se uma vez, com o alojamento do primeiro ano incluído. Não há mensalidade obrigatória nem comissão por reserva. Quantas mesas a mais por mês é que precisava para compensar?"
 
 Se for mesmo uma questão de tesouraria (fim de época):
 > "Os 50% de sinal servem para arrancar e o resto só se paga na entrega. Se preferir, marcamos para [mês] e eu volto a ligar nessa altura, com tempo antes da próxima época. Que mês lhe dá mais jeito?"
 
-Se ele pedir uma versão mais barata, dá para dizer a verdade: "Com menos línguas fica mais barato. Só em português e inglês fica por 1000 euros. Mas metade das vossas avaliações não estão em português nem em inglês." Não inventar descontos que acabam.
+Se ele pedir uma versão mais barata, dá para dizer a verdade: "Com menos línguas fica mais barato. Só em português e inglês fica em 1000. Mas metade das vossas avaliações não estão em português nem em inglês." Não inventar descontos que acabam.
 
 ### "Envie por email."
 > "Envio, claro. Antes disso já lhe mandei o link por WhatsApp: é mais rápido abrir no telemóvel. Qual é o email certo? ... E para não ficar perdido na caixa de correio, posso ligar-lhe [dia] às [hora, à tarde] para saber o que achou?"
@@ -235,7 +235,7 @@ Se ele disser **não duas vezes** depois de uma tentativa de reenquadrar, ou ped
 >
 > Hoje a ficha Google liga ao TripAdvisor e há quatro horários diferentes publicados na internet. No projeto, o Google passa a apontar para o vosso site e fica uma só versão do horário.
 >
-> Proposta: site à medida em 4 línguas por 1500 € (50% de sinal e 50% na entrega), pronto em 2 a 3 semanas. Inclui SEO local nas 4 línguas, ficha Google com o site e o horário corrigido, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 €/mês.
+> Proposta: site à medida em 4 línguas por 1500 (750 para arrancar e 750 na entrega aprovada), pronto em 2 a 3 semanas. Inclui SEO local nas 4 línguas, ficha Google com o site e o horário corrigido, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 por mês.
 >
 > Tudo o que está marcado como "a confirmar" no exemplo (carta, preços, fotos, história da casa) acerta-se consigo.
 >

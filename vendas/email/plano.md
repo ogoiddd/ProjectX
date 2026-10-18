@@ -25,7 +25,7 @@ O plano junta o canal de email à operação que já temos (`cabecilha` + 5 agen
 |---|---|
 | **Lei 41/2004, art. 13.º-A** (alterada pela Lei 46/2012): marketing direto por email a **pessoas singulares** exige **consentimento prévio e expresso**. | Não há cold email para **empresários em nome individual** nem para o email pessoal do dono, que são o canal **telefone/presencial** (guiões existentes). |
 | Para **pessoas coletivas** o envio é permitido, mas têm direito de oposição e existe uma **lista nacional de oposição** (art. 13.º-B) que tem de ser consultada. | Antes de cada campanha, cruzamos a lista com a lista de oposição. O business-finder regista `tipo_entidade` (confirmado pela denominação social/NIF) e `elegivel_email`. |
-| **RGPD art. 14**: quando os dados não foram recolhidos junto do titular, é preciso dizer **de onde vêm** e como se opor. | Todos os emails levam um rodapé com a identificação da empresa (nome, NIF, morada), a origem do contacto ("email público na vossa ficha Google") e uma linha de saída ("responda 'não' e não volto a escrever"). |
+| **RGPD art. 14**: quando os dados não foram recolhidos junto do titular, é preciso dizer **de onde vêm** e como se opor. | Todos os emails levam um rodapé com a identificação da empresa (nome, NIF, morada), a origem do contacto ("email público na vossa ficha Google") e uma linha de saída ("Para não receber mais emails, responda SAIR."). Não se usa "responda 'não'", porque os pedidos são feitos para que o "não" signifique avançar (ver `vendas/conhecimento/psicologia-venda.md`). |
 | Só email **genérico da empresa** (geral@, info@, reservas@), nunca nominativo inferido. | O agente não "adivinha" emails do tipo nome.apelido@. |
 | Quem disser não, sai para sempre. | Uma lista de supressão global (`vendas/email/supressao.csv`) é verificada pelo agente antes de qualquer exportação. |
 
@@ -42,16 +42,17 @@ Email curto (sem links)  →  "Sim"  →  Demo + vídeo 90s + 2 horários  →  
    pedir licença             resposta     prova no ativo real                 diagnóstico       ancoragem               inversão de risco
 ```
 
-Peças do método (vêm do `vendas/conhecimento/cold-outreach-blueprint.md`, adaptadas):
+Peças do método (vêm do `vendas/conhecimento/cold-outreach-blueprint.md`, adaptadas). As regras de preço e de objeções estão em **`vendas/conhecimento/psicologia-venda.md`**, de uso obrigatório em tudo o que o cliente lê ou ouve:
 
 1. **Vender o resultado, não o site.** Falar de "pedidos de orçamento sem pagar comissão à Zaask", "reservas diretas sem depender da Booking", "pacientes que o encontram no Google", e não de "fazemos websites".
 2. **Oferta de entrada = maquete com o nome, fotos e serviços deles** (já a fazemos). É uma amostra de trabalho sobre o ativo real, o que mais converte com tráfego frio.
 3. **Primeiro email sem links nem imagens**, para proteger a entregabilidade. O primeiro "sim" é o micro-compromisso que importa.
 4. **Contas de retorno na chamada.** Por exemplo: "uma obra de remodelação dá ~3.000€ de margem, o site paga-se com um cliente".
-5. **Proposta com 3 pacotes (ancoragem).** O do meio é o que queremos vender. Preços em §9 para decidir.
-6. **Inversão de risco:** 50% no início e 50% só na entrega aprovada (regra oficial, commit `a7d5696`). No email aparece como "só paga o resto quando estiver satisfeito".
-7. **Rapidez:** responder a um "sim" em **menos de 15 min** em horário de trabalho, e ligar se houver número.
-8. **Um setor de cada vez**, para acumular casos de estudo do mesmo nicho. Cada venda torna-se prova social no email seguinte do mesmo setor.
+5. **Proposta com 3 pacotes (ancoragem).** Apresentada do mais caro para o mais barato, e o do meio é o que queremos vender. Os preços são precisos e aparecem sem "€" nem ponto ("1890", não "1.890€"). A moeda e o IVA aparecem uma única vez, numa linha de condições no fim. Ver §9.
+6. **Inversão de risco:** 50% no início e 50% só na entrega aprovada (regra oficial, commit `a7d5696`). No email aparece como "só paga o resto quando estiver satisfeito". Na proposta, o preço aparece já dividido: "945 para arrancar, 945 quando aprovar".
+7. **Contornar o "não":** perguntas feitas para que o "não" signifique avançar ("Seria descabido enviar-lhe a maquete?"), "mas é livre de recusar" e uma resposta preparada para cada um dos 5 tipos de "não" (valor, preço, risco, tempo, pessoa). Nunca com urgência falsa nem factos inventados.
+8. **Rapidez:** responder a um "sim" em **menos de 15 min** em horário de trabalho, e ligar se houver número.
+9. **Um setor de cada vez**, para acumular casos de estudo do mesmo nicho. Cada venda torna-se prova social no email seguinte do mesmo setor.
 
 ### Setores por ordem de prioridade (ticket × dor × facilidade em ter email)
 
@@ -176,14 +177,18 @@ com `evento` ∈ `enviado | bounce | resposta_positiva | resposta_neutra | respo
 |---|---|---|---|
 | 1 | **Setor/segmento** | Remodelações | Clínicas |
 | 2 | **Oferta de entrada** | Demo já feita ("já fiz") | Demo a pedido ("posso fazer?") |
-| 3 | CTA | "Posso enviar?" | "Faz sentido mostrar-lhe?" |
+| 3 | CTA | "Posso enviar?" | "Seria descabido enviar-lhe?" (orientado para o "não") |
 | 4 | Ângulo | Perder dinheiro (comissões) | Ganhar clientes (Google) |
 | 5 | Prova | Sem caso | Caso do mesmo setor (após a 1.ª venda) |
 | 6 | Tratamento | Formal (o senhor / a empresa) | Próximo (primeiro nome) |
 | 7 | Assunto | Nome do negócio | Pergunta curta |
 | 8 | Nº de follow-ups | 3 | 5 |
 | 9 | Dia/hora | Ter–Qui 9h | Ter–Qui 14h30 |
-| 10 | Pacotes | Âncora 2.900€ | Âncora 3.900€ |
+| 10 | Pacotes | Âncora 2890 | Âncora 3890 |
+| 11 | Formato do preço | 1.890€ | 1890 |
+| 12 | Frase de liberdade | sem | "mas é livre de recusar" |
+
+Mais testes de preço e de objeções: §4 de `vendas/conhecimento/psicologia-venda.md`.
 
 **Como o analista adapta a estratégia:** em cada análise identifica **a etapa do funil com o maior desvio negativo** face à meta (pela árvore em §5) e propõe o teste dessa etapa, mesmo que não seja o próximo da lista. Mexe-se primeiro no estrangulamento.
 
@@ -207,7 +212,7 @@ Critérios: português de Portugal, curto, que um dono de restaurante ou de uma 
 
 ## 8. Mapa dos 15 emails (escritos depois de aprovares este plano)
 
-Todos são texto simples, com **< 90 palavras**, sem links nem imagens no primeiro contacto, levam uma linha personalizada com fonte e o rodapé legal de §1.
+Todos são texto simples, com **< 90 palavras**, sem links nem imagens no primeiro contacto, levam uma linha personalizada com fonte e o rodapé legal de §1. Seguem `psicologia-venda.md`: os preços aparecem sem "€" nem ponto, os CTA são orientados para o "não" e levam a frase de liberdade.
 
 **Sequência A, "Demo já feita"** (leads de topo, a maquete existe antes do envio)
 1. **A1 Abertura:** "Fiz uma versão do site da [Negócio], posso enviar-lhe?" (dia 0)
@@ -239,7 +244,7 @@ Cada email traz no topo: **objetivo**, **variável que testa**, **assunto A/B** 
 ## 9. Decisões que preciso de ti
 
 1. **Nome:** Montra ou outro da lista (ou uma sugestão tua)?
-2. **Pacotes e preços** (proposta: *Essencial* 1.200€ · *Profissional* 1.900€ ⭐ · *Completo* 2.900€, mais manutenção de 39–79€/mês). A base atual da operação é 1.000€.
+2. **Pacotes e preços** (proposta, apresentada ao cliente do mais caro para o mais barato: *Completo* 2890 · *Profissional* 1890 ⭐ · *Essencial* 1190, mais manutenção de 39 · 59 · 79 por mês). A base atual da operação é 1000. **E o IVA:** os preços são "+ IVA" ou já o incluem?
 3. **Setor-piloto:** remodelações no Algarve (já temos leads) ou clínicas?
 4. **Ferramenta:** lemlist (UE) ou Instantly (mais barato)?
 5. **Remetente:** "Diogo" (como nos guiões) ou outro nome?

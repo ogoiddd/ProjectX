@@ -118,7 +118,7 @@ Repetir o que ele disse com as palavras dele antes de passar à proposta: "Entã
 
 > "O que proponho é isto: um site à medida da Zé-Zé, como o que viu, com as vossas fotos e a ementa certa, em português e em inglês. Fica com o pedido de mesa por WhatsApp. Eu corrijo a ficha do Google e ponho o horário e o telefone certos em todo o lado, também na página da Makro se me der acesso. Inclui pôr a taberna bem no Google em Faro (o SEO local), a parte legal (RGPD, Livro de Reclamações) e o alojamento do primeiro ano. Fica pronto em cerca de duas semanas."
 >
-> "Custa 1000 euros. Metade para arrancar e metade na entrega. Se depois quiser que eu trate das atualizações, como mudar a ementa ou os preços, a manutenção fica entre 30 e 50 euros por mês, mas é opcional."
+> "O investimento é 1000: 500 para arrancar e 500 só quando o site estiver pronto e aprovado por si. Se depois quiser que eu trate das atualizações, como mudar a ementa ou os preços, a manutenção fica entre 30 e 50 por mês, mas é opcional."
 
 **Âncora no valor** (sem prometer resultados):
 > "Para pôr isto em perspetiva: uma mesa de quatro que pede duas cataplanas, e que vem mais umas vezes por ano, ou que traz amigos, já paga uma boa parte do site. Não lhe garanto quantas mesas vai trazer, ninguém honesto garante. Mas hoje há duas versões do vosso horário na internet, e isso só pode fazer perder clientes, nunca ganhar."
@@ -159,7 +159,7 @@ Se ele disser que sim, que enche o ano todo:
 > "Acredito. Quase mil opiniões não se fazem sem isso. Mas hoje, quando alguém recomenda a Zé-Zé, a primeira coisa que a pessoa faz é pesquisar. E encontra dois horários diferentes. O site não é para trazer gente nova, é para não perder quem já vos vinha procurar. Quer ver como fica essa primeira impressão?"
 
 ### "É caro." / "Não tenho dinheiro agora."
-> "Percebo. 1000 euros é dinheiro. Paga-se uma vez, com o alojamento do primeiro ano incluído, e não há mensalidade obrigatória nem comissão por reserva. Quantas mesas a mais por mês é que precisava para compensar?"
+> "Percebo, é um investimento. Paga-se uma vez, com o alojamento do primeiro ano incluído, e não há mensalidade obrigatória nem comissão por reserva. Quantas mesas a mais por mês é que precisava para compensar?"
 
 Se for mesmo uma questão de tesouraria (por exemplo, no fim da época):
 > "Os 50% de sinal servem para arrancar e o resto só se paga na entrega. Se preferir, marcamos para [mês] e eu volto a ligar nessa altura, antes da próxima época. Que mês lhe dá mais jeito?"
@@ -231,7 +231,7 @@ Se ele disser **não duas vezes** depois de uma tentativa de reenquadrar, ou ped
 >
 > Hoje o Google e a página da Makro mostram horários e telefones diferentes. No projeto, fica tudo igual em todo o lado.
 >
-> Proposta: site à medida em português e inglês por 1000 € (50% de sinal e 50% na entrega), pronto em cerca de 2 semanas. Inclui SEO local, correção da ficha Google e da informação contraditória, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 €/mês.
+> Proposta: site à medida em português e inglês por 1000 (500 para arrancar e 500 na entrega aprovada), pronto em cerca de 2 semanas. Inclui SEO local, correção da ficha Google e da informação contraditória, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 por mês.
 >
 > Os preços, as fotos e o horário no exemplo são provisórios e acertam-se consigo.
 >

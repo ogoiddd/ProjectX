@@ -105,7 +105,7 @@ Repetir o que ele disse com as palavras dele antes de passar à proposta: "Entã
 
 > "O que proponho é isto: o site do Cantinho como o que viu, com as vossas fotografias, a ementa certa e os preços que quiserem pôr. Em português e inglês. Inclui pôr o Cantinho bem no Google em Faro (o SEO local), pôr o botão 'website' da ficha a apontar para o site em vez do Facebook, a parte legal (RGPD, Livro de Reclamações) e o alojamento do primeiro ano. Fica pronto em cerca de duas semanas."
 >
-> "Custa 1000 euros. Metade para arrancar e metade na entrega. Se depois quiser que eu mude a ementa ou os preços sempre que precisar, a manutenção fica entre 30 e 50 euros por mês, mas é opcional."
+> "O investimento é 1000: 500 para arrancar e 500 só quando o site estiver pronto e aprovado por si. Se depois quiser que eu mude a ementa ou os preços sempre que precisar, a manutenção fica entre 30 e 50 por mês, mas é opcional."
 
 **Âncora no valor** (sem prometer resultados; deixar que seja ele a fazer a conta):
 > "Para pôr isto em perspetiva: quanto deixa uma mesa de quatro ao jantar, com vinho? ... Então são umas quantas mesas a mais, ao longo de um ano, e o site está pago. Não lhe garanto quantas reservas vai trazer, ninguém honesto garante. Mas hoje, quem vos encontra no Google e quer ver a ementa ou reservar acaba no Facebook."
@@ -147,7 +147,7 @@ Para cada objeção: **reconhecer → reenquadrar → perguntar.** Contar os "n�
 > "Acredito. Mas hoje, quando um hotel ou um amigo recomenda o Cantinho, a primeira coisa que a pessoa faz é pesquisar no telemóvel. Encontra 4,5 estrelas e depois cai no Facebook. O site não é para encher a casa, é para não perder quem já vos vinha procurar. Quer ver como fica essa primeira impressão?"
 
 ### "É caro." / "Não tenho dinheiro agora."
-> "Percebo. 1000 euros é dinheiro, sobretudo num restaurante. Paga-se uma vez, com o alojamento do primeiro ano incluído, e não há mensalidade obrigatória nem comissão por reserva, como nas plataformas. Quantas mesas de quatro é que precisava para compensar?"
+> "Percebo, é um investimento, sobretudo num restaurante. Paga-se uma vez, com o alojamento do primeiro ano incluído, e não há mensalidade obrigatória nem comissão por reserva, como nas plataformas. Quantas mesas de quatro é que precisava para compensar?"
 
 Se for mesmo uma questão de tesouraria:
 > "Os 50% servem para arrancar e o resto só se paga na entrega. Se for melhor depois do verão ou antes da Páscoa, marco e ligo nessa altura. Que mês lhe dá mais jeito?"
@@ -216,7 +216,7 @@ Se ele disser **não duas vezes** depois de uma tentativa de reenquadrar, ou ped
 > - reservas que chegam por WhatsApp como mensagem já escrita (dia, hora, pessoas), sem sistema nem comissões; recusa domingos; no telemóvel, botões para Ligar, Ir e Reservar;
 > - a ementa da casa com as frases dos clientes tal como as escreveram, um mapa desenhado da Vila Adentro e tudo em português e inglês.
 >
-> Proposta: site à medida por 1000 € (50% de sinal e 50% na entrega), pronto em cerca de 2 semanas. Inclui SEO local, ficha Google com o botão "website" a apontar para o site, versão em inglês, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 €/mês.
+> Proposta: site à medida por 1000 (500 para arrancar e 500 na entrega aprovada), pronto em cerca de 2 semanas. Inclui SEO local, ficha Google com o botão "website" a apontar para o site, versão em inglês, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 por mês.
 >
 > A ementa, o horário, as fotografias e os textos do exemplo são provisórios e acertam-se consigo.
 >
