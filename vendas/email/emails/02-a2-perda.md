@@ -13,14 +13,14 @@ Quem procura "{{especialidade}} {{cidade}}" no telemóvel tende a marcar onde é
 
 Cada paciente que marca lá nunca chega a conhecer a {{clinica}}, mesmo com as avaliações que têm.
 
-A maquete continua guardada. Opõe-se a que lha envie?
+A maquete continua guardada. Opõe-se a que lha enviemos?
 
-Diogo Martins
-zarpa · sites para clínicas
-{{telefone_diogo}}
+Equipa Zarpa
+sites para clínicas · zarpa.pt
+{{telefone_zarpa}}
 
 —
-Encontrei o contacto da {{clinica}} em {{fonte_contacto}}.
+Encontrámos o contacto da {{clinica}} em {{fonte_contacto}}.
 Zarpa · [DENOMINAÇÃO SOCIAL] · NIF [NIF] · [MORADA]
 Para não receber mais emails, responda SAIR.
 ```

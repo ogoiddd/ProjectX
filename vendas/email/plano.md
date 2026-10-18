@@ -2,7 +2,7 @@
 
 Data: 2026-10-18 · Estado: **v2, decisões tomadas, por aprovar antes do 1.º envio**. Nada é enviado sem a tua aprovação.
 
-O email junta-se à operação que já temos (`cabecilha` + agentes, demos personalizadas, guiões de chamada). O email **não fecha a venda**: gera um "sim, mostre-me", e a venda fecha-se numa conversa com o Diogo Martins.
+O email junta-se à operação que já temos (`cabecilha` + agentes, demos personalizadas, guiões de chamada). O email **não fecha a venda**: gera um "sim, mostre-me", e a venda fecha-se numa conversa com a equipa.
 
 ---
 
@@ -11,7 +11,7 @@ O email junta-se à operação que já temos (`cabecilha` + agentes, demos perso
 | | Decisão |
 |---|---|
 | **Marca** | **Zarpa** (`zarpa.pt`). Ver `marca.md` |
-| **Remetente** | Diogo Martins |
+| **Remetente** | Equipa Zarpa, todos os endereços em `@zarpa.pt` (ver `marca.md`) |
 | **Setor-piloto** | **Clínicas** (dentária, fisioterapia, estética, veterinária) |
 | **Preços** | **a partir de 910**, IVA incluído: Completo 2490 · Profissional 1490 ⭐ · Essencial 910 |
 | **Pagamento** | Nada adiantado. 100% na entrega, quando o cliente aprovar o site |
@@ -99,7 +99,7 @@ Sub-nichos por ordem: **dentária** (ticket alto, tratamentos caros) → **fisio
    - escreve **1 frase de ≤ 25 palavras** com um facto observado e verificável. Nunca elogio vazio ("adorei o vosso site") nem nada inventado;
    - grava a frase, a evidência e a URL da fonte. Se não houver um facto bom, o lead fica com `icebreaker = null` e não é enviado.
 6. **Exportar** `campanhas/<id>/envio.csv` com os campos de `marca.md` (`saudacao`, `clinica`, `cidade`, `especialidade`, `icebreaker`, `fonte_contacto`, `variante`…). **Tu aprovas** e depois sobe para o sequenciador por API.
-7. **Respostas:** o webhook do sequenciador → classificação automática (positiva / neutra / negativa / SAIR) → o Diogo responde a um "sim" em **< 15 min** e liga se houver número. Cada "sim" dispara a maquete do `frontend-designer` em ≤ 48h.
+7. **Respostas:** o webhook do sequenciador → classificação automática (positiva / neutra / negativa / SAIR) → a equipa responde a um "sim" em **< 15 min** e liga se houver número. Cada "sim" dispara a maquete do `frontend-designer` em ≤ 48h.
 8. **Resultados** → `resultados.csv` → `analista-conversao` (§5).
 
 ### Agentes e código (criados)
@@ -137,11 +137,10 @@ As variantes A e B vão para **duas campanhas do Smartlead** (uma com a sequênc
 
 | Peça | Escolha |
 |---|---|
-| Domínio principal | `zarpa.pt`: site e portefólio. **Nunca envia cold email** |
-| Domínios de envio | `usezarpa.pt`, `zarpastudio.pt`, `zarpahq.com`. Parecem livres numa verificação por DNS de 2026-10-18; confirmar na compra. Redirecionam para `zarpa.pt` |
-| Caixas | 2 por domínio = **6 caixas** Google Workspace, todas "Diogo Martins" (diogo@, d.martins@) |
+| Domínio | Só `zarpa.pt` (decisão de 2026-10-18): site, clientes e cold email. Risco aceite: um problema de spam no cold email afeta também os emails aos clientes, por isso o volume fica baixo |
+| Caixas | **10 caixas** Google Workspace só para cold email, todas "Equipa Zarpa" (ver `marca.md`). `ola@`, `equipa@`, `projetos@` e `faturacao@` ficam para clientes |
 | DNS | SPF, DKIM, DMARC (`p=none` → `quarantine`), domínio de tracking próprio |
-| Aquecimento | **2–3 semanas** antes do 1.º envio, sempre ligado. Subida até ~20/dia por caixa |
+| Aquecimento | **2–3 semanas** antes do 1.º envio, sempre ligado. Subida até 3–4 novos contactos por dia por caixa |
 | **Sequenciador** | **Smartlead** (decidido). Confirmar que o plano escolhido inclui acesso à API |
 | Tracking | Aberturas **desligadas**. Mede-se pela resposta |
 | Inbox | Teste a cada 2 semanas. Abaixo de 80% em inbox, o domínio descansa |

@@ -13,17 +13,17 @@
 
 Antes de um implante ou de um alinhamento, o paciente pesquisa muito: quer ver a clínica, a equipa e o que outros pacientes dizem. Hoje, no Google, a {{clinica}} mostra pouco disso.
 
-[A] Fiz uma maquete de como a {{clinica}} poderia aparecer, com marcação pelo telemóvel. Seria descabido enviar-lhe o link?
-[B] Posso preparar-lhe uma maquete com o nome e os serviços da {{clinica}}, em 48 horas e sem compromisso. Seria descabido?
+[A] Fizemos uma maquete de como a {{clinica}} poderia aparecer, com marcação pelo telemóvel. Seria descabido enviar-lhe o link?
+[B] Podemos preparar-lhe uma maquete com o nome e os serviços da {{clinica}}, em 48 horas e sem compromisso. Seria descabido?
 
 Se não fizer sentido, é só dizer.
 
-Diogo Martins
-zarpa · sites para clínicas
-{{telefone_diogo}}
+Equipa Zarpa
+sites para clínicas · zarpa.pt
+{{telefone_zarpa}}
 
 —
-Encontrei o contacto da {{clinica}} em {{fonte_contacto}}.
+Encontrámos o contacto da {{clinica}} em {{fonte_contacto}}.
 Zarpa · [DENOMINAÇÃO SOCIAL] · NIF [NIF] · [MORADA]
 Para não receber mais emails, responda SAIR.
 ```

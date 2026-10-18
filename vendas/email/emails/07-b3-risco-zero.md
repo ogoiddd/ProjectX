@@ -11,16 +11,16 @@
 
 Provavelmente já recebeu propostas de agências e ficou com a ideia de que um site é caro, demora meses e ainda lhe dá trabalho.
 
-Na zarpa funciona ao contrário: preparo a maquete sem compromisso, falamos 20 minutos, e em cerca de 14 dias o site está no ar. Só paga quando estiver pronto e aprovado por si.
+Na zarpa funciona ao contrário: preparamos a maquete sem compromisso, falamos 20 minutos, e em cerca de 14 dias o site está no ar. Só paga quando estiver pronto e aprovado por si.
 
 Está completamente fora de questão ver a maquete?
 
-Diogo Martins
-zarpa · sites para clínicas
-{{telefone_diogo}}
+Equipa Zarpa
+sites para clínicas · zarpa.pt
+{{telefone_zarpa}}
 
 —
-Encontrei o contacto da {{clinica}} em {{fonte_contacto}}.
+Encontrámos o contacto da {{clinica}} em {{fonte_contacto}}.
 Zarpa · [DENOMINAÇÃO SOCIAL] · NIF [NIF] · [MORADA]
 Para não receber mais emails, responda SAIR.
 ```

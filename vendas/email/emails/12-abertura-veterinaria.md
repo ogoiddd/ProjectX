@@ -13,17 +13,17 @@
 
 Quando um animal fica doente, o dono pesquisa "veterinário {{cidade}}" no telemóvel e quer três coisas em segundos: se estão abertos, se atendem urgências e um botão para ligar.
 
-[A] Fiz uma maquete de como a {{clinica}} poderia aparecer, com marcação pelo telemóvel. Seria descabido enviar-lhe o link?
-[B] Posso preparar-lhe uma maquete com o nome e os serviços da {{clinica}}, em 48 horas e sem compromisso. Seria descabido?
+[A] Fizemos uma maquete de como a {{clinica}} poderia aparecer, com marcação pelo telemóvel. Seria descabido enviar-lhe o link?
+[B] Podemos preparar-lhe uma maquete com o nome e os serviços da {{clinica}}, em 48 horas e sem compromisso. Seria descabido?
 
 Se não fizer sentido, é só dizer.
 
-Diogo Martins
-zarpa · sites para clínicas
-{{telefone_diogo}}
+Equipa Zarpa
+sites para clínicas · zarpa.pt
+{{telefone_zarpa}}
 
 —
-Encontrei o contacto da {{clinica}} em {{fonte_contacto}}.
+Encontrámos o contacto da {{clinica}} em {{fonte_contacto}}.
 Zarpa · [DENOMINAÇÃO SOCIAL] · NIF [NIF] · [MORADA]
 Para não receber mais emails, responda SAIR.
 ```

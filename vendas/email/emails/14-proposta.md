@@ -9,14 +9,14 @@
 ```
 {{saudacao}},
 
-Obrigado pela conversa de {{dia_reuniao}}. Pelo que me disse, o mais importante para a {{clinica}} é {{objetivo_1}} e {{objetivo_2}}.
+Obrigado pela conversa de {{dia_reuniao}}. Pelo que nos disse, o mais importante para a {{clinica}} é {{objetivo_1}} e {{objetivo_2}}.
 
 Ficam aqui as três opções:
 
 COMPLETO · 2490
 Tudo o que está no Profissional, mais marcação online em tempo real ligada à vossa agenda, versão em inglês e 3 meses de manutenção.
 
-PROFISSIONAL · 1490  ← o que recomendo para a {{clinica}}
+PROFISSIONAL · 1490  ← o que recomendamos para a {{clinica}}
 Até 6 páginas (especialidades, equipa, acordos, contactos), pedido de marcação online, ficha Google otimizada e as vossas avaliações à vista.
 
 ESSENCIAL · 910
@@ -24,10 +24,10 @@ Uma página com serviços, horário, mapa e botões para ligar e para o WhatsApp
 
 Todas já com IVA, com a parte legal tratada (RGPD, Livro de Reclamações), alojamento no 1.º ano e site no ar em cerca de 14 dias. Não paga nada adiantado: só no fim, quando aprovar o site.
 
-Para começar, basta responder com a opção escolhida. Opõe-se a que lhe ligue {{dia_seguimento}} para fechar os detalhes?
+Para começar, basta responder com a opção escolhida. Opõe-se a que lhe liguemos {{dia_seguimento}} para fechar os detalhes?
 
-Diogo Martins
-{{telefone_diogo}}
+Equipa Zarpa
+{{telefone_zarpa}}
 
 Condições: valores em euros, com IVA incluído à taxa legal em vigor. Pagamento integral até 8 dias após a entrega e a aprovação do site. Inclui 2 rondas de alterações. Até ao pagamento, o site fica alojado na pré-visualização da zarpa.
 ```
