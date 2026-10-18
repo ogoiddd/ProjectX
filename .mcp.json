@@ -6,6 +6,15 @@
         "shadcn@latest",
         "mcp"
       ]
+    },
+    "ruflo": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "ruflo@3.57.0",
+        "mcp",
+        "start"
+      ]
     }
   }
 }
