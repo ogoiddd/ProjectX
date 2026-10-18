@@ -33,6 +33,8 @@ FONTE_TEXTO = {
     "gmaps": "na vossa ficha do Google",
     "gmaps:site": "no vosso site",
     "aiark": "numa base de dados profissional (AI Ark)",
+    "quickenrich:site": "no vosso site",
+    "quickenrich": "numa base de dados profissional (QuickEnrich)",
 }
 
 COLUNAS = ["lead_id", "email", "variante", "saudacao", "primeiro_nome", "clinica", "cidade",

@@ -2,7 +2,8 @@
 
 Ordem normal de uma campanha::
 
-    recolher-gmaps → recolher-aiark → importar-csv → juntar → verificar
+    recolher-gmaps → recolher-aiark → recolher-quickenrich → importar-csv
+    → juntar → enriquecer → verificar
     → filtrar → auditar → (agente icebreaker-writer) → exportar
     → (aprovação humana) → enviar --a-serio → sincronizar → funil
 """
@@ -16,7 +17,7 @@ from typing import Sequence
 
 from . import auditoria, funil, juntar, legal, modelo, smartlead, verificar
 from .config import PASTA_CAMPANHAS, pasta_campanha
-from .fontes import aiark, csv_import, gmaps
+from .fontes import aiark, csv_import, gmaps, quickenrich
 
 
 def _acrescentar(campanha: str, novos: list[dict]) -> None:
@@ -42,6 +43,18 @@ def cmd_recolher_aiark(a) -> None:
         novos += [l for p in pessoas if (l := aiark.para_lead(p, mapa, a.subnicho))]
     modelo.gravar_bruto(a.campanha, f"aiark-{a.subnicho}", brutos)
     _acrescentar(a.campanha, novos)
+
+
+def cmd_recolher_quickenrich(a) -> None:
+    empresas = quickenrich.procurar_empresas(quickenrich.carregar_filtros(a.subnicho), a.maximo)
+    modelo.gravar_bruto(a.campanha, f"quickenrich-{a.subnicho}", empresas)
+    _acrescentar(a.campanha, [l for e in empresas if (l := quickenrich.empresa_para_lead(e, a.subnicho))])
+
+
+def cmd_enriquecer(a) -> None:
+    leads = modelo.carregar(a.campanha)
+    print("QuickEnrich:", quickenrich.enriquecer(leads, a.max_creditos))
+    modelo.gravar(a.campanha, leads)
 
 
 def cmd_importar_csv(a) -> None:
@@ -144,6 +157,13 @@ def construir_parser() -> argparse.ArgumentParser:
     s = novo("recolher-aiark", cmd_recolher_aiark, "Decisores e emails via AI Ark")
     s.add_argument("--subnicho", required=True)
     s.add_argument("--maximo", type=int, default=300)
+
+    s = novo("recolher-quickenrich", cmd_recolher_quickenrich, "Clínicas via QuickEnrich (company finder)")
+    s.add_argument("--subnicho", required=True)
+    s.add_argument("--maximo", type=int, default=200, help="1 crédito por empresa")
+
+    s = novo("enriquecer", cmd_enriquecer, "Decisor + email/telemóvel via QuickEnrich (depois de juntar)")
+    s.add_argument("--max-creditos", type=int, default=200)
 
     s = novo("importar-csv", cmd_importar_csv, "CSV de outra ferramenta (Get Leads, ...)")
     s.add_argument("--ficheiro", required=True)

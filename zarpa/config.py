@@ -15,6 +15,7 @@ OPOSICAO = PASTA_EMAIL / "lista-oposicao.csv"
 CHAVES = {
     "outscraper": "OUTSCRAPER_API_KEY",
     "aiark": "AIARK_API_KEY",
+    "quickenrich": "QUICKENRICH_API_KEY",
     "millionverifier": "MILLIONVERIFIER_API_KEY",
     "smartlead": "SMARTLEAD_API_KEY",
     "pagespeed": "PAGESPEED_API_KEY",  # opcional

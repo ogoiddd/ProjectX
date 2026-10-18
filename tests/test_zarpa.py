@@ -406,3 +406,59 @@ def test_fluxo_cli(pasta, monkeypatch, tmp_path):
     assert len(smartlead.ler_envio("piloto")) == 1
     main(["enviar", *c, "--id-smartlead", "1"])  # ensaio: não toca na API
     assert (config.pasta_campanha("piloto") / "ensaio-smartlead-1.json").exists()
+
+
+# --------------------------------------------------------------------------- #
+# QuickEnrich
+# --------------------------------------------------------------------------- #
+def test_quickenrich_empresa_para_lead():
+    from zarpa.fontes import quickenrich
+    l = quickenrich.empresa_para_lead({"company_name": "Sorriso Dental Lda", "url": "https://sorriso.pt",
+                                       "home_page_email": "geral@sorriso.pt", "phone": "289000000",
+                                       "city": "Faro"}, "dentaria")
+    assert l["emails"][0] == {"endereco": "geral@sorriso.pt", "fonte": "quickenrich:site",
+                              "publicado_pela_empresa": True, "mv_resultado": None, "mv_qualidade": None}
+    assert quickenrich.empresa_para_lead({}, "dentaria") is None
+
+
+def test_quickenrich_enriquecer(monkeypatch):
+    from zarpa.fontes import quickenrich
+    monkeypatch.setenv("QUICKENRICH_API_KEY", "t")
+    monkeypatch.setattr(quickenrich.time, "sleep", lambda s: None)
+    pedidos = []
+
+    def falso(servico, metodo, url, **kw):
+        pedidos.append((url.rsplit("/", 1)[1], kw["params"]))
+        if url.endswith("dataset-search"):
+            return {"data": [{"first_name": "Ana", "last_name": "Costa", "title": "Sócia-gerente",
+                              "email": "ana.costa@sorriso.pt", "employee_phone": "+351912345678"}],
+                    "meta": {"credits_used": 1, "remaining_credits": 99}}
+        return {"data": {"first_name": "Rui", "last_name": "Sá", "email": "rui@vetsul.pt"},
+                "meta": {"credits_used": 1, "remaining_credits": 98}}
+
+    monkeypatch.setattr(quickenrich.http, "pedido", falso)
+    sem_nome = lead(site="https://sorriso.pt")
+    com_nome = lead("Vet Sul Lda", site="vetsul.pt", decisor={"nome": "Rui Sá"})
+    sem_site = lead("Sem site")
+    ja_tem = lead("Já tem", site="jatem.pt")
+    modelo.adicionar_email(ja_tem, "joana@jatem.pt", "x", False)
+    r = quickenrich.enriquecer([sem_nome, com_nome, sem_site, ja_tem], max_creditos=10)
+    assert r == {"leads_enriquecidos": 2, "creditos_gastos": 2, "creditos_restantes": 98}
+    assert [p[0] for p in pedidos] == ["dataset-search", "search"]
+    assert pedidos[1][1] == {"company_url": "vetsul.pt", "first_name": "Rui", "last_name": "Sá"}
+    assert sem_nome["decisor"]["primeiro_nome"] == "Ana"
+    assert sem_nome["emails"][0]["publicado_pela_empresa"] is False
+    assert com_nome["decisor"]["nome"] == "Rui Sá"  # o decisor já conhecido não é substituído
+    # o email nominativo no domínio da clínica é permitido depois de verificado
+    sem_nome["emails"][0]["mv_resultado"] = "ok"
+    assert legal.escolher_email(sem_nome)["endereco"] == "ana.costa@sorriso.pt"
+
+
+def test_quickenrich_respeita_max_creditos(monkeypatch):
+    from zarpa.fontes import quickenrich
+    monkeypatch.setenv("QUICKENRICH_API_KEY", "t")
+    monkeypatch.setattr(quickenrich.time, "sleep", lambda s: None)
+    monkeypatch.setattr(quickenrich.http, "pedido",
+                        lambda *a, **k: {"data": [], "meta": {"credits_used": 1, "remaining_credits": 5}})
+    r = quickenrich.enriquecer([lead(f"C{i}", site=f"c{i}.pt") for i in range(10)], max_creditos=3)
+    assert r["creditos_gastos"] == 3

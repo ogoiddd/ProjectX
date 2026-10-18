@@ -15,7 +15,7 @@ O email junta-se à operação que já temos (`cabecilha` + agentes, demos perso
 | **Setor-piloto** | **Clínicas** (dentária, fisioterapia, estética, veterinária) |
 | **Preços** | **a partir de 910**, IVA incluído: Completo 2490 · Profissional 1490 ⭐ · Essencial 910 |
 | **Pagamento** | Nada adiantado. 100% na entrega, quando o cliente aprovar o site |
-| **Leads** | **Google Maps (Outscraper)** + AI Ark + Get Leads (+ "quick and rich"?) → **MillionVerifier** → visita a cada site → **icebreaker** personalizado |
+| **Leads** | **Google Maps (Outscraper)** + AI Ark + **QuickEnrich** + Get Leads → **MillionVerifier** → visita a cada site → **icebreaker** personalizado |
 | **Envio** | **Smartlead** |
 | **Métrica principal** | Receita por 100 emails entregues |
 
@@ -84,7 +84,10 @@ Sub-nichos por ordem: **dentária** (ticket alto, tratamentos caros) → **fisio
 1. **Scrape** (sem Apollo). Pedimos **3× o objetivo** (ex.: 450 para ficarem ~150), porque muitos caem na verificação e no filtro legal.
    - **AI Ark:** empresas em Portugal com palavras-chave na descrição (clínica dentária, medicina dentária, fisioterapia, clínica de estética, clínica veterinária…), 1–50 pessoas. Cargos: sócio-gerente, diretor clínico, proprietário, fundador.
    - **Google Maps (Outscraper)**: a fonte principal para as clínicas **sem site**, que as bases B2B quase não têm. Traz a ficha Google, as avaliações, o telefone, o link de marcação e o "website" (vazio ou Facebook). Com o enriquecimento `domains_service` também traz os emails publicados no site.
-   - **Get Leads** e **"quick and rich"**: a mesma pesquisa, importada por CSV (`importar-csv`), para cobrir os buracos. ⚠️ Ainda não sei qual é a ferramenta "quick and rich".
+   - **QuickEnrich** (API):
+     - `recolher-quickenrich` procura clínicas em PT pelo setor (Dentists, Medical Practices, Physical Therapists, Veterinary…) e traz o email publicado na página inicial (1 crédito por empresa);
+     - depois de juntar, `enriquecer` procura o **decisor** de cada clínica com site (sócio-gerente, diretor clínico, proprietário…), com email e telemóvel. Gasta 1 crédito por contacto encontrado, com um teto definido por `--max-creditos`.
+   - **Get Leads**: a mesma pesquisa, importada por CSV (`importar-csv`).
 2. **Enriquecer (toda a informação de contacto):** email geral, email do decisor, telefone fixo e móvel publicados, nome e cargo do decisor, site, ficha Google (nota e nº de avaliações), Instagram/Facebook, denominação social e NIF (→ `tipo_entidade`).
 3. **Verificar:**
    - **MillionVerifier** (API) em todos os emails. Só passa `ok`. Os `catch_all` vão para um lote separado e pequeno. `invalid`, `disposable` e `unknown` saem.
@@ -106,15 +109,18 @@ Sub-nichos por ordem: **dentária** (ticket alto, tratamentos caros) → **fisio
 | `.claude/agents/lead-scraper.md` | Corre os passos 1–5 e confirma à mão o tipo de entidade dos leads duvidosos |
 | `.claude/agents/icebreaker-writer.md` | Confirma as evidências de cada site e escreve o icebreaker |
 | `.claude/agents/analista-conversao.md` | Sincroniza o Smartlead, lê o funil e propõe a próxima experiência |
-| Chaves | Variáveis de ambiente `OUTSCRAPER_API_KEY`, `AIARK_API_KEY`, `MILLIONVERIFIER_API_KEY`, `SMARTLEAD_API_KEY` (e, opcional, `PAGESPEED_API_KEY`). **Nunca no repositório** |
+| Chaves | Variáveis de ambiente `OUTSCRAPER_API_KEY`, `AIARK_API_KEY`, `QUICKENRICH_API_KEY`, `MILLIONVERIFIER_API_KEY`, `SMARTLEAD_API_KEY` (e, opcional, `PAGESPEED_API_KEY`). **Nunca no repositório** |
 | Dados | `vendas/email/campanhas/<id>/` (leads, envio, resultados), **fora do git** por terem dados pessoais |
 
 ```bash
 C=--campanha 2026-11-dentarias-algarve
 python -m zarpa recolher-gmaps $C --subnicho dentaria --cidades "Faro,Loulé,Portimão,Lagos,Tavira"
 python -m zarpa recolher-aiark $C --subnicho dentaria --maximo 300
+python -m zarpa recolher-quickenrich $C --subnicho dentaria --maximo 200
 python -m zarpa importar-csv   $C --ficheiro getleads.csv --fonte getleads --subnicho dentaria
-python -m zarpa juntar $C --excluir-contactados && python -m zarpa verificar $C
+python -m zarpa juntar $C --excluir-contactados
+python -m zarpa enriquecer $C --max-creditos 200              # QuickEnrich: decisores
+python -m zarpa verificar $C                                  # MillionVerifier em todos os emails
 python -m zarpa filtrar $C && python -m zarpa auditar $C --pagespeed
 #   → agente icebreaker-writer
 python -m zarpa exportar $C                                   # → envio.csv para aprovares
@@ -224,11 +230,10 @@ Estão em `vendas/email/emails/`. Usam os campos e o rodapé de `marca.md`.
 
 ## 8. O que falta de ti
 
-1. **"quick and rich":** qual é a ferramenta (nome exato ou site)?
-2. **Contas e chaves de API:** Outscraper, AI Ark, MillionVerifier e Smartlead (plano com API), postas em variáveis de ambiente. O Get Leads entra por CSV.
-3. **Dados legais da Zarpa** para o rodapé: denominação, NIF e morada. Sem isto não se pode enviar.
-4. **Pacotes:** confirmar o conteúdo de cada um (§2).
-5. **Onde corre o pipeline:** no teu computador ou num servidor com disco persistente. Este ambiente na nuvem é temporário, e os dados das campanhas (fora do git) perdem-se quando é reciclado.
+1. **Contas e chaves de API:** Outscraper, AI Ark, QuickEnrich (a chave é pedida ao suporte), MillionVerifier e Smartlead (plano com API), postas em variáveis de ambiente. O Get Leads entra por CSV.
+2. **Dados legais da Zarpa** para o rodapé: denominação, NIF e morada. Sem isto não se pode enviar.
+3. **Pacotes:** confirmar o conteúdo de cada um (§2).
+4. **Onde corre o pipeline:** no teu computador ou num servidor com disco persistente. Este ambiente na nuvem é temporário, e os dados das campanhas (fora do git) perdem-se quando é reciclado.
 
 ## 9. Calendário
 

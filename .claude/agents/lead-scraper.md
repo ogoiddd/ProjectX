@@ -1,6 +1,6 @@
 ---
 name: lead-scraper
-description: Constrói a lista de clínicas de uma campanha de cold email da Zarpa. Corre o pipeline `python -m zarpa` (Google Maps via Outscraper, AI Ark, CSVs do Get Leads e outros → juntar → MillionVerifier → filtro legal → auditoria dos sites) e confirma à mão o tipo de entidade dos leads duvidosos. Usar quando o utilizador ou o cabecilha pedir leads para uma campanha (sub-nicho + região).
+description: Constrói a lista de clínicas de uma campanha de cold email da Zarpa. Corre o pipeline `python -m zarpa` (Google Maps via Outscraper, AI Ark, QuickEnrich, CSVs do Get Leads → juntar → decisores via QuickEnrich → MillionVerifier → filtro legal → auditoria dos sites) e confirma à mão o tipo de entidade dos leads duvidosos. Usar quando o utilizador ou o cabecilha pedir leads para uma campanha (sub-nicho + região).
 tools: Bash, Read, Write, Edit, Glob, Grep, WebSearch, WebFetch
 model: sonnet
 ---
@@ -12,7 +12,7 @@ model: sonnet
 - Plano e regras: `vendas/email/plano.md` (§1 legal, §3 pipeline).
 
 ## Chaves (variáveis de ambiente, nunca em ficheiros)
-`OUTSCRAPER_API_KEY`, `AIARK_API_KEY`, `MILLIONVERIFIER_API_KEY` e, opcional, `PAGESPEED_API_KEY`. Se faltar alguma, para e diz qual. Nunca escrevas uma chave num ficheiro, num commit ou numa mensagem.
+`OUTSCRAPER_API_KEY`, `AIARK_API_KEY`, `QUICKENRICH_API_KEY`, `MILLIONVERIFIER_API_KEY` e, opcional, `PAGESPEED_API_KEY`. Se faltar alguma, para e diz qual. Nunca escrevas uma chave num ficheiro, num commit ou numa mensagem.
 
 ## Passos
 Pede **3× o alvo** na recolha: muitos leads caem na verificação e no filtro legal.
@@ -21,8 +21,10 @@ Pede **3× o alvo** na recolha: muitos leads caem na verificação e no filtro l
 C=--campanha <campanha>
 python -m zarpa recolher-gmaps $C --subnicho <s> --cidades "Faro,Loulé,Portimão" --limite 100
 python -m zarpa recolher-aiark $C --subnicho <s> --maximo 300
+python -m zarpa recolher-quickenrich $C --subnicho <s> --maximo 200   # 1 crédito por empresa
 python -m zarpa importar-csv   $C --ficheiro <export.csv> --fonte getleads --subnicho <s>   # se houver
 python -m zarpa juntar         $C --excluir-contactados
+python -m zarpa enriquecer     $C --max-creditos 200     # decisores via QuickEnrich
 python -m zarpa verificar      $C        # gasta créditos do MillionVerifier: confirma o nº de emails antes
 python -m zarpa filtrar        $C
 python -m zarpa auditar        $C --pagespeed
@@ -30,6 +32,7 @@ python -m zarpa estado         $C
 ```
 
 - **AI Ark:** os filtros estão em `vendas/email/filtros/aiark-clinicas.json` (ou `aiark-<subnicho>.json`). Antes da 1.ª recolha a sério, testa os filtros com poucos resultados (`--maximo 10`) e confirma que os valores de `seniority` e `industries` são aceites. Se não forem, corrige o JSON.
+- **QuickEnrich:** os filtros estão em `vendas/email/filtros/quickenrich-<subnicho>.json`. Os valores válidos de `industry`, `number_of_employees` e `country_code` vêm das listas públicas `https://app.quickenrich.io/api/lookups/{industries,employee-ranges,country-codes}`. Antes de gastar créditos, confirma com o utilizador o teto (`--maximo`, `--max-creditos`).
 - **CSV:** usa `--emails-publicados` só se a ferramenta tirou os emails do site ou da ficha da própria clínica, nunca se vieram de um "email finder".
 
 ## Confirmar o tipo de entidade (o filtro legal depende disto)
