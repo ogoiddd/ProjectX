@@ -1,0 +1,6 @@
+{
+  "country_code": { "include": ["PT"], "exclude": [] },
+  "industry": { "include": ["Dentists", "Medical Practices"], "exclude": ["Hospitals", "Hospitals and Health Care"] },
+  "home_page_text": { "include": ["dentária", "dentista", "implantes", "ortodontia"], "exclude": [] },
+  "number_of_employees": { "include": ["< 5", "5 - 19", "20 - 99"], "exclude": [] }
+}

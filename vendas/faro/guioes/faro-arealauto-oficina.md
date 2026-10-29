@@ -5,7 +5,7 @@
 - **Morada:** Sítio do Brejo, Areal Gordo, 8005-409 Faro
 - **Decisor:** não identificado pelo nome. Pedir pelo **gerente / responsável**. A empresa é uma Lda., por isso pode haver mais de um sócio-gerente.
 - **Quando ligar:** de terça a quinta, entre as 10:00 e as 11:30 ou entre as 14:30 e as 16:30. Evitar a abertura (08:30), a hora de almoço (12:30–14:00), o fim do dia e a sexta à tarde. A oficina fecha ao fim de semana: não ligar.
-- **Objetivo:** enviar o link da demo por WhatsApp **durante a chamada** e marcar 15 min (por telefone ou na oficina) com data e hora. O melhor resultado é um "sim" com sinal de 50%.
+- **Objetivo:** enviar o link da demo por WhatsApp **durante a chamada** e marcar 15 min (por telefone ou na oficina) com data e hora. O melhor resultado é um "sim" à proposta (paga só no fim, quando aprovar o site).
 - **Demo:** `sites/faro-arealauto-oficina/public/` (ainda não está publicada). Antes de ligar, pôr um link de pré-visualização no ar: **[LINK DA DEMO]**. Ter também à mão os screenshots `qa/mobile-first.png` e `qa/mobile-folha.png`.
 
 ## Factos que podes dizer (verificados)
@@ -100,7 +100,7 @@ Repetir o que ele disse com as palavras dele antes de passar à proposta: "Entã
 
 > "O que proponho é isto: um site à medida da Arealauto, como o que viu, com as vossas fotos e os serviços certos. Inclui pôr a oficina bem no Google em Faro (o SEO local), arranjar a ficha do Google com fotos e o link para o site, a parte legal (RGPD, Livro de Reclamações) e o alojamento do primeiro ano. Fica pronto em cerca de duas semanas."
 >
-> "Custa 1000 euros. Metade para arrancar e metade na entrega. Se depois quiser que eu trate das atualizações, a manutenção fica entre 30 e 50 euros por mês, mas é opcional."
+> "O investimento é 1000, já com IVA, e não paga nada adiantado: só paga no fim, quando o site estiver pronto e aprovado por si. Se depois quiser que eu trate das atualizações, a manutenção fica entre 30 e 50 por mês, mas é opcional."
 
 **Âncora no valor** (sem prometer resultados):
 > "Para pôr isto em perspetiva: numa oficina, um cliente novo que faça uma embraiagem ou uma revisão com travões, e que depois volte durante anos, paga uma boa parte do site. Não lhe garanto quantos clientes vai trazer, ninguém honesto garante. Mas hoje quem vos procura no Google não encontra nada para além da morada."
@@ -113,7 +113,7 @@ Depois de dizer o preço, **calar** e esperar pela resposta.
 
 Escolher conforme a temperatura da conversa:
 
-- **Quente:** "Se gostou, posso começar já. Mando-lhe hoje a proposta com os dados para o sinal. Começo quando receber, e daqui a duas semanas tem o site no ar. Pode ser?"
+- **Quente:** "Se gostou, posso começar já. Mando-lhe hoje a proposta. Começo assim que me disser que sim, não paga nada adiantado, e daqui a duas semanas tem o site no ar. Pode ser?"
 - **Morno:** "Que tal 15 minutos [terça às 10:30 / quinta às 15:00]? Passo pela oficina no Areal Gordo, ou falamos por telefone, e vemos o exemplo juntos. Que dia lhe dá mais jeito?"
 - **Frio mas aberto:** "Veja o link com calma. Ligo-lhe [dia concreto, ter–qui] às [hora] só para saber o que achou. Combinado?"
 
@@ -135,10 +135,10 @@ Variação "não tenho mãos a medir":
 > "Ótimo sinal. Nesse caso, o que interessa é a folha de obra: os pedidos chegam por escrito, com a matrícula e o problema, e a receção não fica ao telefone. Faz sentido para vocês?"
 
 ### "É caro." / "Não tenho dinheiro agora."
-> "Percebo. 1000 euros é dinheiro. Fica pago uma vez, com o alojamento do primeiro ano incluído, e não há mensalidade obrigatória. Comparando com um trabalho médio na oficina, quantos clientes novos é que precisava para compensar?"
+> "Percebo, é um investimento. Fica pago uma vez, com o alojamento do primeiro ano incluído, e não há mensalidade obrigatória. Comparando com um trabalho médio na oficina, quantos clientes novos é que precisava para compensar?"
 
 Se for mesmo uma questão de tesouraria:
-> "Os 50% de sinal servem para arrancar e o resto só se paga na entrega. Se preferir, marcamos para [mês] e eu volto a ligar nessa altura. Que mês lhe dá mais jeito?"
+> "Não paga nada para começar: só paga quando o site estiver pronto e aprovado por si. Se preferir, marcamos para [mês] e eu volto a ligar nessa altura. Que mês lhe dá mais jeito?"
 
 Não baixar o preço logo à primeira. Não inventar descontos que acabam.
 
@@ -202,7 +202,7 @@ Se ele disser **não duas vezes** depois de uma tentativa de reenquadrar, ou ped
 > - folha de obra no telemóvel, que chega à oficina como mensagem de WhatsApp, com a matrícula formatada;
 > - os 30 anos de casa e a Rede de Oficinas Recomendadas da Ocidental à vista.
 >
-> Proposta: site à medida por 1000 € (50% de sinal e 50% na entrega), pronto em cerca de 2 semanas. Inclui SEO local, ficha Google com fotos e link para o site, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 €/mês.
+> Proposta: site à medida por 1000, IVA incluído, pago só no fim, quando aprovar o site, pronto em cerca de 2 semanas. Inclui SEO local, ficha Google com fotos e link para o site, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 por mês.
 >
 > Os serviços, as fotos e os nomes da equipa no exemplo são provisórios e acertam-se consigo.
 >
@@ -225,4 +225,4 @@ Se ele disser **não duas vezes** depois de uma tentativa de reenquadrar, ou ped
 - Outras seguradoras ou acordos:
 - Fotos disponíveis (equipa, portão com letreiro, oficina):
 - Próximo passo e data:
-- Estado: `reuniao` / `proposta_enviada` / `sinal` / `recusou` / `nao_contactar` / `sem_resposta`
+- Estado: `reuniao` / `proposta_enviada` / `aceitou` / `pago` / `recusou` / `nao_contactar` / `sem_resposta`

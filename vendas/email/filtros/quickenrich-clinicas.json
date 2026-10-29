@@ -1,0 +1,8 @@
+{
+  "country_code": { "include": ["PT"], "exclude": [] },
+  "industry": {
+    "include": ["Dentists", "Medical Practices", "Physicians", "Physical, Occupational and Speech Therapists", "Health, Wellness & Fitness", "Veterinary", "Veterinary Services"],
+    "exclude": ["Hospitals", "Hospitals and Health Care"]
+  },
+  "number_of_employees": { "include": ["< 5", "5 - 19", "20 - 99"], "exclude": [] }
+}

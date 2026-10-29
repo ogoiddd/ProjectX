@@ -15,5 +15,10 @@ claude --agent cabecilha # ou como agente principal, e depois dizer a cidade
 | Front-end Designer | `.claude/agents/frontend-designer.md` | `sites/<lead-id>/` (demo) |
 | Back-end Maker | `.claude/agents/backend-maker.md` | `sites/<lead-id>/LEGAL.md` + correções |
 | Cold Call Writer | `.claude/agents/cold-call-writer.md` | `vendas/<cidade>/guioes/<lead-id>.md` |
+| Lead Scraper (email) | `.claude/agents/lead-scraper.md` | `vendas/email/campanhas/<id>/leads.json` (fora do git) |
+| Icebreaker Writer (email) | `.claude/agents/icebreaker-writer.md` | icebreakers + `envio.csv` |
+| Analista de Conversão (email) | `.claude/agents/analista-conversao.md` | `campanhas/<id>/analise.md`, `experiencias.md` |
+
+Canal de email (Zarpa, clínicas): ver `vendas/email/plano.md` e `python -m zarpa --help`.
 
 Os agentes preparam tudo; publicar demos, enviar mensagens e fazer chamadas fica sempre para aprovação humana.

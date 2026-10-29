@@ -1,0 +1,17 @@
+{
+  "account": {
+    "location": { "any": { "include": ["Portugal"] } },
+    "industries": {
+      "any": {
+        "include": {
+          "mode": "SMART",
+          "content": ["dental clinic", "dentistry", "physiotherapy", "physical therapy", "aesthetic clinic", "medical aesthetics", "veterinary clinic", "medical practice"]
+        }
+      }
+    },
+    "employeeSize": { "type": "RANGE", "range": [{ "start": 1, "end": 50 }] }
+  },
+  "contact": {
+    "seniority": { "any": { "include": ["owner", "founder", "partner", "director"] } }
+  }
+}

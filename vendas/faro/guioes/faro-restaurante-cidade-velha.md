@@ -8,7 +8,7 @@
 - **Morada:** R. Domingos Guieiro 19, 8000-311 Faro, na esquina do Largo da Sé.
 - **Decisor:** não confirmado. Há uma **pista**: a NiT (Adriano Guerreiro, 11/08/2020), num artigo sobre o Cidade Velha Rooftop, refere Orlando Rosa como "responsável pelo restaurante Cidade Velha, perto do Largo da Sé, há quase 30 anos". O artigo tem seis anos. Usar **só como pergunta**: "Ainda é o Sr. Orlando Rosa o responsável?" Nunca "o Sr. Orlando está à espera" nem "é pessoal".
 - **Quando ligar:** de terça a quinta, entre as **15:30 e as 17:30**, depois do almoço e antes do jantar. Nunca entre as 12:00 e as 15:00, nunca depois das 18:30, nunca ao fim de semana (ao domingo, segundo o Google, está fechado). O Google diz que a cozinha está aberta das 11 às 22 sem pausa, por isso à tarde pode haver mesas. Perguntar logo "Apanho-o numa boa altura?".
-- **Objetivo:** mandar o link da demo por WhatsApp **durante a chamada** e marcar 15 minutos no restaurante (à tarde, a uma hora que ele escolha) ou por telefone, com dia e hora. O melhor resultado é um "sim" com sinal de 50%.
+- **Objetivo:** mandar o link da demo por WhatsApp **durante a chamada** e marcar 15 minutos no restaurante (à tarde, a uma hora que ele escolha) ou por telefone, com dia e hora. O melhor resultado é um "sim" à proposta (paga só no fim, quando aprovar o site).
 - **Demo:** `sites/faro-restaurante-cidade-velha/public/` (domínio previsto `cidade-velha-faro.vercel.app`, confirmar que está no ar antes de ligar): **[LINK DA DEMO]**. Ter à mão os screenshots `qa/fr-booking-ticket.png`, `qa/pt-map.png`, `qa/pt-mobile-fold.png`, `qa/de-mobile-fold.png` e `qa/pt-casa-desktop.png`.
 - **Antes de ligar:** abrir a ficha Google e atualizar o número de avaliações (eram 1458 a 09-10/10/2026; o Wanderlog já mostrava 1496). Confirmar que o `sdias.pt/cvelha` continua a dar erro.
 
@@ -121,7 +121,7 @@ Repetir o que ele disse com as palavras dele antes de passar à proposta: "Entã
 
 > "O que proponho é isto: um site à medida do Cidade Velha, como o que viu, com as vossas fotos, a carta verdadeira e a história da casa, em português, inglês, francês e alemão. Fica com o pedido de mesa por WhatsApp, que chega sempre em português. Ponho o site na ficha do Google em vez do TripAdvisor e corrijo o horário, para haver uma versão certa. Inclui o trabalho para aparecerem bem no Google nas quatro línguas, quando alguém pesquisa 'restaurant Faro old town' ou 'Restaurant Faro Altstadt'. Inclui a parte legal, RGPD e Livro de Reclamações, e o alojamento do primeiro ano. Fica pronto em duas a três semanas."
 >
-> "Custa 1500 euros. Metade para arrancar e metade na entrega. É mais do que um site simples porque são quatro línguas, e cada uma tem de aparecer no Google. Se depois quiser que eu trate das atualizações, como mudar a carta, os preços ou o horário de inverno, a manutenção fica entre 30 e 50 euros por mês, mas é opcional."
+> "O investimento é 1500, já com IVA, e não paga nada adiantado: só paga no fim, quando o site estiver pronto e aprovado por si. É mais do que um site simples porque são quatro línguas, e cada uma tem de aparecer no Google. Se depois quiser que eu trate das atualizações, como mudar a carta, os preços ou o horário de inverno, a manutenção fica entre 30 e 50 por mês, mas é opcional."
 
 **Âncora no valor** (sem prometer resultados):
 > "Para pôr isto em perspetiva: uma mesa de quatro turistas a jantar, com entrada, prato, vinho e sobremesa, já é uma parte boa do site. Quantas mesas dessas precisava por mês para o pagar na época? Não lhe garanto quantas vai trazer, ninguém honesto garante. Mas hoje há quatro horários na internet e o Google não tem um site vosso para mostrar. Isso só pode fazer perder clientes, nunca ganhar. E o site é vosso: não há comissão por reserva."
@@ -134,7 +134,7 @@ Depois de dizer o preço, **calar** e esperar pela resposta.
 
 Escolher conforme a temperatura da conversa:
 
-- **Quente:** "Se gostou, posso começar já. Mando-lhe hoje a proposta com os dados para o sinal. Preciso de si para três coisas: a carta com preços, umas fotos e meia hora para me contar a história da casa. Em duas a três semanas está no ar, com o horário de inverno certo. Pode ser?"
+- **Quente:** "Se gostou, posso começar já. Mando-lhe hoje a proposta. Não paga nada adiantado, só no fim, quando aprovar o site. Preciso de si para três coisas: a carta com preços, umas fotos e meia hora para me contar a história da casa. Em duas a três semanas está no ar, com o horário de inverno certo. Pode ser?"
 - **Morno:** "Que tal 15 minutos [terça / quinta] às [16:00]? Passo pelo restaurante à tarde, ou falamos por telefone, e vemos o exemplo juntos. Que dia lhe dá mais jeito?"
 - **Frio mas aberto:** "Veja o link com calma, em francês ou alemão. Ligo-lhe [dia concreto, ter–qui] às [16:00–17:00] só para saber o que achou. Combinado?"
 
@@ -162,12 +162,12 @@ Se ele disser que paga pouco ou nada ao TheFork:
 > "Acredito, com perto de mil e quinhentas avaliações e ao lado da Sé. Mas o site não é só para trazer gente. É para quem vem saber a hora certa, para o pedido chegar escrito em português mesmo quando o cliente é francês, e para não dependerem do TripAdvisor e do TheFork. E no inverno, também enche todos os dias?"
 
 ### "É caro." / "Não tenho dinheiro agora."
-> "Percebo. 1500 euros é dinheiro. São quatro línguas, cada uma a aparecer no Google, e paga-se uma vez, com o alojamento do primeiro ano incluído. Não há mensalidade obrigatória nem comissão por reserva. Quantas mesas a mais por mês é que precisava para compensar?"
+> "Percebo, é um investimento. São quatro línguas, cada uma a aparecer no Google, e paga-se uma vez, com o alojamento do primeiro ano incluído. Não há mensalidade obrigatória nem comissão por reserva. Quantas mesas a mais por mês é que precisava para compensar?"
 
 Se for mesmo uma questão de tesouraria (fim de época):
-> "Os 50% de sinal servem para arrancar e o resto só se paga na entrega. Se preferir, marcamos para [mês] e eu volto a ligar nessa altura, com tempo antes da próxima época. Que mês lhe dá mais jeito?"
+> "Não paga nada para começar: só paga quando o site estiver pronto e aprovado por si. Se preferir, marcamos para [mês] e eu volto a ligar nessa altura, com tempo antes da próxima época. Que mês lhe dá mais jeito?"
 
-Se ele pedir uma versão mais barata, dá para dizer a verdade: "Com menos línguas fica mais barato. Só em português e inglês fica por 1000 euros. Mas metade das vossas avaliações não estão em português nem em inglês." Não inventar descontos que acabam.
+Se ele pedir uma versão mais barata, dá para dizer a verdade: "Com menos línguas fica mais barato. Só em português e inglês fica em 1000. Mas metade das vossas avaliações não estão em português nem em inglês." Não inventar descontos que acabam.
 
 ### "Envie por email."
 > "Envio, claro. Antes disso já lhe mandei o link por WhatsApp: é mais rápido abrir no telemóvel. Qual é o email certo? ... E para não ficar perdido na caixa de correio, posso ligar-lhe [dia] às [hora, à tarde] para saber o que achou?"
@@ -235,7 +235,7 @@ Se ele disser **não duas vezes** depois de uma tentativa de reenquadrar, ou ped
 >
 > Hoje a ficha Google liga ao TripAdvisor e há quatro horários diferentes publicados na internet. No projeto, o Google passa a apontar para o vosso site e fica uma só versão do horário.
 >
-> Proposta: site à medida em 4 línguas por 1500 € (50% de sinal e 50% na entrega), pronto em 2 a 3 semanas. Inclui SEO local nas 4 línguas, ficha Google com o site e o horário corrigido, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 €/mês.
+> Proposta: site à medida em 4 línguas por 1500, IVA incluído, pago só no fim, quando aprovar o site, pronto em 2 a 3 semanas. Inclui SEO local nas 4 línguas, ficha Google com o site e o horário corrigido, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 por mês.
 >
 > Tudo o que está marcado como "a confirmar" no exemplo (carta, preços, fotos, história da casa) acerta-se consigo.
 >
@@ -265,4 +265,4 @@ Se ele disser **não duas vezes** depois de uma tentativa de reenquadrar, ou ped
 - Autorização para citar as avaliações e a frase da NiT:
 - Nome legal e NIPC (para o rodapé e o Livro de Reclamações):
 - Próximo passo e data:
-- Estado: `reuniao` / `proposta_enviada` / `sinal` / `recusou` / `recusa_porteiro` / `nao_contactar` / `sem_resposta`
+- Estado: `reuniao` / `proposta_enviada` / `aceitou` / `pago` / `recusou` / `recusa_porteiro` / `nao_contactar` / `sem_resposta`

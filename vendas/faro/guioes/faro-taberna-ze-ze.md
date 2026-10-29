@@ -9,7 +9,7 @@
   - **Hipótese A, só jantares (Google: seg–sáb 18–23):** às 16:00 a casa está fechada ou a preparar o jantar. Se atender alguém, é provavelmente o dono, que pode estar fora da taberna. Perguntar logo "Apanho-o numa boa altura?".
   - **Hipótese B, almoço e jantar (DISH: 12–15 e 18–01):** às 16:00 acabou o almoço e há uma pausa até ao jantar. É a melhor janela. Não ligar antes das 15:30.
   - Em qualquer caso: **nunca depois das 17:30** (preparação do jantar), nunca à hora de almoço, nunca à noite, nem ao fim de semana. Evitar a segunda-feira (uma fonte diz que fecham à segunda).
-- **Objetivo:** mandar o link da demo por WhatsApp **durante a chamada** e marcar 15 minutos na taberna (antes do jantar, a uma hora que ele escolha) ou por telefone, com dia e hora. O melhor resultado é um "sim" com sinal de 50%.
+- **Objetivo:** mandar o link da demo por WhatsApp **durante a chamada** e marcar 15 minutos na taberna (antes do jantar, a uma hora que ele escolha) ou por telefone, com dia e hora. O melhor resultado é um "sim" à proposta (paga só no fim, quando aprovar o site).
 - **Demo:** `sites/faro-taberna-ze-ze/public/` (ainda não está publicada). Antes de ligar, pôr um link de pré-visualização no ar: **[LINK DA DEMO]**. Ter também à mão os screenshots `qa/mob-hero.png`, `qa/mob-comanda-filled.png`, `qa/mob-en-hero.png` e `qa/mob-map.png`.
 
 ## Factos que podes dizer (verificados)
@@ -118,7 +118,7 @@ Repetir o que ele disse com as palavras dele antes de passar à proposta: "Entã
 
 > "O que proponho é isto: um site à medida da Zé-Zé, como o que viu, com as vossas fotos e a ementa certa, em português e em inglês. Fica com o pedido de mesa por WhatsApp. Eu corrijo a ficha do Google e ponho o horário e o telefone certos em todo o lado, também na página da Makro se me der acesso. Inclui pôr a taberna bem no Google em Faro (o SEO local), a parte legal (RGPD, Livro de Reclamações) e o alojamento do primeiro ano. Fica pronto em cerca de duas semanas."
 >
-> "Custa 1000 euros. Metade para arrancar e metade na entrega. Se depois quiser que eu trate das atualizações, como mudar a ementa ou os preços, a manutenção fica entre 30 e 50 euros por mês, mas é opcional."
+> "O investimento é 1000, já com IVA, e não paga nada adiantado: só paga no fim, quando o site estiver pronto e aprovado por si. Se depois quiser que eu trate das atualizações, como mudar a ementa ou os preços, a manutenção fica entre 30 e 50 por mês, mas é opcional."
 
 **Âncora no valor** (sem prometer resultados):
 > "Para pôr isto em perspetiva: uma mesa de quatro que pede duas cataplanas, e que vem mais umas vezes por ano, ou que traz amigos, já paga uma boa parte do site. Não lhe garanto quantas mesas vai trazer, ninguém honesto garante. Mas hoje há duas versões do vosso horário na internet, e isso só pode fazer perder clientes, nunca ganhar."
@@ -131,7 +131,7 @@ Depois de dizer o preço, **calar** e esperar pela resposta.
 
 Escolher conforme a temperatura da conversa:
 
-- **Quente:** "Se gostou, posso começar já. Mando-lhe hoje a proposta com os dados para o sinal. Começo quando receber, e daqui a duas semanas tem o site no ar, a tempo de pôr o horário de inverno certo. Pode ser?"
+- **Quente:** "Se gostou, posso começar já. Mando-lhe hoje a proposta. Começo assim que me disser que sim, não paga nada adiantado, e daqui a duas semanas tem o site no ar, a tempo de pôr o horário de inverno certo. Pode ser?"
 - **Morno:** "Que tal 15 minutos [terça / quinta] às [16:30]? Passo pela taberna antes do jantar, ou falamos por telefone, e vemos o exemplo juntos. Que dia lhe dá mais jeito?"
 - **Frio mas aberto:** "Veja o link com calma. Ligo-lhe [dia concreto, ter–qui] às [16:00–17:00] só para saber o que achou. Combinado?"
 
@@ -159,10 +159,10 @@ Se ele disser que sim, que enche o ano todo:
 > "Acredito. Quase mil opiniões não se fazem sem isso. Mas hoje, quando alguém recomenda a Zé-Zé, a primeira coisa que a pessoa faz é pesquisar. E encontra dois horários diferentes. O site não é para trazer gente nova, é para não perder quem já vos vinha procurar. Quer ver como fica essa primeira impressão?"
 
 ### "É caro." / "Não tenho dinheiro agora."
-> "Percebo. 1000 euros é dinheiro. Paga-se uma vez, com o alojamento do primeiro ano incluído, e não há mensalidade obrigatória nem comissão por reserva. Quantas mesas a mais por mês é que precisava para compensar?"
+> "Percebo, é um investimento. Paga-se uma vez, com o alojamento do primeiro ano incluído, e não há mensalidade obrigatória nem comissão por reserva. Quantas mesas a mais por mês é que precisava para compensar?"
 
 Se for mesmo uma questão de tesouraria (por exemplo, no fim da época):
-> "Os 50% de sinal servem para arrancar e o resto só se paga na entrega. Se preferir, marcamos para [mês] e eu volto a ligar nessa altura, antes da próxima época. Que mês lhe dá mais jeito?"
+> "Não paga nada para começar: só paga quando o site estiver pronto e aprovado por si. Se preferir, marcamos para [mês] e eu volto a ligar nessa altura, antes da próxima época. Que mês lhe dá mais jeito?"
 
 Não baixar o preço logo à primeira. Não inventar descontos que acabam.
 
@@ -231,7 +231,7 @@ Se ele disser **não duas vezes** depois de uma tentativa de reenquadrar, ou ped
 >
 > Hoje o Google e a página da Makro mostram horários e telefones diferentes. No projeto, fica tudo igual em todo o lado.
 >
-> Proposta: site à medida em português e inglês por 1000 € (50% de sinal e 50% na entrega), pronto em cerca de 2 semanas. Inclui SEO local, correção da ficha Google e da informação contraditória, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 €/mês.
+> Proposta: site à medida em português e inglês por 1000, IVA incluído, pago só no fim, quando aprovar o site, pronto em cerca de 2 semanas. Inclui SEO local, correção da ficha Google e da informação contraditória, conformidade legal (RGPD, Livro de Reclamações) e alojamento no 1.º ano. Manutenção opcional entre 30 e 50 por mês.
 >
 > Os preços, as fotos e o horário no exemplo são provisórios e acertam-se consigo.
 >
@@ -257,4 +257,4 @@ Se ele disser **não duas vezes** depois de uma tentativa de reenquadrar, ou ped
 - Fotos disponíveis (cataplana na mesa, porta da Travessa, sala):
 - Nome legal e NIPC (para o rodapé e o Livro de Reclamações):
 - Próximo passo e data:
-- Estado: `reuniao` / `proposta_enviada` / `sinal` / `recusou` / `nao_contactar` / `sem_resposta`
+- Estado: `reuniao` / `proposta_enviada` / `aceitou` / `pago` / `recusou` / `nao_contactar` / `sem_resposta`
