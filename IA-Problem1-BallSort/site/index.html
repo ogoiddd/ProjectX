@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one reading column with a sticky section bar; the simulator and the code get wider, framed panels. */
+/* Layout: one calm reading column; every idea is "explanation, then a drawn example". Sticky chapter bar on top. */
 :root {
   --bg: #f4f6f9;
   --surface: #ffffff;
@@ -21,9 +21,11 @@
   --code-bg: #eef1f6;
   --ok: #23804b;
   --ok-soft: #e1f2e8;
+  --bad: #b8372d;
+  --bad-soft: #f8e3e1;
   --warn: #a8640c;
   --warn-soft: #fbefd9;
-  --glass: #c8d2e3;
+  --glass: #b9c4d8;
   --ball-R: #d6453a; --ball-B: #2f6bd6; --ball-P: #8b4fd0; --ball-Y: #e2b023; --ball-G: #2f9a58; --ball-X: #7a8496;
   --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
@@ -32,12 +34,12 @@
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #11151d; --surface: #181e29; --ink: #e6eaf2; --muted: #9aa4b6; --line: #2a3242;
   --accent: #7f9cf5; --accent-soft: #232d48; --code-bg: #1d2431; --ok: #5cc98a; --ok-soft: #173326;
-  --warn: #e7a74b; --warn-soft: #3a2b14; --glass: #3a4559; color-scheme: dark;
+  --bad: #f07c70; --bad-soft: #3a1d1b; --warn: #e7a74b; --warn-soft: #3a2b14; --glass: #4a566c; color-scheme: dark;
 }}
 :root[data-theme="dark"] {
   --bg: #11151d; --surface: #181e29; --ink: #e6eaf2; --muted: #9aa4b6; --line: #2a3242;
   --accent: #7f9cf5; --accent-soft: #232d48; --code-bg: #1d2431; --ok: #5cc98a; --ok-soft: #173326;
-  --warn: #e7a74b; --warn-soft: #3a2b14; --glass: #3a4559; color-scheme: dark;
+  --bad: #f07c70; --bad-soft: #3a1d1b; --warn: #e7a74b; --warn-soft: #3a2b14; --glass: #4a566c; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
@@ -45,127 +47,170 @@ html, body { margin: 0; }
 [hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-padding-top: 64px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
-body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.6; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16.5px; line-height: 1.65; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
 .wrap { max-width: 860px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balance; margin: 0; }
-h1 { font-size: clamp(2rem, 6vw, 3.1rem); font-weight: 700; letter-spacing: -0.02em; }
-h2 { font-size: clamp(1.45rem, 3.6vw, 1.9rem); font-weight: 700; }
-h3 { font-size: 1.12rem; font-weight: 700; }
+h1 { font-size: clamp(2rem, 6vw, 3rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.5rem, 3.8vw, 2rem); font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 700; margin-top: 10px; }
 p { margin: 0; max-width: 68ch; }
+ul, ol { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
 code, pre { font-family: var(--f-mono); font-size: 0.88em; }
-:not(pre) > code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 4px; }
+:not(pre) > code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 4px; overflow-wrap: anywhere; }
 a { color: var(--accent); }
 button { font: inherit; cursor: pointer; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+b, strong { font-weight: 600; }
 
-/* header */
 header.top { padding-block: 40px 28px; }
 .top .wrap { display: grid; gap: 14px; }
 .eyebrow { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
-.lede { font-size: 1.08rem; color: var(--muted); }
+.lede { font-size: 1.1rem; color: var(--muted); }
 .status { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 0.82rem; font-weight: 500; border: 1px solid var(--line); background: var(--surface); }
-.chip.ok { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
-.chip.warn { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 0.82rem; font-weight: 500; }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
 
-/* nav */
 nav.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-block: 1px solid var(--line); }
 nav.bar .wrap { display: flex; gap: 4px; overflow-x: auto; padding-block: 8px; scrollbar-width: none; }
-nav.bar a { flex: none; text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; padding: 6px 10px; border-radius: 6px; white-space: nowrap; }
+nav.bar a { flex: none; text-decoration: none; color: var(--muted); font-size: 0.88rem; font-weight: 500; padding: 6px 10px; border-radius: 6px; white-space: nowrap; }
 nav.bar a:hover, nav.bar a.on { color: var(--ink); background: var(--accent-soft); }
 
 section { padding-block: 44px; border-bottom: 1px solid var(--line); }
-section .wrap { display: grid; gap: 18px; }
+section > .wrap { display: grid; gap: 16px; }
 .num { font-family: var(--f-mono); color: var(--accent); font-size: 0.85rem; font-weight: 500; }
 
-/* idea */
-.steps { display: grid; gap: 10px; counter-reset: s; padding: 0; margin: 0; list-style: none; }
-.steps li { display: grid; grid-template-columns: 32px 1fr; gap: 10px; align-items: start; }
-.steps li::before { counter-increment: s; content: counter(s); font-family: var(--f-mono); font-weight: 500; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 0.85rem; }
-.strategy { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 10px; align-items: stretch; }
-.strategy .box { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 6px; align-content: start; min-width: 0; }
-.strategy .box.mid { border-color: var(--accent); }
-.strategy .box b { font-family: var(--f-mono); font-size: 0.95rem; }
-.strategy .box span { color: var(--muted); font-size: 0.9rem; }
-.strategy .arrow { display: grid; place-items: center; color: var(--muted); font-family: var(--f-mono); }
-@media (max-width: 640px) { .strategy { grid-template-columns: 1fr; } .strategy .arrow { transform: rotate(90deg); } }
-.say { border-left: 3px solid var(--accent); padding: 10px 14px; background: var(--accent-soft); border-radius: 0 8px 8px 0; }
-.say small { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); font-weight: 600; }
+/* boxes */
+.say, .tip, .ex { border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; }
+.say { background: var(--accent-soft); }
+.tip { background: var(--warn-soft); }
+.ex { background: var(--surface); border: 1px solid var(--line); }
+.say > small, .tip > small, .ex > small { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.say > small { color: var(--accent); }
+.tip > small { color: var(--warn); }
+.ex > small { color: var(--muted); }
 
-/* simulator */
-.sim { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 14px; }
-.sim-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+/* drawn tubes */
+.mini { display: inline-flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }
+.mtube { display: grid; justify-items: center; gap: 2px; }
+.mglass { display: flex; flex-direction: column-reverse; gap: 3px; padding: 4px; border: 2px solid var(--glass); border-top: none; border-radius: 0 0 14px 14px; }
+.mball { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-mono); font-size: 0.65rem; color: #fff; font-weight: 500; }
+.mball.empty { background: transparent; }
+.mball.hl { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ink); }
+.mlabel { font-family: var(--f-mono); font-size: 0.7rem; color: var(--muted); }
+.mini.small .mball { width: 14px; height: 14px; font-size: 0; }
+.mini.small .mglass { padding: 2px; gap: 2px; border-radius: 0 0 9px 9px; }
+.mini.small { gap: 4px; }
+
+.moves { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.move { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: grid; gap: 8px; align-content: start; }
+.move.good { border-color: var(--ok); }
+.move.no { border-color: var(--bad); }
+.verdict { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.good .verdict { color: var(--ok); }
+.no .verdict { color: var(--bad); }
+.move .pair { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+.move .arrow { font-family: var(--f-mono); color: var(--muted); padding-bottom: 20px; }
+.move p { font-size: 0.92rem; }
+
+/* glossary */
+.gloss { display: grid; gap: 10px; }
+.term { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; }
+.term dt { font-family: var(--f-display); font-weight: 700; font-size: 1.05rem; }
+.term dt code { font-size: 0.85em; }
+.term dd { margin: 0; display: grid; gap: 6px; }
+.term .eg { color: var(--muted); font-size: 0.93rem; }
+
+/* line-by-line */
+.lines { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.ln { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); border-bottom: 1px solid var(--line); }
+.ln:last-child { border-bottom: none; }
+.ln pre { margin: 0; border-radius: 0; background: var(--code-bg); padding: 8px 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ln p { padding: 8px 12px; font-size: 0.93rem; }
+.ln.head { background: var(--accent-soft); }
+.ln.head p { font-weight: 600; }
+@media (max-width: 640px) { .ln { grid-template-columns: 1fr; } }
+pre { margin: 0; background: var(--code-bg); padding: 12px 14px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+pre .c { color: var(--muted); }
+
+/* java lessons */
+.lesson { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.lesson > summary { list-style: none; cursor: pointer; padding: 12px 14px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.lesson > summary::-webkit-details-marker { display: none; }
+.lesson > summary .t { font-weight: 600; }
+.lesson > summary .d { color: var(--muted); font-size: 0.88rem; text-align: right; }
+.lesson > summary::after { content: "+"; font-family: var(--f-mono); color: var(--accent); }
+.lesson[open] > summary::after { content: "−"; }
+.lesson[open] > summary { border-bottom: 1px solid var(--line); }
+.lesson .body { padding: 14px; display: grid; gap: 12px; }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+@media (max-width: 640px) { .two { grid-template-columns: 1fr; } }
+.two > div { display: grid; gap: 6px; align-content: start; min-width: 0; }
+.two .lab { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; color: var(--muted); }
+
+/* interactive panels */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 14px; }
+.ctrls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 7px 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; }
 .btn:hover { border-color: var(--accent); }
 .btn.primary { background: var(--accent); color: var(--surface); border-color: var(--accent); }
 .btn[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
 .btn:disabled { opacity: 0.4; cursor: default; }
-.sim-io { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 16px; }
-@media (max-width: 640px) { .sim-io { grid-template-columns: 1fr; } }
-.sim textarea { width: 100%; min-height: 128px; resize: vertical; font-family: var(--f-mono); font-size: 0.95rem; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--code-bg); color: var(--ink); }
-.field label { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 4px; }
-.stage { display: grid; gap: 10px; min-width: 0; }
-.tubes { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; min-height: 150px; padding: 12px 4px 4px; }
-.tube { display: grid; justify-items: center; gap: 4px; }
-.tube .glass { display: flex; flex-direction: column-reverse; gap: 4px; padding: 5px; border: 2px solid var(--glass); border-top: none; border-radius: 0 0 18px 18px; min-width: 42px; }
-.tube .slot { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-mono); font-size: 0.72rem; font-weight: 500; color: #fff; }
-.tube .slot.empty { background: transparent; }
-.tube .slot.moved { box-shadow: 0 0 0 3px var(--ink); }
-.tube .idx { font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); }
-.tube.src .idx, .tube.dst .idx { color: var(--accent); font-weight: 500; }
-.readout { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 0.92rem; }
+.readout { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.93rem; }
 .readout b { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
-.move-text { color: var(--muted); font-size: 0.92rem; min-height: 1.6em; }
-.err { color: var(--warn); font-size: 0.92rem; }
-.sim-out { font-family: var(--f-mono); background: var(--code-bg); border-radius: 8px; padding: 8px 12px; font-size: 0.95rem; }
+.stagebig .mball { width: 30px; height: 30px; font-size: 0.75rem; }
+.stagebig .mglass { padding: 5px; gap: 4px; border-radius: 0 0 18px 18px; }
+.stagebig { gap: 14px; }
+.narr { font-size: 0.97rem; }
+.kid-list { display: grid; gap: 8px; }
+.kid { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; }
+.kid .badge { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+.badge.new { background: var(--ok-soft); color: var(--ok); }
+.badge.seen { background: var(--code-bg); color: var(--muted); }
+.lists { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+@media (max-width: 640px) { .lists { grid-template-columns: 1fr; } }
+.lists > div { border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.lists h4 { margin: 0; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.qrow { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+.qitem { display: grid; justify-items: center; gap: 2px; }
+.qitem span { font-family: var(--f-mono); font-size: 0.7rem; color: var(--muted); }
+textarea { width: 100%; min-height: 120px; resize: vertical; font-family: var(--f-mono); font-size: 0.95rem; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--code-bg); color: var(--ink); }
+.out { font-family: var(--f-mono); background: var(--code-bg); border-radius: 8px; padding: 8px 12px; }
+.err { color: var(--bad); font-size: 0.92rem; }
+.split { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 16px; }
+@media (max-width: 640px) { .split { grid-template-columns: 1fr; } }
+.field > label, .field > .lab { font-size: 0.75rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 4px; }
 
-/* code walkthrough */
-.files { display: flex; flex-wrap: wrap; gap: 6px; }
-.part { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); overflow: hidden; }
-.part > summary { list-style: none; cursor: pointer; padding: 12px 14px; display: flex; gap: 10px; align-items: baseline; justify-content: space-between; }
-.part > summary::-webkit-details-marker { display: none; }
-.part > summary .t { font-family: var(--f-mono); font-weight: 500; font-size: 0.95rem; }
-.part > summary .d { color: var(--muted); font-size: 0.88rem; text-align: right; }
-.part > summary::after { content: "+"; font-family: var(--f-mono); color: var(--accent); margin-left: 8px; }
-.part[open] > summary::after { content: "−"; }
-.part[open] > summary { border-bottom: 1px solid var(--line); }
-.part .body { padding: 14px; display: grid; gap: 12px; }
-.part ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
-pre { margin: 0; background: var(--code-bg); padding: 12px 14px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
-pre .c { color: var(--muted); }
-pre .k { color: var(--accent); }
-
-/* java table */
-.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
-table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
-th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
-th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
-tr:last-child td { border-bottom: none; }
-td code { white-space: nowrap; }
+/* strategy */
+.strategy { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 10px; align-items: stretch; }
+.strategy .box { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.strategy .box.mid { border-color: var(--accent); }
+.strategy .box b { font-family: var(--f-mono); }
+.strategy .box span { color: var(--muted); font-size: 0.92rem; }
+.strategy .arr { display: grid; place-items: center; color: var(--muted); font-family: var(--f-mono); }
+@media (max-width: 640px) { .strategy { grid-template-columns: 1fr; } .strategy .arr { transform: rotate(90deg); } }
 
 /* quiz */
 .quiz-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
 .meter { flex: 1 1 200px; display: grid; gap: 4px; }
-.meter .track { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
-.meter .fill { height: 100%; background: var(--ok); width: 0; transition: width .3s; }
+.track { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.fill { height: 100%; background: var(--ok); width: 0; transition: width .3s; }
 .meter small { color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
 .cards { display: grid; gap: 10px; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 10px; }
 .card.known { border-color: var(--ok); }
 .card .q { display: flex; gap: 10px; align-items: baseline; }
 .card .q .n { font-family: var(--f-mono); color: var(--muted); font-size: 0.82rem; flex: none; }
-.card .q h3 { font-family: var(--f-body); font-size: 1rem; font-weight: 600; }
+.card .q h3 { font-family: var(--f-body); font-size: 1rem; font-weight: 600; margin: 0; }
 .card .tag { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; color: var(--muted); }
 .card .tag.change { color: var(--warn); }
 .card .ans { display: grid; gap: 10px; }
-.card .row { display: flex; flex-wrap: wrap; gap: 8px; }
-.filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; }
 
-/* checklist */
 .check { display: grid; gap: 8px; }
 .check label { display: flex; gap: 10px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
-.check input { margin-top: 5px; accent-color: var(--ok); }
+.check input { margin-top: 6px; accent-color: var(--ok); }
 footer { padding-block: 32px 48px; color: var(--muted); font-size: 0.85rem; }
 </style>
 </head>
@@ -175,7 +220,7 @@ footer { padding-block: 32px 48px; color: var(--muted); font-size: 0.85rem; }
   <div class="wrap">
     <div class="eyebrow">Inteligência Artificial · UAlg 2026/27 · a88432</div>
     <h1>Validação do Problem 1: Ball Sort Puzzle</h1>
-    <p class="lede">Tudo o que precisas para explicar o código ao professor: a ideia, um simulador para ver o algoritmo a trabalhar, o código explicado e as perguntas que ele pode fazer.</p>
+    <p class="lede">Um guia do zero, sem assumir que sabes Java. Cada ideia vem com o seu significado e com exemplos desenhados. Lê de cima para baixo: cada capítulo usa o anterior.</p>
     <div class="status">
       <span class="chip ok">Submetido no Mooshak</span>
       <span class="chip ok">400/400 testes certos</span>
@@ -184,329 +229,561 @@ footer { padding-block: 32px 48px; color: var(--muted); font-size: 0.85rem; }
   </div>
 </header>
 
-<nav class="bar" aria-label="Secções">
+<nav class="bar" aria-label="Capítulos">
   <div class="wrap">
-    <a href="#ideia">1. A ideia</a>
-    <a href="#simulador">2. Simulador</a>
-    <a href="#codigo">3. O código</a>
-    <a href="#java">4. Java mínimo</a>
-    <a href="#perguntas">5. Perguntas</a>
-    <a href="#dia">6. No dia</a>
+    <a href="#jogo">1. O jogo</a>
+    <a href="#palavras">2. Palavras</a>
+    <a href="#input">3. Input → tubos</a>
+    <a href="#procura">4. Como procura</a>
+    <a href="#strategy">5. Strategy</a>
+    <a href="#java">6. Java do zero</a>
+    <a href="#linhas">7. Linha a linha</a>
+    <a href="#simulador">8. Simulador</a>
+    <a href="#perguntas">9. Perguntas</a>
+    <a href="#dia">10. No dia</a>
   </div>
 </nav>
 
 <main>
-<section id="ideia">
-  <div class="wrap">
-    <span class="num">1</span>
-    <h2>A ideia em cinco passos</h2>
-    <ol class="steps">
-      <li><p>Um <b>estado</b> é uma fotografia do jogo: que bolas estão em que tubos.</p></li>
-      <li><p>Cada <b>movimento legal</b> transforma um estado num estado novo, a que chamamos <b>filho</b>.</p></li>
-      <li><p>Os estados e os movimentos formam um <b>grafo</b>. O estado inicial liga-se aos filhos, que se ligam aos filhos deles, e assim por diante.</p></li>
-      <li><p>Queremos o <b>caminho mais curto</b> até um estado <b>objetivo</b>: todos os tubos vazios ou cheios de uma só cor.</p></li>
-      <li><p>O algoritmo do Tutorial 1 (<b>procura de custo uniforme</b>) examina sempre primeiro o estado com menor custo acumulado <code>g</code>. Como cada movimento custa 1, o primeiro objetivo que encontra é o que tem menos movimentos.</p></li>
-    </ol>
 
-    <h3>O padrão Strategy</h3>
-    <p>É o que o professor mais quer ver. O código está dividido em duas partes que não se conhecem, ligadas por uma interface.</p>
-    <div class="strategy" role="group" aria-label="Diagrama do padrão Strategy">
-      <div class="box"><b>BestFirst</b><span>O algoritmo de procura. Não sabe nada de bolas nem de tubos. É igual ao do 8-puzzle.</span></div>
-      <div class="arrow" aria-hidden="true">→</div>
-      <div class="box mid"><b>Ilayout</b><span>O contrato: <code>children()</code>, <code>isGoal()</code>, <code>getK()</code>.</span></div>
-      <div class="arrow" aria-hidden="true">←</div>
-      <div class="box"><b>BallSortLayout</b><span>As regras do jogo. Não sabe nada de procura.</span></div>
+<!-- 1 -->
+<section id="jogo">
+  <div class="wrap">
+    <span class="num">Capítulo 1</span>
+    <h2>O jogo</h2>
+    <p>Há vários <b>tubos</b>. Dentro há <b>bolas de cores</b>. Cada tubo leva no máximo <b>H</b> bolas (H é a <b>capacidade</b>). O objetivo é arrumar as bolas para que cada tubo fique <b>vazio</b> ou <b>cheio de uma só cor</b>.</p>
+    <p>As cores usam letras: <b>R</b> vermelho, <b>B</b> azul, <b>P</b> roxo, <b>Y</b> amarelo, <b>G</b> verde. A letra <b>E</b> quer dizer espaço vazio (<i>empty</i>).</p>
+
+    <h3>As 3 regras de um movimento</h3>
+    <ol>
+      <li>Só se tira a bola <b>de cima</b> de um tubo. Um tubo é como uma pilha de pratos: não se tira o prato do meio.</li>
+      <li>Não se põe uma bola num tubo <b>cheio</b>.</li>
+      <li>A bola só pode cair num tubo <b>vazio</b>, ou em cima de uma bola <b>da mesma cor</b>.</li>
+    </ol>
+    <p>Cada movimento custa <b>1</b>. O programa tem de dizer o <b>menor número de movimentos</b> para resolver o puzzle.</p>
+
+    <h3>Exemplos de movimentos (H = 3)</h3>
+    <div class="moves">
+      <div class="move good">
+        <span class="verdict">✓ Pode</span>
+        <div class="pair"><div class="mini" data-h="3" data-tubes="RB|" data-hl="0"></div><span class="arrow">→</span><div class="mini" data-h="3" data-tubes="R|B" data-hl="1"></div></div>
+        <p>O azul está em cima do tubo 0 e o tubo 1 está vazio. Um tubo vazio aceita qualquer cor.</p>
+      </div>
+      <div class="move good">
+        <span class="verdict">✓ Pode</span>
+        <div class="pair"><div class="mini" data-h="3" data-tubes="BR|R" data-hl="0"></div><span class="arrow">→</span><div class="mini" data-h="3" data-tubes="B|RR" data-hl="1"></div></div>
+        <p>Vermelho em cima de vermelho: mesma cor, e o tubo 1 ainda tem espaço.</p>
+      </div>
+      <div class="move no">
+        <span class="verdict">✗ Não pode</span>
+        <div class="pair"><div class="mini" data-h="3" data-tubes="RB|R"></div></div>
+        <p>Mover o azul do tubo 0 para o tubo 1? Não: em cima do tubo 1 está um vermelho. Cores diferentes.</p>
+      </div>
+      <div class="move no">
+        <span class="verdict">✗ Não pode</span>
+        <div class="pair"><div class="mini" data-h="3" data-tubes="R|RRR"></div></div>
+        <p>Mover o vermelho do tubo 0 para o tubo 1? Não: o tubo 1 já está cheio (3 de 3).</p>
+      </div>
+      <div class="move no">
+        <span class="verdict">✗ Não pode</span>
+        <div class="pair"><div class="mini" data-h="3" data-tubes="RBB|"></div></div>
+        <p>Tirar o vermelho do fundo do tubo 0? Não: só se tira a bola de cima, que é azul.</p>
+      </div>
     </div>
-    <div class="say"><small>Frase para dizer</small>"Para resolver o Ball Sort, só escrevi uma classe nova que implementa <code>Ilayout</code>. O algoritmo <code>BestFirst</code> ficou igual ao do Tutorial 1."</div>
+
+    <h3>Quando está resolvido?</h3>
+    <div class="moves">
+      <div class="move good"><span class="verdict">✓ Resolvido</span><div class="mini" data-h="3" data-tubes="RRR|BBB|"></div><p>Dois tubos cheios de uma cor, um vazio.</p></div>
+      <div class="move no"><span class="verdict">✗ Não resolvido</span><div class="mini" data-h="3" data-tubes="RRB|BBR|"></div><p>Os tubos estão cheios, mas as cores estão misturadas. "Cheio" não chega.</p></div>
+      <div class="move no"><span class="verdict">✗ Não resolvido</span><div class="mini" data-h="3" data-tubes="RR|BBB|R"></div><p>O tubo 0 está a meio. Cada tubo tem de estar vazio ou cheio.</p></div>
+    </div>
   </div>
 </section>
 
+<!-- 2 -->
+<section id="palavras">
+  <div class="wrap">
+    <span class="num">Capítulo 2</span>
+    <h2>As palavras que o professor vai usar</h2>
+    <p>Cada palavra com o significado e um exemplo do nosso jogo.</p>
+    <dl class="gloss">
+      <div class="term"><dt>Estado (ou configuração)</dt><dd><p>Uma fotografia do jogo num momento: que bolas estão em que tubo.</p><p class="eg">Exemplo: <span class="mini small" data-h="3" data-tubes="RBR|RBB|"></span> é um estado. Depois de mexer uma bola, temos outro estado.</p></dd></div>
+      <div class="term"><dt>Estado inicial</dt><dd><p>O estado que vem no input, antes de qualquer movimento.</p></dd></div>
+      <div class="term"><dt>Estado objetivo</dt><dd><p>Um estado resolvido: todos os tubos vazios ou cheios de uma só cor.</p><p class="eg">Exemplo: <span class="mini small" data-h="3" data-tubes="RRR|BBB|"></span></p></dd></div>
+      <div class="term"><dt>Filho (ou sucessor)</dt><dd><p>Um estado que se obtém com <b>um</b> movimento a partir de outro. O estado de onde se partiu é o <b>pai</b>.</p><p class="eg">Exemplo: o pai <span class="mini small" data-h="3" data-tubes="RB||"></span> tem 2 filhos: azul para o tubo 1, ou azul para o tubo 2.</p></dd></div>
+      <div class="term"><dt>Expandir um estado</dt><dd><p>Gerar todos os filhos desse estado.</p></dd></div>
+      <div class="term"><dt>Grafo de estados (espaço de estados)</dt><dd><p>Todos os estados possíveis, ligados por setas quando há um movimento de um para o outro. Resolver o puzzle é encontrar um caminho neste grafo.</p></dd></div>
+      <div class="term"><dt>Caminho</dt><dd><p>A sequência de estados desde o inicial até ao objetivo. O número de movimentos é o número de setas.</p><p class="eg">Exemplo: no Sample 2 o caminho tem 6 estados e 5 movimentos. A resposta é 5.</p></dd></div>
+      <div class="term"><dt>Custo <code>k</code> e custo acumulado <code>g</code></dt><dd><p><code>k</code> é o custo de um movimento (aqui sempre 1). <code>g</code> é a soma dos custos desde o estado inicial: quantos movimentos já foram feitos.</p><p class="eg">Exemplo: o estado inicial tem g = 0, os filhos dele g = 1, os netos g = 2.</p></dd></div>
+      <div class="term"><dt>Procura (search)</dt><dd><p>O método de ir gerando estados até encontrar o objetivo.</p></dd></div>
+      <div class="term"><dt>Não informada (cega)</dt><dd><p>A procura não usa nenhuma "pista" sobre o quão perto está do objetivo. Só conta movimentos. O enunciado obriga a isto: nada de heurísticas.</p></dd></div>
+      <div class="term"><dt>Heurística</dt><dd><p>Uma estimativa de quanto falta até ao objetivo (por exemplo, quantas bolas estão fora do sítio). É o tema do Problem 2. Aqui <b>não</b> se usa.</p></dd></div>
+      <div class="term"><dt>Procura de custo uniforme</dt><dd><p>Examina sempre primeiro o estado com <b>menor <code>g</code></b>. É a que usamos. Com custo 1 por movimento, é igual à procura em largura (BFS).</p></dd></div>
+      <div class="term"><dt><code>abertos</code> (open)</dt><dd><p>A lista de espera: estados já gerados mas ainda não examinados. Sai sempre primeiro o de menor <code>g</code>.</p></dd></div>
+      <div class="term"><dt><code>fechados</code> (closed)</dt><dd><p>Os estados já examinados e expandidos. Servem para não repetir trabalho.</p></dd></div>
+      <div class="term"><dt>Padrão Strategy</dt><dd><p>Uma forma de organizar o código: o algoritmo fica de um lado e as regras do problema do outro, ligados por uma interface. Assim o mesmo algoritmo resolve problemas diferentes. Explicado no capítulo 5.</p></dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- 3 -->
+<section id="input">
+  <div class="wrap">
+    <span class="num">Capítulo 3</span>
+    <h2>Do input aos tubos</h2>
+    <p>O programa recebe texto e tem de o transformar em tubos. Vamos ver com o Sample 2.</p>
+    <div class="two">
+      <div><span class="lab">O input</span>
+<pre>3 3
+R B E
+B B E
+R R E</pre>
+        <p>A 1.ª linha diz <b>H = 3</b> (capacidade) e <b>T = 3</b> (número de tubos). Depois vêm H linhas, de <b>cima</b> para <b>baixo</b>. Cada <b>coluna</b> é um tubo.</p>
+      </div>
+      <div><span class="lab">Os tubos</span>
+        <div class="mini stagebig" data-h="3" data-tubes="RBR|RBB|" data-labels="1"></div>
+        <p>A coluna 0 lida de cima para baixo é R, B, R. A coluna 1 é B, B, R. A coluna 2 é só E: está vazia.</p>
+      </div>
+    </div>
+    <h3>Como o programa guarda isto</h3>
+    <p>Usa duas coisas. Um <b>array</b> é uma fila de caixinhas numeradas a partir de 0.</p>
+    <ul>
+      <li><code>tubes[t]</code> guarda as bolas do tubo <code>t</code>, <b>do fundo para cima</b>. A caixinha 0 é o fundo.</li>
+      <li><code>size[t]</code> guarda quantas bolas tem o tubo <code>t</code>.</li>
+    </ul>
+<pre>tubes[0] = { R, B, R }   size[0] = 3     <span class="c">// fundo R, meio B, topo R</span>
+tubes[1] = { R, B, B }   size[1] = 3     <span class="c">// fundo R, meio B, topo B</span>
+tubes[2] = { _, _, _ }   size[2] = 0     <span class="c">// vazio</span></pre>
+    <div class="say"><small>Truque para lembrar</small><p>A bola de <b>cima</b> do tubo <code>t</code> está sempre em <code>tubes[t][size[t] - 1]</code>. Exemplo: no tubo 1, <code>size[1] = 3</code>, por isso o topo é <code>tubes[1][2]</code> = B.</p></div>
+    <div class="tip"><small>Porque é que o programa lê de baixo para cima?</small><p>Porque quer pôr primeiro o fundo do tubo, na caixinha 0. A última linha do input é o fundo, por isso começa por ela.</p></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="procura">
+  <div class="wrap">
+    <span class="num">Capítulo 4</span>
+    <h2>Como o computador procura, passo a passo</h2>
+    <p>O computador não "vê" a solução. Experimenta movimentos de forma organizada: primeiro todos os estados a 1 movimento do início, depois todos a 2, depois a 3… O primeiro estado resolvido que encontra é, por isso, o de menos movimentos.</p>
+    <h3>A receita (o algoritmo do Tutorial 1)</h3>
+    <ol>
+      <li>Põe o estado inicial na lista <b>abertos</b>, com g = 0.</li>
+      <li>Se <b>abertos</b> estiver vazia, não há solução. Fim.</li>
+      <li>Tira de <b>abertos</b> o estado com <b>menor g</b>. Chama-lhe <b>actual</b>.</li>
+      <li>Se <b>actual</b> estiver resolvido, encontrámos a resposta: o g dele. Fim.</li>
+      <li>Senão, gera os filhos de <b>actual</b> e põe <b>actual</b> em <b>fechados</b>.</li>
+      <li>Cada filho que <b>nunca foi visto</b> (não está em abertos nem em fechados) entra em <b>abertos</b> com g = g do pai + 1.</li>
+      <li>Volta ao passo 2.</li>
+    </ol>
+
+    <h3>Vê a receita a funcionar</h3>
+    <p>Escolhe um exemplo e carrega em "Passo seguinte". Em cada passo vês qual estado sai da lista, que filhos gera e como ficam as duas listas.</p>
+    <div class="panel" id="trace">
+      <div class="ctrls" role="group" aria-label="Exemplo para seguir">
+        <button class="btn" data-trace="0" aria-pressed="true">Sample 1 (curto)</button>
+        <button class="btn" data-trace="1" aria-pressed="false">Sample 2</button>
+        <button class="btn" data-trace="2" aria-pressed="false">Sem solução</button>
+      </div>
+      <div class="readout" aria-live="polite">
+        <span>Passo <b id="t-step">1</b> de <b id="t-total">1</b></span>
+        <span>abertos: <b id="t-open">0</b> estados</span>
+        <span>fechados: <b id="t-closed">0</b> estados</span>
+      </div>
+      <div class="narr" id="t-narr"></div>
+      <div id="t-actual"></div>
+      <div class="kid-list" id="t-kids"></div>
+      <div class="lists">
+        <div><h4>abertos (próximos a sair)</h4><div class="qrow" id="t-openlist"></div></div>
+        <div><h4>fechados</h4><p id="t-closedtext" style="color:var(--muted);font-size:.92rem"></p></div>
+      </div>
+      <div class="ctrls">
+        <button class="btn" id="t-first">⏮ Início</button>
+        <button class="btn" id="t-prev">◀ Passo anterior</button>
+        <button class="btn primary" id="t-next">Passo seguinte ▶</button>
+        <button class="btn" id="t-last">Ir para o fim ⏭</button>
+      </div>
+    </div>
+    <div class="say"><small>Porque dá sempre o mínimo</small><p>Os estados saem de <b>abertos</b> por ordem de g: primeiro todos os de g = 0, depois todos os de g = 1, depois g = 2… Se existisse uma solução com menos movimentos, teria saído antes.</p></div>
+    <div class="tip"><small>Porque é preciso <b>fechados</b></small><p>Sem ela, o programa podia andar às voltas: mover uma bola para a direita, depois para a esquerda, depois para a direita… e nunca acabar. Com <b>fechados</b>, cada estado só é examinado uma vez.</p></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="strategy">
+  <div class="wrap">
+    <span class="num">Capítulo 5</span>
+    <h2>Como o código está organizado: o padrão Strategy</h2>
+    <p>O código tem 4 ficheiros. A ideia principal é separar <b>o algoritmo</b> (a receita do capítulo 4) das <b>regras do jogo</b> (capítulo 1).</p>
+    <div class="strategy" role="group" aria-label="Diagrama do padrão Strategy">
+      <div class="box"><b>BestFirst</b><span>A receita de procura. Não sabe o que é uma bola nem um tubo. É exatamente o mesmo do 8-puzzle do Tutorial 1.</span></div>
+      <div class="arr" aria-hidden="true">→</div>
+      <div class="box mid"><b>Ilayout</b><span>O "contrato" entre os dois. Diz só que perguntas o algoritmo pode fazer ao jogo.</span></div>
+      <div class="arr" aria-hidden="true">←</div>
+      <div class="box"><b>BallSortLayout</b><span>As regras do Ball Sort. Responde às perguntas do contrato.</span></div>
+    </div>
+    <p>O contrato <code>Ilayout</code> tem 3 perguntas:</p>
+    <ul>
+      <li><code>children()</code>: "Que estados consigo obter com um movimento?" Responde com a lista de filhos.</li>
+      <li><code>isGoal(...)</code>: "Este estado está resolvido?" Responde sim ou não.</li>
+      <li><code>getK()</code>: "Quanto custou o movimento que levou aqui?" Responde 1.</li>
+    </ul>
+    <p>O 4.º ficheiro, <code>Main</code>, foi dado pelo professor: lê o input, chama o algoritmo e escreve a resposta.</p>
+    <div class="ex"><small>Analogia</small><p>Pensa num GPS. O algoritmo de "encontrar o caminho mais curto" é sempre o mesmo. O que muda é o mapa: Faro, Lisboa, Porto. O <code>BestFirst</code> é o GPS, o <code>BallSortLayout</code> é o mapa, e o <code>Ilayout</code> é o formato que qualquer mapa tem de ter para o GPS o perceber.</p></div>
+    <div class="say"><small>Frase para dizer ao professor</small><p>"Usei o padrão Strategy do Tutorial 1. O <code>BestFirst</code> ficou igual. Só escrevi uma classe nova, <code>BallSortLayout</code>, que implementa a interface <code>Ilayout</code> com as regras do Ball Sort."</p></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section id="java">
+  <div class="wrap">
+    <span class="num">Capítulo 6</span>
+    <h2>Java do zero</h2>
+    <p>Só o que aparece no teu código. Cada lição tem um exemplo pequeno e onde isso aparece no código. Abre uma de cada vez.</p>
+
+    <details class="lesson" open><summary><span class="t">1. Variáveis e tipos</span><span class="d">guardar um valor</span></summary><div class="body">
+      <p>Uma <b>variável</b> é uma caixa com nome que guarda um valor. Em Java tens de dizer que <b>tipo</b> de valor vai lá dentro.</p>
+<pre>int bolas = 3;          <span class="c">// int: número inteiro</span>
+double custo = 1.0;     <span class="c">// double: número com casas decimais</span>
+char cor = 'R';         <span class="c">// char: UMA letra, entre plicas ' '</span>
+boolean cheio = true;   <span class="c">// boolean: verdadeiro (true) ou falso (false)</span>
+String linha = "R B E"; <span class="c">// String: texto, entre aspas " "</span></pre>
+      <p><b>No teu código:</b> <code>int height</code> é a capacidade, <code>char ball</code> é a cor de uma bola, <code>double g</code> é o custo acumulado.</p>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">2. Arrays</span><span class="d">uma fila de caixinhas</span></summary><div class="body">
+      <p>Um <b>array</b> guarda vários valores do mesmo tipo, numa fila numerada <b>a partir de 0</b>. O tamanho fica fixo quando o crias.</p>
+<pre>int[] size = new int[3];   <span class="c">// 3 caixinhas: size[0], size[1], size[2], todas a 0</span>
+size[1] = 2;               <span class="c">// agora size = {0, 2, 0}</span>
+int x = size[1];           <span class="c">// x fica com 2</span>
+int n = size.length;       <span class="c">// n = 3 (quantas caixinhas tem)</span></pre>
+      <p>Um array de arrays (<code>char[][]</code>) é uma <b>tabela</b>: <code>tubes[t][k]</code> quer dizer "tubo t, posição k".</p>
+<pre>char[][] tubes = new char[3][3];   <span class="c">// 3 tubos, cada um com 3 lugares</span>
+tubes[0][0] = 'R';                 <span class="c">// fundo do tubo 0 = vermelho</span></pre>
+      <div class="tip"><small>Atenção</small><p>Com 3 caixinhas, a última é a <b>2</b>, não a 3. Por isso o topo de um tubo é <code>size[t] - 1</code>.</p></div>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">3. if, else e o operador ? :</span><span class="d">decidir</span></summary><div class="body">
+<pre>if (size[j] == height) {     <span class="c">// == compara: "é igual a?"</span>
+    <span class="c">// o tubo j está cheio</span>
+} else {
+    <span class="c">// ainda tem espaço</span>
+}</pre>
+      <p>Comparações: <code>==</code> igual, <code>!=</code> diferente, <code>&lt;</code> menor, <code>&gt;=</code> maior ou igual. Para juntar condições: <code>&amp;&amp;</code> quer dizer "e", <code>||</code> quer dizer "ou", <code>!</code> quer dizer "não".</p>
+<pre>if (size[j] &gt; 0 &amp;&amp; tubes[j][size[j] - 1] != ball)
+    <span class="c">// o tubo j tem bolas E a de cima é de outra cor</span></pre>
+      <p>O <code>? :</code> é um if numa linha: <code>condição ? valor_se_sim : valor_se_não</code>.</p>
+<pre>char c = (r &lt; size[t]) ? tubes[t][r] : 'E';
+<span class="c">// se há bola na posição r, usa-a; senão escreve E</span></pre>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">4. Ciclos for e while</span><span class="d">repetir</span></summary><div class="body">
+<pre>for (int i = 0; i &lt; 3; i++) {
+    <span class="c">// corre com i = 0, depois i = 1, depois i = 2</span>
+}</pre>
+      <p>Lê-se: "começa com i = 0; enquanto i &lt; 3; no fim de cada volta soma 1 a i". <code>i++</code> é o mesmo que <code>i = i + 1</code>.</p>
+<pre>for (int r = height - 1; r &gt;= 0; r--)   <span class="c">// conta para trás: 2, 1, 0</span></pre>
+      <p>O <code>while (condição)</code> repete enquanto a condição for verdade. <code>while (true)</code> repete para sempre, até um <code>return</code> sair do método.</p>
+      <p><code>continue</code> salta o resto desta volta e passa à próxima. <code>return</code> sai do método todo.</p>
+<pre>for (int i = 0; i &lt; 3; i++) {
+    if (size[i] == 0) continue;   <span class="c">// tubo vazio: passa ao próximo i</span>
+    ...
+}</pre>
+      <p>Também há o "for-each", que percorre uma lista: <code>for (State suc : sucs)</code> quer dizer "para cada <code>suc</code> na lista <code>sucs</code>".</p>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">5. ++ e -- dentro de expressões</span><span class="d">o detalhe mais traiçoeiro</span></summary><div class="body">
+      <p><code>x++</code> usa o valor de x <b>e depois</b> soma 1. <code>--x</code> subtrai 1 <b>e depois</b> usa o valor.</p>
+<pre>int s = 2;
+tubes[0][s++] = 'R';   <span class="c">// escreve na posição 2, depois s fica 3   → EMPILHAR</span>
+
+int s = 3;
+tubes[0][--s] = 0;     <span class="c">// s fica 2, depois apaga a posição 2      → DESEMPILHAR</span></pre>
+      <p><b>No teu código:</b> <code>child.tubes[j][child.size[j]++] = ball</code> põe a bola no topo do destino. <code>child.tubes[i][--child.size[i]] = 0</code> tira a bola do topo da origem.</p>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">6. Métodos</span><span class="d">funções</span></summary><div class="body">
+      <p>Um <b>método</b> é um bloco de código com nome que pode receber valores e devolver um resultado.</p>
+<pre>public double getK() {   <span class="c">// devolve um double, não recebe nada</span>
+    return 1;
+}
+
+public boolean isGoal(Ilayout l) {   <span class="c">// recebe um Ilayout, devolve true/false</span>
+    ...
+}</pre>
+      <p>O tipo antes do nome (<code>double</code>, <code>boolean</code>, <code>List&lt;Ilayout&gt;</code>) é o que o método <b>devolve</b>. O que está entre parênteses é o que <b>recebe</b>.</p>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">7. Classes, objetos, new e construtor</span><span class="d">moldes e coisas</span></summary><div class="body">
+      <p>Uma <b>classe</b> é um molde. Um <b>objeto</b> é uma coisa feita com esse molde. <code>new</code> cria um objeto.</p>
+<pre>BallSortLayout inicio = new BallSortLayout("R B E\nB B E\nR R E\n");
+<span class="c">// cria um estado a partir do texto</span></pre>
+      <p>O <b>construtor</b> é o método especial que corre quando fazes <code>new</code>. Tem o nome da classe e não tem tipo de retorno. É onde se preparam os campos.</p>
+      <p>Os <b>campos</b> são as variáveis de cada objeto: cada estado tem os seus próprios <code>tubes</code> e <code>size</code>.</p>
+      <p><code>private</code>: só a própria classe mexe. <code>public</code>: qualquer um pode usar. <code>static final</code>: uma constante, igual para todos (<code>EMPTY = 'E'</code>).</p>
+      <p><code>this</code> quer dizer "este objeto". <code>this.height = height</code> copia o valor recebido para o campo do objeto.</p>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">8. Interfaces e implements</span><span class="d">contratos</span></summary><div class="body">
+      <p>Uma <b>interface</b> é uma lista de métodos sem código: só diz "quem me implementar tem de ter isto".</p>
+<pre>interface Ilayout {
+    List&lt;Ilayout&gt; children();
+    boolean isGoal(Ilayout l);
+    double getK();
+}
+
+class BallSortLayout implements Ilayout { ... }   <span class="c">// "cumpro o contrato"</span></pre>
+      <p>Graças a isto, o <code>BestFirst</code> pode trabalhar com <b>qualquer</b> <code>Ilayout</code>: um <code>Board</code> do 8-puzzle ou um <code>BallSortLayout</code>. É o padrão Strategy.</p>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">9. null</span><span class="d">"nada"</span></summary><div class="body">
+      <p><code>null</code> quer dizer "não aponta para nenhum objeto".</p>
+      <ul>
+        <li>O estado inicial tem <code>father = null</code>: não tem pai.</li>
+        <li>O <code>Main</code> chama <code>solve(..., null)</code>: não há um objetivo concreto, só a regra do <code>isGoal</code>.</li>
+        <li>O <code>solve</code> devolve <code>null</code> quando não há solução; o <code>Main</code> escreve então "no solution found".</li>
+      </ul>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">10. Listas, mapas e conjuntos</span><span class="d">coleções que crescem</span></summary><div class="body">
+<pre>List&lt;Ilayout&gt; filhos = new ArrayList&lt;&gt;();   <span class="c">// lista que cresce</span>
+filhos.add(x);                               <span class="c">// acrescenta no fim</span>
+
+Map&lt;Ilayout, State&gt; fechados = new HashMap&lt;&gt;();   <span class="c">// dicionário chave → valor</span>
+fechados.put(estado, s);                           <span class="c">// guarda</span>
+fechados.containsKey(estado);                      <span class="c">// "já tens esta chave?" → true/false</span>
+
+Set&lt;Ilayout&gt; emAbertos = new HashSet&lt;&gt;();   <span class="c">// conjunto sem repetidos</span>
+emAbertos.add(estado);
+emAbertos.contains(estado);                 <span class="c">// "já está cá?"</span></pre>
+      <p>O que está entre <code>&lt; &gt;</code> diz o tipo do que vai lá dentro. <code>HashMap</code> e <code>HashSet</code> respondem a "já está cá?" de imediato, mesmo com milhares de estados.</p>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">11. PriorityQueue e lambda</span><span class="d">a lista abertos</span></summary><div class="body">
+      <p>Uma <code>PriorityQueue</code> é uma fila onde sai sempre primeiro o elemento "menor". Tens de dizer o que é "menor".</p>
+<pre>abertos = new PriorityQueue&lt;&gt;(10,
+    (s1, s2) -&gt; (int) Math.signum(s1.getG() - s2.getG()));</pre>
+      <p>A parte <code>(s1, s2) -&gt; ...</code> é uma <b>lambda</b>: uma função curta escrita no sítio. Recebe dois estados e devolve um número negativo se <code>s1</code> tem menor <code>g</code>, positivo se tem maior, 0 se é igual. Ou seja: "o de menor g sai primeiro".</p>
+<pre>abertos.add(s);       <span class="c">// entra na fila</span>
+abertos.remove();     <span class="c">// tira o de menor g</span>
+abertos.isEmpty();    <span class="c">// está vazia?</span></pre>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">12. equals e hashCode</span><span class="d">"são iguais?"</span></summary><div class="body">
+      <p>Por defeito, o Java só acha dois objetos iguais se forem <b>o mesmo objeto</b> na memória. Mas dois estados com as mesmas bolas nos mesmos sítios devem contar como iguais, mesmo criados em momentos diferentes.</p>
+      <p><code>equals</code> ensina ao Java quando dois estados são iguais: mesmas bolas, mesmas posições. <code>hashCode</code> dá um número a cada estado; estados iguais têm de dar o mesmo número. O <code>HashMap</code> e o <code>HashSet</code> usam os dois.</p>
+      <div class="ex"><small>Exemplo</small><p>Do estado A move-se um azul para a direita e depois para a esquerda: volta-se ao estado A, mas é um objeto novo. Graças ao <code>equals</code>, o programa percebe que já o viu e não o examina outra vez.</p></div>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">13. clone</span><span class="d">copiar a sério</span></summary><div class="body">
+      <p>Em Java, <code>int[] b = a;</code> <b>não copia</b> o array: <code>a</code> e <code>b</code> passam a ser dois nomes para as mesmas caixinhas. Mexer em <code>b</code> muda <code>a</code>.</p>
+<pre>int[] a = {1, 2};
+int[] b = a;          <span class="c">// mesmas caixinhas!</span>
+b[0] = 9;             <span class="c">// agora a = {9, 2} também</span>
+int[] c = a.clone();  <span class="c">// caixinhas novas: mexer em c não muda a</span></pre>
+      <p><b>No teu código:</b> cada filho começa com <code>clone()</code>, que copia cada tubo. Sem isso, mexer no filho estragava o pai.</p>
+    </div></details>
+
+    <details class="lesson"><summary><span class="t">14. Classe dentro de classe e Iterator</span><span class="d">State e o caminho</span></summary><div class="body">
+      <p><code>static class State</code> está dentro de <code>BestFirst</code>. Fora dela chama-se <code>BestFirst.State</code>. É só uma classe auxiliar arrumada lá dentro.</p>
+      <p>Um <code>Iterator</code> percorre uma sequência, um elemento de cada vez:</p>
+<pre>while (it.hasNext()) {          <span class="c">// ainda há mais?</span>
+    BestFirst.State i = it.next(); <span class="c">// dá-me o próximo</span>
+}</pre>
+      <p>O <code>solve</code> devolve um <code>Iterator</code> sobre o caminho. O <code>Main</code> percorre-o e escreve o <code>g</code> do último.</p>
+    </div></details>
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="linhas">
+  <div class="wrap">
+    <span class="num">Capítulo 7</span>
+    <h2>O código, linha a linha</h2>
+    <p>À esquerda o código, à direita o que cada linha faz em português.</p>
+
+    <h3>BallSortLayout: os dados</h3>
+    <div class="lines">
+      <div class="ln"><pre>class BallSortLayout implements Ilayout, Cloneable {</pre><p>Cria a classe do estado do jogo e promete cumprir o contrato <code>Ilayout</code>.</p></div>
+      <div class="ln"><pre>private static final char EMPTY = 'E';</pre><p>Constante: a letra que quer dizer "vazio".</p></div>
+      <div class="ln"><pre>private int height;</pre><p>A capacidade H de cada tubo.</p></div>
+      <div class="ln"><pre>private char[][] tubes;</pre><p>As bolas: <code>tubes[t][k]</code> é a bola do tubo t na posição k, contando do fundo (k = 0).</p></div>
+      <div class="ln"><pre>private int[] size;</pre><p>Quantas bolas tem cada tubo.</p></div>
+    </div>
+
+    <h3>BallSortLayout: o construtor (ler o input)</h3>
+    <div class="lines">
+      <div class="ln"><pre>public BallSortLayout(String str) {</pre><p>Recebe o texto das H linhas.</p></div>
+      <div class="ln"><pre>String[] rows = str.split("\n");</pre><p>Parte o texto em linhas. Ex.: <code>{"R B E", "B B E", "R R E"}</code>.</p></div>
+      <div class="ln"><pre>height = rows.length;</pre><p>H = número de linhas (3).</p></div>
+      <div class="ln"><pre>int nTubes = rows[0].split(" ").length;</pre><p>T = número de letras na 1.ª linha (3).</p></div>
+      <div class="ln"><pre>tubes = new char[nTubes][height];
+size = new int[nTubes];</pre><p>Cria a tabela vazia e os contadores a 0.</p></div>
+      <div class="ln"><pre>for (int r = height - 1; r &gt;= 0; r--) {</pre><p>Percorre as linhas de baixo para cima (r = 2, 1, 0).</p></div>
+      <div class="ln"><pre>String[] cells = rows[r].split(" ");</pre><p>Parte a linha nas letras. Ex.: <code>{"R", "R", "E"}</code>.</p></div>
+      <div class="ln"><pre>for (int t = 0; t &lt; nTubes; t++) {</pre><p>Para cada tubo (coluna)…</p></div>
+      <div class="ln"><pre>char c = cells[t].charAt(0);</pre><p>…pega na letra dessa coluna.</p></div>
+      <div class="ln"><pre>if (c != EMPTY) tubes[t][size[t]++] = c;</pre><p>Se não é E, empilha a bola no tubo t (e o tubo passa a ter mais uma).</p></div>
+    </div>
+
+    <h3>BallSortLayout: children() (as regras)</h3>
+    <div class="lines">
+      <div class="ln"><pre>List&lt;Ilayout&gt; children = new ArrayList&lt;&gt;();</pre><p>Lista vazia onde vão os filhos.</p></div>
+      <div class="ln"><pre>for (int i = 0; i &lt; tubes.length; i++) {</pre><p>Experimenta cada tubo <code>i</code> como <b>origem</b>.</p></div>
+      <div class="ln"><pre>if (size[i] == 0) continue;</pre><p>Regra: origem vazia não tem bola para tirar. Salta.</p></div>
+      <div class="ln"><pre>char ball = tubes[i][size[i] - 1];</pre><p>A bola de cima da origem.</p></div>
+      <div class="ln"><pre>for (int j = 0; j &lt; tubes.length; j++) {</pre><p>Experimenta cada tubo <code>j</code> como <b>destino</b>.</p></div>
+      <div class="ln"><pre>if (j == i || size[j] == height) continue;</pre><p>Regras: não se move para o mesmo tubo, nem para um tubo cheio.</p></div>
+      <div class="ln"><pre>if (size[j] &gt; 0 &amp;&amp; tubes[j][size[j] - 1] != ball) continue;</pre><p>Regra: se o destino tem bolas e a de cima é de outra cor, não pode.</p></div>
+      <div class="ln"><pre>BallSortLayout child = clone();</pre><p>Passou as regras: copia o estado para criar o filho.</p></div>
+      <div class="ln"><pre>child.tubes[i][--child.size[i]] = 0;</pre><p>No filho, tira a bola de cima da origem.</p></div>
+      <div class="ln"><pre>child.tubes[j][child.size[j]++] = ball;</pre><p>No filho, põe essa bola em cima do destino.</p></div>
+      <div class="ln"><pre>children.add(child);</pre><p>Guarda o filho na lista.</p></div>
+      <div class="ln"><pre>return children;</pre><p>Devolve todos os filhos.</p></div>
+    </div>
+    <div class="ex"><small>Exemplo</small><p>Estado <span class="mini small" data-h="3" data-tubes="RBR|RBB|"></span> (Sample 2). Origem 0 (topo R): o destino 1 está cheio, não pode; o destino 2 está vazio, pode. Origem 1 (topo B): o destino 0 está cheio, não pode; o destino 2, pode. Origem 2 está vazia, salta. Resultado: <b>2 filhos</b>.</p></div>
+
+    <h3>BallSortLayout: isGoal() e getK()</h3>
+    <div class="lines">
+      <div class="ln"><pre>for (int t = 0; t &lt; tubes.length; t++) {</pre><p>Verifica cada tubo.</p></div>
+      <div class="ln"><pre>if (size[t] == 0) continue;</pre><p>Vazio está bem: passa ao próximo.</p></div>
+      <div class="ln"><pre>if (size[t] != height) return false;</pre><p>Meio cheio: não está resolvido.</p></div>
+      <div class="ln"><pre>for (int k = 1; k &lt; height; k++)
+  if (tubes[t][k] != tubes[t][0]) return false;</pre><p>Compara cada bola com a do fundo. Se alguma for diferente, cores misturadas: não está resolvido.</p></div>
+      <div class="ln"><pre>return true;</pre><p>Todos os tubos passaram: está resolvido.</p></div>
+      <div class="ln"><pre>public double getK() { return 1; }</pre><p>Cada movimento custa 1.</p></div>
+    </div>
+
+    <h3>BallSortLayout: os métodos de apoio</h3>
+    <div class="lines">
+      <div class="ln"><pre>clone()</pre><p>Cria uma cópia com arrays novos (lição 13).</p></div>
+      <div class="ln"><pre>toString()</pre><p>Escreve o estado como no input: de cima para baixo, letras separadas por espaço, E nos vazios.</p></div>
+      <div class="ln"><pre>equals(Object o)</pre><p>Dois estados são iguais se têm a mesma capacidade, os mesmos tamanhos e as mesmas bolas (lição 12).</p></div>
+      <div class="ln"><pre>hashCode()</pre><p>Calcula um número a partir de <code>size</code> e <code>tubes</code>. Estados iguais dão o mesmo número.</p></div>
+    </div>
+
+    <h3>BestFirst: o estado de procura</h3>
+    <div class="lines">
+      <div class="ln"><pre>static class State {</pre><p>Um nó da procura: um estado do jogo mais a informação do caminho.</p></div>
+      <div class="ln"><pre>private Ilayout layout;</pre><p>O estado do jogo (os tubos).</p></div>
+      <div class="ln"><pre>private State father;</pre><p>De onde veio. <code>null</code> no inicial.</p></div>
+      <div class="ln"><pre>private double g;</pre><p>Custo desde o início.</p></div>
+      <div class="ln"><pre>if (father != null) g = father.g + l.getK();
+else g = 0.0;</pre><p>g = g do pai + 1. O inicial tem g = 0.</p></div>
+    </div>
+
+    <h3>BestFirst: solve() (a receita)</h3>
+    <div class="lines">
+      <div class="ln"><pre>abertos = new PriorityQueue&lt;&gt;(... por g ...);</pre><p>Cria a lista de espera, ordenada por g.</p></div>
+      <div class="ln"><pre>fechados = new HashMap&lt;&gt;();</pre><p>Cria a lista dos já examinados.</p></div>
+      <div class="ln"><pre>abertos.add(new State(s, null));</pre><p>Passo 1: o inicial entra na lista com g = 0.</p></div>
+      <div class="ln"><pre>Set&lt;Ilayout&gt; emAbertos = new HashSet&lt;&gt;();
+emAbertos.add(s);</pre><p>Cópia rápida de "quem está em abertos". É a única coisa que acrescentei ao tutorial.</p></div>
+      <div class="ln"><pre>while (true) {</pre><p>Repete até um <code>return</code>.</p></div>
+      <div class="ln"><pre>if (abertos.isEmpty()) return null;</pre><p>Passo 2: nada para examinar → sem solução.</p></div>
+      <div class="ln"><pre>actual = abertos.remove();
+emAbertos.remove(actual.layout);</pre><p>Passo 3: tira o de menor g.</p></div>
+      <div class="ln"><pre>if (actual.layout.isGoal(objective))
+    return path(actual);</pre><p>Passo 4: se está resolvido, devolve o caminho até ele.</p></div>
+      <div class="ln"><pre>sucs = sucessores(actual);</pre><p>Passo 5: gera os filhos (cada um com pai = actual e g = g + 1).</p></div>
+      <div class="ln"><pre>fechados.put(actual.layout, actual);</pre><p>Passo 5: marca actual como examinado.</p></div>
+      <div class="ln"><pre>for (State suc : sucs)</pre><p>Passo 6: para cada filho…</p></div>
+      <div class="ln"><pre>if (!fechados.containsKey(suc.layout)
+    &amp;&amp; !emAbertos.contains(suc.layout)) {</pre><p>…se nunca foi visto (nem em fechados nem em abertos)…</p></div>
+      <div class="ln"><pre>abertos.add(suc);
+emAbertos.add(suc.layout);</pre><p>…entra na lista de espera.</p></div>
+    </div>
+
+    <h3>BestFirst: sucessores() e path()</h3>
+    <div class="lines">
+      <div class="ln"><pre>for (Ilayout e : n.layout.children())</pre><p>Pede ao jogo os filhos do estado <code>n</code>.</p></div>
+      <div class="ln"><pre>if (n.father == null || !e.equals(n.father.layout))</pre><p>Ignora o filho que é igual ao avô (seria desfazer o último movimento).</p></div>
+      <div class="ln"><pre>sucs.add(new State(e, n));</pre><p>Embrulha o filho num State com pai <code>n</code>.</p></div>
+      <div class="ln"><pre>for (State s = n; s != null; s = s.father)
+    path.addFirst(s);</pre><p><code>path</code>: sobe de pai em pai até ao início, pondo cada um à frente. Resultado: início → objetivo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 -->
 <section id="simulador">
   <div class="wrap">
-    <span class="num">2</span>
-    <h2>Simulador</h2>
-    <p>Corre aqui o mesmo algoritmo, escrito em JavaScript, sobre os exemplos do enunciado ou sobre um input teu. Depois anda pelo caminho, movimento a movimento.</p>
-    <div class="sim">
-      <div class="sim-controls" role="group" aria-label="Exemplos">
+    <span class="num">Capítulo 8</span>
+    <h2>Simulador: experimenta o teu input</h2>
+    <p>Escreve um input como no Mooshak (ou escolhe um exemplo), carrega em "Resolver" e vê a solução movimento a movimento.</p>
+    <div class="panel">
+      <div class="ctrls" role="group" aria-label="Exemplos">
         <button class="btn" data-sample="0" aria-pressed="false">Sample 1</button>
         <button class="btn" data-sample="1" aria-pressed="true">Sample 2</button>
         <button class="btn" data-sample="2" aria-pressed="false">Sample 3</button>
         <button class="btn" data-sample="3" aria-pressed="false">Sem solução</button>
       </div>
-      <div class="sim-io">
+      <div class="split">
         <div class="field">
-          <label for="sim-input">Input (como no Mooshak)</label>
+          <label for="sim-input">Input</label>
           <textarea id="sim-input" spellcheck="false"></textarea>
-          <div class="sim-controls" style="margin-top:8px">
-            <button class="btn primary" id="sim-run">Resolver</button>
-          </div>
+          <div class="ctrls" style="margin-top:8px"><button class="btn primary" id="sim-run">Resolver</button></div>
         </div>
-        <div class="stage">
+        <div style="display:grid;gap:10px;min-width:0">
           <div class="readout" aria-live="polite">
-            <span>Passo <b id="r-step">0</b> de <b id="r-total">0</b></span>
+            <span>Movimento <b id="r-step">0</b> de <b id="r-total">0</b></span>
             <span>g = <b id="r-g">0</b></span>
-            <span>Estados expandidos: <b id="r-exp">0</b></span>
+            <span>Estados examinados: <b id="r-exp">0</b></span>
           </div>
-          <div class="tubes" id="tubes" aria-label="Tubos"></div>
-          <div class="move-text" id="move-text"></div>
-          <div class="sim-controls">
-            <button class="btn" id="sim-first">⏮ Início</button>
+          <div class="mini stagebig" id="sim-tubes"></div>
+          <div class="narr" id="move-text"></div>
+          <div class="ctrls">
+            <button class="btn" id="sim-first">⏮</button>
             <button class="btn" id="sim-prev">◀ Anterior</button>
             <button class="btn" id="sim-next">Seguinte ▶</button>
-            <button class="btn" id="sim-last">Fim ⏭</button>
+            <button class="btn" id="sim-last">⏭</button>
           </div>
-          <div class="field">
-            <label>Output do programa</label>
-            <div class="sim-out" id="sim-out">—</div>
-          </div>
+          <div class="field"><span class="lab">O programa escreve</span><div class="out" id="sim-out">—</div></div>
           <div class="err" id="sim-err" hidden></div>
         </div>
       </div>
     </div>
-    <p style="color:var(--muted);font-size:.9rem">O número de movimentos é sempre o mínimo. Quando há vários caminhos com esse número, o simulador pode mostrar um diferente do que o Java imprime, porque a ordem de desempate da fila pode ser outra.</p>
+    <p style="color:var(--muted);font-size:.9rem">O número de movimentos é sempre o mínimo. Quando há vários caminhos com esse número, o simulador pode mostrar um diferente do que o Java imprime.</p>
   </div>
 </section>
 
-<section id="codigo">
-  <div class="wrap">
-    <span class="num">3</span>
-    <h2>O código, método a método</h2>
-    <p>Abre cada parte para ver o código e a explicação. Começa pelo <code>BallSortLayout</code>: é a parte que escreveste de raiz.</p>
-
-    <h3>Ilayout.java: o contrato</h3>
-    <details class="part">
-      <summary><span class="t">interface Ilayout</span><span class="d">3 métodos que qualquer problema tem de ter</span></summary>
-      <div class="body">
-<pre>interface Ilayout {
-    List&lt;Ilayout&gt; children();  <span class="c">// estados alcançáveis com 1 movimento</span>
-    boolean isGoal(Ilayout l); <span class="c">// este estado é objetivo?</span>
-    double getK();             <span class="c">// custo do movimento que levou aqui</span>
-}</pre>
-        <p>Uma <b>interface</b> é uma promessa: diz que métodos existem, mas não diz como funcionam. Cada problema (8-puzzle, Ball Sort…) escreve a sua versão.</p>
-      </div>
-    </details>
-
-    <h3>BallSortLayout.java: as regras do jogo</h3>
-    <details class="part" open>
-      <summary><span class="t">Campos</span><span class="d">como os tubos são guardados</span></summary>
-      <div class="body">
-<pre><span class="k">private static final char</span> EMPTY = 'E';
-<span class="k">private int</span> height;      <span class="c">// capacidade H de cada tubo</span>
-<span class="k">private char</span>[][] tubes;  <span class="c">// tubes[t][k]: bola na posição k do tubo t (k = 0 é o FUNDO)</span>
-<span class="k">private int</span>[] size;      <span class="c">// size[t]: quantas bolas tem o tubo t</span></pre>
-        <ul>
-          <li>Cada tubo é uma <b>pilha</b>: só se mexe no topo.</li>
-          <li>O fundo está em <code>tubes[t][0]</code> e o topo em <code>tubes[t][size[t] - 1]</code>.</li>
-          <li>Exemplo, Sample 2: o tubo 0 é <code>{R, B, R}</code> (do fundo para o topo), com <code>size[0] = 3</code>.</li>
-        </ul>
-      </div>
-    </details>
-    <details class="part">
-      <summary><span class="t">Construtor BallSortLayout(String)</span><span class="d">lê o texto do input</span></summary>
-      <div class="body">
-<pre>String[] rows = str.split("\n");          <span class="c">// parte em linhas</span>
-height = rows.length;
-...
-<span class="k">for</span> (int r = height - 1; r &gt;= 0; r--) {   <span class="c">// de BAIXO para CIMA</span>
-    String[] cells = rows[r].split(" ");
-    <span class="k">for</span> (int t = 0; t &lt; nTubes; t++) {
-        char c = cells[t].charAt(0);
-        <span class="k">if</span> (c != EMPTY) tubes[t][size[t]++] = c;  <span class="c">// empilha</span>
-    }
-}</pre>
-        <ul>
-          <li>Lê as linhas de baixo para cima, porque a última linha do input é o fundo dos tubos.</li>
-          <li><code>tubes[t][size[t]++] = c</code> põe a bola na primeira posição livre e depois soma 1 ao tamanho.</li>
-        </ul>
-      </div>
-    </details>
-    <details class="part">
-      <summary><span class="t">children()</span><span class="d">as regras de movimento</span></summary>
-      <div class="body">
-<pre><span class="k">for</span> (int i = 0; i &lt; tubes.length; i++) {          <span class="c">// tubo de origem</span>
-    <span class="k">if</span> (size[i] == 0) <span class="k">continue</span>;                  <span class="c">// vazio: nada para tirar</span>
-    char ball = tubes[i][size[i] - 1];             <span class="c">// bola do topo</span>
-    <span class="k">for</span> (int j = 0; j &lt; tubes.length; j++) {      <span class="c">// tubo de destino</span>
-        <span class="k">if</span> (j == i || size[j] == height) <span class="k">continue</span>;   <span class="c">// mesmo tubo ou cheio</span>
-        <span class="k">if</span> (size[j] &gt; 0 &amp;&amp; tubes[j][size[j] - 1] != ball)
-            <span class="k">continue</span>;                               <span class="c">// topo de outra cor</span>
-        BallSortLayout child = clone();            <span class="c">// copia o estado</span>
-        child.tubes[i][--child.size[i]] = 0;        <span class="c">// tira da origem</span>
-        child.tubes[j][child.size[j]++] = ball;     <span class="c">// põe no destino</span>
-        children.add(child);
-    }
-}</pre>
-        <ul>
-          <li>Testa todos os pares origem <code>i</code> → destino <code>j</code>. Com T tubos há no máximo T × (T − 1) filhos.</li>
-          <li>Um movimento é legal se: a origem tem bolas, o destino não está cheio, e o destino está vazio ou tem no topo a mesma cor.</li>
-          <li><code>continue</code> salta para o próximo par.</li>
-        </ul>
-      </div>
-    </details>
-    <details class="part">
-      <summary><span class="t">clone()</span><span class="d">cópia profunda</span></summary>
-      <div class="body">
-<pre>char[][] t = new char[tubes.length][];
-<span class="k">for</span> (int i = 0; i &lt; tubes.length; i++) t[i] = tubes[i].clone();
-<span class="k">return new</span> BallSortLayout(height, t, size.clone());</pre>
-        <p>Em Java, os arrays são partilhados por referência. Sem copiar cada tubo, mexer no filho mexia também no pai e nos irmãos.</p>
-      </div>
-    </details>
-    <details class="part">
-      <summary><span class="t">isGoal(Ilayout l)</span><span class="d">o jogo está resolvido?</span></summary>
-      <div class="body">
-<pre><span class="k">for</span> (int t = 0; t &lt; tubes.length; t++) {
-    <span class="k">if</span> (size[t] == 0) <span class="k">continue</span>;             <span class="c">// vazio: ok</span>
-    <span class="k">if</span> (size[t] != height) <span class="k">return false</span>;     <span class="c">// meio cheio: não</span>
-    <span class="k">for</span> (int k = 1; k &lt; height; k++)
-        <span class="k">if</span> (tubes[t][k] != tubes[t][0]) <span class="k">return false</span>;  <span class="c">// cores misturadas</span>
-}
-<span class="k">return true</span>;</pre>
-        <ul>
-          <li>Cada tubo tem de estar vazio, ou cheio e todo da mesma cor.</li>
-          <li>"Cheio" não chega: no Sample 2 o início tem dois tubos cheios, mas misturados.</li>
-          <li>O argumento <code>l</code> não é usado, porque o <code>Main</code> passa <code>null</code>: aqui o objetivo é uma condição, não uma configuração concreta.</li>
-        </ul>
-      </div>
-    </details>
-    <details class="part">
-      <summary><span class="t">toString(), equals(), hashCode(), getK()</span><span class="d">os métodos de apoio</span></summary>
-      <div class="body">
-        <ul>
-          <li><b><code>toString()</code></b>: escreve os tubos como no input, de cima para baixo, com <code>E</code> nos espaços vazios. É o que o <code>Main0</code> imprime.</li>
-          <li><b><code>equals()</code></b>: dois estados são iguais se têm as mesmas bolas nas mesmas posições.</li>
-          <li><b><code>hashCode()</code></b>: um número calculado a partir das bolas. Estados iguais dão o mesmo número. O <code>HashMap</code> e o <code>HashSet</code> usam estes dois métodos para saber se um estado <b>já foi visto</b>.</li>
-          <li><b><code>getK()</code></b>: devolve 1, porque cada movimento custa 1.</li>
-        </ul>
-      </div>
-    </details>
-
-    <h3>BestFirst.java: o algoritmo (igual ao do Tutorial 1)</h3>
-    <details class="part">
-      <summary><span class="t">class State</span><span class="d">um nó da procura</span></summary>
-      <div class="body">
-        <ul>
-          <li><code>layout</code>: a configuração dos tubos.</li>
-          <li><code>father</code>: o estado de onde veio (<code>null</code> no inicial). Serve para reconstruir o caminho.</li>
-          <li><code>g</code>: custo desde o início. <code>g = g do pai + getK()</code>.</li>
-        </ul>
-      </div>
-    </details>
-    <details class="part" open>
-      <summary><span class="t">solve(s, goal)</span><span class="d">o ciclo principal</span></summary>
-      <div class="body">
-<pre>abertos = <span class="k">new</span> PriorityQueue&lt;&gt;(... ordenada por g);  <span class="c">// por examinar</span>
-fechados = <span class="k">new</span> HashMap&lt;&gt;();                         <span class="c">// já expandidos</span>
-abertos.add(<span class="k">new</span> State(s, <span class="k">null</span>));                    <span class="c">// início, g = 0</span>
-<span class="k">while</span> (<span class="k">true</span>) {
-    <span class="k">if</span> (abertos.isEmpty()) <span class="k">return null</span>;          <span class="c">// sem solução</span>
-    actual = abertos.remove();                    <span class="c">// o de menor g</span>
-    emAbertos.remove(actual.layout);
-    <span class="k">if</span> (actual.layout.isGoal(objective))
-        <span class="k">return</span> path(actual);                     <span class="c">// encontrou!</span>
-    sucs = sucessores(actual);                    <span class="c">// gera os filhos</span>
-    fechados.put(actual.layout, actual);
-    <span class="k">for</span> (State suc : sucs)
-        <span class="k">if</span> (!fechados.containsKey(suc.layout) &amp;&amp; !emAbertos.contains(suc.layout)) {
-            abertos.add(suc);                     <span class="c">// nunca visto: entra</span>
-            emAbertos.add(suc.layout);
-        }
-}</pre>
-        <ul>
-          <li><b><code>abertos</code></b>: fila de prioridade que devolve sempre o estado de menor <code>g</code>.</li>
-          <li><b><code>fechados</code></b>: estados já expandidos. Evita repetir trabalho e entrar em ciclos.</li>
-          <li><b><code>emAbertos</code></b>: a única coisa acrescentada ao tutorial. Guarda os mesmos estados que estão em <code>abertos</code>, mas responde "já está lá?" de imediato. Perguntar isso à <code>PriorityQueue</code> obrigava a percorrê-la toda.</li>
-          <li><b><code>path(actual)</code></b>: sobe pelos <code>father</code> até ao início e inverte a ordem.</li>
-        </ul>
-        <div class="say"><small>Porque é o mínimo</small>Os estados saem de <code>abertos</code> por ordem de custo. Com todos os movimentos a custar 1, o primeiro objetivo que sai é o de menos movimentos. Com custo 1, isto é o mesmo que uma procura em largura (BFS).</div>
-      </div>
-    </details>
-    <details class="part">
-      <summary><span class="t">sucessores(n)</span><span class="d">filhos com pai e custo</span></summary>
-      <div class="body">
-        <p>Transforma cada filho de <code>n</code> num <code>State</code> com pai <code>n</code>. Não gera o filho igual ao avô, ou seja, não desfaz o último movimento.</p>
-      </div>
-    </details>
-
-    <h3>Main.java: dado pelo professor</h3>
-    <details class="part">
-      <summary><span class="t">main()</span><span class="d">lê, resolve, imprime</span></summary>
-      <div class="body">
-        <p>Lê <code>H</code> e <code>T</code>, lê H linhas, cria o <code>BallSortLayout</code> e chama <code>solve(layout, null)</code>. Imprime o <code>g</code> do último estado do caminho, ou <code>no solution found</code> se o <code>solve</code> devolver <code>null</code>. Não se mexe neste ficheiro.</p>
-      </div>
-    </details>
-  </div>
-</section>
-
-<section id="java">
-  <div class="wrap">
-    <span class="num">4</span>
-    <h2>O Java mínimo</h2>
-    <p>Só o que aparece neste código.</p>
-    <div class="tbl">
-      <table>
-        <thead><tr><th>Conceito</th><th>No código</th><th>Significa</th></tr></thead>
-        <tbody>
-          <tr><td>class</td><td><code>class BestFirst</code></td><td>Um molde para criar objetos, com dados (campos) e ações (métodos).</td></tr>
-          <tr><td>interface</td><td><code>interface Ilayout</code></td><td>Lista de métodos que uma classe promete ter.</td></tr>
-          <tr><td>implements</td><td><code>implements Ilayout</code></td><td>"Esta classe cumpre o contrato."</td></tr>
-          <tr><td>campo</td><td><code>private int height;</code></td><td>Variável de cada objeto. <code>private</code>: só a própria classe lhe mexe.</td></tr>
-          <tr><td>construtor</td><td><code>BallSortLayout(String str)</code></td><td>Cria o objeto. Tem o nome da classe.</td></tr>
-          <tr><td>tipos</td><td><code>int</code>, <code>double</code>, <code>char</code>, <code>boolean</code></td><td>Inteiro, real, um carácter (<code>'R'</code>), verdadeiro/falso.</td></tr>
-          <tr><td>array</td><td><code>int[]</code>, <code>char[][]</code></td><td>Lista de tamanho fixo; <code>[][]</code> é uma tabela. Índices começam em 0.</td></tr>
-          <tr><td>for</td><td><code>for (int i = 0; i &lt; n; i++)</code></td><td>Repete para i = 0, 1, …, n − 1.</td></tr>
-          <tr><td>continue / return</td><td><code>if (...) continue;</code></td><td>Salta para a próxima volta / sai do método.</td></tr>
-          <tr><td>x++ / --x</td><td><code>size[t]++</code></td><td>Soma ou subtrai 1. <code>x++</code> usa o valor antes; <code>--x</code> subtrai antes de usar.</td></tr>
-          <tr><td>? :</td><td><code>r &lt; size[t] ? tubes[t][r] : EMPTY</code></td><td>"Se sim, isto; senão, aquilo."</td></tr>
-          <tr><td>null</td><td><code>father = null</code></td><td>Não aponta para nada. O estado inicial não tem pai.</td></tr>
-          <tr><td>List / ArrayList</td><td><code>children.add(child)</code></td><td>Lista que cresce.</td></tr>
-          <tr><td>Map / HashMap</td><td><code>fechados.containsKey(x)</code></td><td>Dicionário chave → valor; procura imediata.</td></tr>
-          <tr><td>Set / HashSet</td><td><code>emAbertos.contains(x)</code></td><td>Conjunto sem repetidos; procura imediata.</td></tr>
-          <tr><td>PriorityQueue</td><td><code>abertos.remove()</code></td><td>Fila que devolve sempre o menor elemento (aqui, o de menor g).</td></tr>
-          <tr><td>lambda</td><td><code>(s1, s2) -&gt; ...</code></td><td>Função curta escrita no sítio; aqui compara dois estados pelo g.</td></tr>
-          <tr><td>equals / hashCode</td><td></td><td>Como o Java decide se dois objetos são iguais. HashMap e HashSet dependem disto.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
+<!-- 9 -->
 <section id="perguntas">
   <div class="wrap">
-    <span class="num">5</span>
+    <span class="num">Capítulo 9</span>
     <h2>Perguntas do professor</h2>
     <p>Lê a pergunta, responde em voz alta e só depois carrega em "Ver resposta". Marca as que já sabes: o progresso fica guardado neste browser.</p>
     <div class="quiz-head">
       <div class="meter"><div class="track"><div class="fill" id="meter-fill"></div></div><small id="meter-text">0 de 0 sabidas</small></div>
-      <div class="filters" role="group" aria-label="Filtrar perguntas">
+      <div class="row" role="group" aria-label="Filtrar perguntas">
         <button class="btn" data-filter="all" aria-pressed="true">Todas</button>
+        <button class="btn" data-filter="concept" aria-pressed="false">Explicar</button>
         <button class="btn" data-filter="change" aria-pressed="false">Mudar código</button>
-        <button class="btn" data-filter="concept" aria-pressed="false">Conceitos</button>
         <button class="btn" data-filter="todo" aria-pressed="false">Por saber</button>
       </div>
     </div>
     <div class="cards" id="cards"></div>
-    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn" id="reset-quiz">Recomeçar progresso</button>
-    </div>
+    <div class="row"><button class="btn" id="reset-quiz">Recomeçar progresso</button></div>
   </div>
 </section>
 
+<!-- 10 -->
 <section id="dia">
   <div class="wrap">
-    <span class="num">6</span>
+    <span class="num">Capítulo 10</span>
     <h2>No dia da validação</h2>
     <div class="check" id="check">
-      <label><input type="checkbox" id="ck1"> <span>Consigo explicar o padrão Strategy: <code>BestFirst</code> + <code>Ilayout</code> + <code>BallSortLayout</code>.</span></label>
-      <label><input type="checkbox" id="ck2"> <span>Sei como os tubos são guardados: <code>tubes</code> e <code>size</code>, fundo na posição 0.</span></label>
-      <label><input type="checkbox" id="ck3"> <span>Sei dizer as 3 regras de um movimento legal em <code>children()</code>.</span></label>
-      <label><input type="checkbox" id="ck4"> <span>Sei explicar o <code>isGoal()</code> e porque "cheio" não chega.</span></label>
-      <label><input type="checkbox" id="ck5"> <span>Sei explicar o ciclo <code>abertos</code> / <code>fechados</code> e porque dá o mínimo.</span></label>
-      <label><input type="checkbox" id="ck6"> <span>Sei porque acrescentei o <code>emAbertos</code>.</span></label>
-      <label><input type="checkbox" id="ck7"> <span>Treinei as perguntas de "mudar código" (custo diferente, várias bolas, FIFO/pilha).</span></label>
-      <label><input type="checkbox" id="ck8"> <span>Tenho o código aberto no computador e sei compilar: <code>javac Main.java</code> e <code>java Main</code> (Java 25).</span></label>
-      <label><input type="checkbox" id="ck9"> <span>Sei dizer que usei IA (Claude) como apoio, como está declarado no topo do <code>Main.java</code>.</span></label>
+      <label><input type="checkbox" id="ck1"> <span>Sei explicar as 3 regras do jogo e quando está resolvido.</span></label>
+      <label><input type="checkbox" id="ck2"> <span>Sei explicar estado, filho, g, abertos e fechados com as minhas palavras.</span></label>
+      <label><input type="checkbox" id="ck3"> <span>Sei explicar o padrão Strategy: <code>BestFirst</code> + <code>Ilayout</code> + <code>BallSortLayout</code>.</span></label>
+      <label><input type="checkbox" id="ck4"> <span>Sei como os tubos são guardados: <code>tubes</code> e <code>size</code>, fundo na posição 0, topo em <code>size[t] - 1</code>.</span></label>
+      <label><input type="checkbox" id="ck5"> <span>Consigo ler o <code>children()</code> linha a linha.</span></label>
+      <label><input type="checkbox" id="ck6"> <span>Sei porque a resposta é o mínimo e porque é preciso <code>fechados</code>.</span></label>
+      <label><input type="checkbox" id="ck7"> <span>Sei porque acrescentei o <code>emAbertos</code>.</span></label>
+      <label><input type="checkbox" id="ck8"> <span>Treinei as perguntas de "Mudar código".</span></label>
+      <label><input type="checkbox" id="ck9"> <span>Tenho o código no computador e sei correr: <code>javac Main.java</code> e depois <code>java Main</code> (Java 25).</span></label>
+      <label><input type="checkbox" id="ck10"> <span>Sei dizer que usei IA (Claude) como apoio, como está declarado no topo do <code>Main.java</code>.</span></label>
     </div>
+    <div class="tip"><small>Se não souberes uma resposta</small><p>Pensa em voz alta a partir das regras: "a bola só sai de cima, então é <code>size[t] - 1</code>…". O professor quer ver que percebes o raciocínio, não que decoraste.</p></div>
   </div>
 </section>
 </main>
@@ -520,36 +797,40 @@ abertos.add(<span class="k">new</span> State(s, <span class="k">null</span>));  
     get: function (k, d) { try { var v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
     set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   };
+  var COLOR_NAMES = { R: "vermelha", B: "azul", P: "roxa", Y: "amarela", G: "verde" };
+  function ballColor(b) { return "var(--ball-" + ("RBPYG".indexOf(b) >= 0 ? b : "X") + ")"; }
 
-  /* ---------- simulator: the same uniform-cost search as BestFirst ---------- */
-  var SAMPLES = [
-    "3 4\nE E B E\nE R B E\nR R B E",
-    "3 3\nR B E\nB B E\nR R E",
-    "3 4\nP R B E\nR B R E\nP B P E",
-    "2 2\nR B\nB R"
-  ];
-  var input = document.getElementById("sim-input");
-  var path = [], step = 0, H = 0, expanded = 0;
-
-  function parse(text) {
-    var lines = text.replace(/\r/g, "").split("\n").map(function (l) { return l.trim(); }).filter(function (l) { return l.length; });
-    if (!lines.length) throw new Error("Escreve o input: primeiro H e T, depois H linhas.");
-    var ht = lines[0].split(/\s+/).map(Number);
-    var h = ht[0], t = ht[1];
-    if (!(h > 0 && t > 0)) throw new Error("A primeira linha tem de ter dois números positivos: H (capacidade) e T (número de tubos).");
-    if (lines.length - 1 !== h) throw new Error("Esperava " + h + " linhas de tubos depois da primeira linha e encontrei " + (lines.length - 1) + ".");
-    if (h > 8 || t > 8) throw new Error("No simulador usa no máximo H = 8 e T = 8, para não bloquear o browser.");
-    var tubes = [];
-    for (var i = 0; i < t; i++) tubes.push("");
-    for (var r = h; r >= 1; r--) {
-      var cells = lines[r].split(" ");
-      if (cells.length !== t) throw new Error("A linha " + (r + 1) + " tem " + cells.length + " colunas; deviam ser " + t + ".");
-      for (var c = 0; c < t; c++) if (cells[c] !== "E") tubes[c] += cells[c];
-    }
-    return { h: h, tubes: tubes };
+  /* draw tubes: tubes = array of strings bottom->top */
+  function drawTubes(el, h, tubes, opts) {
+    opts = opts || {};
+    el.textContent = "";
+    tubes.forEach(function (tb, i) {
+      var t = document.createElement("div"); t.className = "mtube";
+      var g = document.createElement("div"); g.className = "mglass";
+      for (var k = 0; k < h; k++) {
+        var b = document.createElement("div");
+        if (k < tb.length) {
+          b.className = "mball" + (opts.hl === i && k === tb.length - 1 ? " hl" : "");
+          b.style.background = ballColor(tb[k]);
+          b.textContent = tb[k];
+          b.title = COLOR_NAMES[tb[k]] || tb[k];
+        } else b.className = "mball empty";
+        g.appendChild(b);
+      }
+      t.appendChild(g);
+      if (opts.labels) { var l = document.createElement("div"); l.className = "mlabel"; l.textContent = "tubo " + i; t.appendChild(l); }
+      el.appendChild(t);
+    });
+    el.setAttribute("role", "img");
+    el.setAttribute("aria-label", tubes.map(function (tb, i) { return "tubo " + i + ": " + (tb.length ? tb.split("").join(" ") + " (do fundo para cima)" : "vazio"); }).join("; "));
   }
+  document.querySelectorAll(".mini[data-tubes]").forEach(function (el) {
+    var tubes = el.dataset.tubes.split("|");
+    drawTubes(el, +el.dataset.h, tubes, { hl: el.dataset.hl !== undefined ? +el.dataset.hl : -1, labels: el.dataset.labels === "1" || !el.classList.contains("small") });
+  });
 
-  function isGoal(s) {
+  /* ---------- search engine (same as BestFirst; cost 1 so FIFO order = order of g) ---------- */
+  function isGoal(s, H) {
     for (var i = 0; i < s.length; i++) {
       var tb = s[i];
       if (!tb.length) continue;
@@ -558,8 +839,7 @@ abertos.add(<span class="k">new</span> State(s, <span class="k">null</span>));  
     }
     return true;
   }
-
-  function children(s) {
+  function children(s, H) {
     var out = [];
     for (var i = 0; i < s.length; i++) {
       if (!s[i].length) continue;
@@ -567,166 +847,230 @@ abertos.add(<span class="k">new</span> State(s, <span class="k">null</span>));  
       for (var j = 0; j < s.length; j++) {
         if (j === i || s[j].length === H) continue;
         if (s[j].length && s[j][s[j].length - 1] !== ball) continue;
-        var n = s.slice();
-        n[i] = s[i].slice(0, -1);
-        n[j] = s[j] + ball;
+        var n = s.slice(); n[i] = s[i].slice(0, -1); n[j] = s[j] + ball;
         out.push({ tubes: n, from: i, to: j, ball: ball });
       }
     }
     return out;
   }
+  var key = function (s) { return s.join("|"); };
 
-  function solve(start) {
-    // All moves cost 1, so a FIFO queue pops states in order of g, like the PriorityQueue.
-    var key = function (s) { return s.join("|"); };
+  function solve(start, H, record) {
     var abertos = [{ tubes: start, father: null, g: 0 }], head = 0;
-    var seen = {}; seen[key(start)] = true;
-    expanded = 0;
-    while (head < abertos.length) {
+    var inOpen = {}; inOpen[key(start)] = true;
+    var closed = {}, nClosed = 0, steps = [];
+    while (true) {
+      if (head >= abertos.length) {
+        if (record) steps.push({ kind: "empty", nOpen: 0, nClosed: nClosed });
+        return { goal: null, expanded: nClosed, steps: steps };
+      }
       var actual = abertos[head++];
-      if (isGoal(actual.tubes)) return actual;
-      expanded++;
-      if (expanded > 400000) throw new Error("Demasiados estados para o simulador. Experimenta um caso mais pequeno.");
-      var ch = children(actual.tubes);
+      delete inOpen[key(actual.tubes)];
+      if (isGoal(actual.tubes, H)) {
+        if (record) steps.push({ kind: "goal", actual: actual, nOpen: abertos.length - head, nClosed: nClosed, open: abertos.slice(head, head + 6) });
+        return { goal: actual, expanded: nClosed, steps: steps };
+      }
+      var ch = children(actual.tubes, H), kids = [];
+      closed[key(actual.tubes)] = true; nClosed++;
+      if (nClosed > 400000) throw new Error("Demasiados estados para o simulador. Experimenta um caso mais pequeno.");
       for (var c = 0; c < ch.length; c++) {
-        var k = key(ch[c].tubes);
-        if (seen[k]) continue;
-        seen[k] = true;
-        abertos.push({ tubes: ch[c].tubes, father: actual, g: actual.g + 1, from: ch[c].from, to: ch[c].to, ball: ch[c].ball });
+        var k = key(ch[c].tubes), status;
+        if (closed[k]) status = "fechados";
+        else if (inOpen[k]) status = "abertos";
+        else {
+          status = "novo"; inOpen[k] = true;
+          abertos.push({ tubes: ch[c].tubes, father: actual, g: actual.g + 1, from: ch[c].from, to: ch[c].to, ball: ch[c].ball });
+        }
+        if (record) kids.push({ tubes: ch[c].tubes, from: ch[c].from, to: ch[c].to, ball: ch[c].ball, status: status });
+      }
+      if (record) steps.push({ kind: "expand", actual: actual, kids: kids, nOpen: abertos.length - head, nClosed: nClosed, open: abertos.slice(head, head + 6) });
+    }
+  }
+
+  function parse(text) {
+    var lines = text.replace(/\r/g, "").split("\n").map(function (l) { return l.trim(); }).filter(function (l) { return l.length; });
+    if (!lines.length) throw new Error("Escreve o input: primeiro H e T, depois H linhas.");
+    var ht = lines[0].split(/\s+/).map(Number), h = ht[0], t = ht[1];
+    if (!(h > 0 && t > 0)) throw new Error("A primeira linha tem de ter dois números positivos: H (capacidade) e T (número de tubos).");
+    if (lines.length - 1 !== h) throw new Error("Esperava " + h + " linhas de tubos depois da primeira e encontrei " + (lines.length - 1) + ".");
+    if (h > 8 || t > 8) throw new Error("No simulador usa no máximo H = 8 e T = 8.");
+    var tubes = []; for (var i = 0; i < t; i++) tubes.push("");
+    for (var r = h; r >= 1; r--) {
+      var cells = lines[r].split(" ");
+      if (cells.length !== t) throw new Error("A linha " + (r + 1) + " tem " + cells.length + " colunas; deviam ser " + t + ".");
+      for (var c = 0; c < t; c++) if (cells[c] !== "E") tubes[c] += cells[c];
+    }
+    return { h: h, tubes: tubes };
+  }
+
+  var SAMPLES = ["3 4\nE E B E\nE R B E\nR R B E", "3 3\nR B E\nB B E\nR R E", "3 4\nP R B E\nR B R E\nP B P E", "2 2\nR B\nB R"];
+
+  /* ---------- trace (chapter 4) ---------- */
+  var TRACE_SAMPLES = [SAMPLES[0], SAMPLES[1], SAMPLES[3]];
+  var tr = { steps: [], i: 0, H: 3 };
+  function moveText(m) { return "bola " + (COLOR_NAMES[m.ball] || m.ball) + " do tubo " + m.from + " → tubo " + m.to; }
+  function traceLoad(n) {
+    var p = parse(TRACE_SAMPLES[n]);
+    tr.H = p.h; tr.steps = solve(p.tubes, p.h, true).steps; tr.i = 0; traceRender();
+  }
+  function traceRender() {
+    var st = tr.steps[tr.i], H = tr.H;
+    document.getElementById("t-step").textContent = tr.i + 1;
+    document.getElementById("t-total").textContent = tr.steps.length;
+    document.getElementById("t-open").textContent = st.nOpen;
+    document.getElementById("t-closed").textContent = st.nClosed;
+    var narr = document.getElementById("t-narr"), act = document.getElementById("t-actual"), kids = document.getElementById("t-kids");
+    act.textContent = ""; kids.textContent = "";
+    if (st.kind === "empty") {
+      narr.innerHTML = "<b>abertos ficou vazia.</b> Já se examinaram todos os estados possíveis e nenhum está resolvido. O <code>solve</code> devolve <code>null</code> e o programa escreve <b>no solution found</b>.";
+    } else {
+      var a = document.createElement("div"); a.className = "mini stagebig";
+      drawTubes(a, H, st.actual.tubes, { labels: true, hl: st.actual.father ? st.actual.to : -1 });
+      act.appendChild(a);
+      if (st.kind === "goal") {
+        narr.innerHTML = "Sai de abertos o estado com menor g (<b>g = " + st.actual.g + "</b>). <b>Está resolvido!</b> O programa pára e escreve <b>" + st.actual.g + "</b>.";
+      } else {
+        narr.innerHTML = "Sai de abertos o estado com menor g (<b>g = " + st.actual.g + "</b>). Não está resolvido, por isso é <b>expandido</b>: gera " + st.kids.length + " filho" + (st.kids.length === 1 ? "" : "s") + " e vai para fechados." + (st.kids.length === 0 ? " Não há nenhum movimento possível." : "");
+        st.kids.forEach(function (k) {
+          var row = document.createElement("div"); row.className = "kid";
+          var m = document.createElement("div"); m.className = "mini small"; drawTubes(m, H, k.tubes, { hl: k.to });
+          var t = document.createElement("span"); t.textContent = moveText(k);
+          var b = document.createElement("span");
+          b.className = "badge " + (k.status === "novo" ? "new" : "seen");
+          b.textContent = k.status === "novo" ? "novo → entra em abertos (g = " + (st.actual.g + 1) + ")" : "já está em " + k.status + " → ignorado";
+          row.appendChild(m); row.appendChild(t); row.appendChild(b); kids.appendChild(row);
+        });
       }
     }
-    return null;
-  }
-
-  var COLOR_NAMES = { R: "vermelha", B: "azul", P: "roxa", Y: "amarela", G: "verde" };
-  function ballColor(b) { return "var(--ball-" + ("RBPYG".indexOf(b) >= 0 ? b : "X") + ")"; }
-
-  function render() {
-    var box = document.getElementById("tubes");
-    box.textContent = "";
-    var errEl = document.getElementById("sim-err");
-    if (!path.length) return;
-    var st = path[step];
-    st.tubes.forEach(function (tb, i) {
-      var tube = document.createElement("div");
-      tube.className = "tube" + (step > 0 && st.from === i ? " src" : "") + (step > 0 && st.to === i ? " dst" : "");
-      var glass = document.createElement("div");
-      glass.className = "glass";
-      for (var k = 0; k < H; k++) {
-        var slot = document.createElement("div");
-        if (k < tb.length) {
-          slot.className = "slot" + (step > 0 && st.to === i && k === tb.length - 1 ? " moved" : "");
-          slot.style.background = ballColor(tb[k]);
-          slot.textContent = tb[k];
-        } else slot.className = "slot empty";
-        glass.appendChild(slot);
-      }
-      var idx = document.createElement("div");
-      idx.className = "idx";
-      idx.textContent = "tubo " + i;
-      tube.appendChild(glass); tube.appendChild(idx);
-      box.appendChild(tube);
+    var ol = document.getElementById("t-openlist"); ol.textContent = "";
+    if (!st.open || !st.open.length) { var e = document.createElement("span"); e.style.color = "var(--muted)"; e.textContent = "vazia"; ol.appendChild(e); }
+    else st.open.forEach(function (s) {
+      var q = document.createElement("div"); q.className = "qitem";
+      var m = document.createElement("div"); m.className = "mini small"; drawTubes(m, H, s.tubes, {});
+      var l = document.createElement("span"); l.textContent = "g = " + s.g;
+      q.appendChild(m); q.appendChild(l); ol.appendChild(q);
     });
-    document.getElementById("r-step").textContent = step;
-    document.getElementById("r-total").textContent = path.length - 1;
-    document.getElementById("r-g").textContent = st.g;
-    document.getElementById("move-text").textContent = step === 0
-      ? "Estado inicial (g = 0)."
-      : "Movimento " + step + ": bola " + (COLOR_NAMES[st.ball] || st.ball) + " do tubo " + st.from + " para o tubo " + st.to + ".";
-    document.getElementById("sim-first").disabled = document.getElementById("sim-prev").disabled = step === 0;
-    document.getElementById("sim-last").disabled = document.getElementById("sim-next").disabled = step === path.length - 1;
+    if (st.nOpen > 6) { var more = document.createElement("span"); more.style.color = "var(--muted)"; more.textContent = "+ " + (st.nOpen - 6) + " mais"; ol.appendChild(more); }
+    document.getElementById("t-closedtext").textContent = st.nClosed === 0 ? "Ainda nenhum estado foi examinado." : st.nClosed + " estado" + (st.nClosed === 1 ? "" : "s") + " já examinado" + (st.nClosed === 1 ? "" : "s") + ". Se voltarem a aparecer, são ignorados.";
+    document.getElementById("t-first").disabled = document.getElementById("t-prev").disabled = tr.i === 0;
+    document.getElementById("t-last").disabled = document.getElementById("t-next").disabled = tr.i === tr.steps.length - 1;
   }
+  document.querySelectorAll("[data-trace]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("[data-trace]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      traceLoad(+b.dataset.trace);
+    });
+  });
+  document.getElementById("t-first").addEventListener("click", function () { tr.i = 0; traceRender(); });
+  document.getElementById("t-prev").addEventListener("click", function () { if (tr.i > 0) { tr.i--; traceRender(); } });
+  document.getElementById("t-next").addEventListener("click", function () { if (tr.i < tr.steps.length - 1) { tr.i++; traceRender(); } });
+  document.getElementById("t-last").addEventListener("click", function () { tr.i = tr.steps.length - 1; traceRender(); });
+  traceLoad(0);
 
-  function run() {
-    var errEl = document.getElementById("sim-err");
+  /* ---------- simulator (chapter 8) ---------- */
+  var input = document.getElementById("sim-input");
+  var sim = { path: [], step: 0, H: 3 };
+  function simRender() {
+    var box = document.getElementById("sim-tubes");
+    if (!sim.path.length) { box.textContent = ""; return; }
+    var st = sim.path[sim.step];
+    drawTubes(box, sim.H, st.tubes, { labels: true, hl: sim.step > 0 ? st.to : -1 });
+    document.getElementById("r-step").textContent = sim.step;
+    document.getElementById("r-g").textContent = st.g;
+    document.getElementById("move-text").textContent = sim.step === 0 ? "Estado inicial (g = 0)." : "Movimento " + sim.step + ": " + moveText(st) + ".";
+    document.getElementById("sim-first").disabled = document.getElementById("sim-prev").disabled = sim.step === 0;
+    document.getElementById("sim-last").disabled = document.getElementById("sim-next").disabled = sim.step === sim.path.length - 1;
+  }
+  function simRun() {
+    var errEl = document.getElementById("sim-err"), out = document.getElementById("sim-out");
     errEl.hidden = true;
-    var out = document.getElementById("sim-out");
     try {
-      var p = parse(input.value);
-      H = p.h;
-      var goal = solve(p.tubes);
-      document.getElementById("r-exp").textContent = expanded;
-      if (!goal) {
-        path = [{ tubes: p.tubes, g: 0 }]; step = 0; render();
-        out.textContent = "no solution found";
-        document.getElementById("move-text").textContent = "A fila abertos ficou vazia sem encontrar um objetivo: o solve devolve null.";
+      var p = parse(input.value); sim.H = p.h;
+      var res = solve(p.tubes, p.h, false);
+      document.getElementById("r-exp").textContent = res.expanded;
+      if (!res.goal) {
+        sim.path = [{ tubes: p.tubes, g: 0 }]; sim.step = 0; simRender();
         document.getElementById("r-total").textContent = "—";
+        out.textContent = "no solution found";
+        document.getElementById("move-text").textContent = "abertos ficou vazia sem encontrar um estado resolvido.";
         return;
       }
-      path = [];
-      for (var s = goal; s; s = s.father) path.unshift(s);
-      step = 0; render();
-      out.textContent = String(goal.g);
+      sim.path = []; for (var s = res.goal; s; s = s.father) sim.path.unshift(s);
+      sim.step = 0;
+      document.getElementById("r-total").textContent = sim.path.length - 1;
+      simRender();
+      out.textContent = String(res.goal.g);
     } catch (e) {
-      path = []; document.getElementById("tubes").textContent = "";
+      sim.path = []; simRender();
       errEl.textContent = e.message; errEl.hidden = false; out.textContent = "—";
       document.getElementById("move-text").textContent = "";
     }
   }
-
   document.querySelectorAll("[data-sample]").forEach(function (b) {
     b.addEventListener("click", function () {
       document.querySelectorAll("[data-sample]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
-      input.value = SAMPLES[+b.dataset.sample];
-      run();
+      input.value = SAMPLES[+b.dataset.sample]; simRun();
     });
   });
   document.getElementById("sim-run").addEventListener("click", function () {
     document.querySelectorAll("[data-sample]").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
-    run();
+    simRun();
   });
-  document.getElementById("sim-first").addEventListener("click", function () { step = 0; render(); });
-  document.getElementById("sim-prev").addEventListener("click", function () { if (step > 0) { step--; render(); } });
-  document.getElementById("sim-next").addEventListener("click", function () { if (step < path.length - 1) { step++; render(); } });
-  document.getElementById("sim-last").addEventListener("click", function () { step = path.length - 1; render(); });
-  input.value = SAMPLES[1];
-  run();
+  document.getElementById("sim-first").addEventListener("click", function () { sim.step = 0; simRender(); });
+  document.getElementById("sim-prev").addEventListener("click", function () { if (sim.step > 0) { sim.step--; simRender(); } });
+  document.getElementById("sim-next").addEventListener("click", function () { if (sim.step < sim.path.length - 1) { sim.step++; simRender(); } });
+  document.getElementById("sim-last").addEventListener("click", function () { sim.step = sim.path.length - 1; simRender(); });
+  input.value = SAMPLES[1]; simRun();
 
   /* ---------- quiz ---------- */
   var Q = [
+    { t: "concept", q: "Explica as regras do jogo e quando está resolvido.",
+      a: "<p>Só se tira a bola de cima de um tubo. Não se põe bola num tubo cheio. A bola só cai num tubo vazio ou em cima de uma bola da mesma cor. Está resolvido quando cada tubo está vazio ou cheio de uma só cor. Cada movimento custa 1.</p>" },
+    { t: "concept", q: "O que é um estado? E um filho?",
+      a: "<p>Um estado é uma fotografia dos tubos: que bolas estão em que sítio. Um filho é um estado que se obtém com um movimento legal a partir de outro (o pai). No código, os estados são objetos <code>BallSortLayout</code> e os filhos são gerados por <code>children()</code>.</p>" },
+    { t: "concept", q: "Como guardas os tubos no código?",
+      a: "<p>Com <code>char[][] tubes</code> e <code>int[] size</code>. <code>tubes[t][k]</code> é a bola do tubo t na posição k, contando do fundo (k = 0). <code>size[t]</code> é quantas bolas tem o tubo t. A bola de cima está em <code>tubes[t][size[t] - 1]</code>.</p>" },
     { t: "concept", q: "O que é o padrão Strategy e onde está no teu código?",
-      a: "<p>É separar o algoritmo (o contexto) do comportamento que muda de problema para problema (a estratégia), ligando os dois por uma interface. Aqui: <code>BestFirst</code> é o algoritmo, <code>Ilayout</code> é a interface e <code>BallSortLayout</code> é a estratégia concreta. Para resolver outro problema basta escrever outra classe que implementa <code>Ilayout</code>.</p>" },
+      a: "<p>É separar o algoritmo das regras do problema, ligando-os por uma interface. <code>BestFirst</code> é o algoritmo, <code>Ilayout</code> é a interface e <code>BallSortLayout</code> são as regras do Ball Sort. Para outro problema, basta escrever outra classe que implemente <code>Ilayout</code>; o <code>BestFirst</code> não muda.</p>" },
     { t: "concept", q: "Que algoritmo é este? É informado ou não informado?",
-      a: "<p>Procura de custo uniforme, uma procura best-first ordenada pelo custo <code>g</code>. É <b>não informada</b>: não usa heurística (o enunciado proíbe heurísticas neste problema). Se ordenasse por <code>g + h</code>, com uma heurística <code>h</code>, seria o A*.</p>" },
+      a: "<p>Procura de custo uniforme: examina sempre o estado de menor <code>g</code>. É <b>não informada</b>, porque não usa heurística (o enunciado proíbe). Com custo 1 por movimento é igual à procura em largura (BFS). Se ordenasse por <code>g + h</code>, com uma heurística <code>h</code>, seria o A*.</p>" },
     { t: "concept", q: "Porque é que a resposta é garantidamente a mínima?",
-      a: "<p>A fila <code>abertos</code> devolve sempre o estado de menor <code>g</code>, por isso os estados são examinados por ordem de custo: primeiro os de custo 0, depois 1, depois 2… O primeiro objetivo examinado tem o menor custo possível. Com custo 1 por movimento, é o de menos movimentos.</p>" },
+      a: "<p>A lista <code>abertos</code> devolve sempre o estado de menor <code>g</code>. Por isso os estados são examinados por ordem de custo: primeiro os de g = 0, depois g = 1, depois g = 2… Se houvesse uma solução mais curta, teria saído antes.</p>" },
     { t: "concept", q: "Para que servem abertos e fechados?",
-      a: "<p><code>abertos</code>: estados gerados mas ainda não examinados, ordenados por <code>g</code>. <code>fechados</code>: estados já expandidos. Um filho só entra em <code>abertos</code> se não estiver em nenhum dos dois. Isto evita repetir trabalho e evita ciclos infinitos (ir e voltar entre dois estados).</p>" },
-    { t: "concept", q: "Porque acrescentaste o emAbertos se o tutorial não o tem?",
-      a: "<p>O tutorial manda inserir o sucessor só se não estiver em <code>abertos</code> nem em <code>fechados</code>. Perguntar a uma <code>PriorityQueue</code> se contém um elemento obriga a percorrê-la toda. O <code>HashSet</code> guarda as mesmas configurações e responde de imediato. O comportamento é igual; só fica mais rápido.</p>" },
+      a: "<p><code>abertos</code> é a lista de espera: estados gerados mas ainda não examinados, ordenados por g. <code>fechados</code> são os estados já examinados. Um filho só entra em abertos se não estiver em nenhuma das duas. Assim não se repete trabalho nem se anda às voltas.</p>" },
+    { t: "concept", q: "Porque acrescentaste o emAbertos, que não está no tutorial?",
+      a: "<p>O tutorial manda verificar se o filho já está em <code>abertos</code>. Perguntar isso a uma <code>PriorityQueue</code> obriga a percorrê-la toda, o que é lento. O <code>HashSet</code> <code>emAbertos</code> guarda os mesmos estados e responde de imediato. O resultado é igual; só fica mais rápido.</p>" },
     { t: "concept", q: "Quando é que o programa escreve \"no solution found\"?",
-      a: "<p>Quando <code>abertos</code> fica vazio: todos os estados alcançáveis foram examinados e nenhum é objetivo. O <code>solve</code> devolve <code>null</code> e o <code>Main</code> escreve a mensagem. Exemplo: H = 2, dois tubos cheios <code>R B / B R</code>: não há nenhum movimento possível.</p>" },
+      a: "<p>Quando <code>abertos</code> fica vazia: todos os estados possíveis foram examinados e nenhum está resolvido. O <code>solve</code> devolve <code>null</code> e o <code>Main</code> escreve a mensagem. Exemplo: H = 2, input <code>R B / B R</code>. Os dois tubos estão cheios, por isso não há nenhum movimento possível.</p>" },
     { t: "concept", q: "Porque é que o isGoal recebe um argumento que não usa?",
-      a: "<p>Porque vem da interface <code>Ilayout</code>, partilhada com o 8-puzzle, onde o objetivo era uma configuração concreta. Aqui o objetivo é uma condição (tubos vazios ou cheios de uma cor) e o <code>Main</code> passa <code>null</code>.</p>" },
+      a: "<p>Porque vem da interface <code>Ilayout</code>, partilhada com o 8-puzzle, onde o objetivo era um tabuleiro concreto. Aqui o objetivo é uma regra (tubos vazios ou cheios de uma cor) e o <code>Main</code> passa <code>null</code>.</p>" },
     { t: "concept", q: "Porque precisas de clone()?",
-      a: "<p>Os arrays em Java são partilhados por referência. Se o filho usasse os mesmos arrays do pai, tirar uma bola no filho tirava-a também no pai e em todos os irmãos. O <code>clone()</code> copia cada tubo (cópia profunda).</p>" },
+      a: "<p>Em Java, copiar um array com <code>=</code> não cria caixinhas novas: os dois nomes apontam para as mesmas. Se o filho usasse os arrays do pai, tirar uma bola no filho tirava-a também no pai. O <code>clone()</code> cria arrays novos para cada tubo.</p>" },
     { t: "concept", q: "Porque precisas de equals() e hashCode()?",
-      a: "<p>O <code>HashMap</code> (<code>fechados</code>) e o <code>HashSet</code> (<code>emAbertos</code>) usam-nos para saber se uma configuração já foi vista. Sem eles, o Java compara a identidade dos objetos (o endereço em memória), e dois estados iguais pareceriam diferentes. A procura repetia estados para sempre.</p>" },
+      a: "<p>Para o <code>HashMap</code> (<code>fechados</code>) e o <code>HashSet</code> (<code>emAbertos</code>) saberem se um estado já foi visto. Sem eles, dois estados com as mesmas bolas mas criados em momentos diferentes pareceriam diferentes, e a procura repetia estados sem fim.</p>" },
+    { t: "concept", q: "Explica o children() linha a linha.",
+      a: "<p>Para cada tubo de origem <code>i</code>: se está vazio, salta. Pega na bola de cima. Para cada destino <code>j</code>: salta se for o mesmo tubo, se estiver cheio, ou se tiver em cima uma bola de outra cor. Se passou, copia o estado (<code>clone</code>), tira a bola da origem, põe-na no destino e junta o filho à lista.</p>" },
     { t: "change", q: "E se mover uma bola para um tubo vazio custasse 2?",
-      a: "<p>O filho tem de guardar o custo do movimento que o criou:</p><pre>private double k = 1;                 // novo campo\n\n// em children(), antes de children.add(child):\nchild.k = (size[j] == 0) ? 2 : 1;      // destino estava vazio?\n\npublic double getK() { return k; }</pre><p><b>Atenção:</b> com custos diferentes, a regra \"não inserir se já está em abertos\" pode deitar fora um caminho mais barato. O tutorial avisa isso. Corrige-se no <code>solve</code> guardando o melhor <code>g</code> de cada estado e deixando entrar um sucessor se for mais barato; ao tirar de <code>abertos</code>, ignora-se um estado que já está em <code>fechados</code>. Testado: os exemplos passam a dar 1, 6 e 7.</p>" },
+      a: "<p>O filho guarda o custo do movimento que o criou:</p><pre>private double k = 1;                 // campo novo\n\n// em children(), antes de children.add(child):\nchild.k = (size[j] == 0) ? 2 : 1;      // o destino estava vazio?\n\npublic double getK() { return k; }</pre><p><b>Atenção:</b> com custos diferentes, a regra \"não entra se já está em abertos\" pode deitar fora um caminho mais barato. O tutorial avisa isto. Corrige-se no <code>solve</code> guardando o melhor <code>g</code> de cada estado e deixando entrar o filho se for mais barato; ao tirar de <code>abertos</code>, ignora-se o que já está em <code>fechados</code>. Testado: os exemplos dão 1, 6 e 7.</p>" },
     { t: "change", q: "E se o objetivo fosse uma configuração concreta, dada no input?",
-      a: "<pre>public boolean isGoal(Ilayout l) { return this.equals(l); }</pre><p>E o <code>Main</code> passaria <code>new BallSortLayout(objetivo)</code> em vez de <code>null</code> no <code>solve</code>. Era assim no 8-puzzle.</p>" },
+      a: "<pre>public boolean isGoal(Ilayout l) { return this.equals(l); }</pre><p>E o <code>Main</code> passaria <code>new BallSortLayout(objetivo)</code> em vez de <code>null</code>. Era assim no 8-puzzle.</p>" },
     { t: "change", q: "E se pudesse mover várias bolas da mesma cor de uma vez, contando 1 movimento?",
-      a: "<p>Em <code>children()</code>, mover enquanto o topo da origem for da mesma cor e houver espaço no destino:</p><pre>BallSortLayout child = clone();\nwhile (child.size[i] > 0\n       && child.tubes[i][child.size[i] - 1] == ball\n       && child.size[j] < height) {\n    child.tubes[i][--child.size[i]] = 0;\n    child.tubes[j][child.size[j]++] = ball;\n}\nchildren.add(child);</pre><p>Testado: o Sample 2 passa de 5 para 4 movimentos.</p>" },
+      a: "<p>Em <code>children()</code>, em vez de mover uma bola, move enquanto a de cima for da mesma cor e houver espaço:</p><pre>BallSortLayout child = clone();\nwhile (child.size[i] > 0\n       && child.tubes[i][child.size[i] - 1] == ball\n       && child.size[j] < height) {\n    child.tubes[i][--child.size[i]] = 0;\n    child.tubes[j][child.size[j]++] = ball;\n}\nchildren.add(child);</pre><p>Testado: o Sample 2 passa de 5 para 4 movimentos.</p>" },
     { t: "change", q: "E se usasses uma fila normal (FIFO) em vez da PriorityQueue?",
-      a: "<pre>abertos = new LinkedList<>();</pre><p>Dá o mesmo resultado, porque com custo 1 a ordem de chegada já é a ordem de <code>g</code>. Isso é a procura em largura (BFS). Só deixa de ser igual com custos diferentes. Testado: 1, 5 e 6.</p>" },
+      a: "<pre>abertos = new LinkedList<>();</pre><p>Dá o mesmo resultado: com custo 1, a ordem de chegada já é a ordem de g. É a procura em largura (BFS). Só deixa de ser igual se os custos forem diferentes. Testado: 1, 5 e 6.</p>" },
     { t: "change", q: "E se usasses uma pilha (LIFO)?",
-      a: "<p>Isso é procura em profundidade (DFS). Deixa de garantir o mínimo: pode encontrar primeiro uma solução longa.</p>" },
-    { t: "change", q: "Como contavas os estados expandidos?",
-      a: "<p>No fim, <code>fechados.size()</code> é o número de estados expandidos. Ou um contador:</p><pre>int expandidos = 0;\n...\nsucs = sucessores(actual);\nexpandidos++;</pre>" },
+      a: "<p>Fica procura em profundidade (DFS): vai sempre pelo filho mais recente. Deixa de garantir o mínimo, porque pode encontrar primeiro uma solução longa.</p>" },
+    { t: "change", q: "Como contavas os estados examinados?",
+      a: "<p>No fim, <code>fechados.size()</code> dá o número de estados expandidos. Ou um contador:</p><pre>int expandidos = 0;\n...\nsucs = sucessores(actual);\nexpandidos++;</pre>" },
     { t: "change", q: "E se os tubos tivessem capacidades diferentes?",
       a: "<p>Trocar <code>int height</code> por <code>int[] capacity</code> (uma por tubo) e usar <code>capacity[j]</code> no <code>children()</code> e <code>capacity[t]</code> no <code>isGoal()</code> e no <code>toString()</code>.</p>" },
     { t: "change", q: "E se houvesse mais cores, ou outras letras?",
       a: "<p>Não muda nada. O código trata qualquer letra como uma cor; só o <code>E</code> tem significado especial.</p>" },
     { t: "change", q: "Como mostravas o caminho completo e não só o número?",
-      a: "<pre>while (it.hasNext()) {\n    BestFirst.State i = it.next();\n    IO.println(i);                       // imprime cada estado\n    if (!it.hasNext()) IO.println((int) i.getG());\n}</pre><p>É o que o <code>Main0</code> do starter pack faz.</p>" }
+      a: "<pre>while (it.hasNext()) {\n    BestFirst.State i = it.next();\n    IO.println(i);                       // escreve cada estado\n    if (!it.hasNext()) IO.println((int) i.getG());\n}</pre><p>É o que o <code>Main0</code> do starter pack faz.</p>" }
   ];
-
-  var known = store.get("bs-known", {});
-  var revealed = {};
-  var filter = "all";
+  var known = store.get("bs-known-v2", {}), revealed = {}, filter = "all";
   var cardsEl = document.getElementById("cards");
-
   function renderCards() {
     cardsEl.textContent = "";
     Q.forEach(function (it, i) {
@@ -735,10 +1079,8 @@ abertos.add(<span class="k">new</span> State(s, <span class="k">null</span>));  
       if (filter === "todo" && known[i]) return;
       var card = document.createElement("article");
       card.className = "card" + (known[i] ? " known" : "");
-      var tag = '<span class="tag' + (it.t === "change" ? " change" : "") + '">' + (it.t === "change" ? "Mudar código" : "Conceito") + "</span>";
-      card.innerHTML = tag + '<div class="q"><span class="n">P' + (i + 1) + '</span><h3>' + it.q + "</h3></div>";
-      var ans = document.createElement("div");
-      ans.className = "ans"; ans.innerHTML = it.a; ans.hidden = !revealed[i];
+      card.innerHTML = '<span class="tag' + (it.t === "change" ? " change" : "") + '">' + (it.t === "change" ? "Mudar código" : "Explicar") + '</span><div class="q"><span class="n">P' + (i + 1) + "</span><h3>" + it.q + "</h3></div>";
+      var ans = document.createElement("div"); ans.className = "ans"; ans.innerHTML = it.a; ans.hidden = !revealed[i];
       var row = document.createElement("div"); row.className = "row";
       var bShow = document.createElement("button"); bShow.className = "btn";
       bShow.textContent = revealed[i] ? "Esconder resposta" : "Ver resposta";
@@ -747,16 +1089,11 @@ abertos.add(<span class="k">new</span> State(s, <span class="k">null</span>));  
       var bKnow = document.createElement("button"); bKnow.className = "btn";
       bKnow.setAttribute("aria-pressed", known[i] ? "true" : "false");
       bKnow.textContent = known[i] ? "✓ Já sei" : "Marcar como sabida";
-      bKnow.addEventListener("click", function () { if (known[i]) delete known[i]; else known[i] = true; store.set("bs-known", known); renderCards(); });
+      bKnow.addEventListener("click", function () { if (known[i]) delete known[i]; else known[i] = true; store.set("bs-known-v2", known); renderCards(); });
       row.appendChild(bShow); row.appendChild(bKnow);
-      card.appendChild(ans); card.appendChild(row);
-      cardsEl.appendChild(card);
+      card.appendChild(ans); card.appendChild(row); cardsEl.appendChild(card);
     });
-    if (!cardsEl.children.length) {
-      var p = document.createElement("p"); p.style.color = "var(--muted)";
-      p.textContent = "Já marcaste todas como sabidas. Usa \"Todas\" para rever.";
-      cardsEl.appendChild(p);
-    }
+    if (!cardsEl.children.length) { var p = document.createElement("p"); p.style.color = "var(--muted)"; p.textContent = "Já marcaste todas como sabidas. Carrega em \"Todas\" para rever."; cardsEl.appendChild(p); }
     var n = Object.keys(known).length;
     document.getElementById("meter-fill").style.width = (100 * n / Q.length) + "%";
     document.getElementById("meter-text").textContent = n + " de " + Q.length + " sabidas";
@@ -768,22 +1105,24 @@ abertos.add(<span class="k">new</span> State(s, <span class="k">null</span>));  
       renderCards();
     });
   });
-  document.getElementById("reset-quiz").addEventListener("click", function () { known = {}; revealed = {}; store.set("bs-known", known); renderCards(); });
+  document.getElementById("reset-quiz").addEventListener("click", function () { known = {}; revealed = {}; store.set("bs-known-v2", known); renderCards(); });
   renderCards();
 
-  /* ---------- checklist ---------- */
-  var checks = store.get("bs-checks", {});
+  var checks = store.get("bs-checks-v2", {});
   document.querySelectorAll("#check input").forEach(function (cb) {
     cb.checked = !!checks[cb.id];
-    cb.addEventListener("change", function () { checks[cb.id] = cb.checked; store.set("bs-checks", checks); });
+    cb.addEventListener("change", function () { checks[cb.id] = cb.checked; store.set("bs-checks-v2", checks); });
   });
 
-  /* ---------- nav highlight ---------- */
   var links = Array.prototype.slice.call(document.querySelectorAll("nav.bar a"));
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) links.forEach(function (a) { a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id); });
+        if (e.isIntersecting) links.forEach(function (a) {
+          var on = a.getAttribute("href") === "#" + e.target.id;
+          a.classList.toggle("on", on);
+          if (on && a.scrollIntoView) a.parentNode.scrollLeft = a.offsetLeft - 16;
+        });
       });
     }, { rootMargin: "-40% 0px -55% 0px" });
     document.querySelectorAll("main section").forEach(function (s) { io.observe(s); });
