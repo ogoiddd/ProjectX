@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Validação Ball Sort</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column with a sticky section bar; the simulator and the code get wider, framed panels. */
+:root {
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --ink: #18202e;
+  --muted: #5b6577;
+  --line: #d9dee8;
+  --accent: #2d55c8;
+  --accent-soft: #e4eafb;
+  --code-bg: #eef1f6;
+  --ok: #23804b;
+  --ok-soft: #e1f2e8;
+  --warn: #a8640c;
+  --warn-soft: #fbefd9;
+  --glass: #c8d2e3;
+  --ball-R: #d6453a; --ball-B: #2f6bd6; --ball-P: #8b4fd0; --ball-Y: #e2b023; --ball-G: #2f9a58; --ball-X: #7a8496;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11151d; --surface: #181e29; --ink: #e6eaf2; --muted: #9aa4b6; --line: #2a3242;
+  --accent: #7f9cf5; --accent-soft: #232d48; --code-bg: #1d2431; --ok: #5cc98a; --ok-soft: #173326;
+  --warn: #e7a74b; --warn-soft: #3a2b14; --glass: #3a4559; color-scheme: dark;
+}}
+:root[data-theme="dark"] {
+  --bg: #11151d; --surface: #181e29; --ink: #e6eaf2; --muted: #9aa4b6; --line: #2a3242;
+  --accent: #7f9cf5; --accent-soft: #232d48; --code-bg: #1d2431; --ok: #5cc98a; --ok-soft: #173326;
+  --warn: #e7a74b; --warn-soft: #3a2b14; --glass: #3a4559; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+:root { padding-block: env(safe-area-inset-top, 0px) env(safe-area-inset-bottom, 0px); }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.6; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { max-width: 860px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 3.1rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.45rem, 3.6vw, 1.9rem); font-weight: 700; }
+h3 { font-size: 1.12rem; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+code, pre { font-family: var(--f-mono); font-size: 0.88em; }
+:not(pre) > code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 4px; }
+a { color: var(--accent); }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* header */
+header.top { padding-block: 40px 28px; }
+.top .wrap { display: grid; gap: 14px; }
+.eyebrow { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.lede { font-size: 1.08rem; color: var(--muted); }
+.status { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 0.82rem; font-weight: 500; border: 1px solid var(--line); background: var(--surface); }
+.chip.ok { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
+.chip.warn { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+
+/* nav */
+nav.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-block: 1px solid var(--line); }
+nav.bar .wrap { display: flex; gap: 4px; overflow-x: auto; padding-block: 8px; scrollbar-width: none; }
+nav.bar a { flex: none; text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; padding: 6px 10px; border-radius: 6px; white-space: nowrap; }
+nav.bar a:hover, nav.bar a.on { color: var(--ink); background: var(--accent-soft); }
+
+section { padding-block: 44px; border-bottom: 1px solid var(--line); }
+section .wrap { display: grid; gap: 18px; }
+.num { font-family: var(--f-mono); color: var(--accent); font-size: 0.85rem; font-weight: 500; }
+
+/* idea */
+.steps { display: grid; gap: 10px; counter-reset: s; padding: 0; margin: 0; list-style: none; }
+.steps li { display: grid; grid-template-columns: 32px 1fr; gap: 10px; align-items: start; }
+.steps li::before { counter-increment: s; content: counter(s); font-family: var(--f-mono); font-weight: 500; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 0.85rem; }
+.strategy { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 10px; align-items: stretch; }
+.strategy .box { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.strategy .box.mid { border-color: var(--accent); }
+.strategy .box b { font-family: var(--f-mono); font-size: 0.95rem; }
+.strategy .box span { color: var(--muted); font-size: 0.9rem; }
+.strategy .arrow { display: grid; place-items: center; color: var(--muted); font-family: var(--f-mono); }
+@media (max-width: 640px) { .strategy { grid-template-columns: 1fr; } .strategy .arrow { transform: rotate(90deg); } }
+.say { border-left: 3px solid var(--accent); padding: 10px 14px; background: var(--accent-soft); border-radius: 0 8px 8px 0; }
+.say small { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); font-weight: 600; }
+
+/* simulator */
+.sim { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 14px; }
+.sim-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 7px 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--surface); border-color: var(--accent); }
+.btn[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.btn:disabled { opacity: 0.4; cursor: default; }
+.sim-io { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 16px; }
+@media (max-width: 640px) { .sim-io { grid-template-columns: 1fr; } }
+.sim textarea { width: 100%; min-height: 128px; resize: vertical; font-family: var(--f-mono); font-size: 0.95rem; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--code-bg); color: var(--ink); }
+.field label { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 4px; }
+.stage { display: grid; gap: 10px; min-width: 0; }
+.tubes { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; min-height: 150px; padding: 12px 4px 4px; }
+.tube { display: grid; justify-items: center; gap: 4px; }
+.tube .glass { display: flex; flex-direction: column-reverse; gap: 4px; padding: 5px; border: 2px solid var(--glass); border-top: none; border-radius: 0 0 18px 18px; min-width: 42px; }
+.tube .slot { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-mono); font-size: 0.72rem; font-weight: 500; color: #fff; }
+.tube .slot.empty { background: transparent; }
+.tube .slot.moved { box-shadow: 0 0 0 3px var(--ink); }
+.tube .idx { font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); }
+.tube.src .idx, .tube.dst .idx { color: var(--accent); font-weight: 500; }
+.readout { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 0.92rem; }
+.readout b { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.move-text { color: var(--muted); font-size: 0.92rem; min-height: 1.6em; }
+.err { color: var(--warn); font-size: 0.92rem; }
+.sim-out { font-family: var(--f-mono); background: var(--code-bg); border-radius: 8px; padding: 8px 12px; font-size: 0.95rem; }
+
+/* code walkthrough */
+.files { display: flex; flex-wrap: wrap; gap: 6px; }
+.part { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); overflow: hidden; }
+.part > summary { list-style: none; cursor: pointer; padding: 12px 14px; display: flex; gap: 10px; align-items: baseline; justify-content: space-between; }
+.part > summary::-webkit-details-marker { display: none; }
+.part > summary .t { font-family: var(--f-mono); font-weight: 500; font-size: 0.95rem; }
+.part > summary .d { color: var(--muted); font-size: 0.88rem; text-align: right; }
+.part > summary::after { content: "+"; font-family: var(--f-mono); color: var(--accent); margin-left: 8px; }
+.part[open] > summary::after { content: "−"; }
+.part[open] > summary { border-bottom: 1px solid var(--line); }
+.part .body { padding: 14px; display: grid; gap: 12px; }
+.part ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+pre { margin: 0; background: var(--code-bg); padding: 12px 14px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+pre .c { color: var(--muted); }
+pre .k { color: var(--accent); }
+
+/* java table */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+tr:last-child td { border-bottom: none; }
+td code { white-space: nowrap; }
+
+/* quiz */
+.quiz-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.meter { flex: 1 1 200px; display: grid; gap: 4px; }
+.meter .track { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.meter .fill { height: 100%; background: var(--ok); width: 0; transition: width .3s; }
+.meter small { color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.cards { display: grid; gap: 10px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 10px; }
+.card.known { border-color: var(--ok); }
+.card .q { display: flex; gap: 10px; align-items: baseline; }
+.card .q .n { font-family: var(--f-mono); color: var(--muted); font-size: 0.82rem; flex: none; }
+.card .q h3 { font-family: var(--f-body); font-size: 1rem; font-weight: 600; }
+.card .tag { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; color: var(--muted); }
+.card .tag.change { color: var(--warn); }
+.card .ans { display: grid; gap: 10px; }
+.card .row { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* checklist */
+.check { display: grid; gap: 8px; }
+.check label { display: flex; gap: 10px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.check input { margin-top: 5px; accent-color: var(--ok); }
+footer { padding-block: 32px 48px; color: var(--muted); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Inteligência Artificial · UAlg 2026/27 · a88432</div>
+    <h1>Validação do Problem 1: Ball Sort Puzzle</h1>
+    <p class="lede">Tudo o que precisas para explicar o código ao professor: a ideia, um simulador para ver o algoritmo a trabalhar, o código explicado e as perguntas que ele pode fazer.</p>
+    <div class="status">
+      <span class="chip ok">Submetido no Mooshak</span>
+      <span class="chip ok">400/400 testes certos</span>
+      <span class="chip warn">Validação até 30 de outubro</span>
+    </div>
+  </div>
+</header>
+
+<nav class="bar" aria-label="Secções">
+  <div class="wrap">
+    <a href="#ideia">1. A ideia</a>
+    <a href="#simulador">2. Simulador</a>
+    <a href="#codigo">3. O código</a>
+    <a href="#java">4. Java mínimo</a>
+    <a href="#perguntas">5. Perguntas</a>
+    <a href="#dia">6. No dia</a>
+  </div>
+</nav>
+
+<main>
+<section id="ideia">
+  <div class="wrap">
+    <span class="num">1</span>
+    <h2>A ideia em cinco passos</h2>
+    <ol class="steps">
+      <li><p>Um <b>estado</b> é uma fotografia do jogo: que bolas estão em que tubos.</p></li>
+      <li><p>Cada <b>movimento legal</b> transforma um estado num estado novo, a que chamamos <b>filho</b>.</p></li>
+      <li><p>Os estados e os movimentos formam um <b>grafo</b>. O estado inicial liga-se aos filhos, que se ligam aos filhos deles, e assim por diante.</p></li>
+      <li><p>Queremos o <b>caminho mais curto</b> até um estado <b>objetivo</b>: todos os tubos vazios ou cheios de uma só cor.</p></li>
+      <li><p>O algoritmo do Tutorial 1 (<b>procura de custo uniforme</b>) examina sempre primeiro o estado com menor custo acumulado <code>g</code>. Como cada movimento custa 1, o primeiro objetivo que encontra é o que tem menos movimentos.</p></li>
+    </ol>
+
+    <h3>O padrão Strategy</h3>
+    <p>É o que o professor mais quer ver. O código está dividido em duas partes que não se conhecem, ligadas por uma interface.</p>
+    <div class="strategy" role="group" aria-label="Diagrama do padrão Strategy">
+      <div class="box"><b>BestFirst</b><span>O algoritmo de procura. Não sabe nada de bolas nem de tubos. É igual ao do 8-puzzle.</span></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="box mid"><b>Ilayout</b><span>O contrato: <code>children()</code>, <code>isGoal()</code>, <code>getK()</code>.</span></div>
+      <div class="arrow" aria-hidden="true">←</div>
+      <div class="box"><b>BallSortLayout</b><span>As regras do jogo. Não sabe nada de procura.</span></div>
+    </div>
+    <div class="say"><small>Frase para dizer</small>"Para resolver o Ball Sort, só escrevi uma classe nova que implementa <code>Ilayout</code>. O algoritmo <code>BestFirst</code> ficou igual ao do Tutorial 1."</div>
+  </div>
+</section>
+
+<section id="simulador">
+  <div class="wrap">
+    <span class="num">2</span>
+    <h2>Simulador</h2>
+    <p>Corre aqui o mesmo algoritmo, escrito em JavaScript, sobre os exemplos do enunciado ou sobre um input teu. Depois anda pelo caminho, movimento a movimento.</p>
+    <div class="sim">
+      <div class="sim-controls" role="group" aria-label="Exemplos">
+        <button class="btn" data-sample="0" aria-pressed="false">Sample 1</button>
+        <button class="btn" data-sample="1" aria-pressed="true">Sample 2</button>
+        <button class="btn" data-sample="2" aria-pressed="false">Sample 3</button>
+        <button class="btn" data-sample="3" aria-pressed="false">Sem solução</button>
+      </div>
+      <div class="sim-io">
+        <div class="field">
+          <label for="sim-input">Input (como no Mooshak)</label>
+          <textarea id="sim-input" spellcheck="false"></textarea>
+          <div class="sim-controls" style="margin-top:8px">
+            <button class="btn primary" id="sim-run">Resolver</button>
+          </div>
+        </div>
+        <div class="stage">
+          <div class="readout" aria-live="polite">
+            <span>Passo <b id="r-step">0</b> de <b id="r-total">0</b></span>
+            <span>g = <b id="r-g">0</b></span>
+            <span>Estados expandidos: <b id="r-exp">0</b></span>
+          </div>
+          <div class="tubes" id="tubes" aria-label="Tubos"></div>
+          <div class="move-text" id="move-text"></div>
+          <div class="sim-controls">
+            <button class="btn" id="sim-first">⏮ Início</button>
+            <button class="btn" id="sim-prev">◀ Anterior</button>
+            <button class="btn" id="sim-next">Seguinte ▶</button>
+            <button class="btn" id="sim-last">Fim ⏭</button>
+          </div>
+          <div class="field">
+            <label>Output do programa</label>
+            <div class="sim-out" id="sim-out">—</div>
+          </div>
+          <div class="err" id="sim-err" hidden></div>
+        </div>
+      </div>
+    </div>
+    <p style="color:var(--muted);font-size:.9rem">O número de movimentos é sempre o mínimo. Quando há vários caminhos com esse número, o simulador pode mostrar um diferente do que o Java imprime, porque a ordem de desempate da fila pode ser outra.</p>
+  </div>
+</section>
+
+<section id="codigo">
+  <div class="wrap">
+    <span class="num">3</span>
+    <h2>O código, método a método</h2>
+    <p>Abre cada parte para ver o código e a explicação. Começa pelo <code>BallSortLayout</code>: é a parte que escreveste de raiz.</p>
+
+    <h3>Ilayout.java: o contrato</h3>
+    <details class="part">
+      <summary><span class="t">interface Ilayout</span><span class="d">3 métodos que qualquer problema tem de ter</span></summary>
+      <div class="body">
+<pre>interface Ilayout {
+    List&lt;Ilayout&gt; children();  <span class="c">// estados alcançáveis com 1 movimento</span>
+    boolean isGoal(Ilayout l); <span class="c">// este estado é objetivo?</span>
+    double getK();             <span class="c">// custo do movimento que levou aqui</span>
+}</pre>
+        <p>Uma <b>interface</b> é uma promessa: diz que métodos existem, mas não diz como funcionam. Cada problema (8-puzzle, Ball Sort…) escreve a sua versão.</p>
+      </div>
+    </details>
+
+    <h3>BallSortLayout.java: as regras do jogo</h3>
+    <details class="part" open>
+      <summary><span class="t">Campos</span><span class="d">como os tubos são guardados</span></summary>
+      <div class="body">
+<pre><span class="k">private static final char</span> EMPTY = 'E';
+<span class="k">private int</span> height;      <span class="c">// capacidade H de cada tubo</span>
+<span class="k">private char</span>[][] tubes;  <span class="c">// tubes[t][k]: bola na posição k do tubo t (k = 0 é o FUNDO)</span>
+<span class="k">private int</span>[] size;      <span class="c">// size[t]: quantas bolas tem o tubo t</span></pre>
+        <ul>
+          <li>Cada tubo é uma <b>pilha</b>: só se mexe no topo.</li>
+          <li>O fundo está em <code>tubes[t][0]</code> e o topo em <code>tubes[t][size[t] - 1]</code>.</li>
+          <li>Exemplo, Sample 2: o tubo 0 é <code>{R, B, R}</code> (do fundo para o topo), com <code>size[0] = 3</code>.</li>
+        </ul>
+      </div>
+    </details>
+    <details class="part">
+      <summary><span class="t">Construtor BallSortLayout(String)</span><span class="d">lê o texto do input</span></summary>
+      <div class="body">
+<pre>String[] rows = str.split("\n");          <span class="c">// parte em linhas</span>
+height = rows.length;
+...
+<span class="k">for</span> (int r = height - 1; r &gt;= 0; r--) {   <span class="c">// de BAIXO para CIMA</span>
+    String[] cells = rows[r].split(" ");
+    <span class="k">for</span> (int t = 0; t &lt; nTubes; t++) {
+        char c = cells[t].charAt(0);
+        <span class="k">if</span> (c != EMPTY) tubes[t][size[t]++] = c;  <span class="c">// empilha</span>
+    }
+}</pre>
+        <ul>
+          <li>Lê as linhas de baixo para cima, porque a última linha do input é o fundo dos tubos.</li>
+          <li><code>tubes[t][size[t]++] = c</code> põe a bola na primeira posição livre e depois soma 1 ao tamanho.</li>
+        </ul>
+      </div>
+    </details>
+    <details class="part">
+      <summary><span class="t">children()</span><span class="d">as regras de movimento</span></summary>
+      <div class="body">
+<pre><span class="k">for</span> (int i = 0; i &lt; tubes.length; i++) {          <span class="c">// tubo de origem</span>
+    <span class="k">if</span> (size[i] == 0) <span class="k">continue</span>;                  <span class="c">// vazio: nada para tirar</span>
+    char ball = tubes[i][size[i] - 1];             <span class="c">// bola do topo</span>
+    <span class="k">for</span> (int j = 0; j &lt; tubes.length; j++) {      <span class="c">// tubo de destino</span>
+        <span class="k">if</span> (j == i || size[j] == height) <span class="k">continue</span>;   <span class="c">// mesmo tubo ou cheio</span>
+        <span class="k">if</span> (size[j] &gt; 0 &amp;&amp; tubes[j][size[j] - 1] != ball)
+            <span class="k">continue</span>;                               <span class="c">// topo de outra cor</span>
+        BallSortLayout child = clone();            <span class="c">// copia o estado</span>
+        child.tubes[i][--child.size[i]] = 0;        <span class="c">// tira da origem</span>
+        child.tubes[j][child.size[j]++] = ball;     <span class="c">// põe no destino</span>
+        children.add(child);
+    }
+}</pre>
+        <ul>
+          <li>Testa todos os pares origem <code>i</code> → destino <code>j</code>. Com T tubos há no máximo T × (T − 1) filhos.</li>
+          <li>Um movimento é legal se: a origem tem bolas, o destino não está cheio, e o destino está vazio ou tem no topo a mesma cor.</li>
+          <li><code>continue</code> salta para o próximo par.</li>
+        </ul>
+      </div>
+    </details>
+    <details class="part">
+      <summary><span class="t">clone()</span><span class="d">cópia profunda</span></summary>
+      <div class="body">
+<pre>char[][] t = new char[tubes.length][];
+<span class="k">for</span> (int i = 0; i &lt; tubes.length; i++) t[i] = tubes[i].clone();
+<span class="k">return new</span> BallSortLayout(height, t, size.clone());</pre>
+        <p>Em Java, os arrays são partilhados por referência. Sem copiar cada tubo, mexer no filho mexia também no pai e nos irmãos.</p>
+      </div>
+    </details>
+    <details class="part">
+      <summary><span class="t">isGoal(Ilayout l)</span><span class="d">o jogo está resolvido?</span></summary>
+      <div class="body">
+<pre><span class="k">for</span> (int t = 0; t &lt; tubes.length; t++) {
+    <span class="k">if</span> (size[t] == 0) <span class="k">continue</span>;             <span class="c">// vazio: ok</span>
+    <span class="k">if</span> (size[t] != height) <span class="k">return false</span>;     <span class="c">// meio cheio: não</span>
+    <span class="k">for</span> (int k = 1; k &lt; height; k++)
+        <span class="k">if</span> (tubes[t][k] != tubes[t][0]) <span class="k">return false</span>;  <span class="c">// cores misturadas</span>
+}
+<span class="k">return true</span>;</pre>
+        <ul>
+          <li>Cada tubo tem de estar vazio, ou cheio e todo da mesma cor.</li>
+          <li>"Cheio" não chega: no Sample 2 o início tem dois tubos cheios, mas misturados.</li>
+          <li>O argumento <code>l</code> não é usado, porque o <code>Main</code> passa <code>null</code>: aqui o objetivo é uma condição, não uma configuração concreta.</li>
+        </ul>
+      </div>
+    </details>
+    <details class="part">
+      <summary><span class="t">toString(), equals(), hashCode(), getK()</span><span class="d">os métodos de apoio</span></summary>
+      <div class="body">
+        <ul>
+          <li><b><code>toString()</code></b>: escreve os tubos como no input, de cima para baixo, com <code>E</code> nos espaços vazios. É o que o <code>Main0</code> imprime.</li>
+          <li><b><code>equals()</code></b>: dois estados são iguais se têm as mesmas bolas nas mesmas posições.</li>
+          <li><b><code>hashCode()</code></b>: um número calculado a partir das bolas. Estados iguais dão o mesmo número. O <code>HashMap</code> e o <code>HashSet</code> usam estes dois métodos para saber se um estado <b>já foi visto</b>.</li>
+          <li><b><code>getK()</code></b>: devolve 1, porque cada movimento custa 1.</li>
+        </ul>
+      </div>
+    </details>
+
+    <h3>BestFirst.java: o algoritmo (igual ao do Tutorial 1)</h3>
+    <details class="part">
+      <summary><span class="t">class State</span><span class="d">um nó da procura</span></summary>
+      <div class="body">
+        <ul>
+          <li><code>layout</code>: a configuração dos tubos.</li>
+          <li><code>father</code>: o estado de onde veio (<code>null</code> no inicial). Serve para reconstruir o caminho.</li>
+          <li><code>g</code>: custo desde o início. <code>g = g do pai + getK()</code>.</li>
+        </ul>
+      </div>
+    </details>
+    <details class="part" open>
+      <summary><span class="t">solve(s, goal)</span><span class="d">o ciclo principal</span></summary>
+      <div class="body">
+<pre>abertos = <span class="k">new</span> PriorityQueue&lt;&gt;(... ordenada por g);  <span class="c">// por examinar</span>
+fechados = <span class="k">new</span> HashMap&lt;&gt;();                         <span class="c">// já expandidos</span>
+abertos.add(<span class="k">new</span> State(s, <span class="k">null</span>));                    <span class="c">// início, g = 0</span>
+<span class="k">while</span> (<span class="k">true</span>) {
+    <span class="k">if</span> (abertos.isEmpty()) <span class="k">return null</span>;          <span class="c">// sem solução</span>
+    actual = abertos.remove();                    <span class="c">// o de menor g</span>
+    emAbertos.remove(actual.layout);
+    <span class="k">if</span> (actual.layout.isGoal(objective))
+        <span class="k">return</span> path(actual);                     <span class="c">// encontrou!</span>
+    sucs = sucessores(actual);                    <span class="c">// gera os filhos</span>
+    fechados.put(actual.layout, actual);
+    <span class="k">for</span> (State suc : sucs)
+        <span class="k">if</span> (!fechados.containsKey(suc.layout) &amp;&amp; !emAbertos.contains(suc.layout)) {
+            abertos.add(suc);                     <span class="c">// nunca visto: entra</span>
+            emAbertos.add(suc.layout);
+        }
+}</pre>
+        <ul>
+          <li><b><code>abertos</code></b>: fila de prioridade que devolve sempre o estado de menor <code>g</code>.</li>
+          <li><b><code>fechados</code></b>: estados já expandidos. Evita repetir trabalho e entrar em ciclos.</li>
+          <li><b><code>emAbertos</code></b>: a única coisa acrescentada ao tutorial. Guarda os mesmos estados que estão em <code>abertos</code>, mas responde "já está lá?" de imediato. Perguntar isso à <code>PriorityQueue</code> obrigava a percorrê-la toda.</li>
+          <li><b><code>path(actual)</code></b>: sobe pelos <code>father</code> até ao início e inverte a ordem.</li>
+        </ul>
+        <div class="say"><small>Porque é o mínimo</small>Os estados saem de <code>abertos</code> por ordem de custo. Com todos os movimentos a custar 1, o primeiro objetivo que sai é o de menos movimentos. Com custo 1, isto é o mesmo que uma procura em largura (BFS).</div>
+      </div>
+    </details>
+    <details class="part">
+      <summary><span class="t">sucessores(n)</span><span class="d">filhos com pai e custo</span></summary>
+      <div class="body">
+        <p>Transforma cada filho de <code>n</code> num <code>State</code> com pai <code>n</code>. Não gera o filho igual ao avô, ou seja, não desfaz o último movimento.</p>
+      </div>
+    </details>
+
+    <h3>Main.java: dado pelo professor</h3>
+    <details class="part">
+      <summary><span class="t">main()</span><span class="d">lê, resolve, imprime</span></summary>
+      <div class="body">
+        <p>Lê <code>H</code> e <code>T</code>, lê H linhas, cria o <code>BallSortLayout</code> e chama <code>solve(layout, null)</code>. Imprime o <code>g</code> do último estado do caminho, ou <code>no solution found</code> se o <code>solve</code> devolver <code>null</code>. Não se mexe neste ficheiro.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="java">
+  <div class="wrap">
+    <span class="num">4</span>
+    <h2>O Java mínimo</h2>
+    <p>Só o que aparece neste código.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Conceito</th><th>No código</th><th>Significa</th></tr></thead>
+        <tbody>
+          <tr><td>class</td><td><code>class BestFirst</code></td><td>Um molde para criar objetos, com dados (campos) e ações (métodos).</td></tr>
+          <tr><td>interface</td><td><code>interface Ilayout</code></td><td>Lista de métodos que uma classe promete ter.</td></tr>
+          <tr><td>implements</td><td><code>implements Ilayout</code></td><td>"Esta classe cumpre o contrato."</td></tr>
+          <tr><td>campo</td><td><code>private int height;</code></td><td>Variável de cada objeto. <code>private</code>: só a própria classe lhe mexe.</td></tr>
+          <tr><td>construtor</td><td><code>BallSortLayout(String str)</code></td><td>Cria o objeto. Tem o nome da classe.</td></tr>
+          <tr><td>tipos</td><td><code>int</code>, <code>double</code>, <code>char</code>, <code>boolean</code></td><td>Inteiro, real, um carácter (<code>'R'</code>), verdadeiro/falso.</td></tr>
+          <tr><td>array</td><td><code>int[]</code>, <code>char[][]</code></td><td>Lista de tamanho fixo; <code>[][]</code> é uma tabela. Índices começam em 0.</td></tr>
+          <tr><td>for</td><td><code>for (int i = 0; i &lt; n; i++)</code></td><td>Repete para i = 0, 1, …, n − 1.</td></tr>
+          <tr><td>continue / return</td><td><code>if (...) continue;</code></td><td>Salta para a próxima volta / sai do método.</td></tr>
+          <tr><td>x++ / --x</td><td><code>size[t]++</code></td><td>Soma ou subtrai 1. <code>x++</code> usa o valor antes; <code>--x</code> subtrai antes de usar.</td></tr>
+          <tr><td>? :</td><td><code>r &lt; size[t] ? tubes[t][r] : EMPTY</code></td><td>"Se sim, isto; senão, aquilo."</td></tr>
+          <tr><td>null</td><td><code>father = null</code></td><td>Não aponta para nada. O estado inicial não tem pai.</td></tr>
+          <tr><td>List / ArrayList</td><td><code>children.add(child)</code></td><td>Lista que cresce.</td></tr>
+          <tr><td>Map / HashMap</td><td><code>fechados.containsKey(x)</code></td><td>Dicionário chave → valor; procura imediata.</td></tr>
+          <tr><td>Set / HashSet</td><td><code>emAbertos.contains(x)</code></td><td>Conjunto sem repetidos; procura imediata.</td></tr>
+          <tr><td>PriorityQueue</td><td><code>abertos.remove()</code></td><td>Fila que devolve sempre o menor elemento (aqui, o de menor g).</td></tr>
+          <tr><td>lambda</td><td><code>(s1, s2) -&gt; ...</code></td><td>Função curta escrita no sítio; aqui compara dois estados pelo g.</td></tr>
+          <tr><td>equals / hashCode</td><td></td><td>Como o Java decide se dois objetos são iguais. HashMap e HashSet dependem disto.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="perguntas">
+  <div class="wrap">
+    <span class="num">5</span>
+    <h2>Perguntas do professor</h2>
+    <p>Lê a pergunta, responde em voz alta e só depois carrega em "Ver resposta". Marca as que já sabes: o progresso fica guardado neste browser.</p>
+    <div class="quiz-head">
+      <div class="meter"><div class="track"><div class="fill" id="meter-fill"></div></div><small id="meter-text">0 de 0 sabidas</small></div>
+      <div class="filters" role="group" aria-label="Filtrar perguntas">
+        <button class="btn" data-filter="all" aria-pressed="true">Todas</button>
+        <button class="btn" data-filter="change" aria-pressed="false">Mudar código</button>
+        <button class="btn" data-filter="concept" aria-pressed="false">Conceitos</button>
+        <button class="btn" data-filter="todo" aria-pressed="false">Por saber</button>
+      </div>
+    </div>
+    <div class="cards" id="cards"></div>
+    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="reset-quiz">Recomeçar progresso</button>
+    </div>
+  </div>
+</section>
+
+<section id="dia">
+  <div class="wrap">
+    <span class="num">6</span>
+    <h2>No dia da validação</h2>
+    <div class="check" id="check">
+      <label><input type="checkbox" id="ck1"> <span>Consigo explicar o padrão Strategy: <code>BestFirst</code> + <code>Ilayout</code> + <code>BallSortLayout</code>.</span></label>
+      <label><input type="checkbox" id="ck2"> <span>Sei como os tubos são guardados: <code>tubes</code> e <code>size</code>, fundo na posição 0.</span></label>
+      <label><input type="checkbox" id="ck3"> <span>Sei dizer as 3 regras de um movimento legal em <code>children()</code>.</span></label>
+      <label><input type="checkbox" id="ck4"> <span>Sei explicar o <code>isGoal()</code> e porque "cheio" não chega.</span></label>
+      <label><input type="checkbox" id="ck5"> <span>Sei explicar o ciclo <code>abertos</code> / <code>fechados</code> e porque dá o mínimo.</span></label>
+      <label><input type="checkbox" id="ck6"> <span>Sei porque acrescentei o <code>emAbertos</code>.</span></label>
+      <label><input type="checkbox" id="ck7"> <span>Treinei as perguntas de "mudar código" (custo diferente, várias bolas, FIFO/pilha).</span></label>
+      <label><input type="checkbox" id="ck8"> <span>Tenho o código aberto no computador e sei compilar: <code>javac Main.java</code> e <code>java Main</code> (Java 25).</span></label>
+      <label><input type="checkbox" id="ck9"> <span>Sei dizer que usei IA (Claude) como apoio, como está declarado no topo do <code>Main.java</code>.</span></label>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Problem 1 · Ball Sort Puzzle · Inteligência Artificial, UAlg 2026/27. Código em <code>IA-Problem1-BallSort/</code>.</div></footer>
+
+<script>
+(function () {
+  "use strict";
+  var store = {
+    get: function (k, d) { try { var v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+
+  /* ---------- simulator: the same uniform-cost search as BestFirst ---------- */
+  var SAMPLES = [
+    "3 4\nE E B E\nE R B E\nR R B E",
+    "3 3\nR B E\nB B E\nR R E",
+    "3 4\nP R B E\nR B R E\nP B P E",
+    "2 2\nR B\nB R"
+  ];
+  var input = document.getElementById("sim-input");
+  var path = [], step = 0, H = 0, expanded = 0;
+
+  function parse(text) {
+    var lines = text.replace(/\r/g, "").split("\n").map(function (l) { return l.trim(); }).filter(function (l) { return l.length; });
+    if (!lines.length) throw new Error("Escreve o input: primeiro H e T, depois H linhas.");
+    var ht = lines[0].split(/\s+/).map(Number);
+    var h = ht[0], t = ht[1];
+    if (!(h > 0 && t > 0)) throw new Error("A primeira linha tem de ter dois números positivos: H (capacidade) e T (número de tubos).");
+    if (lines.length - 1 !== h) throw new Error("Esperava " + h + " linhas de tubos depois da primeira linha e encontrei " + (lines.length - 1) + ".");
+    if (h > 8 || t > 8) throw new Error("No simulador usa no máximo H = 8 e T = 8, para não bloquear o browser.");
+    var tubes = [];
+    for (var i = 0; i < t; i++) tubes.push("");
+    for (var r = h; r >= 1; r--) {
+      var cells = lines[r].split(" ");
+      if (cells.length !== t) throw new Error("A linha " + (r + 1) + " tem " + cells.length + " colunas; deviam ser " + t + ".");
+      for (var c = 0; c < t; c++) if (cells[c] !== "E") tubes[c] += cells[c];
+    }
+    return { h: h, tubes: tubes };
+  }
+
+  function isGoal(s) {
+    for (var i = 0; i < s.length; i++) {
+      var tb = s[i];
+      if (!tb.length) continue;
+      if (tb.length !== H) return false;
+      for (var k = 1; k < tb.length; k++) if (tb[k] !== tb[0]) return false;
+    }
+    return true;
+  }
+
+  function children(s) {
+    var out = [];
+    for (var i = 0; i < s.length; i++) {
+      if (!s[i].length) continue;
+      var ball = s[i][s[i].length - 1];
+      for (var j = 0; j < s.length; j++) {
+        if (j === i || s[j].length === H) continue;
+        if (s[j].length && s[j][s[j].length - 1] !== ball) continue;
+        var n = s.slice();
+        n[i] = s[i].slice(0, -1);
+        n[j] = s[j] + ball;
+        out.push({ tubes: n, from: i, to: j, ball: ball });
+      }
+    }
+    return out;
+  }
+
+  function solve(start) {
+    // All moves cost 1, so a FIFO queue pops states in order of g, like the PriorityQueue.
+    var key = function (s) { return s.join("|"); };
+    var abertos = [{ tubes: start, father: null, g: 0 }], head = 0;
+    var seen = {}; seen[key(start)] = true;
+    expanded = 0;
+    while (head < abertos.length) {
+      var actual = abertos[head++];
+      if (isGoal(actual.tubes)) return actual;
+      expanded++;
+      if (expanded > 400000) throw new Error("Demasiados estados para o simulador. Experimenta um caso mais pequeno.");
+      var ch = children(actual.tubes);
+      for (var c = 0; c < ch.length; c++) {
+        var k = key(ch[c].tubes);
+        if (seen[k]) continue;
+        seen[k] = true;
+        abertos.push({ tubes: ch[c].tubes, father: actual, g: actual.g + 1, from: ch[c].from, to: ch[c].to, ball: ch[c].ball });
+      }
+    }
+    return null;
+  }
+
+  var COLOR_NAMES = { R: "vermelha", B: "azul", P: "roxa", Y: "amarela", G: "verde" };
+  function ballColor(b) { return "var(--ball-" + ("RBPYG".indexOf(b) >= 0 ? b : "X") + ")"; }
+
+  function render() {
+    var box = document.getElementById("tubes");
+    box.textContent = "";
+    var errEl = document.getElementById("sim-err");
+    if (!path.length) return;
+    var st = path[step];
+    st.tubes.forEach(function (tb, i) {
+      var tube = document.createElement("div");
+      tube.className = "tube" + (step > 0 && st.from === i ? " src" : "") + (step > 0 && st.to === i ? " dst" : "");
+      var glass = document.createElement("div");
+      glass.className = "glass";
+      for (var k = 0; k < H; k++) {
+        var slot = document.createElement("div");
+        if (k < tb.length) {
+          slot.className = "slot" + (step > 0 && st.to === i && k === tb.length - 1 ? " moved" : "");
+          slot.style.background = ballColor(tb[k]);
+          slot.textContent = tb[k];
+        } else slot.className = "slot empty";
+        glass.appendChild(slot);
+      }
+      var idx = document.createElement("div");
+      idx.className = "idx";
+      idx.textContent = "tubo " + i;
+      tube.appendChild(glass); tube.appendChild(idx);
+      box.appendChild(tube);
+    });
+    document.getElementById("r-step").textContent = step;
+    document.getElementById("r-total").textContent = path.length - 1;
+    document.getElementById("r-g").textContent = st.g;
+    document.getElementById("move-text").textContent = step === 0
+      ? "Estado inicial (g = 0)."
+      : "Movimento " + step + ": bola " + (COLOR_NAMES[st.ball] || st.ball) + " do tubo " + st.from + " para o tubo " + st.to + ".";
+    document.getElementById("sim-first").disabled = document.getElementById("sim-prev").disabled = step === 0;
+    document.getElementById("sim-last").disabled = document.getElementById("sim-next").disabled = step === path.length - 1;
+  }
+
+  function run() {
+    var errEl = document.getElementById("sim-err");
+    errEl.hidden = true;
+    var out = document.getElementById("sim-out");
+    try {
+      var p = parse(input.value);
+      H = p.h;
+      var goal = solve(p.tubes);
+      document.getElementById("r-exp").textContent = expanded;
+      if (!goal) {
+        path = [{ tubes: p.tubes, g: 0 }]; step = 0; render();
+        out.textContent = "no solution found";
+        document.getElementById("move-text").textContent = "A fila abertos ficou vazia sem encontrar um objetivo: o solve devolve null.";
+        document.getElementById("r-total").textContent = "—";
+        return;
+      }
+      path = [];
+      for (var s = goal; s; s = s.father) path.unshift(s);
+      step = 0; render();
+      out.textContent = String(goal.g);
+    } catch (e) {
+      path = []; document.getElementById("tubes").textContent = "";
+      errEl.textContent = e.message; errEl.hidden = false; out.textContent = "—";
+      document.getElementById("move-text").textContent = "";
+    }
+  }
+
+  document.querySelectorAll("[data-sample]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("[data-sample]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      input.value = SAMPLES[+b.dataset.sample];
+      run();
+    });
+  });
+  document.getElementById("sim-run").addEventListener("click", function () {
+    document.querySelectorAll("[data-sample]").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+    run();
+  });
+  document.getElementById("sim-first").addEventListener("click", function () { step = 0; render(); });
+  document.getElementById("sim-prev").addEventListener("click", function () { if (step > 0) { step--; render(); } });
+  document.getElementById("sim-next").addEventListener("click", function () { if (step < path.length - 1) { step++; render(); } });
+  document.getElementById("sim-last").addEventListener("click", function () { step = path.length - 1; render(); });
+  input.value = SAMPLES[1];
+  run();
+
+  /* ---------- quiz ---------- */
+  var Q = [
+    { t: "concept", q: "O que é o padrão Strategy e onde está no teu código?",
+      a: "<p>É separar o algoritmo (o contexto) do comportamento que muda de problema para problema (a estratégia), ligando os dois por uma interface. Aqui: <code>BestFirst</code> é o algoritmo, <code>Ilayout</code> é a interface e <code>BallSortLayout</code> é a estratégia concreta. Para resolver outro problema basta escrever outra classe que implementa <code>Ilayout</code>.</p>" },
+    { t: "concept", q: "Que algoritmo é este? É informado ou não informado?",
+      a: "<p>Procura de custo uniforme, uma procura best-first ordenada pelo custo <code>g</code>. É <b>não informada</b>: não usa heurística (o enunciado proíbe heurísticas neste problema). Se ordenasse por <code>g + h</code>, com uma heurística <code>h</code>, seria o A*.</p>" },
+    { t: "concept", q: "Porque é que a resposta é garantidamente a mínima?",
+      a: "<p>A fila <code>abertos</code> devolve sempre o estado de menor <code>g</code>, por isso os estados são examinados por ordem de custo: primeiro os de custo 0, depois 1, depois 2… O primeiro objetivo examinado tem o menor custo possível. Com custo 1 por movimento, é o de menos movimentos.</p>" },
+    { t: "concept", q: "Para que servem abertos e fechados?",
+      a: "<p><code>abertos</code>: estados gerados mas ainda não examinados, ordenados por <code>g</code>. <code>fechados</code>: estados já expandidos. Um filho só entra em <code>abertos</code> se não estiver em nenhum dos dois. Isto evita repetir trabalho e evita ciclos infinitos (ir e voltar entre dois estados).</p>" },
+    { t: "concept", q: "Porque acrescentaste o emAbertos se o tutorial não o tem?",
+      a: "<p>O tutorial manda inserir o sucessor só se não estiver em <code>abertos</code> nem em <code>fechados</code>. Perguntar a uma <code>PriorityQueue</code> se contém um elemento obriga a percorrê-la toda. O <code>HashSet</code> guarda as mesmas configurações e responde de imediato. O comportamento é igual; só fica mais rápido.</p>" },
+    { t: "concept", q: "Quando é que o programa escreve \"no solution found\"?",
+      a: "<p>Quando <code>abertos</code> fica vazio: todos os estados alcançáveis foram examinados e nenhum é objetivo. O <code>solve</code> devolve <code>null</code> e o <code>Main</code> escreve a mensagem. Exemplo: H = 2, dois tubos cheios <code>R B / B R</code>: não há nenhum movimento possível.</p>" },
+    { t: "concept", q: "Porque é que o isGoal recebe um argumento que não usa?",
+      a: "<p>Porque vem da interface <code>Ilayout</code>, partilhada com o 8-puzzle, onde o objetivo era uma configuração concreta. Aqui o objetivo é uma condição (tubos vazios ou cheios de uma cor) e o <code>Main</code> passa <code>null</code>.</p>" },
+    { t: "concept", q: "Porque precisas de clone()?",
+      a: "<p>Os arrays em Java são partilhados por referência. Se o filho usasse os mesmos arrays do pai, tirar uma bola no filho tirava-a também no pai e em todos os irmãos. O <code>clone()</code> copia cada tubo (cópia profunda).</p>" },
+    { t: "concept", q: "Porque precisas de equals() e hashCode()?",
+      a: "<p>O <code>HashMap</code> (<code>fechados</code>) e o <code>HashSet</code> (<code>emAbertos</code>) usam-nos para saber se uma configuração já foi vista. Sem eles, o Java compara a identidade dos objetos (o endereço em memória), e dois estados iguais pareceriam diferentes. A procura repetia estados para sempre.</p>" },
+    { t: "change", q: "E se mover uma bola para um tubo vazio custasse 2?",
+      a: "<p>O filho tem de guardar o custo do movimento que o criou:</p><pre>private double k = 1;                 // novo campo\n\n// em children(), antes de children.add(child):\nchild.k = (size[j] == 0) ? 2 : 1;      // destino estava vazio?\n\npublic double getK() { return k; }</pre><p><b>Atenção:</b> com custos diferentes, a regra \"não inserir se já está em abertos\" pode deitar fora um caminho mais barato. O tutorial avisa isso. Corrige-se no <code>solve</code> guardando o melhor <code>g</code> de cada estado e deixando entrar um sucessor se for mais barato; ao tirar de <code>abertos</code>, ignora-se um estado que já está em <code>fechados</code>. Testado: os exemplos passam a dar 1, 6 e 7.</p>" },
+    { t: "change", q: "E se o objetivo fosse uma configuração concreta, dada no input?",
+      a: "<pre>public boolean isGoal(Ilayout l) { return this.equals(l); }</pre><p>E o <code>Main</code> passaria <code>new BallSortLayout(objetivo)</code> em vez de <code>null</code> no <code>solve</code>. Era assim no 8-puzzle.</p>" },
+    { t: "change", q: "E se pudesse mover várias bolas da mesma cor de uma vez, contando 1 movimento?",
+      a: "<p>Em <code>children()</code>, mover enquanto o topo da origem for da mesma cor e houver espaço no destino:</p><pre>BallSortLayout child = clone();\nwhile (child.size[i] > 0\n       && child.tubes[i][child.size[i] - 1] == ball\n       && child.size[j] < height) {\n    child.tubes[i][--child.size[i]] = 0;\n    child.tubes[j][child.size[j]++] = ball;\n}\nchildren.add(child);</pre><p>Testado: o Sample 2 passa de 5 para 4 movimentos.</p>" },
+    { t: "change", q: "E se usasses uma fila normal (FIFO) em vez da PriorityQueue?",
+      a: "<pre>abertos = new LinkedList<>();</pre><p>Dá o mesmo resultado, porque com custo 1 a ordem de chegada já é a ordem de <code>g</code>. Isso é a procura em largura (BFS). Só deixa de ser igual com custos diferentes. Testado: 1, 5 e 6.</p>" },
+    { t: "change", q: "E se usasses uma pilha (LIFO)?",
+      a: "<p>Isso é procura em profundidade (DFS). Deixa de garantir o mínimo: pode encontrar primeiro uma solução longa.</p>" },
+    { t: "change", q: "Como contavas os estados expandidos?",
+      a: "<p>No fim, <code>fechados.size()</code> é o número de estados expandidos. Ou um contador:</p><pre>int expandidos = 0;\n...\nsucs = sucessores(actual);\nexpandidos++;</pre>" },
+    { t: "change", q: "E se os tubos tivessem capacidades diferentes?",
+      a: "<p>Trocar <code>int height</code> por <code>int[] capacity</code> (uma por tubo) e usar <code>capacity[j]</code> no <code>children()</code> e <code>capacity[t]</code> no <code>isGoal()</code> e no <code>toString()</code>.</p>" },
+    { t: "change", q: "E se houvesse mais cores, ou outras letras?",
+      a: "<p>Não muda nada. O código trata qualquer letra como uma cor; só o <code>E</code> tem significado especial.</p>" },
+    { t: "change", q: "Como mostravas o caminho completo e não só o número?",
+      a: "<pre>while (it.hasNext()) {\n    BestFirst.State i = it.next();\n    IO.println(i);                       // imprime cada estado\n    if (!it.hasNext()) IO.println((int) i.getG());\n}</pre><p>É o que o <code>Main0</code> do starter pack faz.</p>" }
+  ];
+
+  var known = store.get("bs-known", {});
+  var revealed = {};
+  var filter = "all";
+  var cardsEl = document.getElementById("cards");
+
+  function renderCards() {
+    cardsEl.textContent = "";
+    Q.forEach(function (it, i) {
+      if (filter === "change" && it.t !== "change") return;
+      if (filter === "concept" && it.t !== "concept") return;
+      if (filter === "todo" && known[i]) return;
+      var card = document.createElement("article");
+      card.className = "card" + (known[i] ? " known" : "");
+      var tag = '<span class="tag' + (it.t === "change" ? " change" : "") + '">' + (it.t === "change" ? "Mudar código" : "Conceito") + "</span>";
+      card.innerHTML = tag + '<div class="q"><span class="n">P' + (i + 1) + '</span><h3>' + it.q + "</h3></div>";
+      var ans = document.createElement("div");
+      ans.className = "ans"; ans.innerHTML = it.a; ans.hidden = !revealed[i];
+      var row = document.createElement("div"); row.className = "row";
+      var bShow = document.createElement("button"); bShow.className = "btn";
+      bShow.textContent = revealed[i] ? "Esconder resposta" : "Ver resposta";
+      bShow.setAttribute("aria-expanded", revealed[i] ? "true" : "false");
+      bShow.addEventListener("click", function () { revealed[i] = !revealed[i]; renderCards(); });
+      var bKnow = document.createElement("button"); bKnow.className = "btn";
+      bKnow.setAttribute("aria-pressed", known[i] ? "true" : "false");
+      bKnow.textContent = known[i] ? "✓ Já sei" : "Marcar como sabida";
+      bKnow.addEventListener("click", function () { if (known[i]) delete known[i]; else known[i] = true; store.set("bs-known", known); renderCards(); });
+      row.appendChild(bShow); row.appendChild(bKnow);
+      card.appendChild(ans); card.appendChild(row);
+      cardsEl.appendChild(card);
+    });
+    if (!cardsEl.children.length) {
+      var p = document.createElement("p"); p.style.color = "var(--muted)";
+      p.textContent = "Já marcaste todas como sabidas. Usa \"Todas\" para rever.";
+      cardsEl.appendChild(p);
+    }
+    var n = Object.keys(known).length;
+    document.getElementById("meter-fill").style.width = (100 * n / Q.length) + "%";
+    document.getElementById("meter-text").textContent = n + " de " + Q.length + " sabidas";
+  }
+  document.querySelectorAll("[data-filter]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      filter = b.dataset.filter;
+      document.querySelectorAll("[data-filter]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      renderCards();
+    });
+  });
+  document.getElementById("reset-quiz").addEventListener("click", function () { known = {}; revealed = {}; store.set("bs-known", known); renderCards(); });
+  renderCards();
+
+  /* ---------- checklist ---------- */
+  var checks = store.get("bs-checks", {});
+  document.querySelectorAll("#check input").forEach(function (cb) {
+    cb.checked = !!checks[cb.id];
+    cb.addEventListener("change", function () { checks[cb.id] = cb.checked; store.set("bs-checks", checks); });
+  });
+
+  /* ---------- nav highlight ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll("nav.bar a"));
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) links.forEach(function (a) { a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id); });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    document.querySelectorAll("main section").forEach(function (s) { io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
